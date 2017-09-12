@@ -1,18 +1,24 @@
 {
   "name": "number-input",
+  "authors": [ "Johannes Brautzsch <fooloomanzoo>" ],
   "description": "input for numeric values",
-  "main": "number-input.html",
+  "homepage": "https://github.com/fooloomanzoo/number-input/",
+  "keywords": [ "webcomponents", "polymer", "number", "input", "step" ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fooloomanzoo/number-input.git"
+  },
+  "licence": "https://github.com/fooloomanzoo/number-input/raw/master/LICENSE.txt",
   "dependencies": {
-    "polymer": "Polymer/polymer"
+    "polymer": "Polymer/polymer#1.9 - 2"
   },
   "devDependencies": {
-    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs",
     "iron-component-page": "PolymerElements/iron-component-page#^3.0.1",
-    "web-component-tester": "Polymer/web-component-tester#^6.0.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs"
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#^2.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0"
   },
   "resolutions": {
-    "polymer": ">2.0.0"
-  },
-  "licence": "https://github.com/fooloomanzoo/number-input/raw/master/LICENSE.txt"
+    "webcomponentsjs": "^1.0.0"
+  }
 }
