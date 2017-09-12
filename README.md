@@ -53,5 +53,10 @@ This element tries to achieve that by using internally an `text input` and expos
 <number-input min="-111" step="11" max="2222"></number-input>
 ```
 
+### Installation
+```
+bower install --save fooloomanzoo/number-input
+```
+
 ### License
 [MIT](https://github.com/fooloomanzoo/number-input/blob/master/LICENSE.txt)
