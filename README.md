@@ -16,9 +16,9 @@ This element tries to achieve that by using internally an `text input` and expos
 
 <!--
 ```
-<custom-element-demo height="330">
+<custom-element-demo>
   <template>
-    <link rel="import" href="datetime-picker.html">
+    <link rel="import" href="number-input.html">
     <style>
       html {
         font-family: 'Source Sans Pro', sans-serif;
@@ -37,7 +37,7 @@ This element tries to achieve that by using internally an `text input` and expos
 
 ```html
 
-<number-input value="{{value}}" min="-1111" step="11.1" max="2222" pad-length="4" ></number-input>
+<number-input value="{{value}}" min="-111" step="11" max="2222" pad-length="4" ></number-input>
 <div class="vertical-section-container result">
   <div><code>value</code>: <b>[[value]]</b></div>
 </div>
