@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>number-input demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../number-input.html">
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+        .result {
+          margin: 0.5em;
+          line-height: 1.5em;
+        }
+        .result * {
+          padding: 0.25em;
+        }
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <demo-snippet>
+        <h4>without style</h4>
+        <template>
+          <dom-bind>
+            <template is="dom-bind">
+              <number-input value="{{value}}"></number-input>
+              <div class="vertical-section-container result">
+                <div><code>value</code>: <b>[[value]]</b></div>
+              </div>
+            </template>
+          </dom-bind>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container centered">
+      <demo-snippet>
+        <h4>placeholder="0000" min="-1000" step="10" max="1000" pad-length="4"</h4>
+        <template>
+          <dom-bind>
+            <template is="dom-bind">
+              <custom-style>
+                <style is="custom-style">
+                  .custom-color {
+                    --number-input: {
+                      background: rgba(172, 60, 154, 0.5);
+                      transition: background 150ms ease-in-out;
+                      color: white;
+                      padding: 0.5em;
+                      border-radius: 4px;
+                      border: none;
+                    };
+                    --number-input-focus: {
+                      background: rgba(172, 60, 154, 0.9);
+                      outline: none;
+                    };
+                    --number-input-placeholder: {
+                      color: #f090be;
+                    };
+                  }
+                </style>
+              </custom-style>
+              <number-input class="custom-color" value="{{value}}" pad-length="4" placeholder="0000" min="-1000" step="10" max="1000"></number-input>
+              <div class="vertical-section-container result">
+                <div><code>value</code>: <b>[[value]]</b></div>
+              </div>
+            </template>
+          </dom-bind>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container centered">
+      <demo-snippet>
+        <h4>min="-10" step="0.15" max="100" pad-length="4.5" no-size-by-input no-padding</h4>
+        <template>
+          <dom-bind>
+            <template is="dom-bind">
+              <custom-style>
+                <style is="custom-style">
+                  .decimal {
+                    font-size: 1.5em;
+                    --number-input: {
+                      background: rgba(60, 61, 172, 0.5);
+                      transition: background 150ms ease-in-out;
+                      color: white;
+                      padding: 0.5em;
+                      border-radius: 4px;
+                      border: none;
+                    };
+                    --number-input-focus: {
+                      background: rgba(60, 61, 172, 0.9);
+                      outline: none;
+                    };
+                  }
+                </style>
+              </custom-style>
+              <number-input class="decimal" value="{{value}}" min="-10" step="0.15" max="100" pad-length="4.5" no-size-by-input no-padding></number-input>
+              <div class="vertical-section-container result">
+                <div><code>value</code>: <b>[[value]]</b></div>
+              </div>
+            </template>
+          </dom-bind>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>
