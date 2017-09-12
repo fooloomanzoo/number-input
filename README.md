@@ -14,31 +14,43 @@ The normal `input` with `type="number"` is fairly good to use, but it has some f
 
 This element tries to achieve that by using internally an `text input` and expose it to handle numeric input
 
+
 <!--
 ```
-<custom-element-demo height="300">
+<custom-element-demo>
   <template>
-    <link rel="import" href="number-input.html">
+    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
     <style>
       html {
         font-family: 'Source Sans Pro', sans-serif;
         line-height: 1.5;
       }
+      number-input {
+        font-size: 1.5em;
+        --number-input: {
+          background: rgba(60, 61, 172, 0.5);
+          transition: background 150ms ease-in-out;
+          color: white;
+          padding: 0.5em;
+          border-radius: 4px;
+          border: none;
+        };
+        --number-input-focus: {
+          background: rgba(60, 61, 172, 0.9);
+          outline: none;
+        };
+      }
     </style>
-    <dom-bind>
-      <template is="dom-bind">
-        <next-code-block></next-code-block>
-      </template>
-    </dom-bind>
+    <link rel="import" href="number-input.html">
+
+    <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
 ```
 -->
-
 ```html
-
-<number-input value="{{value}}" min="-111" step="11" max="2222" pad-length="4"></number-input>
-
-<div style="padding: 8px;"><code>value</code>: <b>[[value]]</b></div>
-
+<number-input min="-111" step="11" max="2222"></number-input>
 ```
+
+## License
+[MIT](https://github.com/fooloomanzoo/number-input/blob/master/README.md)
