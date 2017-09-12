@@ -668,7 +668,7 @@
         {
           "name": "step",
           "type": "number",
-          "description": "step for changing the input",
+          "description": "step for changing the input (referencing to `min` or `0`)",
           "privacy": "public",
           "sourceRange": {
             "start": {
@@ -3833,7 +3833,7 @@
         },
         {
           "name": "step",
-          "description": "step for changing the input",
+          "description": "step for changing the input (referencing to `min` or `0`)",
           "sourceRange": {
             "start": {
               "line": 90,
