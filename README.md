@@ -50,7 +50,7 @@ This element tries to achieve that by using internally an `text input` and expos
 ```
 -->
 ```html
-<number-input min="-111" step="11" max="2222"></number-input>
+<number-input min="-5000" step="50" max="5000" pad-length="4"></number-input>
 ```
 
 ### Installation
