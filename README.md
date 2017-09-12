@@ -4,7 +4,7 @@
 
 ## \<number-input\>
 
-An input for numeric values.
+An input for numeric values. _[API](https://www.webcomponents.org/element/fooloomanzoo/number-input/elements/number-input)_ _[demo](https://www.webcomponents.org/element/fooloomanzoo/number-input/demo/demo/index.html)_
 
 ### Motivation
 
