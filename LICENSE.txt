@@ -1,4 +1,4 @@
-Licenced by MIT
+MIT
 
 Copyright 2017 Johannes Brautzsch
 
