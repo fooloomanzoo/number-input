@@ -9,10 +9,10 @@ An input for numeric values.
 
 The normal `input` with `type="number"` is fairly good to use, but it has some flaws, because it should e.g.:
 * prevent non numeric input and also not propagate those values
-* padd a value, if you like
+* pad a value, if you like
 * size the input, according to it's value
 
-This element tries to achieve that by using internally an `text input and expose it to handle numeric input
+This element tries to achieve that by using internally an `text input` and expose it to handle numeric input
 
 <!--
 ```
