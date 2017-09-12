@@ -1,11 +1,11 @@
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/fooloomanzoo/number-input)
 [![Demo](https://img.shields.io/badge/demo-available-red.svg)](https://www.webcomponents.org/element/fooloomanzoo/number-input/demo/demo/index.html)
 
-# \<number-input\>
+## \<number-input\>
 
 An input for numeric values.
 
-## Motivation
+### Motivation
 
 The normal `input` with `type="number"` is fairly good to use, but it has some flaws, because it should e.g.:
 * prevent non numeric input and also not propagate those values
@@ -14,6 +14,7 @@ The normal `input` with `type="number"` is fairly good to use, but it has some f
 
 This element tries to achieve that by using internally an `text input` and expose it to handle numeric input
 
+### Example
 
 <!--
 ```
@@ -52,5 +53,5 @@ This element tries to achieve that by using internally an `text input` and expos
 <number-input min="-111" step="11" max="2222"></number-input>
 ```
 
-## License
+### License
 [MIT](https://github.com/fooloomanzoo/number-input/blob/master/LICENSE.txt)
