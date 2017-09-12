@@ -2,13 +2,14 @@
 
 <!--
   `number-input` is an element that extends an text input for realizing a number input.
-  It prevents false input and also doesn't propagete to it's value. It sizes automatically.
-  Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a _multiple_ of `step`.
+  It prevents false input and guarantees **live** data to be valid.
 
   Example:
   ```html
   <number-input step="2" min="-20" max="140" pad-length="2"></number-input>
   ```
+
+  It sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.
 
   ### Styling
   Custom property                  | Description                            | Default
