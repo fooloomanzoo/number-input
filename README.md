@@ -1,4 +1,5 @@
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/fooloomanzoo/number-input)
+[![API](https://img.shields.io/badge/API-usable-green.svg)](https://www.webcomponents.org/element/fooloomanzoo/number-input/elements/number-input)
 [![Demo](https://img.shields.io/badge/demo-available-red.svg)](https://www.webcomponents.org/element/fooloomanzoo/number-input/demo/demo/index.html)
 
 ## \<number-input\>
