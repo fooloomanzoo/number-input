@@ -37,9 +37,8 @@ This element tries to achieve that by using internally an `text input` and expos
 
 ```html
 
-<number-input value="{{value}}" min="-111" step="11" max="2222" pad-length="4" ></number-input>
-<div class="vertical-section-container result">
-  <div><code>value</code>: <b>[[value]]</b></div>
-</div>
+<number-input value="{{value}}" min="-111" step="11" max="2222" pad-length="4"></number-input>
+
+<div style="padding: 8px;"><code>value</code>: <b>[[value]]</b></div>
 
 ```
