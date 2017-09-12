@@ -1,14 +1,14 @@
 {
   "name": "number-input",
-  "authors": [ "Johannes Brautzsch <fooloomanzoo>" ],
+  "authors": ["Johannes Brautzsch <fooloomanzoo>"],
   "description": "input for numeric values",
   "homepage": "https://github.com/fooloomanzoo/number-input/",
-  "keywords": [ "webcomponents", "polymer", "number", "input", "step" ],
+  "keywords": ["webcomponents", "polymer", "number", "input", "step"],
   "repository": {
     "type": "git",
     "url": "https://github.com/fooloomanzoo/number-input.git"
   },
-  "licence": "https://github.com/fooloomanzoo/number-input/raw/master/LICENSE.txt",
+  "licence": "Apache-2.0",
   "dependencies": {
     "polymer": "Polymer/polymer#1.9 - 2"
   },
