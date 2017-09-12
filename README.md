@@ -4,7 +4,7 @@
 
 ## \<number-input\>
 
-An input for numeric values. _[API](https://www.webcomponents.org/element/fooloomanzoo/number-input/elements/number-input)_ _[demo](https://www.webcomponents.org/element/fooloomanzoo/number-input/demo/demo/index.html)_
+An input for numeric values.
 
 ### Motivation
 
@@ -16,6 +16,10 @@ The normal `input` with `type="number"` is fairly good to use, but it has some f
 This element tries to achieve that by using internally an `text input` and expose it to handle numeric input
 
 This input does use **decimal notation**, like `123.4`, _but not scientific (exponential) notation, like 1.234e+2_.
+
+_[API](https://www.webcomponents.org/element/fooloomanzoo/number-input/elements/number-input)_
+
+_[demo](https://www.webcomponents.org/element/fooloomanzoo/number-input/demo/demo/index.html)_
 
 ### Example
 
