@@ -16,7 +16,7 @@ This element tries to achieve that by using internally an `text input` and expos
 
 <!--
 ```
-<custom-element-demo>
+<custom-element-demo height="300">
   <template>
     <link rel="import" href="number-input.html">
     <style>
