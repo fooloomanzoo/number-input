@@ -8,11 +8,13 @@ An input for numeric values.
 ### Motivation
 
 The normal `input` with `type="number"` is fairly good to use, but it has some flaws, because it should e.g.:
-* prevent non numeric input and also not propagate those values
-* pad a value, if you like
-* size the input, according to it's value
+* prevent non numeric input and also guarantee **live** data to be valid
+* pad a value with `0`, to a specific length
+* size the input, according to it's length
 
 This element tries to achieve that by using internally an `text input` and expose it to handle numeric input
+
+This input does use **decimal notation**, like `123.4`, _but not scientific (exponential) notation, like 1.234e+2_.
 
 ### Example
 
