@@ -27,10 +27,28 @@
   <body>
     <div class="vertical-section-container centered">
       <demo-snippet>
-        <h4>without style</h4>
+        <h4>simple demo</h4>
         <template>
           <dom-bind>
             <template is="dom-bind">
+              <custom-style>
+                <style is="custom-style">
+                  number-input {
+                    --number-input: {
+                      background: rgba(0, 0, 0, 0.05);
+                      transition: background 150ms ease-in-out;
+                      color: #111;
+                      padding: 0.5em;
+                    };
+                    --number-input-focus: {
+                      background: rgba(0, 0, 0, 0.15);
+                    };
+                    --number-input-placeholder: {
+                      color: #492020;
+                    };
+                  }
+                </style>
+              </custom-style>
               <number-input value="{{value}}"></number-input>
               <div class="vertical-section-container result">
                 <div><code>value</code>: <b>[[value]]</b></div>
@@ -63,7 +81,7 @@
                       outline: none;
                     };
                     --number-input-placeholder: {
-                      color: #f090be;
+                      color: #cc2929;
                     };
                   }
                 </style>

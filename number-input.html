@@ -45,16 +45,16 @@
         display: block;
         box-sizing: content-box;
       }
-      input {
+      #input {
         font-family: inherit;
         font-size: inherit;
         @apply --number-input;
       }
-      input:hover,
-      input:focus {
+      #input:hover,
+      #input:focus {
         @apply --number-input-focus;
       }
-      input::placeholder {
+      #input::placeholder {
         @apply --number-input-placeholder;
       }
     </style>
@@ -144,10 +144,14 @@
             notify: true,
             observer: '_valueChanged'
           },
-
-          _value: {
+          /**
+           * value string of the input
+           * @type {string}
+           */
+          valueString: {
             type: String,
-            observer: '_textValueChanged'
+            notify: true,
+            observer: '_valueStringChanged'
           }
         }
       }
@@ -181,10 +185,10 @@
       }
 
       _checkInput() {
-        this._value = this.$.input.value;
+        this._valueStringChanged(this.$.input.value);
       }
 
-      _textValueChanged(_value) {
+      _valueStringChanged(_value) {
         let value = Number(_value);
 
         const min = this.min;
@@ -206,6 +210,7 @@
           return;
         } else if (changed === true) {
           this.$.input.value = this.noPadding ? value : this._pad(value);
+          this._valueString = this.$.input.value;
           this._inputChanged();
         } else {
           this.value = value;
@@ -315,7 +320,7 @@
         let bDecimal = b.slice(b.indexOf('.')).length - 1;
 
         let decimal = aDecimal + bDecimal;
-        let endSign = (a[0] === '-' ? !b[0] === '-' : b[0] === '-') ? '-' : '';
+        let endSign = (a[0] === '-' ? b[0] !== '-' : b[0] === '-') ? '-' : '';
 
         a = a.replace(/\D/g, '');
         b = b.replace(/\D/g, '');
