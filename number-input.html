@@ -373,7 +373,7 @@
         if (width !== undefined) {
           // IE fix
           if (navigator.userAgent.match(/Trident/i)) {
-            width += 0.5;
+            width += 1;
           }
           this.$.input.style.width = width + 'ch';
         }
