@@ -1,8 +1,11 @@
 <link rel="import" href="../polymer/polymer-element.html">
 
 <!--
-  `number-input` is an element that extends an text input for realizing a number input.
-  It prevents false input and guarantees **live** data to be valid.
+  `number-input` is an element that can:
+  * prevent non numeric input
+  * guarantee **live** data to be valid
+  * pad a value with `0`, to a specific length
+  * size the input, according to it's length
 
   Example:
   ```html
@@ -58,7 +61,8 @@
         @apply --number-input-placeholder;
       }
     </style>
-    <input id="input" type="text" placeholder="[[placeholder]]" on-focusin="_checkInput" on-focusout="_checkInput" on-input="_inputChanged" on-keydown="_checkKeycode" on-keyup="_stopIncrem" disabled="[[disabled]]"></input>
+    <input id="input" type="tel" placeholder="[[placeholder]]" disabled="[[disabled]]"
+      on-focusin="_checkInput" on-focusout="_checkInput" on-blur="_checkInput"  on-input="_inputChanged" on-keydown="_checkKeycode" on-keyup="_stopIncrem"></input>
   </template>
 
   <script>

@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "elements": [
     {
-      "description": "`number-input` is an element that extends an text input for realizing a number input.\n  It prevents false input and guarantees **live** data to be valid.\n\n  Example:\n  ```html\n  <number-input step=\"2\" min=\"-20\" max=\"140\" pad-length=\"2\"></number-input>\n  ```\n\n  It sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.\n\n  ### Styling\n  Custom property                  | Description                            | Default\n  ---------------------------------|----------------------------------------|--------------------\n  `--number-input`                 | style of the input                     | {}\n  `--number-input-focus`           | style of the focussed and hovered input | {}\n  `--number-input-placeholder`     | style of the placeholder               | {}\n\n  ```css\n  :host {\n    --number-input-focus: {\n      background: rgba(0,0,0,.25);\n    };\n    --number-input-placeholder: {\n      color: pink;\n    };\n  }\n  ```",
+      "description": "`number-input` is an element that can:\nprevent non numeric input\nguarantee **live** data to be valid\npad a value with `0`, to a specific length\nsize the input, according to it's length\n\n  Example:\n  ```html\n  <number-input step=\"2\" min=\"-20\" max=\"140\" pad-length=\"2\"></number-input>\n  ```\n\n  It sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.\n\n  ### Styling\n  Custom property                  | Description                            | Default\n  ---------------------------------|----------------------------------------|--------------------\n  `--number-input`                 | style of the input                     | {}\n  `--number-input-focus`           | style of the focussed and hovered input | {}\n  `--number-input-placeholder`     | style of the placeholder               | {}\n\n  ```css\n  :host {\n    --number-input-focus: {\n      background: rgba(0,0,0,.25);\n    };\n    --number-input-placeholder: {\n      color: pink;\n    };\n  }\n  ```",
       "summary": "",
       "path": "number-input.html",
       "properties": [
@@ -634,11 +634,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 76,
+              "line": 80,
               "column": 10
             },
             "end": {
-              "line": 78,
+              "line": 82,
               "column": 11
             }
           },
@@ -653,11 +653,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 83,
+              "line": 87,
               "column": 10
             },
             "end": {
-              "line": 85,
+              "line": 89,
               "column": 11
             }
           },
@@ -672,11 +672,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 90,
+              "line": 94,
               "column": 10
             },
             "end": {
-              "line": 93,
+              "line": 97,
               "column": 11
             }
           },
@@ -692,11 +692,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 98,
+              "line": 102,
               "column": 10
             },
             "end": {
-              "line": 101,
+              "line": 105,
               "column": 11
             }
           },
@@ -711,11 +711,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 106,
+              "line": 110,
               "column": 10
             },
             "end": {
-              "line": 108,
+              "line": 112,
               "column": 11
             }
           },
@@ -730,11 +730,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 113,
+              "line": 117,
               "column": 10
             },
             "end": {
-              "line": 115,
+              "line": 119,
               "column": 11
             }
           },
@@ -749,11 +749,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 120,
+              "line": 124,
               "column": 10
             },
             "end": {
-              "line": 122,
+              "line": 126,
               "column": 11
             }
           },
@@ -768,11 +768,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 127,
+              "line": 131,
               "column": 10
             },
             "end": {
-              "line": 129,
+              "line": 133,
               "column": 11
             }
           },
@@ -787,11 +787,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 134,
+              "line": 138,
               "column": 10
             },
             "end": {
-              "line": 136,
+              "line": 140,
               "column": 11
             }
           },
@@ -806,11 +806,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 141,
+              "line": 145,
               "column": 10
             },
             "end": {
-              "line": 145,
+              "line": 149,
               "column": 11
             }
           },
@@ -828,11 +828,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 150,
+              "line": 154,
               "column": 10
             },
             "end": {
-              "line": 154,
+              "line": 158,
               "column": 11
             }
           },
@@ -2752,11 +2752,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 164,
+              "line": 168,
               "column": 6
             },
             "end": {
-              "line": 184,
+              "line": 188,
               "column": 7
             }
           },
@@ -2776,11 +2776,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 186,
+              "line": 190,
               "column": 6
             },
             "end": {
-              "line": 188,
+              "line": 192,
               "column": 7
             }
           },
@@ -2793,11 +2793,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 190,
+              "line": 194,
               "column": 6
             },
             "end": {
-              "line": 217,
+              "line": 221,
               "column": 7
             }
           },
@@ -2814,11 +2814,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 219,
+              "line": 223,
               "column": 6
             },
             "end": {
-              "line": 239,
+              "line": 243,
               "column": 7
             }
           },
@@ -2835,11 +2835,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 241,
+              "line": 245,
               "column": 6
             },
             "end": {
-              "line": 248,
+              "line": 252,
               "column": 7
             }
           },
@@ -2852,11 +2852,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 250,
+              "line": 254,
               "column": 6
             },
             "end": {
-              "line": 275,
+              "line": 279,
               "column": 7
             }
           },
@@ -2873,11 +2873,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 277,
+              "line": 281,
               "column": 6
             },
             "end": {
-              "line": 283,
+              "line": 287,
               "column": 7
             }
           },
@@ -2894,11 +2894,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 285,
+              "line": 289,
               "column": 6
             },
             "end": {
-              "line": 289,
+              "line": 293,
               "column": 7
             }
           },
@@ -2911,11 +2911,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 291,
+              "line": 295,
               "column": 6
             },
             "end": {
-              "line": 298,
+              "line": 302,
               "column": 7
             }
           },
@@ -2932,11 +2932,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 300,
+              "line": 304,
               "column": 6
             },
             "end": {
-              "line": 306,
+              "line": 310,
               "column": 7
             }
           },
@@ -2959,11 +2959,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 314,
+              "line": 318,
               "column": 6
             },
             "end": {
-              "line": 333,
+              "line": 337,
               "column": 7
             }
           },
@@ -2991,11 +2991,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 341,
+              "line": 345,
               "column": 6
             },
             "end": {
-              "line": 356,
+              "line": 360,
               "column": 7
             }
           },
@@ -3023,11 +3023,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 358,
+              "line": 362,
               "column": 6
             },
             "end": {
-              "line": 385,
+              "line": 389,
               "column": 7
             }
           },
@@ -3053,11 +3053,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 390,
+              "line": 394,
               "column": 6
             },
             "end": {
-              "line": 392,
+              "line": 396,
               "column": 7
             }
           },
@@ -3070,11 +3070,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 397,
+              "line": 401,
               "column": 6
             },
             "end": {
-              "line": 399,
+              "line": 403,
               "column": 7
             }
           },
@@ -3787,11 +3787,11 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 64,
+          "line": 68,
           "column": 4
         },
         "end": {
-          "line": 400,
+          "line": 404,
           "column": 5
         }
       },
@@ -3804,11 +3804,11 @@
           "description": "minimal input",
           "sourceRange": {
             "start": {
-              "line": 76,
+              "line": 80,
               "column": 10
             },
             "end": {
-              "line": 78,
+              "line": 82,
               "column": 11
             }
           },
@@ -3820,11 +3820,11 @@
           "description": "maximal input",
           "sourceRange": {
             "start": {
-              "line": 83,
+              "line": 87,
               "column": 10
             },
             "end": {
-              "line": 85,
+              "line": 89,
               "column": 11
             }
           },
@@ -3836,11 +3836,11 @@
           "description": "step for changing the input (referencing to `min` or `0`)",
           "sourceRange": {
             "start": {
-              "line": 90,
+              "line": 94,
               "column": 10
             },
             "end": {
-              "line": 93,
+              "line": 97,
               "column": 11
             }
           },
@@ -3852,11 +3852,11 @@
           "description": "length to pad the string (with `0`)",
           "sourceRange": {
             "start": {
-              "line": 98,
+              "line": 102,
               "column": 10
             },
             "end": {
-              "line": 101,
+              "line": 105,
               "column": 11
             }
           },
@@ -3868,11 +3868,11 @@
           "description": "placeholder string",
           "sourceRange": {
             "start": {
-              "line": 106,
+              "line": 110,
               "column": 10
             },
             "end": {
-              "line": 108,
+              "line": 112,
               "column": 11
             }
           },
@@ -3884,11 +3884,11 @@
           "description": "disables the input",
           "sourceRange": {
             "start": {
-              "line": 113,
+              "line": 117,
               "column": 10
             },
             "end": {
-              "line": 115,
+              "line": 119,
               "column": 11
             }
           },
@@ -3900,11 +3900,11 @@
           "description": "disable autosizing",
           "sourceRange": {
             "start": {
-              "line": 120,
+              "line": 124,
               "column": 10
             },
             "end": {
-              "line": 122,
+              "line": 126,
               "column": 11
             }
           },
@@ -3916,11 +3916,11 @@
           "description": "disable sizing by input value",
           "sourceRange": {
             "start": {
-              "line": 127,
+              "line": 131,
               "column": 10
             },
             "end": {
-              "line": 129,
+              "line": 133,
               "column": 11
             }
           },
@@ -3932,11 +3932,11 @@
           "description": "disable padding (autosizing still effected by `padLength`)",
           "sourceRange": {
             "start": {
-              "line": 134,
+              "line": 138,
               "column": 10
             },
             "end": {
-              "line": 136,
+              "line": 140,
               "column": 11
             }
           },
@@ -3948,11 +3948,11 @@
           "description": "value of the input",
           "sourceRange": {
             "start": {
-              "line": 141,
+              "line": 145,
               "column": 10
             },
             "end": {
-              "line": 145,
+              "line": 149,
               "column": 11
             }
           },
@@ -3964,11 +3964,11 @@
           "description": "value string of the input",
           "sourceRange": {
             "start": {
-              "line": 150,
+              "line": 154,
               "column": 10
             },
             "end": {
-              "line": 154,
+              "line": 158,
               "column": 11
             }
           },

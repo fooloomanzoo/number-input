@@ -9,17 +9,14 @@ An input for numeric values.
 ### Motivation
 
 The normal `input` with `type="number"` is fairly good to use, but it has some flaws, because it should e.g.:
+
 * prevent non numeric input and also guarantee **live** data to be valid
 * pad a value with `0`, to a specific length
 * size the input, according to it's length
 
-This element tries to achieve that by using internally an `text input` and expose it to handle numeric input
+This element wants to achieve that. It does use **decimal notation**, like `123.4`, but not _scientific (exponential) notation_, like `1.234e+2`.
 
-This input does use **decimal notation**, like `123.4`, _but not scientific (exponential) notation, like 1.234e+2_.
-
-_[API](https://www.webcomponents.org/element/fooloomanzoo/number-input/elements/number-input)_
-
-_[demo](https://www.webcomponents.org/element/fooloomanzoo/number-input/demo/demo/index.html)_
+[API](https://www.webcomponents.org/element/fooloomanzoo/number-input/elements/number-input), _[demo](https://www.webcomponents.org/element/fooloomanzoo/number-input/demo/demo/index.html)_
 
 ### Example
 
