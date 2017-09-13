@@ -2,6 +2,8 @@
 [![API](https://img.shields.io/badge/API-available-green.svg)](https://www.webcomponents.org/element/fooloomanzoo/number-input/elements/number-input)
 [![Demo](https://img.shields.io/badge/demo-available-red.svg)](https://www.webcomponents.org/element/fooloomanzoo/number-input/demo/demo/index.html)
 
+ [Demo](https://www.webcomponents.org/element/fooloomanzoo/number-input/demo/demo/index.html) and [API docs](https://www.webcomponents.org/element/fooloomanzoo/number-input/elements/number-input),
+
 ## \<number-input\>
 
 An input for numeric values.
@@ -15,8 +17,6 @@ The normal `input` with `type="number"` is fairly good to use, but it has some f
 * size the input, according to it's length
 
 This element wants to achieve that. It does use **decimal notation**, like `123.4`, but not _scientific (exponential) notation_, like `1.234e+2`.
-
-[API](https://www.webcomponents.org/element/fooloomanzoo/number-input/elements/number-input), _[demo](https://www.webcomponents.org/element/fooloomanzoo/number-input/demo/demo/index.html)_
 
 ### Example
 
