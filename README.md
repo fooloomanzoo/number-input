@@ -2,7 +2,7 @@
 [![API](https://img.shields.io/badge/API-available-green.svg)](https://www.webcomponents.org/element/fooloomanzoo/number-input/elements/number-input)
 [![Demo](https://img.shields.io/badge/demo-available-red.svg)](https://www.webcomponents.org/element/fooloomanzoo/number-input/demo/demo/index.html)
 
- [Demo](https://www.webcomponents.org/element/fooloomanzoo/number-input/demo/demo/index.html) and [API docs](https://www.webcomponents.org/element/fooloomanzoo/number-input/elements/number-input),
+ [Demo](https://www.webcomponents.org/element/fooloomanzoo/number-input/demo/demo/index.html) and [API docs](https://www.webcomponents.org/element/fooloomanzoo/number-input/elements/number-input)
 
 ## \<number-input\>
 
