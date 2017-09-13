@@ -12,9 +12,10 @@ An input for numeric values.
 
 The normal `input` with `type="number"` is fairly good to use, but it has some flaws, because it should e.g.:
 
-* prevent non numeric input and also guarantee **live** data to be valid
-* pad a value with `0`, to a specific length
-* size the input, according to it's length
+* prevent non numeric input
+* guarantee **live**-data to be valid
+* pad a value with `0` (to a specific length)
+* size the input (according to it's length)
 
 This element wants to achieve that. It does use **decimal notation**, like `123.4`, but not _scientific (exponential) notation_, like `1.234e+2`.
 
