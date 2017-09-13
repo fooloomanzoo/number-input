@@ -42,34 +42,56 @@
 -->
 
 <dom-module id="number-input">
-  <template strip-whitespace>
-    <style>
-      :host {
-        display: block;
-        box-sizing: content-box;
-      }
-      #input {
-        font-family: inherit;
-        font-size: inherit;
-        @apply --number-input;
-      }
-      #input:hover,
-      #input:focus {
-        @apply --number-input-focus;
-      }
-      #input::placeholder {
-        @apply --number-input-placeholder;
-      }
-    </style>
-    <input id="input" type="tel" placeholder="[[placeholder]]" disabled="[[disabled]]"
-      on-focusin="_checkInput" on-focusout="_checkInput" on-blur="_checkInput"  on-input="_inputChanged" on-keydown="_checkKeycode" on-keyup="_stopIncrem"></input>
-  </template>
-
   <script>
     class NumberInput extends Polymer.Element {
 
       static get is() {
         return 'number-input';
+      }
+
+      static get template() {
+        return `
+          ${this.styleTemplate}
+          ${this.contentTemplate}
+        `;
+      }
+
+      static get styleTemplate() {
+        return `
+          <style>
+            :host {
+              display: block;
+              box-sizing: content-box;
+            }
+            #input {
+              font-family: inherit;
+              font-size: inherit;
+              @apply --number-input;
+            }
+            #input:hover,
+            #input:focus {
+              @apply --number-input-focus;
+            }
+            #input::placeholder {
+              @apply --number-input-placeholder;
+            }
+          </style>
+        `;
+      }
+
+      static get contentTemplate() {
+        return `
+          <input id="input"
+            type="tel"
+            placeholder="[[placeholder]]"
+            disabled="[[disabled]]"
+            on-focusin="_checkInput"
+            on-focusout="_checkInput"
+            on-blur="_checkInput"
+            on-input="_inputChanged"
+            on-keydown="_checkKeycode"
+            on-keyup="_stopIncrem">
+        `;
       }
 
       static get properties() {
