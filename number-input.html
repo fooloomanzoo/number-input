@@ -199,7 +199,7 @@
           if (n < 0) {
             str = str.slice(1);
           }
-          targetLength = targetLength - str.length;
+          targetLength = targetLength - str.replace(/\D/g, '').length;
           for (let i = 0; i < targetLength; i++) {
             str = padString + str;
           }
