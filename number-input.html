@@ -38,7 +38,7 @@
   @element number-input
 
   @summary "input for numeric values"
-  @demo demo/index.html
+  @demo demo/gndex.html
 -->
 
 <dom-module id="number-input">
@@ -119,7 +119,7 @@
             value: 1
           },
           /**
-           * length to pad the string (with `0`)
+           * length to pad the string (with `0`) according to the total amount of numbers
            * @type {number}
            */
           padLength: {
@@ -148,14 +148,7 @@
             type: Boolean
           },
           /**
-           * disable sizing by input value
-           * @type {boolean}
-           */
-          noSizeByInput: {
-            type: Boolean
-          },
-          /**
-           * disable padding (autosizing still effected by `padLength`)
+           * disable padding (auto-width still effected by `padLength`)
            * @type {boolean}
            */
           noPadding: {
@@ -178,28 +171,36 @@
             type: String,
             notify: true,
             observer: '_valueStringChanged'
+          },
+          /**
+           * pad to precision
+           * @type {number}
+           */
+          _toFixed: {
+            type: Number,
+            computed: '_computeFixed(step)'
           }
         }
       }
 
       static get observers() {
         return [
-          '_computeWidth(padLength, placeholder, min, max)'
+          '_computeWidth(padLength, placeholder, min, max, step)'
         ]
       }
 
-      _pad(n, padLength) {
+      _format(n, padLength, toFixed) {
         n = Number(n);
-        let str = '' + n;
-        let targetLength = padLength || this.padLength || (this.placeholder && this.placeholder.length) || Math.log10(+n);
+        let str = n.toFixed(toFixed !== undefined ? toFixed : (this._toFixed || 0));
+        // console.log(n, str);
+        let targetLength = (padLength || this.padLength || (this.placeholder && this.placeholder.length) || Math.log10(+n)) - str.replace(/\D/g, '').length;
         const padString = '0';
-        if (str.length > targetLength) {
+        if (targetLength < 0) {
           return str;
         } else {
           if (n < 0) {
             str = str.slice(1);
           }
-          targetLength = targetLength - str.replace(/\D/g, '').length;
           for (let i = 0; i < targetLength; i++) {
             str = padString + str;
           }
@@ -208,6 +209,18 @@
           }
           return str;
         }
+      }
+
+      _computeFixed(step) {
+        if (!step) {
+          return 0;
+        }
+        const str = '' + step;
+        const pos = str.indexOf('.');
+        if (pos < 0) {
+          return 0;
+        }
+        return str.length - 1 - pos;
       }
 
       _checkInput() {
@@ -235,8 +248,14 @@
         if (isNaN(value)) {
           return;
         } else if (changed === true) {
-          this.$.input.value = this.noPadding ? value : this._pad(value);
+          this.$.input.value = this.noPadding ? value : this._format(value);
           this._valueString = this.$.input.value;
+          if (!this.noAutoWidth) {
+            const length = this.$.input.value.replace(/\D/g, '').length + 0.5*this.$.input.value.replace(/\d/g, '').length;
+            if ((Number.parseFloat(this.$.input.style.width) || 0) < length) {
+              this._computeWidth(length);
+            }
+          }
           this._inputChanged();
         } else {
           this.value = value;
@@ -261,17 +280,17 @@
           return;
         }
 
-        this.$.input.value = this.noPadding ? value : this._pad(value);
+        this.$.input.value = this.noPadding ? value : this._format(value);
+        if (!this.noAutoWidth) {
+          const length = this.$.input.value.replace(/\D/g, '').length + 0.5*this.$.input.value.replace(/\d/g, '').length;
+          if ((Number.parseFloat(this.$.input.style.width) || 0) < length) {
+            this._computeWidth(length);
+          }
+        }
         this._inputChanged();
       }
 
       _inputChanged() {
-        if (!this.noSizeByInput) {
-          const length = this.$.input.value.replace(/\D/g, '').length + 0.5*this.$.input.value.replace(/\d/g, '').length
-          if (!(this.paddingLength && this.paddingLength > length)) {
-            this._computeWidth(length);
-          }
-        }
       }
 
       _checkKeycode(e) {
@@ -320,7 +339,7 @@
         const min = this.min;
         const max = this.max;
         step = step || this.step || 1;
-        const value = this._safeAdd(this.$.input.value, step);
+        const value = this._safeAdd(Number(this.$.input.value) || this.value, step);
         this.value = (max === undefined || value <= max) ? ((min === undefined || value >= min) ? value : min) : max;
       }
 
@@ -342,11 +361,11 @@
         a = '' + (a || 0);
         b = '' + (b || 0);
 
-        let aDecimal = a.slice(a.indexOf('.')).length - 1;
-        let bDecimal = b.slice(b.indexOf('.')).length - 1;
+        const aDecimal = a.slice(a.indexOf('.')).length - 1;
+        const bDecimal = b.slice(b.indexOf('.')).length - 1;
 
-        let decimal = aDecimal + bDecimal;
-        let endSign = (a[0] === '-' ? b[0] !== '-' : b[0] === '-') ? '-' : '';
+        const decimal = aDecimal + bDecimal;
+        const endSign = (a[0] === '-' ? b[0] !== '-' : b[0] === '-') ? '-' : '';
 
         a = a.replace(/\D/g, '');
         b = b.replace(/\D/g, '');
@@ -355,7 +374,7 @@
         for (let i = 0; i < b.length; i++) {
           whole += Math.pow(10, b.length - 1 - i) * Number(a) * Number(b[i]);
         }
-        whole = this._pad(whole, decimal);
+        whole = this._format(whole, decimal, 0);
         return Number(endSign + whole.slice(0, whole.length - decimal) + '.' + whole.slice(whole.length - decimal));
       }
 
@@ -369,20 +388,18 @@
         a = '' + (a || 0);
         b = '' + (b || 0);
 
-        let aDecimal = a.slice(a.indexOf('.')).length - 1;
-        let bDecimal = b.slice(b.indexOf('.')).length - 1;
+        const aDecimal = a.slice(a.indexOf('.')).length - 1;
+        const bDecimal = b.slice(b.indexOf('.')).length - 1;
 
-        let decimal = Math.max(aDecimal, bDecimal);
+        const decimal = Math.max(aDecimal, bDecimal);
 
-        let whole = '' + Math.round( Math.pow(10, decimal) * Number(a) +
+        let whole = Math.round( Math.pow(10, decimal) * Number(a) +
                                 Math.pow(10, decimal) * Number(b) );
-
-        whole = this._pad(whole, decimal);
-
+        whole = this._format(whole, decimal, 0);
         return Number(whole.slice(0, whole.length - decimal) + '.' + whole.slice(whole.length - decimal));
       }
 
-      _computeWidth(padLength, placeholder, min, max) {
+      _computeWidth(padLength, placeholder, min, max, step) {
         if (this.noAutoWidth) return;
 
         let width;
@@ -392,19 +409,20 @@
         if (placeholder && placeholder.length > (width || 0)) {
           width = placeholder.length;
         }
-        if (!width) {
-          let length;
-          if (min !== undefined && ((length = ('' + min).length) > (width || 0)))
+        let length;
+        if (min !== undefined && (length = ('' + min).replace(/\D/g, '').length) > (width || 0))
             width = length;
-          if (max !== undefined && ((length = ('' + max).length) > (width || 0)))
+        if (max !== undefined && (length = ('' + max).replace(/\D/g, '').length) > (width || 0))
             width = length;
-          if (this.step && ('' + this.step).indexOf('.') !== -1) {
-            width += 0.5;
-          }
+        if (width && (min < 0 || max < 0)) {
+          width += 0.5;
+        }
+        if (width && step && ('' + step).indexOf('.') !== -1) {
+          width += 0.5;
         }
         if (width !== undefined) {
           // IE fix
-          if (navigator.userAgent.match(/Trident/i)) {
+          if (navigator.userAgent.match(/Trident/g)) {
             width += 1;
           }
           this.$.input.style.width = width + 'ch';

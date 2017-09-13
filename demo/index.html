@@ -75,6 +75,7 @@
                       padding: 0.5em;
                       border-radius: 4px;
                       border: none;
+                      text-align: center;
                     };
                     --number-input-focus: {
                       background: rgba(172, 60, 154, 0.9);
@@ -98,7 +99,7 @@
 
     <div class="vertical-section-container centered">
       <demo-snippet>
-        <h4>min="-10" step="0.15" max="100" pad-length="4.5" no-size-by-input no-padding</h4>
+        <h4>min="-230" step="1.15" max="230" pad-length="5"</h4>
         <template>
           <dom-bind>
             <template is="dom-bind">
@@ -113,6 +114,7 @@
                       padding: 0.5em;
                       border-radius: 4px;
                       border: none;
+                      text-align: right;
                     };
                     --number-input-focus: {
                       background: rgba(60, 61, 172, 0.9);
@@ -121,7 +123,7 @@
                   }
                 </style>
               </custom-style>
-              <number-input class="decimal" value="{{value}}" min="-10" step="0.15" max="100" pad-length="4.5" no-size-by-input no-padding></number-input>
+              <number-input class="decimal" value="{{value}}" min="-230" step="1.15" max="230" pad-length="5"></number-input>
               <div class="vertical-section-container result">
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
