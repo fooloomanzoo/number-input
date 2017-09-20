@@ -55,7 +55,7 @@ This element wants to achieve that. It does use **decimal notation**, like `123.
 ```
 -->
 ```html
-<number-input min="-5000" step="50" max="5000" pad-length="4"></number-input>
+<number-input min="-150" step="0.15" max="300" pad-length="5"></number-input>
 ```
 
 ### Installation
