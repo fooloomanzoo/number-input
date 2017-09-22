@@ -1,5 +1,5 @@
 {
-  "name": "number-input",
+  "name": "@fooloomanzoo/number-input",
   "version": "1.0.10",
   "description": "input for numeric values",
   "main": "index.html",
