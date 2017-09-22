@@ -8,7 +8,7 @@
   },
   "scripts": {
     "postinstall": "bower install --save-dev",
-    "prepublish": "npm run build && git add . && git commit -m \"publish new version\" && git push && npm version patch",
+    "prepare": "npm version patch",
     "build": "polymer analyze > analysis.json",
     "prestart": "polymer analyze > analysis.json",
     "start": "polymer serve",
