@@ -1,6 +1,6 @@
 {
   "name": "number-input",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "input for numeric values",
   "main": "index.html",
   "directories": {
