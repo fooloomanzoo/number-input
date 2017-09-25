@@ -233,17 +233,13 @@
       }
 
       _checkInput() {
-        this._valueStringChanged(this.$.input.value);
+        this._valueStringChanged(this.$.input.value, this.value);
       }
 
       _valueStringChanged(_value, _oldValue) {
         _value = Number(_value);
+
         const value = this._checkValue(_value, Number(_oldValue), this.min, this.max);
-
-        if (isNaN(value)) {
-          return;
-        }
-
         if (value !== _value) {
           this.$.input.value = this.noPadding ? value : this._format(value);
           this._valueString = this.$.input.value;
@@ -255,7 +251,6 @@
             }
           }
           this._inputChanged();
-          return;
         }
 
         this.value = value;
@@ -348,6 +343,12 @@
       }
 
       _checkValue(value, oldValue, min, max) {
+        if (isNaN(value)) {
+          if (!isNaN(oldValue)) {
+            return oldValue;
+          }
+          return min || max || 0;
+        }
         const saturate = this.saturate;
         if (min !== undefined && value <= min) {
           if (saturate || max === undefined || oldValue !== min) {
