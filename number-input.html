@@ -175,6 +175,13 @@
             observer: '_valueStringChanged'
           },
           /**
+           * if true, the value does not overflow the maximum or underflow the minimum when incrementing
+           * @type {boolean}
+           */
+          saturate: {
+            type: Boolean
+          },
+          /**
            * pad to precision
            * @type {number}
            */
@@ -342,9 +349,10 @@
         if (!step) return;
         const min = this.min;
         const max = this.max;
+        const saturate = this.saturate;
         step = step || this.step || 1;
         const value = this._safeAdd(Number(this.$.input.value) || this.value, step);
-        this.value = (max === undefined || value <= max) ? ((min === undefined || value >= min) ? value : min) : max;
+        this.value = (max !== undefined && value > max) ? ((!saturate && min !== undefined) ? min : max) : ((min !== undefined && value < min) ? ((!saturate && max !== undefined) ? max : min) : value);
       }
 
       _checkStep(value, step, min) {

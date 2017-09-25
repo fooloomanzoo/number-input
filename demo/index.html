@@ -61,7 +61,7 @@
 
     <div class="vertical-section-container centered">
       <demo-snippet>
-        <h4>placeholder="0000" min="-1000" step="10" max="1000" pad-length="4"</h4>
+        <h4>placeholder="0000" min="-1000" step="10" max="1000" pad-length="4" saturate</h4>
         <template>
           <dom-bind>
             <template is="dom-bind">
@@ -87,7 +87,7 @@
                   }
                 </style>
               </custom-style>
-              <number-input class="custom-color" value="{{value}}" pad-length="4" placeholder="0000" min="-1000" step="10" max="1000"></number-input>
+              <number-input class="custom-color" value="{{value}}" pad-length="4" saturate placeholder="0000" min="-1000" step="10" max="1000"></number-input>
               <div class="vertical-section-container result">
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
@@ -99,7 +99,7 @@
 
     <div class="vertical-section-container centered">
       <demo-snippet>
-        <h4>min="-230" step="1.15" max="230" pad-length="5"</h4>
+        <h4>min="-23" step="1.15" max="23" pad-length="4"</h4>
         <template>
           <dom-bind>
             <template is="dom-bind">
@@ -123,7 +123,7 @@
                   }
                 </style>
               </custom-style>
-              <number-input class="decimal" value="{{value}}" min="-230" step="1.15" max="230" pad-length="5"></number-input>
+              <number-input class="decimal" value="{{value}}" min="-23" step="1.15" max="46" pad-length="4"></number-input>
               <div class="vertical-section-container result">
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>

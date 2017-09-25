@@ -16,8 +16,9 @@ The normal `input` with `type="number"` is fairly good to use, but it has some f
 * guarantee **live**-data to be valid
 * pad a value with `0` (to a specific length)
 * size the input (according to it's length)
+* overflows to minimum or underflows to maximum
 
-This element wants to achieve that. It does use **decimal notation**, like `123.4`, but not _scientific (exponential) notation_, like `1.234e+2`.
+This element wants to achieve that. It does use **decimal notation**, like `123.4`, but does not display _scientific (exponential) notation_, like `1.234e+2`.
 
 ### Example
 
