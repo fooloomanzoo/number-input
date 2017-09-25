@@ -236,27 +236,15 @@
         this._valueStringChanged(this.$.input.value);
       }
 
-      _valueStringChanged(_value) {
-        let value = Number(_value);
-
-        const min = this.min;
-        const max = this.max;
-        let changed = false;
-
-        if (isNaN(value)) {
-          value = Number(this.value);
-          changed = true;
-        } else if (min !== undefined && value < min) {
-          value = min;
-          changed = true;
-        } else if (max !== undefined && value > max) {
-          value = max;
-          changed = true;
-        }
+      _valueStringChanged(_value, _oldValue) {
+        _value = Number(_value);
+        const value = this._checkValue(_value, Number(_oldValue), this.min, this.max);
 
         if (isNaN(value)) {
           return;
-        } else if (changed === true) {
+        }
+
+        if (value !== _value) {
           this.$.input.value = this.noPadding ? value : this._format(value);
           this._valueString = this.$.input.value;
           if (!this.noAutoWidth) {
@@ -267,26 +255,19 @@
             }
           }
           this._inputChanged();
-        } else {
-          this.value = value;
+          return;
         }
+
+        this.value = value;
       }
 
-      _valueChanged(value) {
+      _valueChanged(value, oldValue) {
         if (value === undefined) return;
 
-        if (this.min !== undefined && value < this.min) {
-          this.value = this.min;
-          return;
-        }
-        if (this.max !== undefined && value > this.max) {
-          this.value = this.max;
-          return;
-        }
+        value = this._checkValue(value, oldValue, this.min, this.max);
 
-        let checkValue = this._checkStep(value, this.step, this.min);
-        if (checkValue !== value) {
-          this.value = checkValue;
+        if (value !== this.value) {
+          this.value = value;
           return;
         }
 
@@ -347,20 +328,41 @@
 
       _increm(step) {
         if (!step) return;
-        const min = this.min;
-        const max = this.max;
-        const saturate = this.saturate;
+
         step = step || this.step || 1;
         const value = this._safeAdd(Number(this.$.input.value) || this.value, step);
-        this.value = (max !== undefined && value > max) ? ((!saturate && min !== undefined) ? min : max) : ((min !== undefined && value < min) ? ((!saturate && max !== undefined) ? max : min) : value);
+        this.value = this._checkValue(value, this.value, this.min, this.max);
       }
 
-      _checkStep(value, step, min) {
+      _checkStep(value, step, min, max) {
         if (!step) {
           return value;
         }
-        min = min || 0;
-        return this._safeAdd(this._safeMult(Math.round((value - min) / step), step), min);
+        if (min !== undefined) {
+          return this._safeAdd(this._safeMult(Math.round((value - min) / step), step), min);
+        }
+        if (max !== undefined) {
+          return this._safeAdd(this._safeMult(-Math.round((max - value) / step), step), max);
+        }
+        return this._safeAdd(this._safeMult(Math.round(value / step), step), 0);
+      }
+
+      _checkValue(value, oldValue, min, max) {
+        const saturate = this.saturate;
+        if (min !== undefined && value <= min) {
+          if (saturate || max === undefined || oldValue !== min) {
+            return min;
+          }
+          return this._checkStep(max, this.step, min, max);
+        }
+        if (max !== undefined && value > max) {
+          max = this._checkStep(max, this.step, min, max);
+          if (saturate || min === undefined || max !== oldValue) {
+            return max;
+          }
+          return min;
+        }
+        return this._checkStep(value, this.step, min, max);
       }
 
       /**

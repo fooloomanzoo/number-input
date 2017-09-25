@@ -49,8 +49,9 @@
                   }
                 </style>
               </custom-style>
-              <number-input value="{{value}}"></number-input>
+              <number-input value="{{value}}" step="0.001"></number-input>
               <div class="vertical-section-container result">
+                <div><code>step</code>: <b>0.001</b></div>
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
             </template>
@@ -100,7 +101,7 @@
 
     <div class="vertical-section-container centered">
       <demo-snippet>
-        <h4>min="-23" step="1.15" max="23" pad-length="4"</h4>
+        <h4>min="-23" step="1.15" max="45" pad-length="4"</h4>
         <template>
           <dom-bind>
             <template is="dom-bind">
@@ -119,12 +120,29 @@
                     };
                     --number-input-focus: {
                       background: rgba(60, 61, 172, 0.9);
+                      color: #f1f1f1;
                       outline: none;
                     };
                   }
                 </style>
               </custom-style>
-              <number-input class="decimal" value="{{value}}" min="-23" step="1.15" max="46" pad-length="4"></number-input>
+              <number-input class="decimal" value="{{value}}" min="-23" step="1.15" max="45" pad-length="4"></number-input>
+              <div class="vertical-section-container result">
+                <div><code>value</code>: <b>[[value]]</b></div>
+              </div>
+            </template>
+          </dom-bind>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container centered">
+      <demo-snippet>
+        <h4>step="1.5" max="90" pad-length="4"</h4>
+        <template>
+          <dom-bind>
+            <template is="dom-bind">
+              <number-input value="{{value}}" step="1.5" max="90" pad-length="4"></number-input>
               <div class="vertical-section-container result">
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
