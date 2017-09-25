@@ -21,7 +21,7 @@ The normal `input` with `type="number"` is fairly good to use, but it has some f
 
 This element wants to achieve that. It does use **decimal notation**, like `123.4`, but does not display _scientific (exponential) notation_, like `1.234e+2`.
 
-[demo_gif]: https://github.com/fooloomanzoo/number-input/raw/master/docs/number-input.gif "Demo"
+![alt text](https://github.com/fooloomanzoo/number-input/raw/master/docs/number-input.gif "Demo")
 
 ### Example
 
