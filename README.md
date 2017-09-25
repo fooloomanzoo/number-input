@@ -2,7 +2,8 @@
 [![API](https://img.shields.io/badge/API-available-green.svg)](https://www.webcomponents.org/element/fooloomanzoo/number-input/elements/number-input)
 [![Demo](https://img.shields.io/badge/demo-available-red.svg)](https://www.webcomponents.org/element/fooloomanzoo/number-input/demo/demo/index.html)
 
-_[Demo and API docs](https://fooloomanzoo.github.io/number-input/components/number-input/)_
+_[API](https://fooloomanzoo.github.io/number-input/components/number-input/#/elements/number-input)_ and
+_[Demo](https://fooloomanzoo.github.io/number-input/components/number-input/#/elements/number-input/demos/demo/index.html)_
 
 ## \<number-input\>
 
