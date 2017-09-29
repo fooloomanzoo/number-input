@@ -430,6 +430,8 @@
             width = length;
         if (max !== undefined && (length = ('' + max).replace(/\D/g, '').length) > (width || 0))
             width = length;
+        if (step !== undefined && (length = ('' + step).replace(/\D/g, '').length) > (width || 0))
+            width = length;
         // signs
         if (width && (min === undefined || min < 0 || max < 0)) {
           width += 0.5;
