@@ -27,7 +27,7 @@
   <body>
     <div class="vertical-section-container centered">
       <demo-snippet>
-        <h4>simple demo</h4>
+        <h4>Simple demo</h4>
         <template>
           <dom-bind>
             <template is="dom-bind">
@@ -38,6 +38,8 @@
                       background: rgba(0, 0, 0, 0.05);
                       transition: background 150ms ease-in-out;
                       color: #111;
+                      border-color: transparent;
+                      border-style: unset;
                       padding: 0.5em;
                     };
                     --number-input-focus: {
@@ -62,7 +64,7 @@
 
     <div class="vertical-section-container centered">
       <demo-snippet>
-        <h4>placeholder="0000" min="-1000" step="10" max="1000" pad-length="4" saturate</h4>
+        <h4>Saturate the value</h4>
         <template>
           <dom-bind>
             <template is="dom-bind">
@@ -75,7 +77,8 @@
                       color: rgba(41, 30, 96, 0.75);
                       padding: 0.5em;
                       border-radius: 4px;
-                      border: none;
+                      border-color: transparent;
+                      border-style: unset;
                       text-align: center;
                     };
                     --number-input-focus: {
@@ -89,7 +92,7 @@
                   }
                 </style>
               </custom-style>
-              <number-input class="custom-color" value="{{value}}" pad-length="4" saturate placeholder="0000" min="-1000" step="10" max="1000"></number-input>
+              <number-input class="custom-color" value="{{value}}" pad-length="4" saturate placeholder="0000" min="-1000" step="100" max="1000"></number-input>
               <div class="vertical-section-container result">
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
@@ -101,7 +104,6 @@
 
     <div class="vertical-section-container centered">
       <demo-snippet>
-        <h4>min="-23" step="1.15" max="45" pad-length="4"</h4>
         <template>
           <dom-bind>
             <template is="dom-bind">
@@ -115,7 +117,8 @@
                       color: white;
                       padding: 0.5em;
                       border-radius: 4px;
-                      border: none;
+                      border-color: transparent;
+                      border-style: unset;
                       text-align: right;
                     };
                     --number-input-focus: {
@@ -138,7 +141,7 @@
 
     <div class="vertical-section-container centered">
       <demo-snippet>
-        <h4>step="1.5" max="90" pad-length="4"</h4>
+        <h4>It can use units</h4>
         <template>
           <dom-bind>
             <template is="dom-bind">
