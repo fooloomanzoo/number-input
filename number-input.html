@@ -95,7 +95,6 @@
             on-focusin="_checkInput"
             on-focusout="_checkInput"
             on-blur="_checkInput"
-            on-input="_inputChanged"
             on-keydown="_checkKeycode"
             on-keyup="_stopIncrem">
         `;
@@ -175,7 +174,7 @@
            * value string of the input
            * @type {string}
            */
-          valueString: {
+          _valueString: {
             type: String,
             notify: true,
             observer: '_valueStringChanged'
@@ -186,6 +185,13 @@
            */
           saturate: {
             type: Boolean
+          },
+          /**
+           * unit of the value
+           * @type {string}
+           */
+          unit: {
+            type: String
           },
           /**
            * pad to precision
@@ -200,7 +206,7 @@
 
       static get observers() {
         return [
-          '_computeWidth(padLength, placeholder, min, max, step)'
+          '_computeWidth(_valueString, padLength, placeholder, min, max, step, unit)'
         ]
       }
 
@@ -254,20 +260,10 @@
       }
 
       _valueStringChanged(_value, _oldValue) {
-        _value = Number(_value);
-
-        const value = this._checkValue(_value, Number(_oldValue), this.min, this.max);
+        const value = this._checkValue(parseFloat(_value), parseFloat(_oldValue), this.min, this.max);
         if (value !== _value) {
-          this.$.input.value = this.noPadding ? value : this._format(value);
-          this._valueString = this.$.input.value;
-          if (!this.noAutoWidth) {
-            let length = this.$.input.value.replace(/\D/g, '').length + 0.5*this.$.input.value.replace(/\d/g, '').length;
-            if (((Number.parseFloat(this.$.input.style.width) || 0) < length) || (this.padLength === undefined)) {
-              length = this.$.input.value.replace(/\D/g, '').length + (!(this.min < 0) && value >= 0 ? -0.5 : 0);
-              this._computeWidth(length, this.placeholder, this.min, this.max, this.step);
-            }
-          }
-          this._inputChanged();
+          this._valueString = this.noPadding ? value : this._format(value);
+          this.$.input.value = this._valueString + (this.unit ? ('\u2008' + this.unit): '');
         }
 
         this.value = value;
@@ -283,18 +279,8 @@
           return;
         }
 
-        this.$.input.value = this.noPadding ? value : this._format(value);
-        if (!this.noAutoWidth) {
-          let length = this.$.input.value.replace(/\D/g, '').length + 0.5*this.$.input.value.replace(/\d/g, '').length;
-          if (((Number.parseFloat(this.$.input.style.width) || 0) < length) || (this.padLength === undefined)) {
-            length = this.$.input.value.replace(/\D/g, '').length + (!(this.min < 0) && value >= 0 ? -0.5 : 0);
-            this._computeWidth(length, this.placeholder, this.min, this.max, this.step);
-          }
-        }
-        this._inputChanged();
-      }
-
-      _inputChanged() {
+        const _valueString = this.noPadding ? value : this._format(value);
+        this.$.input.value = _valueString + (this.unit ? ('\u2008' + this.unit): '');
       }
 
       _checkKeycode(e) {
@@ -313,8 +299,8 @@
           }
         }
 
-        // enter
-        if (e.keyCode === 13) {
+        // enter & space
+        if (e.keyCode === 13 || e.keyCode === 32) {
           this._checkInput();
           return;
         }
@@ -348,7 +334,7 @@
         if (step === undefined) return;
 
         step = step || this.step || 1;
-        const value = this._safeAdd(Number(this.$.input.value) || this.value, step);
+        const value = this._safeAdd(parseFloat(this.$.input.value) || this.value, step);
         this.value = this._checkValue(value, this.value, this.min, this.max);
       }
 
@@ -380,7 +366,7 @@
           return max;
           // return this._checkStep(max, this.step, min, max);
         }
-        if (max !== undefined && value > max) {
+        if (max !== undefined && value >= max) {
           // max = this._checkStep(max, this.step, min, max);
           if (saturate || min === undefined || max !== oldValue) {
             return max;
@@ -438,7 +424,7 @@
         return Number(whole.slice(0, whole.length - decimal) + '.' + whole.slice(whole.length - decimal));
       }
 
-      _computeWidth(padLength, placeholder, min, max, step) {
+      _computeWidth(valueString, padLength, placeholder, min, max, step, unit) {
         if (this.noAutoWidth) return;
 
         let width;
@@ -451,11 +437,12 @@
         }
         let length;
         if (min !== undefined && (length = ('' + min).replace(/\D/g, '').length) > (width || 0))
-            width = length;
+          width = length;
         if (max !== undefined && (length = ('' + max).replace(/\D/g, '').length) > (width || 0))
-            width = length;
+          width = length;
         if (step !== undefined && (length = ('' + step).replace(/\D/g, '').length) > (width || 0))
-            width = length;
+          width = length;
+
         // signs
         if (width && (min === undefined || min < 0 || max < 0)) {
           width += 0.5;
@@ -463,6 +450,16 @@
         if (width && step && ('' + step).indexOf('.') !== -1) {
           width += 0.5;
         }
+
+        if (valueString) {
+          length = valueString.replace(/\D/g, '').length + 0.5*valueString.replace(/\d/g, '').length;
+          if ((width || 0) < length)
+            width = length;
+        }
+
+        if (typeof unit === 'string')
+          width += unit.length;
+
         if (width !== undefined) {
           // IE fix
           if (navigator.userAgent.match(/Trident/g)) {

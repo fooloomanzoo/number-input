@@ -1,6 +1,6 @@
 {
   "name": "@fooloomanzoo/number-input",
-  "version": "1.1.10",
+  "version": "1.2.0",
   "description": "input for numeric values",
   "main": "index.html",
   "directories": {
@@ -18,7 +18,10 @@
     "number",
     "input",
     "polymer",
-    "webcomponents"
+    "webcomponents",
+    "unit",
+    "min",
+    "max"
   ],
   "author": "fooloomanzoo",
   "license": "MIT"
