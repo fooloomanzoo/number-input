@@ -303,13 +303,14 @@
           return;
         }
         // up or down key press
-        const step = this.step || 1;
-        const inc = (e.keyCode === 38) ? step : (e.keyCode === 40 ? -step : 0);
-        if (inc !== 0) {
-          this._startIncrem(inc);
-          e.preventDefault();
-          e.stopPropagation();
-          return;
+        if (this.step !== undefined) {
+          const inc = (e.keyCode === 38) ? this.step : (e.keyCode === 40 ? -this.step : 0);
+          if (inc !== 0) {
+            this._startIncrem(inc);
+            e.preventDefault();
+            e.stopPropagation();
+            return;
+          }
         }
 
         // enter
@@ -328,6 +329,9 @@
 
       _startIncrem(step) {
         this._stopIncrem();
+
+        if (step === undefined) return;
+
         this._increm(step);
         this._activeJob = setInterval(() => {
           this._increm(step);
@@ -341,7 +345,7 @@
       }
 
       _increm(step) {
-        if (!step) return;
+        if (step === undefined) return;
 
         step = step || this.step || 1;
         const value = this._safeAdd(Number(this.$.input.value) || this.value, step);
@@ -373,10 +377,11 @@
           if (saturate || max === undefined || oldValue !== min) {
             return min;
           }
-          return this._checkStep(max, this.step, min, max);
+          return max;
+          // return this._checkStep(max, this.step, min, max);
         }
         if (max !== undefined && value > max) {
-          max = this._checkStep(max, this.step, min, max);
+          // max = this._checkStep(max, this.step, min, max);
           if (saturate || min === undefined || max !== oldValue) {
             return max;
           }
