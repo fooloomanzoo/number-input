@@ -116,14 +116,15 @@
            */
           padLength: {
             type: Number,
-            reflectToAttribute: true
+            observer: '_updateView'
           },
           /**
            * placeholder string
            * @type {string}
            */
           placeholder: {
-            type: String
+            type: String,
+            observer: '_updateView'
           },
           /**
            * disables the input
@@ -145,13 +146,14 @@
            * @type {boolean}
            */
           noPadding: {
-            type: Boolean
+            type: Boolean,
+            observer: '_updateView'
           },
           /**
            * value string of the input
            * @type {string}
            */
-          _valueString: {
+          valueString: {
             type: String,
             notify: true,
             observer: '_valueStringChanged'
@@ -176,7 +178,7 @@
 
       static get observers() {
         return [
-          '_computeWidth(value, padLength, placeholder, unit)'
+          '_computeWidth(value, placeholder)'
         ]
       }
 
@@ -192,7 +194,7 @@
       }
 
       _format(n, padLength, toFixed) {
-        n = Number(n);
+        n = parseFloat(n);
         let str = n.toFixed(toFixed !== undefined ? toFixed : (this._toFixed || 0));
         // console.log(n, str);
         let targetLength = (padLength || this.padLength || (this.placeholder && this.placeholder.length) || (n !== 0 ? Math.abs(Math.log(Math.abs(n)) * Math.LOG10E) : 1)) - str.replace(/\D/g, '').length;
@@ -230,10 +232,11 @@
       }
 
       _valueStringChanged(_value, _oldValue) {
-        const value = this._checkValue(parseFloat(_value), parseFloat(_oldValue));
-        if (value !== _value) {
-          this._valueString = this.noPadding ? value : this._format(value);
-          this.$.input.value = this._valueString + (this.unit ? ('\u202F' + this.unit): '');
+        _value = parseFloat(_value);
+        const value = this._checkValue(_value, parseFloat(_oldValue));
+        if (!isNaN(_value) && value !== _value) {
+          this.valueString = this.noPadding ? value : this._format(value);
+          this.$.input.value = this.valueString + (this.unit ? ('\u202F' + this.unit): '');
         }
 
         this.value = value;
@@ -308,52 +311,33 @@
         this.value = this._checkValue(value, this.value);
       }
 
-      _computeWidth(value, padLength, placeholder, unit) {
+      _updateView(prop) {
+        if (prop !== undefined) {
+          this._computeWidth(this.value);
+        }
+      }
+
+      _computeWidth(value) {
         if (this.noAutoWidth) return;
 
-        const valueString = '' + value,
-          min = this.min,
-          max = this.max,
-          step = this.step;
+        let valueString = value && (this._format(value)),
+          min = this.min && this._format(this.min),
+          max = this.max && this._format(this.max);
 
-        let ch = valueString.replace(/\D/g, '').length + 0.5*valueString.replace(/\d/g, '').length;
-        // numbers
-        if (padLength && padLength > ch) {
-          ch = padLength;
-        }
-        if (placeholder && placeholder.length > ch) {
-          ch = placeholder.length;
-        }
-        let length;
-        if (min !== undefined && (length = ('' + min).replace(/\D/g, '').length) > ch)
-          ch = length;
-        if (max !== undefined && (length = ('' + max).replace(/\D/g, '').length) > ch)
-          ch = length;
-        if (step !== undefined && (length = ('' + step).replace(/\D/g, '').length) > ch)
-          ch = length;
+        const longest = [min, max, valueString, this.placeholder].reduce( (acc, curr) => {
+          return (acc && acc.length > curr.length) ? acc : curr;
+        });
 
-        // signs
-        if (value > 0 && (min === undefined || min < 0 || max < 0)) {
-          ch += 0.5;
-        }
-        if (step !== undefined && ('' + step).indexOf('.') !== -1 && valueString.indexOf('.') !== -1) {
-          ch += 0.5;
-        }
-        if (this.unit) {
-          ch += 0.5;
+        let corrector = 0;
+
+        if (this.step && ('' + this.step).indexOf('.') !== -1 && longest.indexOf('.') === -1) {
+          corrector += 0.5;
         }
 
-        ch -= valueString.length;
-
-        // IE fix
-        if (navigator.userAgent.match(/Trident/g)) {
-          ch += 1;
-        }
-        this.$.test.innerText  = this.$.input.value;
+        this.$.test.innerText = longest + (this.unit ? ('\u2008' + this.unit): '');
         const rect = this.$.test.getBoundingClientRect();
 
-        this.$.input.style.width = 'calc(' + (ch || 0) + 'ch + ' + rect.width + 'px)';
-
+        this.$.input.style.width = 'calc(' + rect.width + 'px' + corrector + 'ch)';
       }
 
       _noAutoWidthChanged(noAutoWidth) {
