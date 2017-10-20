@@ -73,6 +73,15 @@
               font-weight: inherit;
               @apply --number-input;
             }
+            #test {
+              font-family: inherit;
+              font-size: inherit;
+              font-weight: inherit;
+              padding: 0;
+              position: absolute;
+              visibility: hidden;
+              pointer-events: none;
+            }
             #input:hover,
             #input:focus {
               @apply --number-input-focus;
@@ -95,6 +104,7 @@
             on-blur="_checkInput"
             on-keydown="_checkKeycode"
             on-keyup="_stopIncrem">
+          <div id="test"></div>
         `;
       }
 
@@ -166,7 +176,7 @@
 
       static get observers() {
         return [
-          '_computeWidth(_valueString, padLength, placeholder, min, max, step, unit)'
+          '_computeWidth(value, padLength, placeholder, unit)'
         ]
       }
 
@@ -220,10 +230,10 @@
       }
 
       _valueStringChanged(_value, _oldValue) {
-        const value = this._checkValue(parseFloat(_value), parseFloat(_oldValue), this.min, this.max);
+        const value = this._checkValue(parseFloat(_value), parseFloat(_oldValue));
         if (value !== _value) {
           this._valueString = this.noPadding ? value : this._format(value);
-          this.$.input.value = this._valueString + (this.unit ? ('\u2008' + this.unit): '');
+          this.$.input.value = this._valueString + (this.unit ? ('\u202F' + this.unit): '');
         }
 
         this.value = value;
@@ -232,7 +242,7 @@
       _valueChanged(value, oldValue) {
         if (value === undefined) return;
 
-        value = this._checkValue(value, oldValue, this.min, this.max);
+        value = this._checkValue(value, oldValue);
 
         if (value !== this.value) {
           this.value = value;
@@ -295,52 +305,55 @@
 
         step = step || this.step || 1;
         const value = this._safeAdd(parseFloat(this.$.input.value) || this.value, step);
-        this.value = this._checkValue(value, this.value, this.min, this.max);
+        this.value = this._checkValue(value, this.value);
       }
 
-      _computeWidth(valueString, padLength, placeholder, min, max, step, unit) {
+      _computeWidth(value, padLength, placeholder, unit) {
         if (this.noAutoWidth) return;
 
-        let width;
+        const valueString = '' + value,
+          min = this.min,
+          max = this.max,
+          step = this.step;
+
+        let ch = valueString.replace(/\D/g, '').length + 0.5*valueString.replace(/\d/g, '').length;
         // numbers
-        if (padLength && padLength > (width || 0)) {
-          width = padLength;
+        if (padLength && padLength > ch) {
+          ch = padLength;
         }
-        if (placeholder && placeholder.length > (width || 0)) {
-          width = placeholder.length;
+        if (placeholder && placeholder.length > ch) {
+          ch = placeholder.length;
         }
         let length;
-        if (min !== undefined && (length = ('' + min).replace(/\D/g, '').length) > (width || 0))
-          width = length;
-        if (max !== undefined && (length = ('' + max).replace(/\D/g, '').length) > (width || 0))
-          width = length;
-        if (step !== undefined && (length = ('' + step).replace(/\D/g, '').length) > (width || 0))
-          width = length;
+        if (min !== undefined && (length = ('' + min).replace(/\D/g, '').length) > ch)
+          ch = length;
+        if (max !== undefined && (length = ('' + max).replace(/\D/g, '').length) > ch)
+          ch = length;
+        if (step !== undefined && (length = ('' + step).replace(/\D/g, '').length) > ch)
+          ch = length;
 
         // signs
-        if (width && (min === undefined || min < 0 || max < 0)) {
-          width += 0.5;
+        if (value > 0 && (min === undefined || min < 0 || max < 0)) {
+          ch += 0.5;
         }
-        if (width && step && ('' + step).indexOf('.') !== -1) {
-          width += 0.5;
+        if (step !== undefined && ('' + step).indexOf('.') !== -1 && valueString.indexOf('.') !== -1) {
+          ch += 0.5;
         }
-
-        if (valueString) {
-          length = valueString.replace(/\D/g, '').length + 0.5*valueString.replace(/\d/g, '').length;
-          if ((width || 0) < length)
-            width = length;
+        if (this.unit) {
+          ch += 0.5;
         }
 
-        if (typeof unit === 'string')
-          width += unit.length;
+        ch -= valueString.length;
 
-        if (width !== undefined) {
-          // IE fix
-          if (navigator.userAgent.match(/Trident/g)) {
-            width += 1;
-          }
-          this.$.input.style.width = width + 'ch';
+        // IE fix
+        if (navigator.userAgent.match(/Trident/g)) {
+          ch += 1;
         }
+        this.$.test.innerText  = this.$.input.value;
+        const rect = this.$.test.getBoundingClientRect();
+
+        this.$.input.style.width = 'calc(' + (ch || 0) + 'ch + ' + rect.width + 'px)';
+
       }
 
       _noAutoWidthChanged(noAutoWidth) {

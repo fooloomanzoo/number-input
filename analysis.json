@@ -18,12 +18,14 @@
               "column": 10
             },
             "end": {
-              "line": 19,
+              "line": 20,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "observer": "\"_updateValue\""
+            }
           },
           "inheritedFrom": "RangeMixin"
         },
@@ -35,16 +37,18 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 24,
+              "line": 25,
               "column": 10
             },
             "end": {
-              "line": 26,
+              "line": 28,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "observer": "\"_updateValue\""
+            }
           },
           "inheritedFrom": "RangeMixin"
         },
@@ -56,16 +60,18 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 31,
+              "line": 33,
               "column": 10
             },
             "end": {
-              "line": 34,
+              "line": 37,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "observer": "\"_updateValue\""
+            }
           },
           "defaultValue": "1",
           "inheritedFrom": "RangeMixin"
@@ -78,11 +84,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 39,
+              "line": 42,
               "column": 10
             },
             "end": {
-              "line": 43,
+              "line": 46,
               "column": 11
             }
           },
@@ -97,21 +103,23 @@
         {
           "name": "saturate",
           "type": "boolean",
-          "description": "if true, the value does not overflow the maximum or underflow the minimum",
+          "description": "if true, the value does not revolve the range according to the maximum or the minimum",
           "privacy": "public",
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 48,
+              "line": 51,
               "column": 10
             },
             "end": {
-              "line": 50,
+              "line": 54,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "observer": "\"_updateValue\""
+            }
           },
           "inheritedFrom": "RangeMixin"
         },
@@ -307,11 +315,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 65,
+              "line": 69,
               "column": 6
             },
             "end": {
-              "line": 88,
+              "line": 94,
               "column": 7
             }
           },
@@ -322,14 +330,27 @@
             },
             {
               "name": "oldValue"
-            },
-            {
-              "name": "min"
-            },
-            {
-              "name": "max"
             }
           ],
+          "inheritedFrom": "RangeMixin"
+        },
+        {
+          "name": "_updateValue",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components\\range-input\\range-mixin.html",
+            "start": {
+              "line": 96,
+              "column": 6
+            },
+            "end": {
+              "line": 100,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [],
           "inheritedFrom": "RangeMixin"
         },
         {
@@ -339,11 +360,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 90,
+              "line": 102,
               "column": 6
             },
             "end": {
-              "line": 101,
+              "line": 115,
               "column": 7
             }
           },
@@ -354,12 +375,6 @@
             },
             {
               "name": "step"
-            },
-            {
-              "name": "min"
-            },
-            {
-              "name": "max"
             }
           ],
           "inheritedFrom": "RangeMixin"
@@ -371,11 +386,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 109,
+              "line": 123,
               "column": 6
             },
             "end": {
-              "line": 128,
+              "line": 142,
               "column": 7
             }
           },
@@ -405,11 +420,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 136,
+              "line": 150,
               "column": 6
             },
             "end": {
-              "line": 149,
+              "line": 163,
               "column": 7
             }
           },
@@ -762,7 +777,7 @@
               "column": 10
             },
             "end": {
-              "line": 19,
+              "line": 20,
               "column": 11
             }
           },
@@ -776,11 +791,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 24,
+              "line": 25,
               "column": 10
             },
             "end": {
-              "line": 26,
+              "line": 28,
               "column": 11
             }
           },
@@ -794,11 +809,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 31,
+              "line": 33,
               "column": 10
             },
             "end": {
-              "line": 34,
+              "line": 37,
               "column": 11
             }
           },
@@ -812,11 +827,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 39,
+              "line": 42,
               "column": 10
             },
             "end": {
-              "line": 43,
+              "line": 46,
               "column": 11
             }
           },
@@ -826,15 +841,15 @@
         },
         {
           "name": "saturate",
-          "description": "if true, the value does not overflow the maximum or underflow the minimum",
+          "description": "if true, the value does not revolve the range according to the maximum or the minimum",
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 48,
+              "line": 51,
               "column": 10
             },
             "end": {
-              "line": 50,
+              "line": 54,
               "column": 11
             }
           },

@@ -19,7 +19,7 @@ The normal `input` with `type="number"` is fairly good to use, but it has some f
 * size the input (according to it's length)
 * overflow to minimum or underflow to maximum
 * saturate to minimum or to maximum
-* display a specified unit
+* display a specified unit and size the input
 
 This element wants to achieve that. It does use **decimal notation**, like `123.4`, but does not display _scientific (exponential) notation_, like `1.234e+2`.
 
