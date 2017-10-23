@@ -53,7 +53,7 @@
               </custom-style>
               <number-input value="{{value}}" step="0.001" max="1" min="-1"></number-input>
               <div class="vertical-section-container result">
-                <div><code>step</code>: <b>0.001</b></div>
+                <div><code>step</code>: <b>0.001</b><code>min</code>: <b>-1</b><code>max</code>: <b>1</b></div>
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
             </template>
@@ -92,7 +92,7 @@
                   }
                 </style>
               </custom-style>
-              <number-input class="custom-color" value="{{value}}" pad-length="4" saturate placeholder="0000" min="-1000" step="100" max="1000"></number-input>
+              <number-input class="custom-color" value="{{value}}" pad-length="4" saturate placeholder="0000" min="0" step="100" max="999"></number-input>
               <div class="vertical-section-container result">
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>

@@ -61,6 +61,9 @@
               display: block;
               box-sizing: content-box;
             }
+            :host(:focus) {
+              outline: none;
+            }
             --number-input: {
               @apply --input-style;
             };
@@ -186,6 +189,9 @@
         super.connectedCallback();
         this._ensureAttribute('tabindex', 0);
         this.addEventListener('focus', this.focus.bind(this), false);
+        if (this.value === undefined) {
+          this._checkInput();
+        }
       }
 
       disconnectedCallback() {
@@ -195,9 +201,9 @@
 
       _format(n, padLength, toFixed) {
         n = parseFloat(n);
-        let str = n.toFixed(toFixed !== undefined ? toFixed : (this._toFixed || 0));
+        let str = isNaN(n) ? '' : n.toFixed(toFixed !== undefined ? toFixed : (this._toFixed || 0));
         // console.log(n, str);
-        let targetLength = (padLength || this.padLength || (this.placeholder && this.placeholder.length) || (n !== 0 ? Math.abs(Math.log(Math.abs(n)) * Math.LOG10E) : 1)) - str.replace(/\D/g, '').length;
+        let targetLength = (padLength || this.padLength || (this.placeholder && this.placeholder.length) || (n !== 0 ? Math.floor(Math.abs(Math.log(Math.abs(n)) * Math.LOG10E) + 1) : 1)) - str.replace(/\D/g, '').length;
         const padString = '0';
         if (targetLength < 0) {
           return str;
@@ -228,13 +234,19 @@
       }
 
       _checkInput() {
-        this._valueStringChanged(this.$.input.value || 0, this.valueString);
+        this._valueStringChanged(this.$.input.value);
       }
 
       _valueStringChanged(valueString, oldValueString) {
         const newValue = parseFloat(valueString);
         const oldValue = parseFloat(oldValueString);
-        const value = this._checkValue(newValue, oldValue);
+        let value;
+
+        if (isNaN(oldValueString)) {
+          value = this._checkValue(newValue);
+        } else {
+          value = this._checkValue(newValue, oldValue);
+        }
         valueString = this.noPadding ? value : this._format(value);
 
         if (this.valueString !== valueString) {
@@ -248,7 +260,11 @@
       _valueChanged(value, oldValue) {
         if (value === undefined) return;
 
-        value = this._checkValue(value, oldValue);
+        if (isNaN(oldValue)) {
+          value = this._checkValue(value);
+        } else {
+          value = this._checkValue(value, oldValue);
+        }
         const valueString = this.noPadding ? value : this._format(value);
 
         if (this.value !== value) {
@@ -316,7 +332,6 @@
 
       _updateView(prop) {
         if (prop !== undefined) {
-          console.log(prop);
           this._computeWidth(this.value);
         }
       }
@@ -324,12 +339,13 @@
       _computeWidth(value) {
         if (this.noAutoWidth) return;
 
-        let valueString = (value && (this._format(value))) || '',
+        let valueString = (!isNaN(value) && this._format(value)) || '',
           min = (this.min && this._format(this.min)) || '',
           max = (this.max && this._format(this.max)) || '',
           placeholder = this.placeholder || '';
 
         const longest = [min, max, valueString, placeholder].reduce( (acc, curr) => {
+          curr = this._format(curr);
           return (acc && acc.length > curr.length) ? acc : curr;
         });
 
@@ -342,7 +358,7 @@
         this.$.test.innerText = longest + (this.unit ? ('\u2008' + this.unit): '');
         const rect = this.$.test.getBoundingClientRect();
 
-        this.$.input.style.width = 'calc(' + (rect.width || 0) + 'px + ' + (corrector || 0) + 'ch)';
+        this.$.input.style.width = 'calc(' + (rect.width || 0) + 'px + ' + corrector + 'ch)';
       }
 
       _noAutoWidthChanged(noAutoWidth) {
