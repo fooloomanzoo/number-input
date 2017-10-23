@@ -189,9 +189,6 @@
         super.connectedCallback();
         this._ensureAttribute('tabindex', 0);
         this.addEventListener('focus', this.focus.bind(this), false);
-        if (this.value === undefined) {
-          this._checkInput();
-        }
       }
 
       disconnectedCallback() {
