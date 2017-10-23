@@ -76,15 +76,6 @@
               font-weight: inherit;
               @apply --number-input;
             }
-            #test {
-              font-family: inherit;
-              font-size: inherit;
-              font-weight: inherit;
-              padding: 0;
-              position: absolute;
-              visibility: hidden;
-              pointer-events: none;
-            }
             #input:hover,
             #input:focus {
               @apply --number-input-focus;
@@ -107,7 +98,6 @@
             on-blur="_checkInput"
             on-keydown="_checkKeycode"
             on-keyup="_stopIncrem">
-          <div id="test"></div>
         `;
       }
 
@@ -142,6 +132,7 @@
            */
           noAutoWidth: {
             type: Boolean,
+            value: false,
             observer: '_noAutoWidthChanged'
           },
           /**
@@ -181,7 +172,7 @@
 
       static get observers() {
         return [
-          '_computeWidth(value, placeholder)'
+          '_debouncedComputeWidth(value)'
         ]
       }
 
@@ -194,6 +185,7 @@
       disconnectedCallback() {
         super.disconnectedCallback();
         this.removeEventListener('focus', this.focus.bind(this), false);
+        window.removeEventListener('resize', this._debouncedComputeWidth.bind(this, this.value), false);
       }
 
       _format(n, padLength, toFixed) {
@@ -329,9 +321,17 @@
 
       _updateView(prop) {
         if (prop !== undefined) {
-          this._computeWidth(this.value);
+          this._debouncedComputeWidth(this.value);
         }
       }
+
+      _debouncedComputeWidth(value) {
+        if (this._activeResizeJob) {
+          cancelAnimationFrame(this._activeResizeJob);
+        }
+        this._activeResizeJob = requestAnimationFrame(this._computeWidth.bind(this, value));
+      }
+
 
       _computeWidth(value) {
         if (this.noAutoWidth) return;
@@ -351,19 +351,35 @@
         if (this.step && ('' + this.step).indexOf('.') !== -1 && longest.indexOf('.') === -1) {
           corrector += 0.5;
         }
+        const style = window.getComputedStyle(this.$.input);
+        this._test.style.fontSize = style.fontSize;
+        this._test.style.fontFamily = style.fontFamily;
+        this._test.style.fontWeight = style.fontWeight;
+        this._test.innerText = longest + (this.unit ? ('\u2008' + this.unit): '');
 
-        this.$.test.innerText = longest + (this.unit ? ('\u2008' + this.unit): '');
-        const rect = this.$.test.getBoundingClientRect();
-
-        this.$.input.style.width = 'calc(' + (rect.width || 0) + 'px + ' + corrector + 'ch)';
+        const rect = this._test.getBoundingClientRect();
+        this.$.input.style.width = 'calc(' + (rect.width || 16) + 'px + ' + corrector + 'ch)';
       }
 
       _noAutoWidthChanged(noAutoWidth) {
         if (!noAutoWidth) {
-          this._computeWidth(this.value);
+          if (!this._test) {
+            this._test = document.createElement('div');
+            this._test.style.pointerEvents = 'none';
+            this._test.style.padding = 0;
+            this._test.style.position = 'fixed';
+            this._test.style.top = 0;
+            this._test.style.left = 0;
+            this._test.style.visibility = 'hidden';
+            this._test.classList.add('test', 'number-input');
+            document.body.appendChild(this._test);
+          }
+          this._debouncedComputeWidth(this.value);
+          window.addEventListener('resize', this._debouncedComputeWidth.bind(this, this.value), false);
           return;
         }
         this.$.input.style.width = '';
+        window.removeEventListener('resize', this._debouncedComputeWidth.bind(this, this.value), false);
       }
 
       /**
