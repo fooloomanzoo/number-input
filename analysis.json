@@ -130,16 +130,18 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 106,
+              "line": 116,
               "column": 10
             },
             "end": {
-              "line": 109,
+              "line": 119,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "observer": "\"_updateView\""
+            }
           }
         },
         {
@@ -149,16 +151,18 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 114,
+              "line": 124,
               "column": 10
             },
             "end": {
-              "line": 116,
+              "line": 127,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "observer": "\"_updateView\""
+            }
           }
         },
         {
@@ -168,11 +172,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 121,
+              "line": 132,
               "column": 10
             },
             "end": {
-              "line": 123,
+              "line": 134,
               "column": 11
             }
           },
@@ -187,11 +191,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 128,
+              "line": 139,
               "column": 10
             },
             "end": {
-              "line": 131,
+              "line": 142,
               "column": 11
             }
           },
@@ -208,30 +212,32 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 136,
+              "line": 147,
               "column": 10
             },
             "end": {
-              "line": 138,
+              "line": 150,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "observer": "\"_updateView\""
+            }
           }
         },
         {
-          "name": "_valueString",
+          "name": "valueString",
           "type": "string",
           "description": "value string of the input",
-          "privacy": "protected",
+          "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 143,
+              "line": 155,
               "column": 10
             },
             "end": {
-              "line": 147,
+              "line": 159,
               "column": 11
             }
           },
@@ -249,11 +255,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 152,
+              "line": 164,
               "column": 10
             },
             "end": {
-              "line": 154,
+              "line": 166,
               "column": 11
             }
           },
@@ -268,11 +274,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 159,
+              "line": 171,
               "column": 10
             },
             "end": {
-              "line": 162,
+              "line": 174,
               "column": 11
             }
           },
@@ -290,11 +296,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 231,
+              "line": 247,
               "column": 6
             },
             "end": {
-              "line": 243,
+              "line": 259,
               "column": 7
             }
           },
@@ -453,11 +459,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 172,
+              "line": 184,
               "column": 6
             },
             "end": {
-              "line": 176,
+              "line": 188,
               "column": 7
             }
           },
@@ -470,11 +476,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 178,
+              "line": 190,
               "column": 6
             },
             "end": {
-              "line": 181,
+              "line": 193,
               "column": 7
             }
           },
@@ -487,11 +493,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 183,
+              "line": 195,
               "column": 6
             },
             "end": {
-              "line": 203,
+              "line": 215,
               "column": 7
             }
           },
@@ -514,11 +520,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 205,
+              "line": 217,
               "column": 6
             },
             "end": {
-              "line": 215,
+              "line": 227,
               "column": 7
             }
           },
@@ -535,11 +541,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 217,
+              "line": 229,
               "column": 6
             },
             "end": {
-              "line": 219,
+              "line": 231,
               "column": 7
             }
           },
@@ -552,21 +558,21 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 221,
+              "line": 233,
               "column": 6
             },
             "end": {
-              "line": 229,
+              "line": 245,
               "column": 7
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "_value"
+              "name": "valueString"
             },
             {
-              "name": "_oldValue"
+              "name": "oldValueString"
             }
           ]
         },
@@ -576,11 +582,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 245,
+              "line": 261,
               "column": 6
             },
             "end": {
-              "line": 273,
+              "line": 289,
               "column": 7
             }
           },
@@ -597,11 +603,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 275,
+              "line": 291,
               "column": 6
             },
             "end": {
-              "line": 284,
+              "line": 300,
               "column": 7
             }
           },
@@ -618,11 +624,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 286,
+              "line": 302,
               "column": 6
             },
             "end": {
-              "line": 290,
+              "line": 306,
               "column": 7
             }
           },
@@ -635,11 +641,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 292,
+              "line": 308,
               "column": 6
             },
             "end": {
-              "line": 298,
+              "line": 314,
               "column": 7
             }
           },
@@ -647,6 +653,27 @@
           "params": [
             {
               "name": "step"
+            }
+          ]
+        },
+        {
+          "name": "_updateView",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 316,
+              "column": 6
+            },
+            "end": {
+              "line": 321,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "prop"
             }
           ]
         },
@@ -656,36 +683,18 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 300,
+              "line": 323,
               "column": 6
             },
             "end": {
-              "line": 343,
+              "line": 345,
               "column": 7
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "valueString"
-            },
-            {
-              "name": "padLength"
-            },
-            {
-              "name": "placeholder"
-            },
-            {
-              "name": "min"
-            },
-            {
-              "name": "max"
-            },
-            {
-              "name": "step"
-            },
-            {
-              "name": "unit"
+              "name": "value"
             }
           ]
         },
@@ -695,11 +704,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 345,
+              "line": 347,
               "column": 6
             },
             "end": {
-              "line": 351,
+              "line": 353,
               "column": 7
             }
           },
@@ -716,11 +725,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 356,
+              "line": 358,
               "column": 6
             },
             "end": {
-              "line": 358,
+              "line": 360,
               "column": 7
             }
           },
@@ -733,11 +742,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 363,
+              "line": 365,
               "column": 6
             },
             "end": {
-              "line": 365,
+              "line": 367,
               "column": 7
             }
           },
@@ -759,7 +768,7 @@
           "column": 4
         },
         "end": {
-          "line": 366,
+          "line": 368,
           "column": 5
         }
       },
@@ -862,11 +871,11 @@
           "description": "length to pad the string (with `0`) according to the total amount of numbers",
           "sourceRange": {
             "start": {
-              "line": 106,
+              "line": 116,
               "column": 10
             },
             "end": {
-              "line": 109,
+              "line": 119,
               "column": 11
             }
           },
@@ -878,11 +887,11 @@
           "description": "placeholder string",
           "sourceRange": {
             "start": {
-              "line": 114,
+              "line": 124,
               "column": 10
             },
             "end": {
-              "line": 116,
+              "line": 127,
               "column": 11
             }
           },
@@ -894,11 +903,11 @@
           "description": "disables the input",
           "sourceRange": {
             "start": {
-              "line": 121,
+              "line": 132,
               "column": 10
             },
             "end": {
-              "line": 123,
+              "line": 134,
               "column": 11
             }
           },
@@ -910,11 +919,11 @@
           "description": "disable autosizing",
           "sourceRange": {
             "start": {
-              "line": 128,
+              "line": 139,
               "column": 10
             },
             "end": {
-              "line": 131,
+              "line": 142,
               "column": 11
             }
           },
@@ -926,11 +935,11 @@
           "description": "disable padding (auto-width still effected by `padLength`)",
           "sourceRange": {
             "start": {
-              "line": 136,
+              "line": 147,
               "column": 10
             },
             "end": {
-              "line": 138,
+              "line": 150,
               "column": 11
             }
           },
@@ -938,15 +947,31 @@
           "type": "boolean"
         },
         {
+          "name": "value-string",
+          "description": "value string of the input",
+          "sourceRange": {
+            "start": {
+              "line": 155,
+              "column": 10
+            },
+            "end": {
+              "line": 159,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
           "name": "unit",
           "description": "unit of the value",
           "sourceRange": {
             "start": {
-              "line": 152,
+              "line": 164,
               "column": 10
             },
             "end": {
-              "line": 154,
+              "line": 166,
               "column": 11
             }
           },
@@ -954,7 +979,14 @@
           "type": "string"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "type": "CustomEvent",
+          "name": "value-string-changed",
+          "description": "Fired when the `valueString` property changes.",
+          "metadata": {}
+        }
+      ],
       "styling": {
         "cssVariables": [],
         "selectors": []

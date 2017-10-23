@@ -228,32 +228,35 @@
       }
 
       _checkInput() {
-        this._valueStringChanged(this.$.input.value || 0, this.value);
+        this._valueStringChanged(this.$.input.value || 0, this.valueString);
       }
 
-      _valueStringChanged(_value, _oldValue) {
-        _value = parseFloat(_value);
-        const value = this._checkValue(_value, parseFloat(_oldValue));
-        if (!isNaN(_value) && value !== _value) {
-          this.valueString = this.noPadding ? value : this._format(value);
-          this.$.input.value = this.valueString + (this.unit ? ('\u202F' + this.unit): '');
-        }
+      _valueStringChanged(valueString, oldValueString) {
+        const newValue = parseFloat(valueString);
+        const oldValue = parseFloat(oldValueString);
+        const value = this._checkValue(newValue, oldValue);
+        valueString = this.noPadding ? value : this._format(value);
 
+        if (this.valueString !== valueString) {
+          this.valueString = valueString;
+          return;
+        }
         this.value = value;
+        this.$.input.value = valueString + (this.unit ? ('\u202F' + this.unit): '');
       }
 
       _valueChanged(value, oldValue) {
         if (value === undefined) return;
 
         value = this._checkValue(value, oldValue);
+        const valueString = this.noPadding ? value : this._format(value);
 
-        if (value !== this.value) {
+        if (this.value !== value) {
           this.value = value;
           return;
         }
-
-        const _valueString = this.noPadding ? value : this._format(value);
-        this.$.input.value = _valueString + (this.unit ? ('\u2008' + this.unit): '');
+        this.valueString = valueString;
+        this.$.input.value = valueString + (this.unit ? ('\u2008' + this.unit): '');
       }
 
       _checkKeycode(e) {
@@ -313,6 +316,7 @@
 
       _updateView(prop) {
         if (prop !== undefined) {
+          console.log(prop);
           this._computeWidth(this.value);
         }
       }
@@ -320,11 +324,12 @@
       _computeWidth(value) {
         if (this.noAutoWidth) return;
 
-        let valueString = value && (this._format(value)),
-          min = this.min && this._format(this.min),
-          max = this.max && this._format(this.max);
+        let valueString = (value && (this._format(value))) || '',
+          min = (this.min && this._format(this.min)) || '',
+          max = (this.max && this._format(this.max)) || '',
+          placeholder = this.placeholder || '';
 
-        const longest = [min, max, valueString, this.placeholder].reduce( (acc, curr) => {
+        const longest = [min, max, valueString, placeholder].reduce( (acc, curr) => {
           return (acc && acc.length > curr.length) ? acc : curr;
         });
 
@@ -337,12 +342,12 @@
         this.$.test.innerText = longest + (this.unit ? ('\u2008' + this.unit): '');
         const rect = this.$.test.getBoundingClientRect();
 
-        this.$.input.style.width = 'calc(' + rect.width + 'px' + corrector + 'ch)';
+        this.$.input.style.width = 'calc(' + (rect.width || 0) + 'px + ' + (corrector || 0) + 'ch)';
       }
 
       _noAutoWidthChanged(noAutoWidth) {
         if (!noAutoWidth) {
-          this._valueChanged(this.value);
+          this._computeWidth(this.value);
           return;
         }
         this.$.input.style.width = '';
