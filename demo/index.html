@@ -79,7 +79,6 @@
                       border-radius: 4px;
                       border-color: transparent;
                       border-style: unset;
-                      text-align: center;
                     };
                     --number-input-focus: {
                       background: rgba(60, 172, 78, 0.5);
@@ -119,7 +118,6 @@
                       border-radius: 4px;
                       border-color: transparent;
                       border-style: unset;
-                      text-align: right;
                     };
                     --number-input-focus: {
                       background: rgba(60, 61, 172, 0.9);
@@ -145,7 +143,34 @@
         <template>
           <dom-bind>
             <template is="dom-bind">
-              <number-input value="{{value}}" step="1.25" max="90" pad-length="5" unit="°"></number-input>
+              <number-input step="1.25" max="90" unit="°" value="{{value}}"></number-input>
+              <div class="vertical-section-container result">
+                <div><code>value</code>: <b>[[value]]</b></div>
+              </div>
+            </template>
+          </dom-bind>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container centered">
+      <h3>Localization</h3>
+      <demo-snippet>
+        <template>
+          <dom-bind>
+            <template is="dom-bind">
+              <select value="{{locale::change}}">
+                <option value=""></option>
+                <option value="en">english</option>
+                <option value="fr">français</option>
+                <option value="de">deutsch</option>
+                <option value="es">español</option>
+                <option value="it">italiano</option>
+                <option value="ru">русский</option>
+                <option value="ja">日本語</option>
+                <option value="zh">中文</option>
+              </select>
+              <number-input locale="[[locale]]" step="1000.0002" min="0" max="100000000" unit="µm" value="{{value}}"></number-input>
               <div class="vertical-section-container result">
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>

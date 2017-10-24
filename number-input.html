@@ -41,6 +41,7 @@
               font-family: inherit;
               font-size: inherit;
               font-weight: inherit;
+              text-align: center;
               @apply --number-input;
             }
             #input:hover,
@@ -75,16 +76,14 @@
            * @type {number}
            */
           padLength: {
-            type: Number,
-            observer: '_updateView'
+            type: Number
           },
           /**
            * placeholder string
            * @type {string}
            */
           placeholder: {
-            type: String,
-            observer: '_updateView'
+            type: String
           },
           /**
            * disables the input
@@ -107,8 +106,7 @@
            * @type {boolean}
            */
           noPadding: {
-            type: Boolean,
-            observer: '_updateView'
+            type: Boolean
           },
           /**
            * value string of the input
@@ -124,22 +122,40 @@
            * @type {string}
            */
           unit: {
-            type: String
+            type: String,
+            observer: '_checkInput'
           },
+
+          decimalSeparator: {
+            type: String,
+            value: '.'
+          },
+
           /**
-           * pad to precision
+           * minimum digits right to the decimal separator
            * @type {number}
            */
-          _toFixed: {
+          minimumFractionDigits: {
             type: Number,
-            computed: '_computeFixed(step)'
+            computed: '_computeMinimumFractionDigits(noPadding, step, min, max)'
+          },
+
+          /**
+           * minimum digits left to the decimal separator
+           * @type {number}
+           */
+          minimumIntegerDigits: {
+            type: Number,
+            computed: '_computeMinimumIntegerDigits(noPadding, padLength, min, max, minimumFractionDigits)'
           }
         }
       }
 
       static get observers() {
         return [
-          '_debouncedComputeWidth(value)'
+          '_debouncedComputeWidth(value)',
+          '_checkInput(formatNumber)',
+          '_checkInput(decimalSeparator)'
         ]
       }
 
@@ -155,38 +171,24 @@
         window.removeEventListener('resize', this._debouncedComputeWidth.bind(this, this.value), false);
       }
 
-      _format(n, padLength, toFixed) {
-        n = parseFloat(n);
-        let str = isNaN(n) ? '' : n.toFixed(toFixed !== undefined ? toFixed : (this._toFixed || 0));
-        // console.log(n, str);
-        let targetLength = (padLength || this.padLength || (this.placeholder && this.placeholder.length) || (n !== 0 ? Math.floor(Math.abs(Math.log(Math.abs(n)) * Math.LOG10E) + 1) : 1)) - str.replace(/\D/g, '').length;
-        const padString = '0';
-        if (targetLength < 0) {
-          return str;
-        } else {
-          if (n < 0) {
-            str = str.slice(1);
-          }
-          for (let i = 0; i < targetLength; i++) {
-            str = padString + str;
-          }
-          if (n < 0) {
-            str = '-' + str;
-          }
-          return str;
+      _computeMinimumFractionDigits(noPadding, step, min, max) {
+        if (noPadding === true) {
+          return 0;
         }
+        return ['0', '' + step, '' + min, '' + max].reduce( (acc, curr) => {
+          const pos = curr.indexOf('.');
+          return Math.max((pos < 0) ? 0 : (curr.length - 1 - pos), acc);
+        });
       }
 
-      _computeFixed(step) {
-        if (!step) {
-          return 0;
+      _computeMinimumIntegerDigits(noPadding, padLength, min, max, minimumFractionDigits) {
+        if (noPadding === true) {
+          return 1;
         }
-        const str = '' + step;
-        const pos = str.indexOf('.');
-        if (pos < 0) {
-          return 0;
-        }
-        return str.length - 1 - pos;
+        return Math.max(1, (padLength || 0) - (minimumFractionDigits || 0), ['1', '' + min, '' + max].reduce( (acc, curr) => {
+          const pos = curr.indexOf('.');
+          return Math.max(pos, acc);
+        }));
       }
 
       _checkInput() {
@@ -194,16 +196,18 @@
       }
 
       _valueStringChanged(valueString, oldValueString) {
-        const newValue = parseFloat(valueString);
-        const oldValue = parseFloat(oldValueString);
+        valueString = valueString || '';
+        oldValueString = oldValueString || '';
+        const newValue = parseFloat(valueString.replace(this.decimalSeparator, '.'));
+        const oldValue = parseFloat(oldValueString.replace(this.decimalSeparator, '.'));
         let value;
 
-        if (isNaN(oldValueString)) {
+        if (isNaN(oldValue)) {
           value = this._checkValue(newValue);
         } else {
           value = this._checkValue(newValue, oldValue);
         }
-        valueString = this.noPadding ? value : this._format(value);
+        valueString = this.noPadding ? value : this.formatNumber(value);
 
         if (this.valueString !== valueString) {
           this.valueString = valueString;
@@ -221,7 +225,7 @@
         } else {
           value = this._checkValue(value, oldValue);
         }
-        const valueString = this.noPadding ? value : this._format(value);
+        const valueString = this.noPadding ? value : this.formatNumber(value);
 
         if (this.value !== value) {
           this.value = value;
@@ -282,7 +286,7 @@
         if (step === undefined) return;
 
         step = step || this.step || 1;
-        const value = this._safeAdd(parseFloat(this.$.input.value) || this.value, step);
+        const value = this._safeAdd(parseFloat(this.$.input.value.replace(this.decimalSeparator, '.')) || this.value, step);
         this.value = this._checkValue(value, this.value);
       }
 
@@ -299,28 +303,47 @@
         this._activeResizeJob = requestAnimationFrame(this._computeWidth.bind(this, value));
       }
 
+      formatNumber() {
+        const n = arguments[0];
+        let str = '' + Math.abs(n);
+        const decimal = str.slice(str.indexOf('.')).length - 1;
+
+        console.log(n, str, decimal, this.minimumFractionDigits, this.minimumIntegerDigits);
+        if (this.minimumFractionDigits > 0) {
+          if (decimal === 0) {
+            str += '.';
+          }
+          for (let i = 0; i < this.minimumFractionDigits - decimal; i++) {
+            str += '0';
+          }
+        }
+        for (let i = 0; i < this.minimumIntegerDigits - decimal - 1; i++) {
+          str = '0' + str;
+        }
+        str.replace('.', this.decimalSeparator);
+        return (n < 0 ? '-' : '') + str;
+      }
 
       _computeWidth(value) {
         if (this.noAutoWidth) return;
 
-        let valueString = (!isNaN(value) && this._format(value)) || '',
-          min = (this.min && this._format(this.min)) || '',
-          max = (this.max && this._format(this.max)) || '',
+        let valueString = (!isNaN(value) && this.formatNumber(value)) || '',
+          min = (this.min && this.formatNumber(this.min)) || '',
+          max = (this.max && this.formatNumber(this.max)) || '',
           placeholder = this.placeholder || '';
 
-        const longest = [min, max, valueString, placeholder].reduce((acc, curr) => {
-          curr = this._format(curr);
+        if (!(this.min !== undefined && this.min >= 0) && valueString[0] !== '-') {
+          valueString = '-' + valueString;
+        }
+
+        const longest = ['', min, max, valueString, placeholder].reduce((acc, curr) => {
           return (acc && acc.length > curr.length) ? acc : curr;
         });
 
-        let corrector = 0;
+        if (this.step && ('' + this.step).indexOf('.') !== -1 && longest.indexOf(this.decimalSeparator) === -1) {
+          longest = longest + this.decimalSeparator;
+        }
 
-        if (this.step && ('' + this.step).indexOf('.') !== -1 && longest.indexOf('.') === -1) {
-          corrector += 0.5;
-        }
-        if (!(this.min !== undefined && this.min >= 0) && value >= 0) {
-          corrector += 0.5;
-        }
         const style = window.getComputedStyle(this.$.input);
         this._test.style.fontSize = style.fontSize;
         this._test.style.fontFamily = style.fontFamily;
@@ -328,7 +351,7 @@
         this._test.innerText = longest + (this.unit ? ('\u2008' + this.unit) : '');
 
         const rect = this._test.getBoundingClientRect();
-        this.$.input.style.width = 'calc(' + (rect.width || 16) + 'px + ' + corrector + 'ch)';
+        this.$.input.style.width = rect.width ? ('calc(' +  rect.width + 'px)') : '2ch';
       }
 
       _noAutoWidthChanged(noAutoWidth) {
@@ -365,6 +388,11 @@
       blur() {
         this.$.input.blur();
       }
+
+      _computeLocaleNumberFormat() {
+        super._computeLocaleNumberFormat(...arguments);
+        this._checkInput();
+      }
     }
   }
 </script>
@@ -380,6 +408,7 @@
      * * overflow to minimum or underflow to maximum
      * * saturate to minimum or to maximum
      * * display a specified unit and size the input
+     * * localization of the number format like the decimal separator (the value will still be a Number object)
      *
      * Example:
      * ```html
