@@ -351,6 +351,9 @@
         if (this.step && ('' + this.step).indexOf('.') !== -1 && longest.indexOf('.') === -1) {
           corrector += 0.5;
         }
+        if (!(this.min !== undefined && this.min >= 0) && value >= 0) {
+          corrector += 0.5;
+        }
         const style = window.getComputedStyle(this.$.input);
         this._test.style.fontSize = style.fontSize;
         this._test.style.fontFamily = style.fontFamily;
