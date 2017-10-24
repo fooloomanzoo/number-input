@@ -1,51 +1,18 @@
 <link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../range-input/range-mixin.html">
 
-<dom-module id="number-input">
-  <script>
+<script>
   /**
-   *  `number-input` is an element that can:
-   * * prevent non numeric input
-   * * guarantee **live** data to be valid
-   * * pad a value with `0`, to a specific length
-   * * size the input, according to it's length
-   *
-   * Example:
-   * ```html
-   * <number-input step="2" min="-20" max="140" pad-length="2"></number-input>
-   * ```
-   *
-   * It sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.
-   *
-   * ### Styling
-   * Custom property                  | Description                            | Default
-   * ---------------------------------|----------------------------------------|--------------------
-   * `--number-input`                 | style of the input                     | {}
-   * `--number-input-focus`           | style of the focussed and hovered input | {}
-   * `--number-input-placeholder`     | style of the placeholder               | {}
-   *
-   * ```css
-   * :host {
-   *   --number-input-focus: {
-   *     background: rgba(0,0,0,.25);
-   *   };
-   *   --number-input-placeholder: {
-   *     color: pink;
-   *   };
-   * }
-   * ```
-   * @polymer
-   * @customElement
+   * mixin to create a number-input
    *
    * @appliesMixin RangeMixin
    *
-   * @demo demo/index.html
-   **/
-    class NumberInput extends RangeMixin(Polymer.Element) {
+   * @mixinFunction
+   * @polymer
+   */
+  const NumberInputMixin = (superClass) => { // eslint-disable-line no-unused-vars
 
-      static get is() {
-        return 'number-input';
-      }
+    return class extends RangeMixin(superClass) {
 
       static get template() {
         return `
@@ -243,7 +210,7 @@
           return;
         }
         this.value = value;
-        this.$.input.value = valueString + (this.unit ? ('\u202F' + this.unit): '');
+        this.$.input.value = valueString + (this.unit ? ('\u202F' + this.unit) : '');
       }
 
       _valueChanged(value, oldValue) {
@@ -261,7 +228,7 @@
           return;
         }
         this.valueString = valueString;
-        this.$.input.value = valueString + (this.unit ? ('\u2008' + this.unit): '');
+        this.$.input.value = valueString + (this.unit ? ('\u2008' + this.unit) : '');
       }
 
       _checkKeycode(e) {
@@ -341,7 +308,7 @@
           max = (this.max && this._format(this.max)) || '',
           placeholder = this.placeholder || '';
 
-        const longest = [min, max, valueString, placeholder].reduce( (acc, curr) => {
+        const longest = [min, max, valueString, placeholder].reduce((acc, curr) => {
           curr = this._format(curr);
           return (acc && acc.length > curr.length) ? acc : curr;
         });
@@ -358,7 +325,7 @@
         this._test.style.fontSize = style.fontSize;
         this._test.style.fontFamily = style.fontFamily;
         this._test.style.fontWeight = style.fontWeight;
-        this._test.innerText = longest + (this.unit ? ('\u2008' + this.unit): '');
+        this._test.innerText = longest + (this.unit ? ('\u2008' + this.unit) : '');
 
         const rect = this._test.getBoundingClientRect();
         this.$.input.style.width = 'calc(' + (rect.width || 16) + 'px + ' + corrector + 'ch)';
@@ -397,6 +364,58 @@
        */
       blur() {
         this.$.input.blur();
+      }
+    }
+  }
+</script>
+
+<dom-module id="number-input">
+  <script>
+    /**
+     *  `number-input` is an element that can:
+     * * prevent non numeric input
+     * * guarantee **live**-data to be valid
+     * * pad a value with `0` (to a specific length)
+     * * size the input (according to it's length)
+     * * overflow to minimum or underflow to maximum
+     * * saturate to minimum or to maximum
+     * * display a specified unit and size the input
+     *
+     * Example:
+     * ```html
+     * <number-input step="2" min="-20" max="140" pad-length="2"></number-input>
+     * ```
+     *
+     * It sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.
+     *
+     * ### Styling
+     * Custom property                  | Description                            | Default
+     * ---------------------------------|----------------------------------------|--------------------
+     * `--number-input`                 | style of the input                     | {}
+     * `--number-input-focus`           | style of the focussed and hovered input | {}
+     * `--number-input-placeholder`     | style of the placeholder               | {}
+     *
+     * ```css
+     * :host {
+     *   --number-input-focus: {
+     *     background: rgba(0,0,0,.25);
+     *   };
+     *   --number-input-placeholder: {
+     *     color: pink;
+     *   };
+     * }
+     * ```
+     * @polymer
+     * @customElement
+     *
+     * @appliesMixin NumberInputMixin
+     *
+     * @demo demo/index.html
+     **/
+    class NumberInput extends NumberInputMixin(Polymer.Element) {
+
+      static get is() {
+        return 'number-input';
       }
     }
     window.customElements.define(NumberInput.is, NumberInput);

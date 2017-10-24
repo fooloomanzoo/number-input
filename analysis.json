@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "elements": [
     {
-      "description": "`number-input` is an element that can:\n* prevent non numeric input\n* guarantee **live** data to be valid\n* pad a value with `0`, to a specific length\n* size the input, according to it's length\n\nExample:\n```html\n<number-input step=\"2\" min=\"-20\" max=\"140\" pad-length=\"2\"></number-input>\n```\n\nIt sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.\n\n### Styling\nCustom property                  | Description                            | Default\n---------------------------------|----------------------------------------|--------------------\n`--number-input`                 | style of the input                     | {}\n`--number-input-focus`           | style of the focussed and hovered input | {}\n`--number-input-placeholder`     | style of the placeholder               | {}\n\n```css\n:host {\n  --number-input-focus: {\n    background: rgba(0,0,0,.25);\n  };\n  --number-input-placeholder: {\n    color: pink;\n  };\n}\n```",
+      "description": "`number-input` is an element that can:\n* prevent non numeric input\n* guarantee **live**-data to be valid\n* pad a value with `0` (to a specific length)\n* size the input (according to it's length)\n* overflow to minimum or underflow to maximum\n* saturate to minimum or to maximum\n* display a specified unit and size the input\n\nExample:\n```html\n<number-input step=\"2\" min=\"-20\" max=\"140\" pad-length=\"2\"></number-input>\n```\n\nIt sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.\n\n### Styling\nCustom property                  | Description                            | Default\n---------------------------------|----------------------------------------|--------------------\n`--number-input`                 | style of the input                     | {}\n`--number-input-focus`           | style of the focussed and hovered input | {}\n`--number-input-placeholder`     | style of the placeholder               | {}\n\n```css\n:host {\n  --number-input-focus: {\n    background: rgba(0,0,0,.25);\n  };\n  --number-input-placeholder: {\n    color: pink;\n  };\n}\n```",
       "summary": "",
       "path": "number-input.html",
       "properties": [
@@ -130,11 +130,1056 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 109,
+              "line": 76,
               "column": 10
             },
             "end": {
-              "line": 112,
+              "line": 79,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_updateView\""
+            }
+          },
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "description": "placeholder string",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 84,
+              "column": 10
+            },
+            "end": {
+              "line": 87,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_updateView\""
+            }
+          },
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "disables the input",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 92,
+              "column": 10
+            },
+            "end": {
+              "line": 94,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "noAutoWidth",
+          "type": "boolean",
+          "description": "disable autosizing",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 99,
+              "column": 10
+            },
+            "end": {
+              "line": 103,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_noAutoWidthChanged\""
+            }
+          },
+          "defaultValue": "false",
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "noPadding",
+          "type": "boolean",
+          "description": "disable padding (auto-width still effected by `padLength`)",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 108,
+              "column": 10
+            },
+            "end": {
+              "line": 111,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_updateView\""
+            }
+          },
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "valueString",
+          "type": "string",
+          "description": "value string of the input",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 116,
+              "column": 10
+            },
+            "end": {
+              "line": 120,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true,
+              "observer": "\"_valueStringChanged\""
+            }
+          },
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "unit",
+          "type": "string",
+          "description": "unit of the value",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 125,
+              "column": 10
+            },
+            "end": {
+              "line": 127,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "_toFixed",
+          "type": "number",
+          "description": "pad to precision",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 132,
+              "column": 10
+            },
+            "end": {
+              "line": 135,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          },
+          "inheritedFrom": "NumberInputMixin"
+        }
+      ],
+      "methods": [
+        {
+          "name": "_valueChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 215,
+              "column": 6
+            },
+            "end": {
+              "line": 231,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            },
+            {
+              "name": "oldValue"
+            }
+          ],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "_checkValue",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components\\range-input\\range-mixin.html",
+            "start": {
+              "line": 69,
+              "column": 6
+            },
+            "end": {
+              "line": 94,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            },
+            {
+              "name": "oldValue"
+            }
+          ],
+          "inheritedFrom": "RangeMixin"
+        },
+        {
+          "name": "_updateValue",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components\\range-input\\range-mixin.html",
+            "start": {
+              "line": 96,
+              "column": 6
+            },
+            "end": {
+              "line": 100,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "RangeMixin"
+        },
+        {
+          "name": "_checkStep",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components\\range-input\\range-mixin.html",
+            "start": {
+              "line": 102,
+              "column": 6
+            },
+            "end": {
+              "line": 115,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            },
+            {
+              "name": "step"
+            }
+          ],
+          "inheritedFrom": "RangeMixin"
+        },
+        {
+          "name": "_safeMult",
+          "description": "emulating handwritten multiplication",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components\\range-input\\range-mixin.html",
+            "start": {
+              "line": 123,
+              "column": 6
+            },
+            "end": {
+              "line": 142,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "a",
+              "type": "[number]",
+              "description": "[factor]"
+            },
+            {
+              "name": "b",
+              "type": "[number]",
+              "description": "[factor]"
+            }
+          ],
+          "return": {
+            "type": "[type]",
+            "desc": "[product]"
+          },
+          "inheritedFrom": "RangeMixin"
+        },
+        {
+          "name": "_safeAdd",
+          "description": "emulating handwritten addition",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components\\range-input\\range-mixin.html",
+            "start": {
+              "line": 150,
+              "column": 6
+            },
+            "end": {
+              "line": 163,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "a",
+              "type": "[number]",
+              "description": "[summand]"
+            },
+            {
+              "name": "b",
+              "type": "[number]",
+              "description": "[summand]"
+            }
+          ],
+          "return": {
+            "type": "[type]",
+            "desc": "[sum]"
+          },
+          "inheritedFrom": "RangeMixin"
+        },
+        {
+          "name": "connectedCallback",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 145,
+              "column": 6
+            },
+            "end": {
+              "line": 149,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "disconnectedCallback",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 151,
+              "column": 6
+            },
+            "end": {
+              "line": 155,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "_format",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 157,
+              "column": 6
+            },
+            "end": {
+              "line": 177,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "n"
+            },
+            {
+              "name": "padLength"
+            },
+            {
+              "name": "toFixed"
+            }
+          ],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "_computeFixed",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 179,
+              "column": 6
+            },
+            "end": {
+              "line": 189,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "step"
+            }
+          ],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "_checkInput",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 191,
+              "column": 6
+            },
+            "end": {
+              "line": 193,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "_valueStringChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 195,
+              "column": 6
+            },
+            "end": {
+              "line": 213,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "valueString"
+            },
+            {
+              "name": "oldValueString"
+            }
+          ],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "_checkKeycode",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 233,
+              "column": 6
+            },
+            "end": {
+              "line": 261,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "e"
+            }
+          ],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "_startIncrem",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 263,
+              "column": 6
+            },
+            "end": {
+              "line": 272,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "step"
+            }
+          ],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "_stopIncrem",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 274,
+              "column": 6
+            },
+            "end": {
+              "line": 278,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "_increm",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 280,
+              "column": 6
+            },
+            "end": {
+              "line": 286,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "step"
+            }
+          ],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "_updateView",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 288,
+              "column": 6
+            },
+            "end": {
+              "line": 292,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "prop"
+            }
+          ],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "_debouncedComputeWidth",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 294,
+              "column": 6
+            },
+            "end": {
+              "line": 299,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            }
+          ],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "_computeWidth",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 302,
+              "column": 6
+            },
+            "end": {
+              "line": 331,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            }
+          ],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "_noAutoWidthChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 333,
+              "column": 6
+            },
+            "end": {
+              "line": 352,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "noAutoWidth"
+            }
+          ],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "focus",
+          "description": "focus the input",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 357,
+              "column": 6
+            },
+            "end": {
+              "line": 359,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "blur",
+          "description": "focus the input",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 364,
+              "column": 6
+            },
+            "end": {
+              "line": 366,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "NumberInputMixin"
+        }
+      ],
+      "staticMethods": [],
+      "demos": [
+        {
+          "url": "demo/index.html",
+          "description": ""
+        }
+      ],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 414,
+          "column": 4
+        },
+        "end": {
+          "line": 419,
+          "column": 5
+        }
+      },
+      "privacy": "public",
+      "superclass": "HTMLElement",
+      "name": "NumberInput",
+      "attributes": [
+        {
+          "name": "min",
+          "description": "minimal input",
+          "sourceRange": {
+            "file": "bower_components\\range-input\\range-mixin.html",
+            "start": {
+              "line": 17,
+              "column": 10
+            },
+            "end": {
+              "line": 20,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "number",
+          "inheritedFrom": "RangeMixin"
+        },
+        {
+          "name": "max",
+          "description": "maximal input",
+          "sourceRange": {
+            "file": "bower_components\\range-input\\range-mixin.html",
+            "start": {
+              "line": 25,
+              "column": 10
+            },
+            "end": {
+              "line": 28,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "number",
+          "inheritedFrom": "RangeMixin"
+        },
+        {
+          "name": "step",
+          "description": "step for changing the input (referencing to `min` or `0`)",
+          "sourceRange": {
+            "file": "bower_components\\range-input\\range-mixin.html",
+            "start": {
+              "line": 33,
+              "column": 10
+            },
+            "end": {
+              "line": 37,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "number",
+          "inheritedFrom": "RangeMixin"
+        },
+        {
+          "name": "value",
+          "description": "value of the input",
+          "sourceRange": {
+            "file": "bower_components\\range-input\\range-mixin.html",
+            "start": {
+              "line": 42,
+              "column": 10
+            },
+            "end": {
+              "line": 46,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "number",
+          "inheritedFrom": "RangeMixin"
+        },
+        {
+          "name": "saturate",
+          "description": "if true, the value does not revolve the range according to the maximum or the minimum",
+          "sourceRange": {
+            "file": "bower_components\\range-input\\range-mixin.html",
+            "start": {
+              "line": 51,
+              "column": 10
+            },
+            "end": {
+              "line": 54,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
+          "inheritedFrom": "RangeMixin"
+        },
+        {
+          "name": "pad-length",
+          "description": "length to pad the string (with `0`) according to the total amount of numbers",
+          "sourceRange": {
+            "start": {
+              "line": 76,
+              "column": 10
+            },
+            "end": {
+              "line": 79,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "number",
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "placeholder",
+          "description": "placeholder string",
+          "sourceRange": {
+            "start": {
+              "line": 84,
+              "column": 10
+            },
+            "end": {
+              "line": 87,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string",
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "disabled",
+          "description": "disables the input",
+          "sourceRange": {
+            "start": {
+              "line": 92,
+              "column": 10
+            },
+            "end": {
+              "line": 94,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "no-auto-width",
+          "description": "disable autosizing",
+          "sourceRange": {
+            "start": {
+              "line": 99,
+              "column": 10
+            },
+            "end": {
+              "line": 103,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "no-padding",
+          "description": "disable padding (auto-width still effected by `padLength`)",
+          "sourceRange": {
+            "start": {
+              "line": 108,
+              "column": 10
+            },
+            "end": {
+              "line": 111,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "value-string",
+          "description": "value string of the input",
+          "sourceRange": {
+            "start": {
+              "line": 116,
+              "column": 10
+            },
+            "end": {
+              "line": 120,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string",
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "unit",
+          "description": "unit of the value",
+          "sourceRange": {
+            "start": {
+              "line": 125,
+              "column": 10
+            },
+            "end": {
+              "line": 127,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string",
+          "inheritedFrom": "NumberInputMixin"
+        }
+      ],
+      "events": [],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [],
+      "tagname": "number-input",
+      "mixins": [
+        "NumberInputMixin"
+      ]
+    }
+  ],
+  "mixins": [
+    {
+      "description": "mixin to create a number-input",
+      "summary": "",
+      "path": "number-input.html",
+      "properties": [
+        {
+          "name": "min",
+          "type": "number",
+          "description": "minimal input",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components\\range-input\\range-mixin.html",
+            "start": {
+              "line": 17,
+              "column": 10
+            },
+            "end": {
+              "line": 20,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_updateValue\""
+            }
+          },
+          "inheritedFrom": "RangeMixin"
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "description": "maximal input",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components\\range-input\\range-mixin.html",
+            "start": {
+              "line": 25,
+              "column": 10
+            },
+            "end": {
+              "line": 28,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_updateValue\""
+            }
+          },
+          "inheritedFrom": "RangeMixin"
+        },
+        {
+          "name": "step",
+          "type": "number",
+          "description": "step for changing the input (referencing to `min` or `0`)",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components\\range-input\\range-mixin.html",
+            "start": {
+              "line": 33,
+              "column": 10
+            },
+            "end": {
+              "line": 37,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_updateValue\""
+            }
+          },
+          "defaultValue": "1",
+          "inheritedFrom": "RangeMixin"
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": "value of the input",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components\\range-input\\range-mixin.html",
+            "start": {
+              "line": 42,
+              "column": 10
+            },
+            "end": {
+              "line": 46,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true,
+              "observer": "\"_valueChanged\""
+            }
+          },
+          "inheritedFrom": "RangeMixin"
+        },
+        {
+          "name": "saturate",
+          "type": "boolean",
+          "description": "if true, the value does not revolve the range according to the maximum or the minimum",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components\\range-input\\range-mixin.html",
+            "start": {
+              "line": 51,
+              "column": 10
+            },
+            "end": {
+              "line": 54,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_updateValue\""
+            }
+          },
+          "inheritedFrom": "RangeMixin"
+        },
+        {
+          "name": "padLength",
+          "type": "number",
+          "description": "length to pad the string (with `0`) according to the total amount of numbers",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 76,
+              "column": 10
+            },
+            "end": {
+              "line": 79,
               "column": 11
             }
           },
@@ -151,11 +1196,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 117,
+              "line": 84,
               "column": 10
             },
             "end": {
-              "line": 120,
+              "line": 87,
               "column": 11
             }
           },
@@ -172,11 +1217,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 125,
+              "line": 92,
               "column": 10
             },
             "end": {
-              "line": 127,
+              "line": 94,
               "column": 11
             }
           },
@@ -191,11 +1236,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 132,
+              "line": 99,
               "column": 10
             },
             "end": {
-              "line": 136,
+              "line": 103,
               "column": 11
             }
           },
@@ -213,11 +1258,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 141,
+              "line": 108,
               "column": 10
             },
             "end": {
-              "line": 144,
+              "line": 111,
               "column": 11
             }
           },
@@ -234,11 +1279,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 149,
+              "line": 116,
               "column": 10
             },
             "end": {
-              "line": 153,
+              "line": 120,
               "column": 11
             }
           },
@@ -256,11 +1301,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 158,
+              "line": 125,
               "column": 10
             },
             "end": {
-              "line": 160,
+              "line": 127,
               "column": 11
             }
           },
@@ -275,11 +1320,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 165,
+              "line": 132,
               "column": 10
             },
             "end": {
-              "line": 168,
+              "line": 135,
               "column": 11
             }
           },
@@ -297,11 +1342,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 248,
+              "line": 215,
               "column": 6
             },
             "end": {
-              "line": 264,
+              "line": 231,
               "column": 7
             }
           },
@@ -460,11 +1505,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 178,
+              "line": 145,
               "column": 6
             },
             "end": {
-              "line": 182,
+              "line": 149,
               "column": 7
             }
           },
@@ -477,11 +1522,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 184,
+              "line": 151,
               "column": 6
             },
             "end": {
-              "line": 188,
+              "line": 155,
               "column": 7
             }
           },
@@ -494,11 +1539,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 190,
+              "line": 157,
               "column": 6
             },
             "end": {
-              "line": 210,
+              "line": 177,
               "column": 7
             }
           },
@@ -521,11 +1566,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 212,
+              "line": 179,
               "column": 6
             },
             "end": {
-              "line": 222,
+              "line": 189,
               "column": 7
             }
           },
@@ -542,11 +1587,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 224,
+              "line": 191,
               "column": 6
             },
             "end": {
-              "line": 226,
+              "line": 193,
               "column": 7
             }
           },
@@ -559,11 +1604,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 228,
+              "line": 195,
               "column": 6
             },
             "end": {
-              "line": 246,
+              "line": 213,
               "column": 7
             }
           },
@@ -583,11 +1628,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 266,
+              "line": 233,
               "column": 6
             },
             "end": {
-              "line": 294,
+              "line": 261,
               "column": 7
             }
           },
@@ -604,11 +1649,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 296,
+              "line": 263,
               "column": 6
             },
             "end": {
-              "line": 305,
+              "line": 272,
               "column": 7
             }
           },
@@ -625,11 +1670,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 307,
+              "line": 274,
               "column": 6
             },
             "end": {
-              "line": 311,
+              "line": 278,
               "column": 7
             }
           },
@@ -642,11 +1687,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 313,
+              "line": 280,
               "column": 6
             },
             "end": {
-              "line": 319,
+              "line": 286,
               "column": 7
             }
           },
@@ -663,11 +1708,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 321,
+              "line": 288,
               "column": 6
             },
             "end": {
-              "line": 325,
+              "line": 292,
               "column": 7
             }
           },
@@ -684,11 +1729,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 327,
+              "line": 294,
               "column": 6
             },
             "end": {
-              "line": 332,
+              "line": 299,
               "column": 7
             }
           },
@@ -705,11 +1750,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 335,
+              "line": 302,
               "column": 6
             },
             "end": {
-              "line": 361,
+              "line": 331,
               "column": 7
             }
           },
@@ -726,11 +1771,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 363,
+              "line": 333,
               "column": 6
             },
             "end": {
-              "line": 382,
+              "line": 352,
               "column": 7
             }
           },
@@ -747,11 +1792,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 387,
+              "line": 357,
               "column": 6
             },
             "end": {
-              "line": 389,
+              "line": 359,
               "column": 7
             }
           },
@@ -764,11 +1809,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 394,
+              "line": 364,
               "column": 6
             },
             "end": {
-              "line": 396,
+              "line": 366,
               "column": 7
             }
           },
@@ -777,26 +1822,20 @@
         }
       ],
       "staticMethods": [],
-      "demos": [
-        {
-          "url": "demo/index.html",
-          "description": ""
-        }
-      ],
+      "demos": [],
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 43,
-          "column": 4
+          "line": 12,
+          "column": 2
         },
         "end": {
-          "line": 397,
-          "column": 5
+          "line": 368,
+          "column": 3
         }
       },
       "privacy": "public",
-      "superclass": "HTMLElement",
-      "name": "NumberInput",
+      "name": "NumberInputMixin",
       "attributes": [
         {
           "name": "min",
@@ -893,11 +1932,11 @@
           "description": "length to pad the string (with `0`) according to the total amount of numbers",
           "sourceRange": {
             "start": {
-              "line": 109,
+              "line": 76,
               "column": 10
             },
             "end": {
-              "line": 112,
+              "line": 79,
               "column": 11
             }
           },
@@ -909,11 +1948,11 @@
           "description": "placeholder string",
           "sourceRange": {
             "start": {
-              "line": 117,
+              "line": 84,
               "column": 10
             },
             "end": {
-              "line": 120,
+              "line": 87,
               "column": 11
             }
           },
@@ -925,11 +1964,11 @@
           "description": "disables the input",
           "sourceRange": {
             "start": {
-              "line": 125,
+              "line": 92,
               "column": 10
             },
             "end": {
-              "line": 127,
+              "line": 94,
               "column": 11
             }
           },
@@ -941,11 +1980,11 @@
           "description": "disable autosizing",
           "sourceRange": {
             "start": {
-              "line": 132,
+              "line": 99,
               "column": 10
             },
             "end": {
-              "line": 136,
+              "line": 103,
               "column": 11
             }
           },
@@ -957,11 +1996,11 @@
           "description": "disable padding (auto-width still effected by `padLength`)",
           "sourceRange": {
             "start": {
-              "line": 141,
+              "line": 108,
               "column": 10
             },
             "end": {
-              "line": 144,
+              "line": 111,
               "column": 11
             }
           },
@@ -973,11 +2012,11 @@
           "description": "value string of the input",
           "sourceRange": {
             "start": {
-              "line": 149,
+              "line": 116,
               "column": 10
             },
             "end": {
-              "line": 153,
+              "line": 120,
               "column": 11
             }
           },
@@ -989,11 +2028,11 @@
           "description": "unit of the value",
           "sourceRange": {
             "start": {
-              "line": 158,
+              "line": 125,
               "column": 10
             },
             "end": {
-              "line": 160,
+              "line": 127,
               "column": 11
             }
           },
@@ -1001,20 +2040,12 @@
           "type": "string"
         }
       ],
-      "events": [
-        {
-          "type": "CustomEvent",
-          "name": "value-string-changed",
-          "description": "Fired when the `valueString` property changes.",
-          "metadata": {}
-        }
-      ],
+      "events": [],
       "styling": {
         "cssVariables": [],
         "selectors": []
       },
       "slots": [],
-      "tagname": "number-input",
       "mixins": [
         "RangeMixin"
       ]
