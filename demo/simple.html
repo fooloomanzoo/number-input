@@ -25,7 +25,7 @@
     </custom-style>
   </head>
   <body>
-    <!-- <div class="vertical-section-container centered">
+    <div class="vertical-section-container centered">
       <demo-snippet>
         <h4>Simple demo</h4>
         <template>
@@ -91,7 +91,7 @@
                   }
                 </style>
               </custom-style>
-              <number-input class="custom-color" value="{{value}}" saturate placeholder="0000" min="0" step="100" max="20000"></number-input>
+              <number-input class="custom-color" value="{{value}}" pad-length="4" saturate placeholder="0000" min="0" step="100" max="20000"></number-input>
               <div class="vertical-section-container result">
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
@@ -128,7 +128,7 @@
                   }
                 </style>
               </custom-style>
-              <number-input class="decimal" value="{{value}}" min="-23" step="1.15" max="45" pad-length="5"></number-input>
+              <number-input class="decimal" value="{{value}}" min="-23" step="1.15" max="45" pad-length="6"></number-input>
               <div class="vertical-section-container result">
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
@@ -144,7 +144,7 @@
         <template>
           <dom-bind>
             <template is="dom-bind">
-              <number-input step="1.25" max="90" unit="°" value="{{value}}" pad-length="4"></number-input>
+              <number-input step="1.25" max="90" unit="°" value="{{value}}"></number-input>
               <div class="vertical-section-container result">
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
@@ -154,48 +154,5 @@
       </demo-snippet>
     </div>
 
-    <div class="vertical-section-container centered">
-      <h3>Localize and grouping digits</h3>
-      <demo-snippet>
-        <template>
-          <dom-bind>
-            <template is="dom-bind">
-              <select value="{{locale::change}}">
-                <option value=""></option>
-                <option value="en">english</option>
-                <option value="fr">français</option>
-                <option value="de">deutsch</option>
-                <option value="es">español</option>
-                <option value="it">italiano</option>
-                <option value="ru">русский</option>
-                <option value="ja">日本語</option>
-                <option value="zh">中文</option>
-                <option value="en-IN">english (India)</option>
-              </select>
-              <number-input locale="[[locale]]" auto-padding use-grouping step="1000.00002" min="0" max="100000000" unit="µm" value="{{value}}"></number-input>
-              <div class="vertical-section-container result">
-                <div><code>value</code>: <b>[[value]]</b></div>
-              </div>
-            </template>
-          </dom-bind>
-        </template>
-      </demo-snippet>
-    </div> -->
-
-    <div class="vertical-section-container centered">
-      <demo-snippet>
-        <h4>Use digit-grouping with special characters</h4>
-        <template>
-          <dom-bind>
-            <template is="dom-bind">
-              <number-input grouping-digits-sign="'" auto-padding step="100" min="-1000" max="10000000" unit="°" value="{{value}}"></number-input>
-              <div class="vertical-section-container result">
-                <div><code>value</code>: <b>[[value]]</b></div>
-              </div>
-            </template>
-          </dom-bind>
-        </template>
-      </demo-snippet>
-    </div>
   </body>
 </html>

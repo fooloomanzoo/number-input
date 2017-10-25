@@ -26,7 +26,7 @@
            */
           formatNumber: {
             type: Function,
-            computed: '_computeLocaleNumberFormat(locale, minimumIntegerDigits, minimumFractionDigits, maximumFractionDigits, useGrouping)'
+            computed: '_computeLocaleNumberFormat(locale, minimumIntegerDigits, minimumFractionDigits, maximumFractionDigits, useGrouping, groupingDigitsSign, significantGroupingDigits)'
           },
 
           /**
@@ -72,16 +72,60 @@
           minimumIntegerDigits: {
             type: Number,
             value: 1
+          },
+
+          /**
+           * significant digits to use digit-grouping
+           * @type {number}
+           */
+          significantGroupingDigits: {
+            type: Number,
+            value: 4
+          },
+
+          /**
+           * sign to use for digit-grouping
+           * @type {number}
+           */
+          groupingDigitsSign: {
+            type: String
+          },
+
+          /**
+           * regular expression to detect the decimal separator
+           * @type {RegExp}
+           */
+          _regExpDecimalSeparator: {
+            type: RegExp,
+            computed: '_computeRegExpDecimalSeparator(decimalSeparator)'
+          },
+
+          /**
+           * regular expression to parse the numeric parts of a number string
+           * @type {RegExp}
+           */
+          _regExpNotInNumber: {
+            type: RegExp,
+            computed: '_computeRegExpNotInNumber(decimalSeparator)'
           }
         }
       }
 
-      _computeLocaleNumberFormat(locale, minimumIntegerDigits, minimumFractionDigits, maximumFractionDigits, useGrouping) {
+      _computeRegExpDecimalSeparator(decimalSeparator) {
+        return new RegExp('\\' + decimalSeparator, 'g');
+      }
+
+      _computeRegExpNotInNumber(decimalSeparator) {
+        return new RegExp('[^\\d\-\+\\' + decimalSeparator + ']', 'g');
+      }
+
+      _computeLocaleNumberFormat(locale, minimumIntegerDigits, minimumFractionDigits, maximumFractionDigits, useGrouping, groupingDigitsSign, significantGroupingDigits) {
         let formatNumber, decimalSeparator;
+        useGrouping = Boolean(useGrouping || groupingDigitsSign);
         if (!(locale && Intl.NumberFormat && Intl.NumberFormat.supportedLocalesOf(locale))) {
           // fallback
-          formatNumber = () => {
-            const n = arguments[0];
+          decimalSeparator = '.';
+          return function(n) {
             let str = '' + Math.abs(n);
             const decimalR = str.slice(str.indexOf('.')).length - 1,
               decimalL = str.length - decimalR - 1;
@@ -98,18 +142,46 @@
             for (let i = 0; i < minimumFractionDigits - decimalR; i++) {
               str += '0';
             }
-            str.replace('.', this.decimalSeparator || '.');
+            str.replace('.', decimalSeparator || '.');
             return (n < 0 ? '-' : '') + str;
-          };
-          decimalSeparator = '.';
+          }.bind(this)
         } else {
           // test locale (currently just for Latin letters and Western Arabic/European numerals)
           locale += '-u-nu-latn-ca-iso8601';
-          formatNumber = new Intl.NumberFormat(locale, {useGrouping: useGrouping, maximumFractionDigits: maximumFractionDigits, minimumFractionDigits: minimumFractionDigits, minimumIntegerDigits: minimumIntegerDigits}).format;
-          decimalSeparator = formatNumber(1.2).split(/\d/g).filter(s => { return s !== ''; }).pop();
+          const format = new Intl.NumberFormat(locale, {useGrouping: useGrouping, maximumFractionDigits: maximumFractionDigits, minimumFractionDigits: minimumFractionDigits, minimumIntegerDigits: minimumIntegerDigits}).format;
+          const regPre = /^-?0[^1-9]?/g;
+          const regNum = /[^0-9]/g;
+          const decimalSeparator = format(1.2).split(/\d/g).filter(s => { return s !== ''; }).pop();
+          this.decimalSeparator = decimalSeparator !== '\u202F' ? decimalSeparator : '.';
+          if (groupingDigitsSign === this.decimalSeparator) {
+            groupingDigitsSign = '\u202F';
+          }
+
+          if (useGrouping === true && significantGroupingDigits > 0) {
+            return function(n) {
+              return format(n).split(this.decimalSeparator).map( (part, i) => {
+                part = groupingDigitsSign !== undefined ? part.replace(this._regExpNotInNumber, groupingDigitsSign) : part;
+                if (i === 0) {
+                  let pre = (part.match(regPre) || [''])[0];
+                  console.log(pre);
+                  if (pre !== '') {  // when just padding use 'thin space' instead of groupingDigitsSign
+                    part = part.replace(pre, '');
+                    part = pre.replace(this._regExpNotInNumber, '\u202F') + part;
+                  }
+                }
+                if (part.replace(regNum, '').length <= significantGroupingDigits) {
+                  part = part.replace(this._regExpNotInNumber, groupingDigitsSign !== undefined ? '\u202F' : '');
+                }
+                console.log(i, part);
+                return part;
+              }).join(this.decimalSeparator);
+            }.bind(this)
+          } else if (groupingDigitsSign !== undefined) {
+            return format.bind(this).replace(this._regExpNotInNumber, groupingDigitsSign);
+          } else {
+            return format.bind(this);
+          }
         }
-        this.decimalSeparator = decimalSeparator
-        return formatNumber;
       }
 
     }
