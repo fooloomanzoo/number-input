@@ -1,5 +1,6 @@
 <link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../range-input/range-mixin.html">
+<link rel="import" href="intl-number-mixin.html">
 
 <script>
   /**
@@ -12,7 +13,7 @@
    */
   const NumberInputMixin = (superClass) => { // eslint-disable-line no-unused-vars
 
-    return class extends RangeMixin(superClass) {
+    return class extends IntlNumberMixin(RangeMixin(superClass)) {
 
       static get template() {
         return `
@@ -198,8 +199,8 @@
       _valueStringChanged(valueString, oldValueString) {
         valueString = valueString || '';
         oldValueString = oldValueString || '';
-        const newValue = parseFloat(valueString.replace(this.decimalSeparator, '.'));
-        const oldValue = parseFloat(oldValueString.replace(this.decimalSeparator, '.'));
+        const newValue = parseFloat(valueString.replace('\d|\\' + this.decimalSeparator, '').replace(this.decimalSeparator, '.'));
+        const oldValue = parseFloat(oldValueString.replace('\d|\\' + this.decimalSeparator, '').replace(this.decimalSeparator, '.'));
         let value;
 
         if (isNaN(oldValue)) {
@@ -286,7 +287,7 @@
         if (step === undefined) return;
 
         step = step || this.step || 1;
-        const value = this._safeAdd(parseFloat(this.$.input.value.replace(this.decimalSeparator, '.')) || this.value, step);
+        const value = this._safeAdd(parseFloat(this.$.input.value.replace('\d|\\' + this.decimalSeparator, '').replace(this.decimalSeparator, '.')) || this.value, step);
         this.value = this._checkValue(value, this.value);
       }
 
@@ -301,27 +302,6 @@
           cancelAnimationFrame(this._activeResizeJob);
         }
         this._activeResizeJob = requestAnimationFrame(this._computeWidth.bind(this, value));
-      }
-
-      formatNumber() {
-        const n = arguments[0];
-        let str = '' + Math.abs(n);
-        const decimal = str.slice(str.indexOf('.')).length - 1;
-
-        console.log(n, str, decimal, this.minimumFractionDigits, this.minimumIntegerDigits);
-        if (this.minimumFractionDigits > 0) {
-          if (decimal === 0) {
-            str += '.';
-          }
-          for (let i = 0; i < this.minimumFractionDigits - decimal; i++) {
-            str += '0';
-          }
-        }
-        for (let i = 0; i < this.minimumIntegerDigits - decimal - 1; i++) {
-          str = '0' + str;
-        }
-        str.replace('.', this.decimalSeparator);
-        return (n < 0 ? '-' : '') + str;
       }
 
       _computeWidth(value) {
@@ -389,10 +369,6 @@
         this.$.input.blur();
       }
 
-      _computeLocaleNumberFormat() {
-        super._computeLocaleNumberFormat(...arguments);
-        this._checkInput();
-      }
     }
   }
 </script>

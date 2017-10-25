@@ -1,0 +1,119 @@
+<script>
+  /**
+   * Mixin that provides Intl.NumberFormat properties
+   *
+   * @mixinFunction
+   * @polymer
+   */
+  const IntlNumberMixin = (superClass) => { // eslint-disable-line no-unused-vars no-undef
+
+    return class extends superClass {
+
+      static get properties() {
+        return {
+
+          /**
+           * The current locale
+           */
+          locale: {
+            type: String,
+            value: window.navigator.language
+          },
+
+          /**
+           * format function for number values
+           * @type {string}
+           */
+          formatNumber: {
+            type: Function,
+            computed: '_computeLocaleNumberFormat(locale, minimumIntegerDigits, minimumFractionDigits, maximumFractionDigits, useGrouping)'
+          },
+
+          /**
+           * Separator for local decimal values
+           * @type {string}
+           */
+          decimalSeparator: {
+            type: String,
+            value: '.'
+          },
+
+          /**
+           * if true, format is forced to use group digits
+           * @type {boolean}
+           */
+          useGrouping: {
+            type: Boolean,
+            value: true
+          },
+
+          /**
+           * maximum digits right to the decimal separator
+           * @type {number}
+           */
+          maximumFractionDigits: {
+            type: Number,
+            value: 20
+          },
+
+          /**
+           * minimum digits right to the decimal separator
+           * @type {number}
+           */
+          minimumFractionDigits: {
+            type: Number,
+            value: 0
+          },
+
+          /**
+           * minimum digits left to the decimal separator
+           * @type {number}
+           */
+          minimumIntegerDigits: {
+            type: Number,
+            value: 1
+          }
+        }
+      }
+
+      _computeLocaleNumberFormat(locale, minimumIntegerDigits, minimumFractionDigits, maximumFractionDigits, useGrouping) {
+        let formatNumber, decimalSeparator;
+        if (!(locale && Intl.NumberFormat && Intl.NumberFormat.supportedLocalesOf(locale))) {
+          // fallback
+          formatNumber = () => {
+            const n = arguments[0];
+            let str = '' + Math.abs(n);
+            const decimalR = str.slice(str.indexOf('.')).length - 1,
+              decimalL = str.length - decimalR - 1;
+
+            if (decimalR === 0) {
+              decimalL++;
+              if (minimumFractionDigits > 0) {
+                str += '.';
+              }
+            }
+            for (let i = 0; i < minimumIntegerDigits - decimalL; i++) {
+              str = '0' + str;
+            }
+            for (let i = 0; i < minimumFractionDigits - decimalR; i++) {
+              str += '0';
+            }
+            str.replace('.', this.decimalSeparator || '.');
+            return (n < 0 ? '-' : '') + str;
+          };
+          decimalSeparator = '.';
+        } else {
+          // test locale (currently just for Latin letters and Western Arabic/European numerals)
+          locale += '-u-nu-latn-ca-iso8601';
+          formatNumber = new Intl.NumberFormat(locale, {useGrouping: useGrouping, maximumFractionDigits: maximumFractionDigits, minimumFractionDigits: minimumFractionDigits, minimumIntegerDigits: minimumIntegerDigits}).format;
+          decimalSeparator = formatNumber(1.2).split(/\d/g).filter(s => { return s !== ''; }).pop();
+        }
+        this.decimalSeparator = decimalSeparator
+        return formatNumber;
+      }
+
+    }
+  }
+
+  window.IntlNumberMixin = IntlNumberMixin;
+</script>
