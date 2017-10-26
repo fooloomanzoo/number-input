@@ -149,7 +149,7 @@
           // test locale (currently just for Latin letters and Western Arabic/European numerals)
           locale += '-u-nu-latn-ca-iso8601';
           const format = new Intl.NumberFormat(locale, {useGrouping: useGrouping, maximumFractionDigits: maximumFractionDigits, minimumFractionDigits: minimumFractionDigits, minimumIntegerDigits: minimumIntegerDigits}).format;
-          const regPre = /^-?0[^1-9]?/g;
+          const regPre = /^-?0*[^1-9]+/g;
           const regNum = /[^0-9]/g;
           const decimalSeparator = format(1.2).split(/\d/g).filter(s => { return s !== ''; }).pop();
           this.decimalSeparator = decimalSeparator !== '\u202F' ? decimalSeparator : '.';
