@@ -26,7 +26,7 @@
            */
           formatNumber: {
             type: Function,
-            computed: '_computeLocaleNumberFormat(locale, minimumIntegerDigits, minimumFractionDigits, maximumFractionDigits, useGrouping, groupingDigitsSign, significantGroupingDigits)'
+            computed: '_computeNumberFormat(locale, minimumIntegerDigits, minimumFractionDigits, maximumFractionDigits, useGrouping, groupingDigitsSign, significantGroupingDigits)'
           },
 
           /**
@@ -107,6 +107,15 @@
           _regExpNotInNumber: {
             type: RegExp,
             computed: '_computeRegExpNotInNumber(decimalSeparator)'
+          },
+
+          /**
+           * regular expression to parse the front zeros
+           * @type {RegExp}
+           */
+          _regExpPadding: {
+            type: RegExp,
+            value: /^-?0*[^1-9]+/g
           }
         }
       }
@@ -119,7 +128,7 @@
         return new RegExp('[^\\d\-\+\\' + decimalSeparator + ']', 'g');
       }
 
-      _computeLocaleNumberFormat(locale, minimumIntegerDigits, minimumFractionDigits, maximumFractionDigits, useGrouping, groupingDigitsSign, significantGroupingDigits) {
+      _computeNumberFormat(locale, minimumIntegerDigits, minimumFractionDigits, maximumFractionDigits, useGrouping, groupingDigitsSign, significantGroupingDigits) {
         let formatNumber, decimalSeparator;
         useGrouping = Boolean(useGrouping || groupingDigitsSign);
         if (!(locale && Intl.NumberFormat && Intl.NumberFormat.supportedLocalesOf(locale))) {
@@ -142,37 +151,38 @@
             for (let i = 0; i < minimumFractionDigits - decimalR; i++) {
               str += '0';
             }
-            str.replace('.', decimalSeparator || '.');
-            return (n < 0 ? '-' : '') + str;
+            if (decimalSeparator !== '.') {
+              str.replace('.', decimalSeparator || '.');
+            }
+            if (n < 0) {
+              str = '-' + str;
+            }
+            return str;
           }.bind(this)
         } else {
           // test locale (currently just for Latin letters and Western Arabic/European numerals)
           locale += '-u-nu-latn-ca-iso8601';
           const format = new Intl.NumberFormat(locale, {useGrouping: useGrouping, maximumFractionDigits: maximumFractionDigits, minimumFractionDigits: minimumFractionDigits, minimumIntegerDigits: minimumIntegerDigits}).format;
-          const regPre = /^-?0*[^1-9]+/g;
-          const regNum = /[^0-9]/g;
-          const decimalSeparator = format(1.2).split(/\d/g).filter(s => { return s !== ''; }).pop();
+          let decimalSeparator = format(1.2).split(/\d/g).filter(s => { return s !== ''; }).pop();
           this.decimalSeparator = decimalSeparator !== '\u202F' ? decimalSeparator : '.';
-          if (groupingDigitsSign === this.decimalSeparator) {
+          if (groupingDigitsSign === decimalSeparator) {
             groupingDigitsSign = '\u202F';
           }
 
           if (useGrouping === true && significantGroupingDigits > 0) {
             return function(n) {
-              return format(n).split(this.decimalSeparator).map( (part, i) => {
+              return format(n).split(decimalSeparator).map( (part, i) => {
                 part = groupingDigitsSign !== undefined ? part.replace(this._regExpNotInNumber, groupingDigitsSign) : part;
                 if (i === 0) {
-                  let pre = (part.match(regPre) || [''])[0];
-                  console.log(pre);
+                  let pre = (part.match(this._regExpPadding) || [''])[0];
                   if (pre !== '') {  // when just padding use 'thin space' instead of groupingDigitsSign
                     part = part.replace(pre, '');
                     part = pre.replace(this._regExpNotInNumber, '\u202F') + part;
                   }
                 }
-                if (part.replace(regNum, '').length <= significantGroupingDigits) {
+                if (part.replace(/\D/g, '').length <= significantGroupingDigits) {
                   part = part.replace(this._regExpNotInNumber, groupingDigitsSign !== undefined ? '\u202F' : '');
                 }
-                console.log(i, part);
                 return part;
               }).join(this.decimalSeparator);
             }.bind(this)

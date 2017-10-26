@@ -1,0 +1,64 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../range-input/range-mixin.html">
+<link rel="import" href="intl-number-mixin.html">
+
+<dom-module id="intl-number-input">
+  <script>
+    /**
+     *  `intl-number-input` is an element that can:
+     * * prevent non numeric input
+     * * guarantee **live**-data to be valid
+     * * pad a value with `0` (to a specific length)
+     * * size the input (according to it's length)
+     * * overflow to minimum or underflow to maximum
+     * * saturate to minimum or to maximum
+     * * display a specified unit and size the input
+     * * localization of the number format like the decimal separator (the value will still be a Number object)
+     *
+     * Example:
+     * ```html
+     * <intl-number-input step="2" min="-20" max="140" pad-length="2"></intl-number-input>
+     * ```
+     *
+     * It sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.
+     *
+     * ### Styling
+     * Custom property                  | Description                            | Default
+     * ---------------------------------|----------------------------------------|--------------------
+     * `--intl-number-input`                 | style of the input                     | {}
+     * `--intl-number-input-focus`           | style of the focussed and hovered input | {}
+     * `--intl-number-input-placeholder`     | style of the placeholder               | {}
+     *
+     * ```css
+     * :host {
+     *   --intl-number-input-focus: {
+     *     background: rgba(0,0,0,.25);
+     *   };
+     *   --intl-number-input-placeholder: {
+     *     color: pink;
+     *   };
+     * }
+     * ```
+     * @polymer
+     * @customElement
+     *
+     * @appliesMixin NumberInputMixin
+     * @appliesMixin IntlNumberMixin
+     *
+     * @demo demo/intl.html
+     **/
+    class IntlNumberInput extends NumberInputMixin(IntlNumberMixin(Polymer.Element)) {
+
+      static get is() {
+        return 'intl-number-input';
+      }
+
+      static get observers() {
+        return [
+          '_checkInput(formatNumber)'
+        ]
+      }
+    }
+    window.customElements.define(IntlNumberInput.is, IntlNumberInput);
+  </script>
+</dom-module>
