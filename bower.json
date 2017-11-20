@@ -19,7 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "polymer": "Polymer/polymer",
-    "range-input": "fooloomanzoo/range-input"
+    "property-mixins": "fooloomanzoo/property-mixins"
   },
   "devDependencies": {
     "webcomponentsjs": "webcomponents/webcomponentsjs",
