@@ -18,14 +18,12 @@
               "column": 10
             },
             "end": {
-              "line": 20,
+              "line": 19,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {
-              "observer": "\"_updateValue\""
-            }
+            "polymer": {}
           },
           "inheritedFrom": "RangeMixin"
         },
@@ -37,18 +35,16 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 25,
+              "line": 24,
               "column": 10
             },
             "end": {
-              "line": 28,
+              "line": 26,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {
-              "observer": "\"_updateValue\""
-            }
+            "polymer": {}
           },
           "inheritedFrom": "RangeMixin"
         },
@@ -60,11 +56,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 33,
+              "line": 31,
               "column": 10
             },
             "end": {
-              "line": 37,
+              "line": 35,
               "column": 11
             }
           },
@@ -84,11 +80,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 42,
+              "line": 40,
               "column": 10
             },
             "end": {
-              "line": 46,
+              "line": 44,
               "column": 11
             }
           },
@@ -108,11 +104,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 51,
+              "line": 49,
               "column": 10
             },
             "end": {
-              "line": 54,
+              "line": 52,
               "column": 11
             }
           },
@@ -300,6 +296,32 @@
       ],
       "methods": [
         {
+          "name": "_minMaxChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components\\range-input\\range-mixin.html",
+            "start": {
+              "line": 62,
+              "column": 6
+            },
+            "end": {
+              "line": 77,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "min"
+            },
+            {
+              "name": "max"
+            }
+          ],
+          "inheritedFrom": "RangeMixin"
+        },
+        {
           "name": "_valueChanged",
           "description": "",
           "privacy": "protected",
@@ -331,11 +353,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 69,
+              "line": 90,
               "column": 6
             },
             "end": {
-              "line": 94,
+              "line": 116,
               "column": 7
             }
           },
@@ -357,11 +379,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 96,
+              "line": 118,
               "column": 6
             },
             "end": {
-              "line": 100,
+              "line": 122,
               "column": 7
             }
           },
@@ -376,11 +398,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 102,
+              "line": 124,
               "column": 6
             },
             "end": {
-              "line": 115,
+              "line": 137,
               "column": 7
             }
           },
@@ -402,11 +424,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 123,
+              "line": 145,
               "column": 6
             },
             "end": {
-              "line": 142,
+              "line": 167,
               "column": 7
             }
           },
@@ -436,11 +458,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 150,
+              "line": 175,
               "column": 6
             },
             "end": {
-              "line": 163,
+              "line": 191,
               "column": 7
             }
           },
@@ -833,7 +855,7 @@
               "column": 10
             },
             "end": {
-              "line": 20,
+              "line": 19,
               "column": 11
             }
           },
@@ -847,11 +869,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 25,
+              "line": 24,
               "column": 10
             },
             "end": {
-              "line": 28,
+              "line": 26,
               "column": 11
             }
           },
@@ -865,11 +887,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 33,
+              "line": 31,
               "column": 10
             },
             "end": {
-              "line": 37,
+              "line": 35,
               "column": 11
             }
           },
@@ -883,11 +905,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 42,
+              "line": 40,
               "column": 10
             },
             "end": {
-              "line": 46,
+              "line": 44,
               "column": 11
             }
           },
@@ -901,11 +923,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 51,
+              "line": 49,
               "column": 10
             },
             "end": {
-              "line": 54,
+              "line": 52,
               "column": 11
             }
           },
@@ -1063,14 +1085,12 @@
               "column": 10
             },
             "end": {
-              "line": 20,
+              "line": 19,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {
-              "observer": "\"_updateValue\""
-            }
+            "polymer": {}
           },
           "inheritedFrom": "RangeMixin"
         },
@@ -1082,18 +1102,16 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 25,
+              "line": 24,
               "column": 10
             },
             "end": {
-              "line": 28,
+              "line": 26,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {
-              "observer": "\"_updateValue\""
-            }
+            "polymer": {}
           },
           "inheritedFrom": "RangeMixin"
         },
@@ -1105,11 +1123,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 33,
+              "line": 31,
               "column": 10
             },
             "end": {
-              "line": 37,
+              "line": 35,
               "column": 11
             }
           },
@@ -1129,11 +1147,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 42,
+              "line": 40,
               "column": 10
             },
             "end": {
-              "line": 46,
+              "line": 44,
               "column": 11
             }
           },
@@ -1153,11 +1171,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 51,
+              "line": 49,
               "column": 10
             },
             "end": {
-              "line": 54,
+              "line": 52,
               "column": 11
             }
           },
@@ -1337,6 +1355,32 @@
       ],
       "methods": [
         {
+          "name": "_minMaxChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components\\range-input\\range-mixin.html",
+            "start": {
+              "line": 62,
+              "column": 6
+            },
+            "end": {
+              "line": 77,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "min"
+            },
+            {
+              "name": "max"
+            }
+          ],
+          "inheritedFrom": "RangeMixin"
+        },
+        {
           "name": "_valueChanged",
           "description": "",
           "privacy": "protected",
@@ -1367,11 +1411,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 69,
+              "line": 90,
               "column": 6
             },
             "end": {
-              "line": 94,
+              "line": 116,
               "column": 7
             }
           },
@@ -1393,11 +1437,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 96,
+              "line": 118,
               "column": 6
             },
             "end": {
-              "line": 100,
+              "line": 122,
               "column": 7
             }
           },
@@ -1412,11 +1456,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 102,
+              "line": 124,
               "column": 6
             },
             "end": {
-              "line": 115,
+              "line": 137,
               "column": 7
             }
           },
@@ -1438,11 +1482,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 123,
+              "line": 145,
               "column": 6
             },
             "end": {
-              "line": 142,
+              "line": 167,
               "column": 7
             }
           },
@@ -1472,11 +1516,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 150,
+              "line": 175,
               "column": 6
             },
             "end": {
-              "line": 163,
+              "line": 191,
               "column": 7
             }
           },
@@ -1847,7 +1891,7 @@
               "column": 10
             },
             "end": {
-              "line": 20,
+              "line": 19,
               "column": 11
             }
           },
@@ -1861,11 +1905,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 25,
+              "line": 24,
               "column": 10
             },
             "end": {
-              "line": 28,
+              "line": 26,
               "column": 11
             }
           },
@@ -1879,11 +1923,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 33,
+              "line": 31,
               "column": 10
             },
             "end": {
-              "line": 37,
+              "line": 35,
               "column": 11
             }
           },
@@ -1897,11 +1941,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 42,
+              "line": 40,
               "column": 10
             },
             "end": {
-              "line": 46,
+              "line": 44,
               "column": 11
             }
           },
@@ -1915,11 +1959,11 @@
           "sourceRange": {
             "file": "bower_components\\range-input\\range-mixin.html",
             "start": {
-              "line": 51,
+              "line": 49,
               "column": 10
             },
             "end": {
-              "line": 54,
+              "line": 52,
               "column": 11
             }
           },
