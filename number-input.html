@@ -388,7 +388,7 @@
           valueString = '-' + valueString;
         }
 
-        let longest = this._longestStatic.length > valueString.length ? this._longestStatic : valueString;
+        let longest = ('' + this._longestStatic).length > valueString.length ? ('' + this._longestStatic) : valueString;
 
         if (this.step && ('' + this.step).indexOf('.') !== -1 && longest.indexOf(this.decimalSeparator) === -1) {
           longest = longest + this.decimalSeparator;
