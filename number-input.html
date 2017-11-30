@@ -1,4 +1,4 @@
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../property-mixins/range-mixin.html">
 
 <script>
@@ -41,6 +41,7 @@
               font-family: inherit;
               font-size: inherit;
               font-weight: inherit;
+              text-align: center;
               @apply --number-input;
             }
             #input:hover,
@@ -75,17 +76,17 @@
            * @type {number}
            */
           padLength: {
-            type: Number,
-            observer: '_updateView'
+            type: Number
           },
+
           /**
            * placeholder string
            * @type {string}
            */
           placeholder: {
-            type: String,
-            observer: '_updateView'
+            type: String
           },
+
           /**
            * disables the input
            * @type {boolean}
@@ -93,6 +94,7 @@
           disabled: {
             type: Boolean
           },
+
           /**
            * disable autosizing
            * @type {boolean}
@@ -102,21 +104,15 @@
             value: false,
             observer: '_noAutoWidthChanged'
           },
+
           /**
-           * disable padding (auto-width still effected by `padLength`)
+           * enables auto padding
            * @type {boolean}
            */
-          noPadding: {
-            type: Boolean,
-            observer: '_updateView'
-          },
-          /**
-           * show '+', when positive
-           * @type {boolean}
-           */
-          alwaysSign: {
+          autoPadding: {
             type: Boolean
           },
+
           /**
            * value string of the input
            * @type {string}
@@ -126,27 +122,93 @@
             notify: true,
             observer: '_valueStringChanged'
           },
+
           /**
            * unit of the value
            * @type {string}
            */
           unit: {
+            type: String,
+            observer: '_checkInput'
+          },
+
+          /**
+           * The current locale to set the decimal-separator automatically
+           */
+          locale: {
+            type: String,
+            value: window.navigator.language,
+            observer: '_localeChanged'
+          },
+
+          /**
+           * Separator for local decimal values
+           * @type {string}
+           */
+          decimalSeparator: {
             type: String
           },
+
           /**
-           * pad to precision
+           * always put the sign in the beginning
+           * @type {string}
+           */
+          alwaysSign: {
+            type: Boolean
+          },
+
+          /**
+           * minimum digits right to the decimal separator
            * @type {number}
            */
-          _toFixed: {
+          minimumFractionDigits: {
             type: Number,
-            computed: '_computeFixed(step)'
+            computed: '_computeMinimumFractionDigits(step, min, max)'
+          },
+
+          /**
+           * minimum digits left to the decimal separator
+           * @type {number}
+           */
+          minimumIntegerDigits: {
+            type: Number,
+            computed: '_computeMinimumIntegerDigits(autoPadding, padLength, min, max, minimumFractionDigits)'
+          },
+
+          /**
+           * longest number-string of the given range
+           * @type {number}
+           */
+          _longestStatic: {
+            type: Number,
+            computed: '_computeLongestStatic(min, max, placeholder)'
+          },
+
+          /**
+           * regular expression to detect the decimal separator
+           * @type {RegExp}
+           */
+          _regExpDecimalSeparator: {
+            type: RegExp,
+            computed: '_computeRegExpDecimalSeparator(decimalSeparator)'
+          },
+
+          /**
+           * regular expression to parse the numeric parts of a number string
+           * @type {RegExp}
+           */
+          _regExpNotInNumber: {
+            type: RegExp,
+            computed: '_computeRegExpNotInNumber(decimalSeparator)'
           }
         }
       }
 
       static get observers() {
         return [
-          '_debouncedComputeWidth(value)'
+          '_debouncedComputeWidth(valueString)',
+          '_computePadding(autoPadding, minimumIntegerDigits, minimumFractionDigits)',
+          '_checkInput(decimalSeparator)'
         ]
       }
 
@@ -159,46 +221,44 @@
       disconnectedCallback() {
         super.disconnectedCallback();
         this.removeEventListener('focus', this.focus.bind(this), false);
-        window.removeEventListener('resize', this._debouncedComputeWidth.bind(this, this.value), false);
-        if (this._test && this._test.parentNode) {
-          this._test.parentNode.removeChild(this._test);
+        window.removeEventListener('resize', this._debouncedComputeWidth.bind(this, this.valueString), false);
+      }
+
+      _computeMinimumFractionDigits(step, min, max) {
+        return ['0', '' + step, '' + (min || 0), '' + (max || 0)].reduce( (acc, curr) => {
+          const pos = curr.indexOf('.');
+          return Math.max((pos < 0) ? 0 : (curr.length - 1 - pos), acc);
+        });
+      }
+
+      _computeMinimumIntegerDigits(autoPadding, padLength, min, max, minimumFractionDigits) {
+        if (!(autoPadding || padLength)) {
+          return 1;
+        }
+        return Math.max(1, (padLength || 0) - (minimumFractionDigits || 0), ['1', '' + Math.abs(min || 0), '' + Math.abs(max || 0)].reduce( (acc, curr) => {
+          const pos = curr.indexOf('.');
+          return Math.max(pos > 0 ? pos : curr.length, acc);
+        }));
+      }
+
+      _computePadding(autoPadding, minimumIntegerDigits, minimumFractionDigits) {
+        if (autoPadding === true && minimumIntegerDigits !== undefined && minimumFractionDigits !== undefined) {
+          this.padLength = minimumIntegerDigits + minimumFractionDigits;
         }
       }
 
-      _format(n, padLength, toFixed) {
-        n = parseFloat(n);
-        let str = isNaN(n) ? '' : n.toFixed(toFixed !== undefined ? toFixed : (this._toFixed || 0));
-        // console.log(n, str);
-        let targetLength = (padLength || this.padLength || (this.placeholder && this.placeholder.length) || (n !== 0 ? Math.floor(Math.abs(Math.log(Math.abs(n)) * Math.LOG10E) + 1) : 1)) - str.replace(/\D/g, '').length;
-        const padString = '0';
-        if (targetLength < 0) {
-          return str;
-        } else {
-          if (n < 0) {
-            str = str.slice(1);
-          }
-          for (let i = 0; i < targetLength; i++) {
-            str = padString + str;
-          }
-          if (n < 0) {
-            str = '-' + str;
-          } else if (this.alwaysSign){
-            str = '+' + str;
-          }
-          return str;
-        }
+      _computeLongestStatic(min, max, placeholder) {
+        return [(this.min && this.formatNumber(this.min)) || '', (this.max && this.formatNumber(this.max)) || '', placeholder || ''].reduce((acc, curr) => {
+          return (acc && acc.length > curr.length) ? acc : curr;
+        });
       }
 
-      _computeFixed(step) {
-        if (!step) {
-          return 0;
-        }
-        const str = '' + step;
-        const pos = str.indexOf('.');
-        if (pos < 0) {
-          return 0;
-        }
-        return str.length - 1 - pos;
+      _computeRegExpDecimalSeparator(decimalSeparator) {
+        return new RegExp('\\' + decimalSeparator, 'g');
+      }
+
+      _computeRegExpNotInNumber(decimalSeparator) {
+        return new RegExp('[^\\d\-\+\\' + decimalSeparator + ']', 'g');
       }
 
       _checkInput() {
@@ -206,23 +266,27 @@
       }
 
       _valueStringChanged(valueString, oldValueString) {
-        const newValue = parseFloat(valueString);
-        const oldValue = parseFloat(oldValueString);
+        valueString = valueString || '';
+        oldValueString = oldValueString || '';
+        const newValue = parseFloat(valueString.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.'));
+        const oldValue = parseFloat(oldValueString.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.'));
         let value;
 
-        if (isNaN(oldValueString)) {
+        if (isNaN(oldValue)) {
           value = this._checkValue(newValue);
         } else {
           value = this._checkValue(newValue, oldValue);
         }
-        valueString = this.noPadding ? value : this._format(value);
+
+        valueString = this.formatNumber(value);
 
         if (this.valueString !== valueString) {
           this.valueString = valueString;
           return;
         }
-        this.value = value;
+
         this.$.input.value = valueString + (this.unit ? ('\u202F' + this.unit) : '');
+        this.value = value;
       }
 
       _valueChanged(value, oldValue) {
@@ -233,14 +297,15 @@
         } else {
           value = this._checkValue(value, oldValue);
         }
-        const valueString = this.noPadding ? value : this._format(value);
 
         if (this.value !== value) {
           this.value = value;
           return;
         }
+        const valueString = this.formatNumber(value);
+
+        this.$.input.value = valueString + (this.unit ? ('\u202F' + this.unit) : '');
         this.valueString = valueString;
-        this.$.input.value = valueString + (this.unit ? ('\u2008' + this.unit) : '');
       }
 
       _checkKeycode(e) {
@@ -292,58 +357,55 @@
 
       _increm(step) {
         if (step === undefined) return;
-
         step = step || this.step || 1;
-        const value = this._safeAdd(parseFloat(this.$.input.value) || this.value, step);
+        const value = (this.minimumFractionDigits === 0) ? ((parseInt(this.$.input.value.replace(this._regExpNotInNumber, '')) + step) || this.value) : this._safeAdd(parseFloat(this.$.input.value.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.')) || this.value, step);
         this.value = this._checkValue(value, this.value);
       }
 
       _updateView(prop) {
         if (prop !== undefined) {
-          this._debouncedComputeWidth(this.value);
+          this._debouncedComputeWidth(this.valueString);
         }
       }
 
-      _debouncedComputeWidth(value) {
+      _debouncedComputeWidth(valueString) {
         if (this._activeResizeJob) {
-          cancelAnimationFrame(this._activeResizeJob);
+          clearTimeout(this._activeResizeJob);
         }
-        this._activeResizeJob = requestAnimationFrame(this._computeWidth.bind(this, value));
+        this._activeResizeJob = setTimeout(this._computeWidth.bind(this, valueString), 0);
+        // if (this._activeResizeJob) {
+        //   cancelAnimationFrame(this._activeResizeJob);
+        // }
+        // this._activeResizeJob = requestAnimationFrame(this._computeWidth.bind(this, valueString));
       }
 
-
-      _computeWidth(value) {
+      _computeWidth(valueString) {
         if (this.noAutoWidth) return;
 
-        let valueString = (!isNaN(value) && this._format(value)) || '',
-          min = (this.min && this._format(this.min)) || '',
-          max = (this.max && this._format(this.max)) || '',
-          placeholder = this.placeholder || '';
+        valueString = valueString || '';
 
-        const longest = [min, max, valueString, placeholder].reduce((acc, curr) => {
-          curr = this._format(curr);
-          return (acc && acc.length > curr.length) ? acc : curr;
-        });
-
-        let corrector = 0;
-
-        if (this.step && ('' + this.step).indexOf('.') !== -1 && longest.indexOf('.') === -1) {
-          corrector += 0.5;
+        if (!this.alwaysSign && this.min !== undefined && this.min < 0 && valueString[0] !== '-') {
+          valueString = '-' + valueString;
         }
-        if (!(this.min !== undefined && this.min >= 0) && value >= 0) {
-          corrector += 0.5;
+
+        let longest = this._longestStatic.length > valueString.length ? this._longestStatic : valueString;
+
+        if (this.step && ('' + this.step).indexOf('.') !== -1 && longest.indexOf(this.decimalSeparator) === -1) {
+          longest = longest + this.decimalSeparator;
         }
+
+        if (this.alwaysSign && longest.indexOf('-') !== -1) {
+          longest = longest.replace('-', '+');
+        }
+
         const style = window.getComputedStyle(this.$.input);
         this._test.style.fontSize = style.fontSize;
         this._test.style.fontFamily = style.fontFamily;
         this._test.style.fontWeight = style.fontWeight;
-        this._test.innerText = longest + (this.unit ? ('\u2008' + this.unit) : '');
+        this._test.innerText = longest.replace(/\s/g, '\u2008') + (this.unit ? ('\u202F' + this.unit) : '');
 
         const rect = this._test.getBoundingClientRect();
-        if (rect.width === 0) {
-          corrector += longest && longest.length;
-        }
-        this.$.input.style.width = 'calc(' + rect.width + 'px + ' + corrector + 'ch)';
+        this.$.input.style.width = rect.width ? (rect.width + 'px') : (longest + 'ch');
       }
 
       _noAutoWidthChanged(noAutoWidth) {
@@ -359,12 +421,22 @@
             this._test.classList.add('test', 'number-input');
             document.body.appendChild(this._test);
           }
-          this._debouncedComputeWidth(this.value);
-          window.addEventListener('resize', this._debouncedComputeWidth.bind(this, this.value), false);
+          this._debouncedComputeWidth(this.valueString);
+          window.addEventListener('resize', this._debouncedComputeWidth.bind(this, this.valueString), false);
           return;
         }
         this.$.input.style.width = '';
-        window.removeEventListener('resize', this._debouncedComputeWidth.bind(this, this.value), false);
+        window.removeEventListener('resize', this._debouncedComputeWidth.bind(this, this.valueString), false);
+      }
+
+      _localeChanged(locale) {
+        if (!(locale && Intl.NumberFormat && Intl.NumberFormat.supportedLocalesOf(locale))) {
+          this.decimalSeparator = '.';
+          return;
+        }
+        locale += '-u-nu-latn-ca-iso8601';
+        const decimalSeparator = new Intl.NumberFormat(locale).format(1.2).split(/\d/g).filter(s => { return s !== ''; }).pop();
+        this.decimalSeparator = decimalSeparator !== '\u202F' ? decimalSeparator : '.';
       }
 
       /**
@@ -380,6 +452,36 @@
       blur() {
         this.$.input.blur();
       }
+
+      formatNumber() {
+        const n = arguments[0];
+        let str = '' + Math.abs(n);
+        const decimalR = str.slice(str.indexOf('.')).length - 1,
+          decimalL = str.length - decimalR - 1;
+
+        if (decimalR === 0) {
+          decimalL++;
+          if (this.minimumFractionDigits > 0) {
+            str += '.';
+          }
+        }
+        for (let i = 0; i < this.minimumIntegerDigits - decimalL; i++) {
+          str = '0' + str;
+        }
+        for (let i = 0; i < this.minimumFractionDigits - decimalR; i++) {
+          str += '0';
+        }
+        if (this.decimalSeparator !== '.') {
+          str = str.replace('.', this.decimalSeparator || '.');
+        }
+        if (n < 0) {
+          str = '-' + str;
+        } else if (this.alwaysSign) {
+          str = '+' + str;
+        }
+        return str;
+      }
+
     }
   }
 </script>
@@ -395,6 +497,7 @@
      * * overflow to minimum or underflow to maximum
      * * saturate to minimum or to maximum
      * * display a specified unit and size the input
+     * * specify the decimal separator (the value will still be a Number object)
      *
      * Example:
      * ```html
