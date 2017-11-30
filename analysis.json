@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "elements": [
     {
-      "description": "`number-input` is an element that can:\n* prevent non numeric input\n* guarantee **live**-data to be valid\n* pad a value with `0` (to a specific length)\n* size the input (according to it's length)\n* overflow to minimum or underflow to maximum\n* saturate to minimum or to maximum\n* display a specified unit and size the input\n\nExample:\n```html\n<number-input step=\"2\" min=\"-20\" max=\"140\" pad-length=\"2\"></number-input>\n```\n\nIt sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.\n\n### Styling\nCustom property                  | Description                            | Default\n---------------------------------|----------------------------------------|--------------------\n`--number-input`                 | style of the input                     | {}\n`--number-input-focus`           | style of the focussed and hovered input | {}\n`--number-input-placeholder`     | style of the placeholder               | {}\n\n```css\n:host {\n  --number-input-focus: {\n    background: rgba(0,0,0,.25);\n  };\n  --number-input-placeholder: {\n    color: pink;\n  };\n}\n```",
+      "description": "`number-input` is an element that can:\n* prevent non numeric input\n* guarantee **live**-data to be valid\n* pad a value with `0` (to a specific length)\n* size the input (according to it's length)\n* overflow to minimum or underflow to maximum\n* saturate to minimum or to maximum\n* display a specified unit and size the input\n* specify the decimal separator (the value will still be a Number object)\n\nExample:\n```html\n<number-input step=\"2\" min=\"-20\" max=\"140\" pad-length=\"2\"></number-input>\n```\n\nIt sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.\n\n### Styling\nCustom property                  | Description                            | Default\n---------------------------------|----------------------------------------|--------------------\n`--number-input`                 | style of the input                     | {}\n`--number-input-focus`           | style of the focussed and hovered input | {}\n`--number-input-placeholder`     | style of the placeholder               | {}\n\n```css\n:host {\n  --number-input-focus: {\n    background: rgba(0,0,0,.25);\n  };\n  --number-input-placeholder: {\n    color: pink;\n  };\n}\n```",
       "summary": "",
       "path": "number-input.html",
       "properties": [
@@ -126,7 +126,7 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 76,
+              "line": 77,
               "column": 10
             },
             "end": {
@@ -135,9 +135,7 @@
             }
           },
           "metadata": {
-            "polymer": {
-              "observer": "\"_updateView\""
-            }
+            "polymer": {}
           },
           "inheritedFrom": "NumberInputMixin"
         },
@@ -148,7 +146,7 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 84,
+              "line": 85,
               "column": 10
             },
             "end": {
@@ -157,9 +155,7 @@
             }
           },
           "metadata": {
-            "polymer": {
-              "observer": "\"_updateView\""
-            }
+            "polymer": {}
           },
           "inheritedFrom": "NumberInputMixin"
         },
@@ -170,11 +166,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 92,
+              "line": 93,
               "column": 10
             },
             "end": {
-              "line": 94,
+              "line": 95,
               "column": 11
             }
           },
@@ -190,11 +186,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 99,
+              "line": 101,
               "column": 10
             },
             "end": {
-              "line": 103,
+              "line": 105,
               "column": 11
             }
           },
@@ -207,39 +203,17 @@
           "inheritedFrom": "NumberInputMixin"
         },
         {
-          "name": "noPadding",
+          "name": "autoPadding",
           "type": "boolean",
-          "description": "disable padding (auto-width still effected by `padLength`)",
+          "description": "enables auto padding",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 108,
-              "column": 10
-            },
-            "end": {
               "line": 111,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "observer": "\"_updateView\""
-            }
-          },
-          "inheritedFrom": "NumberInputMixin"
-        },
-        {
-          "name": "alwaysSign",
-          "type": "boolean",
-          "description": "show '+', when positive",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 116,
               "column": 10
             },
             "end": {
-              "line": 118,
+              "line": 113,
               "column": 11
             }
           },
@@ -255,11 +229,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 123,
+              "line": 119,
               "column": 10
             },
             "end": {
-              "line": 127,
+              "line": 123,
               "column": 11
             }
           },
@@ -278,11 +252,55 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 132,
+              "line": 129,
               "column": 10
             },
             "end": {
-              "line": 134,
+              "line": 132,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_checkInput\""
+            }
+          },
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "description": "The current locale to set the decimal-separator automatically",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 137,
+              "column": 10
+            },
+            "end": {
+              "line": 141,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_localeChanged\""
+            }
+          },
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "decimalSeparator",
+          "type": "string",
+          "description": "Separator for local decimal values",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 147,
+              "column": 10
+            },
+            "end": {
+              "line": 149,
               "column": 11
             }
           },
@@ -292,17 +310,125 @@
           "inheritedFrom": "NumberInputMixin"
         },
         {
-          "name": "_toFixed",
-          "type": "number",
-          "description": "pad to precision",
-          "privacy": "protected",
+          "name": "alwaysSign",
+          "type": "string",
+          "description": "always put the sign in the beginning",
+          "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 139,
+              "line": 155,
               "column": 10
             },
             "end": {
-              "line": 142,
+              "line": 157,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "minimumFractionDigits",
+          "type": "number",
+          "description": "minimum digits right to the decimal separator",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 163,
+              "column": 10
+            },
+            "end": {
+              "line": 166,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          },
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "minimumIntegerDigits",
+          "type": "number",
+          "description": "minimum digits left to the decimal separator",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 172,
+              "column": 10
+            },
+            "end": {
+              "line": 175,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          },
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "_longestStatic",
+          "type": "number",
+          "description": "longest number-string of the given range",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 181,
+              "column": 10
+            },
+            "end": {
+              "line": 184,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          },
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "_regExpDecimalSeparator",
+          "type": "RegExp",
+          "description": "regular expression to detect the decimal separator",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 190,
+              "column": 10
+            },
+            "end": {
+              "line": 193,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          },
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "_regExpNotInNumber",
+          "type": "RegExp",
+          "description": "regular expression to parse the numeric parts of a number string",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 199,
+              "column": 10
+            },
+            "end": {
+              "line": 202,
               "column": 11
             }
           },
@@ -347,11 +473,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 227,
+              "line": 291,
               "column": 6
             },
             "end": {
-              "line": 243,
+              "line": 308,
               "column": 7
             }
           },
@@ -511,11 +637,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 152,
+              "line": 214,
               "column": 6
             },
             "end": {
-              "line": 156,
+              "line": 218,
               "column": 7
             }
           },
@@ -529,11 +655,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 158,
+              "line": 220,
               "column": 6
             },
             "end": {
-              "line": 165,
+              "line": 224,
               "column": 7
             }
           },
@@ -542,44 +668,16 @@
           "inheritedFrom": "NumberInputMixin"
         },
         {
-          "name": "_format",
+          "name": "_computeMinimumFractionDigits",
           "description": "",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 167,
+              "line": 226,
               "column": 6
             },
             "end": {
-              "line": 189,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "n"
-            },
-            {
-              "name": "padLength"
-            },
-            {
-              "name": "toFixed"
-            }
-          ],
-          "inheritedFrom": "NumberInputMixin"
-        },
-        {
-          "name": "_computeFixed",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 191,
-              "column": 6
-            },
-            "end": {
-              "line": 201,
+              "line": 231,
               "column": 7
             }
           },
@@ -587,6 +685,146 @@
           "params": [
             {
               "name": "step"
+            },
+            {
+              "name": "min"
+            },
+            {
+              "name": "max"
+            }
+          ],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "_computeMinimumIntegerDigits",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 233,
+              "column": 6
+            },
+            "end": {
+              "line": 241,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "autoPadding"
+            },
+            {
+              "name": "padLength"
+            },
+            {
+              "name": "min"
+            },
+            {
+              "name": "max"
+            },
+            {
+              "name": "minimumFractionDigits"
+            }
+          ],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "_computePadding",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 243,
+              "column": 6
+            },
+            "end": {
+              "line": 247,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "autoPadding"
+            },
+            {
+              "name": "minimumIntegerDigits"
+            },
+            {
+              "name": "minimumFractionDigits"
+            }
+          ],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "_computeLongestStatic",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 249,
+              "column": 6
+            },
+            "end": {
+              "line": 253,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "min"
+            },
+            {
+              "name": "max"
+            },
+            {
+              "name": "placeholder"
+            }
+          ],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "_computeRegExpDecimalSeparator",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 255,
+              "column": 6
+            },
+            "end": {
+              "line": 257,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "decimalSeparator"
+            }
+          ],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "_computeRegExpNotInNumber",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 259,
+              "column": 6
+            },
+            "end": {
+              "line": 261,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "decimalSeparator"
             }
           ],
           "inheritedFrom": "NumberInputMixin"
@@ -597,11 +835,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 203,
+              "line": 263,
               "column": 6
             },
             "end": {
-              "line": 205,
+              "line": 265,
               "column": 7
             }
           },
@@ -615,11 +853,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 207,
+              "line": 267,
               "column": 6
             },
             "end": {
-              "line": 225,
+              "line": 289,
               "column": 7
             }
           },
@@ -640,11 +878,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 245,
+              "line": 310,
               "column": 6
             },
             "end": {
-              "line": 273,
+              "line": 338,
               "column": 7
             }
           },
@@ -662,11 +900,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 275,
+              "line": 340,
               "column": 6
             },
             "end": {
-              "line": 284,
+              "line": 349,
               "column": 7
             }
           },
@@ -684,11 +922,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 286,
+              "line": 351,
               "column": 6
             },
             "end": {
-              "line": 290,
+              "line": 355,
               "column": 7
             }
           },
@@ -702,11 +940,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 292,
+              "line": 357,
               "column": 6
             },
             "end": {
-              "line": 298,
+              "line": 362,
               "column": 7
             }
           },
@@ -724,11 +962,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 300,
+              "line": 364,
               "column": 6
             },
             "end": {
-              "line": 304,
+              "line": 368,
               "column": 7
             }
           },
@@ -746,18 +984,18 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 306,
+              "line": 370,
               "column": 6
             },
             "end": {
-              "line": 311,
+              "line": 379,
               "column": 7
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "value"
+              "name": "valueString"
             }
           ],
           "inheritedFrom": "NumberInputMixin"
@@ -768,18 +1006,18 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 314,
+              "line": 381,
               "column": 6
             },
             "end": {
-              "line": 346,
+              "line": 408,
               "column": 7
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "value"
+              "name": "valueString"
             }
           ],
           "inheritedFrom": "NumberInputMixin"
@@ -790,11 +1028,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 348,
+              "line": 410,
               "column": 6
             },
             "end": {
-              "line": 367,
+              "line": 429,
               "column": 7
             }
           },
@@ -807,16 +1045,38 @@
           "inheritedFrom": "NumberInputMixin"
         },
         {
+          "name": "_localeChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 431,
+              "column": 6
+            },
+            "end": {
+              "line": 439,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "locale"
+            }
+          ],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
           "name": "focus",
           "description": "focus the input",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 372,
+              "line": 444,
               "column": 6
             },
             "end": {
-              "line": 374,
+              "line": 446,
               "column": 7
             }
           },
@@ -830,11 +1090,29 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 379,
+              "line": 451,
               "column": 6
             },
             "end": {
-              "line": 381,
+              "line": 453,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "formatNumber",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 455,
+              "column": 6
+            },
+            "end": {
+              "line": 482,
               "column": 7
             }
           },
@@ -853,11 +1131,11 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 429,
+          "line": 532,
           "column": 4
         },
         "end": {
-          "line": 434,
+          "line": 537,
           "column": 5
         }
       },
@@ -960,7 +1238,7 @@
           "description": "length to pad the string (with `0`) according to the total amount of numbers",
           "sourceRange": {
             "start": {
-              "line": 76,
+              "line": 77,
               "column": 10
             },
             "end": {
@@ -977,7 +1255,7 @@
           "description": "placeholder string",
           "sourceRange": {
             "start": {
-              "line": 84,
+              "line": 85,
               "column": 10
             },
             "end": {
@@ -994,11 +1272,11 @@
           "description": "disables the input",
           "sourceRange": {
             "start": {
-              "line": 92,
+              "line": 93,
               "column": 10
             },
             "end": {
-              "line": 94,
+              "line": 95,
               "column": 11
             }
           },
@@ -1011,11 +1289,11 @@
           "description": "disable autosizing",
           "sourceRange": {
             "start": {
-              "line": 99,
+              "line": 101,
               "column": 10
             },
             "end": {
-              "line": 103,
+              "line": 105,
               "column": 11
             }
           },
@@ -1024,32 +1302,15 @@
           "inheritedFrom": "NumberInputMixin"
         },
         {
-          "name": "no-padding",
-          "description": "disable padding (auto-width still effected by `padLength`)",
+          "name": "auto-padding",
+          "description": "enables auto padding",
           "sourceRange": {
             "start": {
-              "line": 108,
-              "column": 10
-            },
-            "end": {
               "line": 111,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "boolean",
-          "inheritedFrom": "NumberInputMixin"
-        },
-        {
-          "name": "always-sign",
-          "description": "show '+', when positive",
-          "sourceRange": {
-            "start": {
-              "line": 116,
               "column": 10
             },
             "end": {
-              "line": 118,
+              "line": 113,
               "column": 11
             }
           },
@@ -1062,11 +1323,11 @@
           "description": "value string of the input",
           "sourceRange": {
             "start": {
-              "line": 123,
+              "line": 119,
               "column": 10
             },
             "end": {
-              "line": 127,
+              "line": 123,
               "column": 11
             }
           },
@@ -1079,16 +1340,101 @@
           "description": "unit of the value",
           "sourceRange": {
             "start": {
-              "line": 132,
+              "line": 129,
               "column": 10
             },
             "end": {
-              "line": 134,
+              "line": 132,
               "column": 11
             }
           },
           "metadata": {},
           "type": "string",
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "locale",
+          "description": "The current locale to set the decimal-separator automatically",
+          "sourceRange": {
+            "start": {
+              "line": 137,
+              "column": 10
+            },
+            "end": {
+              "line": 141,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string",
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "decimal-separator",
+          "description": "Separator for local decimal values",
+          "sourceRange": {
+            "start": {
+              "line": 147,
+              "column": 10
+            },
+            "end": {
+              "line": 149,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string",
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "always-sign",
+          "description": "always put the sign in the beginning",
+          "sourceRange": {
+            "start": {
+              "line": 155,
+              "column": 10
+            },
+            "end": {
+              "line": 157,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string",
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "minimum-fraction-digits",
+          "description": "minimum digits right to the decimal separator",
+          "sourceRange": {
+            "start": {
+              "line": 163,
+              "column": 10
+            },
+            "end": {
+              "line": 166,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "number",
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "minimum-integer-digits",
+          "description": "minimum digits left to the decimal separator",
+          "sourceRange": {
+            "start": {
+              "line": 172,
+              "column": 10
+            },
+            "end": {
+              "line": 175,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "number",
           "inheritedFrom": "NumberInputMixin"
         }
       ],
@@ -1230,7 +1576,7 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 76,
+              "line": 77,
               "column": 10
             },
             "end": {
@@ -1239,9 +1585,7 @@
             }
           },
           "metadata": {
-            "polymer": {
-              "observer": "\"_updateView\""
-            }
+            "polymer": {}
           }
         },
         {
@@ -1251,7 +1595,7 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 84,
+              "line": 85,
               "column": 10
             },
             "end": {
@@ -1260,9 +1604,7 @@
             }
           },
           "metadata": {
-            "polymer": {
-              "observer": "\"_updateView\""
-            }
+            "polymer": {}
           }
         },
         {
@@ -1272,11 +1614,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 92,
+              "line": 93,
               "column": 10
             },
             "end": {
-              "line": 94,
+              "line": 95,
               "column": 11
             }
           },
@@ -1291,11 +1633,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 99,
+              "line": 101,
               "column": 10
             },
             "end": {
-              "line": 103,
+              "line": 105,
               "column": 11
             }
           },
@@ -1307,38 +1649,17 @@
           "defaultValue": "false"
         },
         {
-          "name": "noPadding",
+          "name": "autoPadding",
           "type": "boolean",
-          "description": "disable padding (auto-width still effected by `padLength`)",
+          "description": "enables auto padding",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 108,
-              "column": 10
-            },
-            "end": {
               "line": 111,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "observer": "\"_updateView\""
-            }
-          }
-        },
-        {
-          "name": "alwaysSign",
-          "type": "boolean",
-          "description": "show '+', when positive",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 116,
               "column": 10
             },
             "end": {
-              "line": 118,
+              "line": 113,
               "column": 11
             }
           },
@@ -1353,11 +1674,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 123,
+              "line": 119,
               "column": 10
             },
             "end": {
-              "line": 127,
+              "line": 123,
               "column": 11
             }
           },
@@ -1375,11 +1696,53 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 132,
+              "line": 129,
               "column": 10
             },
             "end": {
-              "line": 134,
+              "line": 132,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_checkInput\""
+            }
+          }
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "description": "The current locale to set the decimal-separator automatically",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 137,
+              "column": 10
+            },
+            "end": {
+              "line": 141,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_localeChanged\""
+            }
+          }
+        },
+        {
+          "name": "decimalSeparator",
+          "type": "string",
+          "description": "Separator for local decimal values",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 147,
+              "column": 10
+            },
+            "end": {
+              "line": 149,
               "column": 11
             }
           },
@@ -1388,17 +1751,120 @@
           }
         },
         {
-          "name": "_toFixed",
-          "type": "number",
-          "description": "pad to precision",
-          "privacy": "protected",
+          "name": "alwaysSign",
+          "type": "string",
+          "description": "always put the sign in the beginning",
+          "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 139,
+              "line": 155,
               "column": 10
             },
             "end": {
-              "line": 142,
+              "line": 157,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "minimumFractionDigits",
+          "type": "number",
+          "description": "minimum digits right to the decimal separator",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 163,
+              "column": 10
+            },
+            "end": {
+              "line": 166,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "minimumIntegerDigits",
+          "type": "number",
+          "description": "minimum digits left to the decimal separator",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 172,
+              "column": 10
+            },
+            "end": {
+              "line": 175,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "_longestStatic",
+          "type": "number",
+          "description": "longest number-string of the given range",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 181,
+              "column": 10
+            },
+            "end": {
+              "line": 184,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "_regExpDecimalSeparator",
+          "type": "RegExp",
+          "description": "regular expression to detect the decimal separator",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 190,
+              "column": 10
+            },
+            "end": {
+              "line": 193,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "_regExpNotInNumber",
+          "type": "RegExp",
+          "description": "regular expression to parse the numeric parts of a number string",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 199,
+              "column": 10
+            },
+            "end": {
+              "line": 202,
               "column": 11
             }
           },
@@ -1442,11 +1908,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 227,
+              "line": 291,
               "column": 6
             },
             "end": {
-              "line": 243,
+              "line": 308,
               "column": 7
             }
           },
@@ -1605,11 +2071,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 152,
+              "line": 214,
               "column": 6
             },
             "end": {
-              "line": 156,
+              "line": 218,
               "column": 7
             }
           },
@@ -1622,11 +2088,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 158,
+              "line": 220,
               "column": 6
             },
             "end": {
-              "line": 165,
+              "line": 224,
               "column": 7
             }
           },
@@ -1634,43 +2100,16 @@
           "params": []
         },
         {
-          "name": "_format",
+          "name": "_computeMinimumFractionDigits",
           "description": "",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 167,
+              "line": 226,
               "column": 6
             },
             "end": {
-              "line": 189,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "n"
-            },
-            {
-              "name": "padLength"
-            },
-            {
-              "name": "toFixed"
-            }
-          ]
-        },
-        {
-          "name": "_computeFixed",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 191,
-              "column": 6
-            },
-            "end": {
-              "line": 201,
+              "line": 231,
               "column": 7
             }
           },
@@ -1678,6 +2117,141 @@
           "params": [
             {
               "name": "step"
+            },
+            {
+              "name": "min"
+            },
+            {
+              "name": "max"
+            }
+          ]
+        },
+        {
+          "name": "_computeMinimumIntegerDigits",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 233,
+              "column": 6
+            },
+            "end": {
+              "line": 241,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "autoPadding"
+            },
+            {
+              "name": "padLength"
+            },
+            {
+              "name": "min"
+            },
+            {
+              "name": "max"
+            },
+            {
+              "name": "minimumFractionDigits"
+            }
+          ]
+        },
+        {
+          "name": "_computePadding",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 243,
+              "column": 6
+            },
+            "end": {
+              "line": 247,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "autoPadding"
+            },
+            {
+              "name": "minimumIntegerDigits"
+            },
+            {
+              "name": "minimumFractionDigits"
+            }
+          ]
+        },
+        {
+          "name": "_computeLongestStatic",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 249,
+              "column": 6
+            },
+            "end": {
+              "line": 253,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "min"
+            },
+            {
+              "name": "max"
+            },
+            {
+              "name": "placeholder"
+            }
+          ]
+        },
+        {
+          "name": "_computeRegExpDecimalSeparator",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 255,
+              "column": 6
+            },
+            "end": {
+              "line": 257,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "decimalSeparator"
+            }
+          ]
+        },
+        {
+          "name": "_computeRegExpNotInNumber",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 259,
+              "column": 6
+            },
+            "end": {
+              "line": 261,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "decimalSeparator"
             }
           ]
         },
@@ -1687,11 +2261,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 203,
+              "line": 263,
               "column": 6
             },
             "end": {
-              "line": 205,
+              "line": 265,
               "column": 7
             }
           },
@@ -1704,11 +2278,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 207,
+              "line": 267,
               "column": 6
             },
             "end": {
-              "line": 225,
+              "line": 289,
               "column": 7
             }
           },
@@ -1728,11 +2302,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 245,
+              "line": 310,
               "column": 6
             },
             "end": {
-              "line": 273,
+              "line": 338,
               "column": 7
             }
           },
@@ -1749,11 +2323,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 275,
+              "line": 340,
               "column": 6
             },
             "end": {
-              "line": 284,
+              "line": 349,
               "column": 7
             }
           },
@@ -1770,11 +2344,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 286,
+              "line": 351,
               "column": 6
             },
             "end": {
-              "line": 290,
+              "line": 355,
               "column": 7
             }
           },
@@ -1787,11 +2361,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 292,
+              "line": 357,
               "column": 6
             },
             "end": {
-              "line": 298,
+              "line": 362,
               "column": 7
             }
           },
@@ -1808,11 +2382,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 300,
+              "line": 364,
               "column": 6
             },
             "end": {
-              "line": 304,
+              "line": 368,
               "column": 7
             }
           },
@@ -1829,18 +2403,18 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 306,
+              "line": 370,
               "column": 6
             },
             "end": {
-              "line": 311,
+              "line": 379,
               "column": 7
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "value"
+              "name": "valueString"
             }
           ]
         },
@@ -1850,18 +2424,18 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 314,
+              "line": 381,
               "column": 6
             },
             "end": {
-              "line": 346,
+              "line": 408,
               "column": 7
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "value"
+              "name": "valueString"
             }
           ]
         },
@@ -1871,11 +2445,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 348,
+              "line": 410,
               "column": 6
             },
             "end": {
-              "line": 367,
+              "line": 429,
               "column": 7
             }
           },
@@ -1887,16 +2461,37 @@
           ]
         },
         {
+          "name": "_localeChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 431,
+              "column": 6
+            },
+            "end": {
+              "line": 439,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "locale"
+            }
+          ]
+        },
+        {
           "name": "focus",
           "description": "focus the input",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 372,
+              "line": 444,
               "column": 6
             },
             "end": {
-              "line": 374,
+              "line": 446,
               "column": 7
             }
           },
@@ -1909,11 +2504,28 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 379,
+              "line": 451,
               "column": 6
             },
             "end": {
-              "line": 381,
+              "line": 453,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "formatNumber",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 455,
+              "column": 6
+            },
+            "end": {
+              "line": 482,
               "column": 7
             }
           },
@@ -1930,7 +2542,7 @@
           "column": 2
         },
         "end": {
-          "line": 383,
+          "line": 485,
           "column": 3
         }
       },
@@ -2032,7 +2644,7 @@
           "description": "length to pad the string (with `0`) according to the total amount of numbers",
           "sourceRange": {
             "start": {
-              "line": 76,
+              "line": 77,
               "column": 10
             },
             "end": {
@@ -2048,7 +2660,7 @@
           "description": "placeholder string",
           "sourceRange": {
             "start": {
-              "line": 84,
+              "line": 85,
               "column": 10
             },
             "end": {
@@ -2064,11 +2676,11 @@
           "description": "disables the input",
           "sourceRange": {
             "start": {
-              "line": 92,
+              "line": 93,
               "column": 10
             },
             "end": {
-              "line": 94,
+              "line": 95,
               "column": 11
             }
           },
@@ -2080,11 +2692,11 @@
           "description": "disable autosizing",
           "sourceRange": {
             "start": {
-              "line": 99,
+              "line": 101,
               "column": 10
             },
             "end": {
-              "line": 103,
+              "line": 105,
               "column": 11
             }
           },
@@ -2092,31 +2704,15 @@
           "type": "boolean"
         },
         {
-          "name": "no-padding",
-          "description": "disable padding (auto-width still effected by `padLength`)",
+          "name": "auto-padding",
+          "description": "enables auto padding",
           "sourceRange": {
             "start": {
-              "line": 108,
-              "column": 10
-            },
-            "end": {
               "line": 111,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "boolean"
-        },
-        {
-          "name": "always-sign",
-          "description": "show '+', when positive",
-          "sourceRange": {
-            "start": {
-              "line": 116,
               "column": 10
             },
             "end": {
-              "line": 118,
+              "line": 113,
               "column": 11
             }
           },
@@ -2128,11 +2724,11 @@
           "description": "value string of the input",
           "sourceRange": {
             "start": {
-              "line": 123,
+              "line": 119,
               "column": 10
             },
             "end": {
-              "line": 127,
+              "line": 123,
               "column": 11
             }
           },
@@ -2144,16 +2740,96 @@
           "description": "unit of the value",
           "sourceRange": {
             "start": {
-              "line": 132,
+              "line": 129,
               "column": 10
             },
             "end": {
-              "line": 134,
+              "line": 132,
               "column": 11
             }
           },
           "metadata": {},
           "type": "string"
+        },
+        {
+          "name": "locale",
+          "description": "The current locale to set the decimal-separator automatically",
+          "sourceRange": {
+            "start": {
+              "line": 137,
+              "column": 10
+            },
+            "end": {
+              "line": 141,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "decimal-separator",
+          "description": "Separator for local decimal values",
+          "sourceRange": {
+            "start": {
+              "line": 147,
+              "column": 10
+            },
+            "end": {
+              "line": 149,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "always-sign",
+          "description": "always put the sign in the beginning",
+          "sourceRange": {
+            "start": {
+              "line": 155,
+              "column": 10
+            },
+            "end": {
+              "line": 157,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "minimum-fraction-digits",
+          "description": "minimum digits right to the decimal separator",
+          "sourceRange": {
+            "start": {
+              "line": 163,
+              "column": 10
+            },
+            "end": {
+              "line": 166,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "number"
+        },
+        {
+          "name": "minimum-integer-digits",
+          "description": "minimum digits left to the decimal separator",
+          "sourceRange": {
+            "start": {
+              "line": 172,
+              "column": 10
+            },
+            "end": {
+              "line": 175,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "number"
         }
       ],
       "events": [],
