@@ -181,7 +181,7 @@
            */
           _longestStatic: {
             type: Number,
-            computed: '_computeLongestStatic(min, max, placeholder)'
+            computed: '_computeLongestStatic(min, max, placeholder, minimumIntegerDigits, minimumFractionDigits)'
           },
 
           /**
@@ -247,8 +247,8 @@
         }
       }
 
-      _computeLongestStatic(min, max, placeholder) {
-        return [(this.min && this.formatNumber(this.min)) || '', (this.max && this.formatNumber(this.max)) || '', placeholder || ''].reduce((acc, curr) => {
+      _computeLongestStatic(min, max, placeholder, minimumIntegerDigits, minimumFractionDigits) {
+        return [(this.min && this.formatNumber(this.min)) || '', (this.max && this.formatNumber(this.max)) || '', placeholder || '', this.formatNumber(Math.pow(10, (minimumIntegerDigits - 1) || 0) + Math.pow(10, -(minimumFractionDigits || 0)))].reduce((acc, curr) => {
           return (acc && acc.length > curr.length) ? acc : curr;
         });
       }
@@ -358,7 +358,7 @@
       _increm(step) {
         if (step === undefined) return;
         step = step || this.step || 1;
-        const value = (this.minimumFractionDigits === 0) ? ((parseInt(this.$.input.value.replace(this._regExpNotInNumber, '')) + step) || this.value) : this._safeAdd(parseFloat(this.$.input.value.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.')) || this.value, step);
+        const value = (this.minimumFractionDigits === 0) ? ((parseInt(this.$.input.value.replace(this._regExpNotInNumber, '')) + step)) : this._safeAdd(parseFloat(this.$.input.value.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.')), step);
         this.value = this._checkValue(value, this.value);
       }
 
@@ -370,13 +370,9 @@
 
       _debouncedComputeWidth(valueString) {
         if (this._activeResizeJob) {
-          clearTimeout(this._activeResizeJob);
+          cancelAnimationFrame(this._activeResizeJob);
         }
-        this._activeResizeJob = setTimeout(this._computeWidth.bind(this, valueString), 0);
-        // if (this._activeResizeJob) {
-        //   cancelAnimationFrame(this._activeResizeJob);
-        // }
-        // this._activeResizeJob = requestAnimationFrame(this._computeWidth.bind(this, valueString));
+        this._activeResizeJob = requestAnimationFrame(this._computeWidth.bind(this, valueString));
       }
 
       _computeWidth(valueString) {
@@ -389,10 +385,6 @@
         }
 
         let longest = ('' + this._longestStatic).length > valueString.length ? ('' + this._longestStatic) : valueString;
-
-        if (this.step && ('' + this.step).indexOf('.') !== -1 && longest.indexOf(this.decimalSeparator) === -1) {
-          longest = longest + this.decimalSeparator;
-        }
 
         if (this.alwaysSign && longest.indexOf('-') !== -1) {
           longest = longest.replace('-', '+');
