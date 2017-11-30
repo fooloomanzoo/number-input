@@ -41,7 +41,7 @@
               font-family: inherit;
               font-size: inherit;
               font-weight: inherit;
-              text-align: center;
+              text-align: var(--number-input-allign, center);
               @apply --number-input;
             }
             #input:hover,
@@ -50,6 +50,9 @@
             }
             #input::placeholder {
               @apply --number-input-placeholder;
+            }
+            :host([disabled]) #input {
+              @apply --input-disabled;
             }
           </style>
         `;
@@ -92,7 +95,8 @@
            * @type {boolean}
            */
           disabled: {
-            type: Boolean
+            type: Boolean,
+            reflectToAttribute: true
           },
 
           /**
@@ -207,8 +211,7 @@
       static get observers() {
         return [
           '_debouncedComputeWidth(valueString)',
-          '_computePadding(autoPadding, minimumIntegerDigits, minimumFractionDigits)',
-          '_checkInput(decimalSeparator)'
+          '_computePadding(autoPadding, minimumIntegerDigits, minimumFractionDigits)'
         ]
       }
 
@@ -266,7 +269,8 @@
       }
 
       _valueStringChanged(valueString, oldValueString) {
-        valueString = valueString || '';
+        if (valueString === undefined) return;
+
         oldValueString = oldValueString || '';
         const newValue = parseFloat(valueString.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.'));
         const oldValue = parseFloat(oldValueString.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.'));
