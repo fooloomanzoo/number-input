@@ -1,6 +1,5 @@
 <link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../property-mixins/range-mixin.html">
-<link rel="import" href="../property-mixins/intl-number-mixin.html">
 
 <script>
   /**
@@ -113,6 +112,7 @@
           autoPadding: {
             type: Boolean
           },
+
           /**
            * value string of the input
            * @type {string}
@@ -122,6 +122,7 @@
             notify: true,
             observer: '_valueStringChanged'
           },
+
           /**
            * unit of the value
            * @type {string}
@@ -146,6 +147,14 @@
            */
           decimalSeparator: {
             type: String
+          },
+
+          /**
+           * always put the sign in the beginning
+           * @type {string}
+           */
+          alwaysSign: {
+            type: Boolean
           },
 
           /**
@@ -192,7 +201,6 @@
             type: RegExp,
             computed: '_computeRegExpNotInNumber(decimalSeparator)'
           }
-
         }
       }
 
@@ -351,7 +359,6 @@
         if (step === undefined) return;
         step = step || this.step || 1;
         const value = (this.minimumFractionDigits === 0) ? ((parseInt(this.$.input.value.replace(this._regExpNotInNumber, '')) + step) || this.value) : this._safeAdd(parseFloat(this.$.input.value.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.')) || this.value, step);
-        console.log(parseFloat(this.$.input.value.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.')), this.minimumFractionDigits);
         this.value = this._checkValue(value, this.value);
       }
 
@@ -377,7 +384,7 @@
 
         valueString = valueString || '';
 
-        if (!(this.min !== undefined && this.min >= 0) && valueString[0] !== '-') {
+        if (!this.alwaysSign && this.min !== undefined && this.min < 0 && valueString[0] !== '-') {
           valueString = '-' + valueString;
         }
 
@@ -387,6 +394,10 @@
           longest = longest + this.decimalSeparator;
         }
 
+        if (this.alwaysSign && longest.indexOf('-') !== -1) {
+          longest = longest.replace('-', '+');
+        }
+
         const style = window.getComputedStyle(this.$.input);
         this._test.style.fontSize = style.fontSize;
         this._test.style.fontFamily = style.fontFamily;
@@ -394,7 +405,7 @@
         this._test.innerText = longest.replace(/\s/g, '\u2008') + (this.unit ? ('\u202F' + this.unit) : '');
 
         const rect = this._test.getBoundingClientRect();
-        this.$.input.style.width = rect.width ? ('calc(' +  rect.width + 'px)') : '2ch';
+        this.$.input.style.width = rect.width ? (rect.width + 'px') : (longest + 'ch');
       }
 
       _noAutoWidthChanged(noAutoWidth) {
@@ -443,24 +454,32 @@
       }
 
       formatNumber() {
-        console.log(arguments[0], this.decimalSeparator);
         const n = arguments[0];
         let str = '' + Math.abs(n);
-        const decimal = str.slice(str.indexOf('.')).length - 1;
+        const decimalR = str.slice(str.indexOf('.')).length - 1,
+          decimalL = str.length - decimalR - 1;
 
-        if (this.minimumFractionDigits > 0) {
-          if (decimal === 0) {
+        if (decimalR === 0) {
+          decimalL++;
+          if (this.minimumFractionDigits > 0) {
             str += '.';
           }
-          for (let i = 0; i < this.minimumFractionDigits - decimal; i++) {
-            str += '0';
-          }
         }
-        for (let i = 0; i < this.minimumIntegerDigits - decimal - 1; i++) {
+        for (let i = 0; i < this.minimumIntegerDigits - decimalL; i++) {
           str = '0' + str;
         }
-        str.replace('.', this.decimalSeparator);
-        return (n < 0 ? '-' : '') + str;
+        for (let i = 0; i < this.minimumFractionDigits - decimalR; i++) {
+          str += '0';
+        }
+        if (this.decimalSeparator !== '.') {
+          str = str.replace('.', this.decimalSeparator || '.');
+        }
+        if (n < 0) {
+          str = '-' + str;
+        } else if (this.alwaysSign) {
+          str = '+' + str;
+        }
+        return str;
       }
 
     }
@@ -509,7 +528,7 @@
      *
      * @appliesMixin NumberInputMixin
      *
-     * @demo demo/simple.html
+     * @demo demo/index.html
      **/
     class NumberInput extends NumberInputMixin(Polymer.Element) {
 
