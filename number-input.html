@@ -1,6 +1,6 @@
 <link rel="import" href="../polymer/polymer-element.html">
-<link rel="import" href="../range-input/range-mixin.html">
-<link rel="import" href="intl-number-mixin.html">
+<link rel="import" href="../property-mixins/range-mixin.html">
+<link rel="import" href="../property-mixins/intl-number-mixin.html">
 
 <script>
   /**
@@ -349,9 +349,9 @@
 
       _increm(step) {
         if (step === undefined) return;
-
         step = step || this.step || 1;
-        const value = this._safeAdd(parseFloat(this.$.input.value.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.')) || this.value, step);
+        const value = (this.minimumFractionDigits === 0) ? ((parseInt(this.$.input.value.replace(this._regExpNotInNumber, '')) + step) || this.value) : this._safeAdd(parseFloat(this.$.input.value.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.')) || this.value, step);
+        console.log(parseFloat(this.$.input.value.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.')), this.minimumFractionDigits);
         this.value = this._checkValue(value, this.value);
       }
 
@@ -442,30 +442,25 @@
         this.$.input.blur();
       }
 
-      formatNumber(n) {
+      formatNumber() {
+        console.log(arguments[0], this.decimalSeparator);
+        const n = arguments[0];
         let str = '' + Math.abs(n);
-        const decimalR = str.slice(str.indexOf('.')).length - 1,
-          decimalL = str.length - decimalR - 1;
+        const decimal = str.slice(str.indexOf('.')).length - 1;
 
-        if (decimalR === 0) {
-          decimalL++;
-          if (this.minimumFractionDigits > 0) {
+        if (this.minimumFractionDigits > 0) {
+          if (decimal === 0) {
             str += '.';
           }
+          for (let i = 0; i < this.minimumFractionDigits - decimal; i++) {
+            str += '0';
+          }
         }
-        for (let i = 0; i < this.minimumIntegerDigits - decimalL; i++) {
+        for (let i = 0; i < this.minimumIntegerDigits - decimal - 1; i++) {
           str = '0' + str;
         }
-        for (let i = 0; i < this.minimumFractionDigits - decimalR; i++) {
-          str += '0';
-        }
-        if (this.decimalSeparator !== '.') {
-          str = str.replace('.', this.decimalSeparator || '.');
-        }
-        if (n < 0) {
-          str = '-' + str;
-        }
-        return str;
+        str.replace('.', this.decimalSeparator);
+        return (n < 0 ? '-' : '') + str;
       }
 
     }
