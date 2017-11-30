@@ -153,6 +153,9 @@
         super.disconnectedCallback();
         this.removeEventListener('focus', this.focus.bind(this), false);
         window.removeEventListener('resize', this._debouncedComputeWidth.bind(this, this.value), false);
+        if (this._test && this._test.parentNode) {
+          this._test.parentNode.removeChild(this._test);
+        }
       }
 
       _format(n, padLength, toFixed) {
@@ -328,7 +331,10 @@
         this._test.innerText = longest + (this.unit ? ('\u2008' + this.unit) : '');
 
         const rect = this._test.getBoundingClientRect();
-        this.$.input.style.width = 'calc(' + (rect.width || 16) + 'px + ' + corrector + 'ch)';
+        if (rect.width === 0) {
+          corrector += longest && longest.length;
+        }
+        this.$.input.style.width = 'calc(' + rect.width + 'px + ' + corrector + 'ch)';
       }
 
       _noAutoWidthChanged(noAutoWidth) {
