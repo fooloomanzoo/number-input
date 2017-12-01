@@ -452,8 +452,8 @@
       formatNumber() {
         const n = arguments[0];
         let str = '' + Math.abs(n);
-        const decimalR = str.slice(str.indexOf('.')).length - 1,
-          decimalL = str.length - decimalR - 1;
+        const decimalR = str.slice(str.indexOf('.')).length - 1;
+        let decimalL = str.length - decimalR - 1;
 
         if (decimalR === 0) {
           decimalL++;
@@ -477,7 +477,6 @@
         }
         return str;
       }
-
     }
   }
 </script>
