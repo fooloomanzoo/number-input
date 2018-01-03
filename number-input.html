@@ -27,31 +27,36 @@
             :host {
               display: block;
               box-sizing: content-box;
+              --number-input: {
+                @apply --input-style;
+              };
+              --number-input-focus: {
+                @apply --input-focus;
+              };
+              @apply --number-input;
+              padding: 0 !important;
             }
-            :host(:focus) {
+            #input:focus {
               outline: none;
             }
-            --number-input: {
-              @apply --input-style;
-            };
-            --number-input-focus: {
-              @apply --input-focus;
-            };
             #input {
+              @apply --number-input;
               font-family: inherit;
               font-size: inherit;
               font-weight: inherit;
               text-align: var(--number-input-allign, center);
-              @apply --number-input;
-            }
-            #input:hover,
-            #input:focus {
-              @apply --number-input-focus;
+              overflow: visible;
+              border: 0;
             }
             #input::placeholder {
               @apply --number-input-placeholder;
             }
-            :host([disabled]) #input {
+            :host(:hover),
+            :host(:focus),
+            #input:focus {
+              @apply --number-input-focus;
+            }
+            :host([disabled]) {
               @apply --input-disabled;
             }
           </style>
@@ -388,35 +393,18 @@
           valueString = '-' + valueString;
         }
 
-        let longest = ('' + this._longestStatic).length > valueString.length ? ('' + this._longestStatic) : valueString;
+        const longest = (this._longestStatic || '').length > valueString.length ? (this._longestStatic || '') : valueString;
 
-        if (this.alwaysSign && longest.indexOf('-') !== -1) {
-          longest = longest.replace('-', '+');
+        if (this.unit) {
+          // add unit-string-length plus one space-length
+          this.$.input.style.width = `${longest.length + 1 + this.unit.length}ch`;
+        } else {
+          this.$.input.style.width = `${longest.length}ch`;
         }
-
-        const style = window.getComputedStyle(this.$.input);
-        this._test.style.fontSize = style.fontSize;
-        this._test.style.fontFamily = style.fontFamily;
-        this._test.style.fontWeight = style.fontWeight;
-        this._test.innerText = longest.replace(/\s/g, '\u2008') + (this.unit ? ('\u202F' + this.unit) : '');
-
-        const rect = this._test.getBoundingClientRect();
-        this.$.input.style.width = rect.width ? (rect.width + 'px') : (longest + 'ch');
       }
 
       _noAutoWidthChanged(noAutoWidth) {
         if (!noAutoWidth) {
-          if (!this._test) {
-            this._test = document.createElement('div');
-            this._test.style.pointerEvents = 'none';
-            this._test.style.padding = 0;
-            this._test.style.position = 'fixed';
-            this._test.style.top = 0;
-            this._test.style.left = 0;
-            this._test.style.visibility = 'hidden';
-            this._test.classList.add('test', 'number-input');
-            document.body.appendChild(this._test);
-          }
           this._debouncedComputeWidth(this.valueString);
           window.addEventListener('resize', this._debouncedComputeWidth.bind(this, this.valueString), false);
           return;
