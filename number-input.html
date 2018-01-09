@@ -27,31 +27,35 @@
             :host {
               display: block;
               box-sizing: content-box;
+              --number-input: {
+                @apply --input-style;
+              };
+              --number-input-focus: {
+                @apply --input-focus;
+              };
+              padding: 0 !important;
             }
-            :host(:focus) {
+            #input:focus {
               outline: none;
             }
-            --number-input: {
-              @apply --input-style;
-            };
-            --number-input-focus: {
-              @apply --input-focus;
-            };
             #input {
+              @apply --number-input;
               font-family: inherit;
               font-size: inherit;
               font-weight: inherit;
               text-align: var(--number-input-allign, center);
-              @apply --number-input;
+              overflow: visible;
+              box-sizing: content-box;
+              border: 0;
+            }
+            #input::placeholder {
+              @apply --number-input-placeholder;
             }
             #input:hover,
             #input:focus {
               @apply --number-input-focus;
             }
-            #input::placeholder {
-              @apply --number-input-placeholder;
-            }
-            :host([disabled]) #input {
+            :host([disabled]) {
               @apply --input-disabled;
             }
           </style>
@@ -133,7 +137,7 @@
            */
           unit: {
             type: String,
-            observer: '_checkInput'
+            observer: '_unitChanged'
           },
 
           /**
@@ -183,7 +187,7 @@
            * longest number-string of the given range
            * @type {number}
            */
-          _longestStatic: {
+          _longestStaticLength: {
             type: Number,
             computed: '_computeLongestStatic(min, max, placeholder, minimumIntegerDigits, minimumFractionDigits)'
           },
@@ -217,6 +221,10 @@
 
       connectedCallback() {
         super.connectedCallback();
+        /**
+         * IE & Edge ch-unit fix
+         */
+        this._chCorrection = window.navigator.userAgent.match(/Edge|Trident/g) ? 1.25 : 1;
         this._ensureAttribute('tabindex', 0);
         this.addEventListener('focus', this.focus.bind(this), false);
       }
@@ -251,9 +259,13 @@
       }
 
       _computeLongestStatic(min, max, placeholder, minimumIntegerDigits, minimumFractionDigits) {
-        return [(this.min && this.formatNumber(this.min)) || '', (this.max && this.formatNumber(this.max)) || '', placeholder || '', this.formatNumber(Math.pow(10, (minimumIntegerDigits - 1) || 0) + Math.pow(10, -(minimumFractionDigits || 0)))].reduce((acc, curr) => {
-          return (acc && acc.length > curr.length) ? acc : curr;
+        return [this._computeChWidth((this.min && this.formatNumber(this.min)) || ''), this._computeChWidth((this.max && this.formatNumber(this.max)) || ''), this._computeChWidth(placeholder || ''), this._computeChWidth(this.formatNumber(Math.pow(10, (minimumIntegerDigits - 1) || 1) + Math.pow(10, -(minimumFractionDigits || 0))))].reduce((acc, curr) => {
+          return (acc > curr) ? acc : curr;
         });
+      }
+
+      _computeChWidth(str) {
+        return str.length - str.replace(/\d/g, '').length/2;
       }
 
       _computeRegExpDecimalSeparator(decimalSeparator) {
@@ -268,8 +280,13 @@
         this._valueStringChanged(this.$.input.value);
       }
 
+      _unitChanged(unit) {
+        this._unitEmLength = unit.length - unit.replace(/\D/g, '').length*0.25 - unit.replace(/\w/g, '').length*0.5; // estimated, that letters do have length: 1em, numbers do have length: 0.75em, other do have length: 0.5em
+        this._checkInput();
+      }
+
       _valueStringChanged(valueString, oldValueString) {
-        if (valueString === undefined) return;
+        if (!valueString) return;
 
         oldValueString = oldValueString || '';
         const newValue = parseFloat(valueString.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.'));
@@ -384,39 +401,22 @@
 
         valueString = valueString || '';
 
-        if (!this.alwaysSign && this.min !== undefined && this.min < 0 && valueString[0] !== '-') {
+        if (!this.alwaysSign && !(this.min >= 0) && valueString[0] !== '-') {
           valueString = '-' + valueString;
         }
+        const currLength = this._computeChWidth(valueString);
+        const length = (this._longestStaticLength > currLength ? this._longestStaticLength : currLength) * this._chCorrection;
 
-        let longest = ('' + this._longestStatic).length > valueString.length ? ('' + this._longestStatic) : valueString;
-
-        if (this.alwaysSign && longest.indexOf('-') !== -1) {
-          longest = longest.replace('-', '+');
+        if (this._unitEmLength) {
+          // add unit-string-length plus one space-length
+          this.$.input.style.width = `calc(${length}ch + ${0.125 + this._unitEmLength}em)`;
+        } else {
+          this.$.input.style.width = `${length}ch`;
         }
-
-        const style = window.getComputedStyle(this.$.input);
-        this._test.style.fontSize = style.fontSize;
-        this._test.style.fontFamily = style.fontFamily;
-        this._test.style.fontWeight = style.fontWeight;
-        this._test.innerText = longest.replace(/\s/g, '\u2008') + (this.unit ? ('\u202F' + this.unit) : '');
-
-        const rect = this._test.getBoundingClientRect();
-        this.$.input.style.width = rect.width ? (rect.width + 'px') : (longest + 'ch');
       }
 
       _noAutoWidthChanged(noAutoWidth) {
         if (!noAutoWidth) {
-          if (!this._test) {
-            this._test = document.createElement('div');
-            this._test.style.pointerEvents = 'none';
-            this._test.style.padding = 0;
-            this._test.style.position = 'fixed';
-            this._test.style.top = 0;
-            this._test.style.left = 0;
-            this._test.style.visibility = 'hidden';
-            this._test.classList.add('test', 'number-input');
-            document.body.appendChild(this._test);
-          }
           this._debouncedComputeWidth(this.valueString);
           window.addEventListener('resize', this._debouncedComputeWidth.bind(this, this.valueString), false);
           return;
