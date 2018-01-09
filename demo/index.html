@@ -25,7 +25,7 @@
     </custom-style>
   </head>
   <body>
-    <!-- <div class="vertical-section-container centered">
+    <div class="vertical-section-container centered">
       <demo-snippet>
         <h4>Simple demo</h4>
         <template>
@@ -138,7 +138,7 @@
           </dom-bind>
         </template>
       </demo-snippet>
-    </div> -->
+    </div>
 
     <div class="vertical-section-container centered">
       <demo-snippet>
@@ -153,18 +153,19 @@
                       background: rgba(35, 35, 40, 0.5);
                       transition: background 150ms ease-in-out;
                       color: #f1f1f1;
-                      /*padding: 0.3em;*/
+                      padding: 0.3em;
                       border-radius: 0;
                       text-align: right;
                     };
                     --number-input-focus: {
                       background: rgba(35, 35, 40, 1);
+                      color: #f1f1f1;
                       outline: none;
                     };
                   }
                 </style>
               </custom-style>
-              <number-input class="units" value="{{value}}" step="1.25" max="90" pad-length="5" unit="°"></number-input>
+              <number-input class="units" value="{{value}}" step="1.25" min="-10" max="90" pad-length="5" unit="°C"></number-input>
               <div class="vertical-section-container result">
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
