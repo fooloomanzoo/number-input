@@ -39,7 +39,6 @@
               outline: none;
             }
             #input {
-              @apply --number-input;
               font-family: inherit;
               font-size: inherit;
               font-weight: inherit;
@@ -47,6 +46,7 @@
               overflow: visible;
               box-sizing: content-box;
               border: 0;
+              @apply --number-input;
             }
             #input::placeholder {
               @apply --number-input-placeholder;
@@ -277,6 +277,7 @@
       }
 
       _checkInput() {
+        this._stopIncrem();
         this._valueStringChanged(this.$.input.value);
       }
 

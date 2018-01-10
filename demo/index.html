@@ -52,9 +52,9 @@
                   }
                 </style>
               </custom-style>
-              <number-input value="{{value}}" step="0.001" min="-1" max="1"></number-input>
+              <number-input value="{{value}}" step="0.001" min="-1" max="1" default="0"></number-input>
               <div class="vertical-section-container result">
-                <div><code>step</code>: <b>0.001</b><code>min</code>: <b>-1</b><code>max</code>: <b>1</b></div>
+                <div><code>step</code>: <b>0.001</b><code>min</code>: <b>-1</b><code>max</code>: <b>1</b><code>default</code>: <b>0</b></div>
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
             </template>
@@ -95,6 +95,7 @@
               </custom-style>
               <number-input class="custom-color" value="{{value}}" pad-length="4" saturate placeholder="0000" min="0" step="100" max="999"></number-input>
               <div class="vertical-section-container result">
+                <div><code>step</code>: <b>100</b><code>min</code>: <b>0</b><code>max</code>: <b>999</b><code>placeholder</code>: <b>0000</b><code>pad-length</code>: <b>4</b></div>
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
             </template>
@@ -132,6 +133,7 @@
               </custom-style>
               <number-input class="decimal" value="{{value}}" min="-23" step="1.15" max="45" pad-length="4"></number-input>
               <div class="vertical-section-container result">
+                <div><code>step</code>: <b>1.15</b><code>min</code>: <b>-23</b><code>max</code>: <b>45</b><code>pad-length</code>: <b>4</b></div>
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
             </template>
@@ -155,7 +157,6 @@
                       color: #f1f1f1;
                       padding: 0.3em;
                       border-radius: 0;
-                      text-align: right;
                     };
                     --number-input-focus: {
                       background: rgba(35, 35, 40, 1);
@@ -165,8 +166,9 @@
                   }
                 </style>
               </custom-style>
-              <number-input class="units" value="{{value}}" step="1.25" min="-10" max="90" pad-length="5" unit="°C"></number-input>
+              <number-input class="units" value="{{value}}" step="1.25" min="-10" max="90" default="0" pad-length="5" unit="°C"></number-input>
               <div class="vertical-section-container result">
+                <div><code>step</code>: <b>1.25</b><code>min</code>: <b>-10</b><code>max</code>: <b>90</b><code>pad-length</code>: <b>5</b><code>unit</code>: <b>°C</b></div>
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
             </template>
