@@ -32,27 +32,31 @@ This element wants to achieve that. It does use **decimal notation**, like `123.
 <custom-element-demo>
   <template>
     <script src="../webcomponentsjs/webcomponents-lite.js"></script>
-    <style>
-      html {
-        font-family: 'Source Sans Pro', sans-serif;
-        line-height: 1.5;
-      }
-      number-input {
-        font-size: 1.5em;
-        --number-input: {
-          background: rgba(60, 61, 172, 0.5);
-          transition: background 150ms ease-in-out;
-          color: white;
+
+    <custom-style>
+      <style is="custom-style">
+        html {
+          font-family: 'Source Sans Pro', sans-serif;
+          line-height: 1.5;
+          --number-input: {
+            background: rgba(60, 61, 172, 0.5);
+            transition: background 150ms ease-in-out;
+            color: white;
+            padding: 0.5em;
+            border-radius: 4px;
+            border: none;
+          };
+          --number-input-focus: {
+            background: rgba(60, 61, 172, 0.9);
+            outline: none;
+          };
+        }
+        number-input {
+          font-size: 1.5em;
           padding: 0.5em;
-          border-radius: 4px;
-          border: none;
-        };
-        --number-input-focus: {
-          background: rgba(60, 61, 172, 0.9);
-          outline: none;
-        };
-      }
-    </style>
+        }
+      </style>
+    </custom-style>
     <link rel="import" href="number-input.html">
 
     <next-code-block></next-code-block>
@@ -61,7 +65,7 @@ This element wants to achieve that. It does use **decimal notation**, like `123.
 ```
 -->
 ```html
-<number-input min="-150" step="0.15" max="300" pad-length="5"></number-input>
+<number-input min="-150" step="0.15" max="300" pad-length="5" default="0"></number-input>
 ```
 
 ### Installation
