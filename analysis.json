@@ -181,9 +181,9 @@
           "inheritedFrom": "NumberInputMixin"
         },
         {
-          "name": "disabled",
-          "type": "boolean",
-          "description": "disables the input",
+          "name": "inPercent",
+          "type": "string",
+          "description": "if true the value string is percent-format",
           "privacy": "public",
           "sourceRange": {
             "start": {
@@ -192,6 +192,28 @@
             },
             "end": {
               "line": 103,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_unitChanged\""
+            }
+          },
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "disables the input",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 109,
+              "column": 10
+            },
+            "end": {
+              "line": 112,
               "column": 11
             }
           },
@@ -207,11 +229,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 109,
+              "line": 118,
               "column": 10
             },
             "end": {
-              "line": 113,
+              "line": 122,
               "column": 11
             }
           },
@@ -230,11 +252,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 119,
+              "line": 128,
               "column": 10
             },
             "end": {
-              "line": 121,
+              "line": 130,
               "column": 11
             }
           },
@@ -250,11 +272,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 127,
+              "line": 136,
               "column": 10
             },
             "end": {
-              "line": 131,
+              "line": 140,
               "column": 11
             }
           },
@@ -273,11 +295,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 137,
+              "line": 146,
               "column": 10
             },
             "end": {
-              "line": 140,
+              "line": 149,
               "column": 11
             }
           },
@@ -295,11 +317,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 145,
+              "line": 154,
               "column": 10
             },
             "end": {
-              "line": 149,
+              "line": 158,
               "column": 11
             }
           },
@@ -317,11 +339,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 155,
+              "line": 164,
               "column": 10
             },
             "end": {
-              "line": 157,
+              "line": 166,
               "column": 11
             }
           },
@@ -337,11 +359,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 163,
+              "line": 172,
               "column": 10
             },
             "end": {
-              "line": 165,
+              "line": 174,
               "column": 11
             }
           },
@@ -354,28 +376,6 @@
           "name": "minimumFractionDigits",
           "type": "number",
           "description": "minimum digits right to the decimal separator",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 171,
-              "column": 10
-            },
-            "end": {
-              "line": 174,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "readOnly": true
-            }
-          },
-          "inheritedFrom": "NumberInputMixin"
-        },
-        {
-          "name": "minimumIntegerDigits",
-          "type": "number",
-          "description": "minimum digits left to the decimal separator",
           "privacy": "public",
           "sourceRange": {
             "start": {
@@ -395,10 +395,10 @@
           "inheritedFrom": "NumberInputMixin"
         },
         {
-          "name": "_longestStaticLength",
+          "name": "minimumIntegerDigits",
           "type": "number",
-          "description": "longest number-string of the given range",
-          "privacy": "protected",
+          "description": "minimum digits left to the decimal separator",
+          "privacy": "public",
           "sourceRange": {
             "start": {
               "line": 189,
@@ -417,9 +417,9 @@
           "inheritedFrom": "NumberInputMixin"
         },
         {
-          "name": "_regExpDecimalSeparator",
-          "type": "RegExp",
-          "description": "regular expression to detect the decimal separator",
+          "name": "_longestStaticLength",
+          "type": "number",
+          "description": "longest number-string of the given range",
           "privacy": "protected",
           "sourceRange": {
             "start": {
@@ -439,9 +439,9 @@
           "inheritedFrom": "NumberInputMixin"
         },
         {
-          "name": "_regExpNotInNumber",
+          "name": "_regExpDecimalSeparator",
           "type": "RegExp",
-          "description": "regular expression to parse the numeric parts of a number string",
+          "description": "regular expression to detect the decimal separator",
           "privacy": "protected",
           "sourceRange": {
             "start": {
@@ -450,6 +450,28 @@
             },
             "end": {
               "line": 210,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          },
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "_regExpNotInNumber",
+          "type": "RegExp",
+          "description": "regular expression to parse the numeric parts of a number string",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 216,
+              "column": 10
+            },
+            "end": {
+              "line": 219,
               "column": 11
             }
           },
@@ -468,11 +490,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 221,
+              "line": 230,
               "column": 6
             },
             "end": {
-              "line": 229,
+              "line": 238,
               "column": 7
             }
           },
@@ -512,11 +534,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 313,
+              "line": 323,
               "column": 6
             },
             "end": {
-              "line": 330,
+              "line": 340,
               "column": 7
             }
           },
@@ -676,11 +698,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 231,
+              "line": 240,
               "column": 6
             },
             "end": {
-              "line": 235,
+              "line": 244,
               "column": 7
             }
           },
@@ -694,11 +716,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 237,
+              "line": 246,
               "column": 6
             },
             "end": {
-              "line": 242,
+              "line": 251,
               "column": 7
             }
           },
@@ -722,11 +744,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 244,
+              "line": 253,
               "column": 6
             },
             "end": {
-              "line": 252,
+              "line": 261,
               "column": 7
             }
           },
@@ -756,11 +778,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 254,
+              "line": 263,
               "column": 6
             },
             "end": {
-              "line": 258,
+              "line": 267,
               "column": 7
             }
           },
@@ -784,11 +806,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 260,
+              "line": 269,
               "column": 6
             },
             "end": {
-              "line": 264,
+              "line": 273,
               "column": 7
             }
           },
@@ -818,11 +840,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 266,
+              "line": 275,
               "column": 6
             },
             "end": {
-              "line": 268,
+              "line": 277,
               "column": 7
             }
           },
@@ -840,11 +862,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 270,
+              "line": 279,
               "column": 6
             },
             "end": {
-              "line": 272,
+              "line": 281,
               "column": 7
             }
           },
@@ -862,11 +884,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 274,
+              "line": 283,
               "column": 6
             },
             "end": {
-              "line": 276,
+              "line": 285,
               "column": 7
             }
           },
@@ -884,11 +906,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 278,
+              "line": 287,
               "column": 6
             },
             "end": {
-              "line": 281,
+              "line": 290,
               "column": 7
             }
           },
@@ -902,20 +924,16 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 283,
+              "line": 292,
               "column": 6
             },
             "end": {
-              "line": 286,
+              "line": 296,
               "column": 7
             }
           },
           "metadata": {},
-          "params": [
-            {
-              "name": "unit"
-            }
-          ],
+          "params": [],
           "inheritedFrom": "NumberInputMixin"
         },
         {
@@ -924,11 +942,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 288,
+              "line": 298,
               "column": 6
             },
             "end": {
-              "line": 311,
+              "line": 321,
               "column": 7
             }
           },
@@ -949,11 +967,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 332,
+              "line": 342,
               "column": 6
             },
             "end": {
-              "line": 360,
+              "line": 370,
               "column": 7
             }
           },
@@ -971,11 +989,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 362,
+              "line": 372,
               "column": 6
             },
             "end": {
-              "line": 371,
+              "line": 381,
               "column": 7
             }
           },
@@ -993,11 +1011,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 373,
+              "line": 383,
               "column": 6
             },
             "end": {
-              "line": 377,
+              "line": 387,
               "column": 7
             }
           },
@@ -1011,11 +1029,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 379,
+              "line": 389,
               "column": 6
             },
             "end": {
-              "line": 384,
+              "line": 394,
               "column": 7
             }
           },
@@ -1033,11 +1051,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 386,
+              "line": 396,
               "column": 6
             },
             "end": {
-              "line": 390,
+              "line": 400,
               "column": 7
             }
           },
@@ -1055,11 +1073,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 392,
+              "line": 402,
               "column": 6
             },
             "end": {
-              "line": 397,
+              "line": 407,
               "column": 7
             }
           },
@@ -1077,11 +1095,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 399,
+              "line": 409,
               "column": 6
             },
             "end": {
-              "line": 416,
+              "line": 426,
               "column": 7
             }
           },
@@ -1099,11 +1117,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 418,
+              "line": 428,
               "column": 6
             },
             "end": {
-              "line": 426,
+              "line": 436,
               "column": 7
             }
           },
@@ -1121,11 +1139,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 428,
+              "line": 438,
               "column": 6
             },
             "end": {
-              "line": 436,
+              "line": 446,
               "column": 7
             }
           },
@@ -1143,11 +1161,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 441,
+              "line": 451,
               "column": 6
             },
             "end": {
-              "line": 443,
+              "line": 453,
               "column": 7
             }
           },
@@ -1161,11 +1179,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 448,
+              "line": 458,
               "column": 6
             },
             "end": {
-              "line": 450,
+              "line": 460,
               "column": 7
             }
           },
@@ -1179,11 +1197,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 452,
+              "line": 462,
               "column": 6
             },
             "end": {
-              "line": 479,
+              "line": 489,
               "column": 7
             }
           },
@@ -1202,11 +1220,11 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 528,
+          "line": 538,
           "column": 4
         },
         "end": {
-          "line": 533,
+          "line": 543,
           "column": 5
         }
       },
@@ -1357,8 +1375,8 @@
           "inheritedFrom": "NumberInputMixin"
         },
         {
-          "name": "disabled",
-          "description": "disables the input",
+          "name": "in-percent",
+          "description": "if true the value string is percent-format",
           "sourceRange": {
             "start": {
               "line": 100,
@@ -1366,6 +1384,23 @@
             },
             "end": {
               "line": 103,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string",
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "disabled",
+          "description": "disables the input",
+          "sourceRange": {
+            "start": {
+              "line": 109,
+              "column": 10
+            },
+            "end": {
+              "line": 112,
               "column": 11
             }
           },
@@ -1378,11 +1413,11 @@
           "description": "disable autosizing",
           "sourceRange": {
             "start": {
-              "line": 109,
+              "line": 118,
               "column": 10
             },
             "end": {
-              "line": 113,
+              "line": 122,
               "column": 11
             }
           },
@@ -1395,11 +1430,11 @@
           "description": "enables auto padding",
           "sourceRange": {
             "start": {
-              "line": 119,
+              "line": 128,
               "column": 10
             },
             "end": {
-              "line": 121,
+              "line": 130,
               "column": 11
             }
           },
@@ -1412,24 +1447,7 @@
           "description": "value string of the input",
           "sourceRange": {
             "start": {
-              "line": 127,
-              "column": 10
-            },
-            "end": {
-              "line": 131,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "string",
-          "inheritedFrom": "NumberInputMixin"
-        },
-        {
-          "name": "unit",
-          "description": "unit of the value",
-          "sourceRange": {
-            "start": {
-              "line": 137,
+              "line": 136,
               "column": 10
             },
             "end": {
@@ -1442,11 +1460,11 @@
           "inheritedFrom": "NumberInputMixin"
         },
         {
-          "name": "locale",
-          "description": "The current locale to set the decimal-separator automatically",
+          "name": "unit",
+          "description": "unit of the value",
           "sourceRange": {
             "start": {
-              "line": 145,
+              "line": 146,
               "column": 10
             },
             "end": {
@@ -1459,15 +1477,32 @@
           "inheritedFrom": "NumberInputMixin"
         },
         {
+          "name": "locale",
+          "description": "The current locale to set the decimal-separator automatically",
+          "sourceRange": {
+            "start": {
+              "line": 154,
+              "column": 10
+            },
+            "end": {
+              "line": 158,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string",
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
           "name": "decimal-separator",
           "description": "Separator for local decimal values",
           "sourceRange": {
             "start": {
-              "line": 155,
+              "line": 164,
               "column": 10
             },
             "end": {
-              "line": 157,
+              "line": 166,
               "column": 11
             }
           },
@@ -1480,11 +1515,11 @@
           "description": "always put the sign in the beginning",
           "sourceRange": {
             "start": {
-              "line": 163,
+              "line": 172,
               "column": 10
             },
             "end": {
-              "line": 165,
+              "line": 174,
               "column": 11
             }
           },
@@ -1497,11 +1532,11 @@
           "description": "minimum digits right to the decimal separator",
           "sourceRange": {
             "start": {
-              "line": 171,
+              "line": 180,
               "column": 10
             },
             "end": {
-              "line": 174,
+              "line": 183,
               "column": 11
             }
           },
@@ -1514,11 +1549,11 @@
           "description": "minimum digits left to the decimal separator",
           "sourceRange": {
             "start": {
-              "line": 180,
+              "line": 189,
               "column": 10
             },
             "end": {
-              "line": 183,
+              "line": 192,
               "column": 11
             }
           },
@@ -1718,9 +1753,9 @@
           }
         },
         {
-          "name": "disabled",
-          "type": "boolean",
-          "description": "disables the input",
+          "name": "inPercent",
+          "type": "string",
+          "description": "if true the value string is percent-format",
           "privacy": "public",
           "sourceRange": {
             "start": {
@@ -1729,6 +1764,27 @@
             },
             "end": {
               "line": 103,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_unitChanged\""
+            }
+          }
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "disables the input",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 109,
+              "column": 10
+            },
+            "end": {
+              "line": 112,
               "column": 11
             }
           },
@@ -1743,11 +1799,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 109,
+              "line": 118,
               "column": 10
             },
             "end": {
-              "line": 113,
+              "line": 122,
               "column": 11
             }
           },
@@ -1765,11 +1821,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 119,
+              "line": 128,
               "column": 10
             },
             "end": {
-              "line": 121,
+              "line": 130,
               "column": 11
             }
           },
@@ -1784,11 +1840,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 127,
+              "line": 136,
               "column": 10
             },
             "end": {
-              "line": 131,
+              "line": 140,
               "column": 11
             }
           },
@@ -1806,11 +1862,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 137,
+              "line": 146,
               "column": 10
             },
             "end": {
-              "line": 140,
+              "line": 149,
               "column": 11
             }
           },
@@ -1827,11 +1883,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 145,
+              "line": 154,
               "column": 10
             },
             "end": {
-              "line": 149,
+              "line": 158,
               "column": 11
             }
           },
@@ -1848,11 +1904,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 155,
+              "line": 164,
               "column": 10
             },
             "end": {
-              "line": 157,
+              "line": 166,
               "column": 11
             }
           },
@@ -1867,11 +1923,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 163,
+              "line": 172,
               "column": 10
             },
             "end": {
-              "line": 165,
+              "line": 174,
               "column": 11
             }
           },
@@ -1883,27 +1939,6 @@
           "name": "minimumFractionDigits",
           "type": "number",
           "description": "minimum digits right to the decimal separator",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 171,
-              "column": 10
-            },
-            "end": {
-              "line": 174,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "readOnly": true
-            }
-          }
-        },
-        {
-          "name": "minimumIntegerDigits",
-          "type": "number",
-          "description": "minimum digits left to the decimal separator",
           "privacy": "public",
           "sourceRange": {
             "start": {
@@ -1922,10 +1957,10 @@
           }
         },
         {
-          "name": "_longestStaticLength",
+          "name": "minimumIntegerDigits",
           "type": "number",
-          "description": "longest number-string of the given range",
-          "privacy": "protected",
+          "description": "minimum digits left to the decimal separator",
+          "privacy": "public",
           "sourceRange": {
             "start": {
               "line": 189,
@@ -1943,9 +1978,9 @@
           }
         },
         {
-          "name": "_regExpDecimalSeparator",
-          "type": "RegExp",
-          "description": "regular expression to detect the decimal separator",
+          "name": "_longestStaticLength",
+          "type": "number",
+          "description": "longest number-string of the given range",
           "privacy": "protected",
           "sourceRange": {
             "start": {
@@ -1964,9 +1999,9 @@
           }
         },
         {
-          "name": "_regExpNotInNumber",
+          "name": "_regExpDecimalSeparator",
           "type": "RegExp",
-          "description": "regular expression to parse the numeric parts of a number string",
+          "description": "regular expression to detect the decimal separator",
           "privacy": "protected",
           "sourceRange": {
             "start": {
@@ -1975,6 +2010,27 @@
             },
             "end": {
               "line": 210,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "_regExpNotInNumber",
+          "type": "RegExp",
+          "description": "regular expression to parse the numeric parts of a number string",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 216,
+              "column": 10
+            },
+            "end": {
+              "line": 219,
               "column": 11
             }
           },
@@ -1992,11 +2048,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 221,
+              "line": 230,
               "column": 6
             },
             "end": {
-              "line": 229,
+              "line": 238,
               "column": 7
             }
           },
@@ -2035,11 +2091,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 313,
+              "line": 323,
               "column": 6
             },
             "end": {
-              "line": 330,
+              "line": 340,
               "column": 7
             }
           },
@@ -2198,11 +2254,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 231,
+              "line": 240,
               "column": 6
             },
             "end": {
-              "line": 235,
+              "line": 244,
               "column": 7
             }
           },
@@ -2215,11 +2271,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 237,
+              "line": 246,
               "column": 6
             },
             "end": {
-              "line": 242,
+              "line": 251,
               "column": 7
             }
           },
@@ -2242,11 +2298,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 244,
+              "line": 253,
               "column": 6
             },
             "end": {
-              "line": 252,
+              "line": 261,
               "column": 7
             }
           },
@@ -2275,11 +2331,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 254,
+              "line": 263,
               "column": 6
             },
             "end": {
-              "line": 258,
+              "line": 267,
               "column": 7
             }
           },
@@ -2302,11 +2358,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 260,
+              "line": 269,
               "column": 6
             },
             "end": {
-              "line": 264,
+              "line": 273,
               "column": 7
             }
           },
@@ -2335,11 +2391,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 266,
+              "line": 275,
               "column": 6
             },
             "end": {
-              "line": 268,
+              "line": 277,
               "column": 7
             }
           },
@@ -2356,11 +2412,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 270,
+              "line": 279,
               "column": 6
             },
             "end": {
-              "line": 272,
+              "line": 281,
               "column": 7
             }
           },
@@ -2377,11 +2433,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 274,
+              "line": 283,
               "column": 6
             },
             "end": {
-              "line": 276,
+              "line": 285,
               "column": 7
             }
           },
@@ -2398,11 +2454,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 278,
+              "line": 287,
               "column": 6
             },
             "end": {
-              "line": 281,
+              "line": 290,
               "column": 7
             }
           },
@@ -2415,20 +2471,16 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 283,
+              "line": 292,
               "column": 6
             },
             "end": {
-              "line": 286,
+              "line": 296,
               "column": 7
             }
           },
           "metadata": {},
-          "params": [
-            {
-              "name": "unit"
-            }
-          ]
+          "params": []
         },
         {
           "name": "_valueStringChanged",
@@ -2436,11 +2488,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 288,
+              "line": 298,
               "column": 6
             },
             "end": {
-              "line": 311,
+              "line": 321,
               "column": 7
             }
           },
@@ -2460,11 +2512,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 332,
+              "line": 342,
               "column": 6
             },
             "end": {
-              "line": 360,
+              "line": 370,
               "column": 7
             }
           },
@@ -2481,11 +2533,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 362,
+              "line": 372,
               "column": 6
             },
             "end": {
-              "line": 371,
+              "line": 381,
               "column": 7
             }
           },
@@ -2502,11 +2554,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 373,
+              "line": 383,
               "column": 6
             },
             "end": {
-              "line": 377,
+              "line": 387,
               "column": 7
             }
           },
@@ -2519,11 +2571,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 379,
+              "line": 389,
               "column": 6
             },
             "end": {
-              "line": 384,
+              "line": 394,
               "column": 7
             }
           },
@@ -2540,11 +2592,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 386,
+              "line": 396,
               "column": 6
             },
             "end": {
-              "line": 390,
+              "line": 400,
               "column": 7
             }
           },
@@ -2561,11 +2613,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 392,
+              "line": 402,
               "column": 6
             },
             "end": {
-              "line": 397,
+              "line": 407,
               "column": 7
             }
           },
@@ -2582,11 +2634,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 399,
+              "line": 409,
               "column": 6
             },
             "end": {
-              "line": 416,
+              "line": 426,
               "column": 7
             }
           },
@@ -2603,11 +2655,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 418,
+              "line": 428,
               "column": 6
             },
             "end": {
-              "line": 426,
+              "line": 436,
               "column": 7
             }
           },
@@ -2624,11 +2676,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 428,
+              "line": 438,
               "column": 6
             },
             "end": {
-              "line": 436,
+              "line": 446,
               "column": 7
             }
           },
@@ -2645,11 +2697,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 441,
+              "line": 451,
               "column": 6
             },
             "end": {
-              "line": 443,
+              "line": 453,
               "column": 7
             }
           },
@@ -2662,11 +2714,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 448,
+              "line": 458,
               "column": 6
             },
             "end": {
-              "line": 450,
+              "line": 460,
               "column": 7
             }
           },
@@ -2679,11 +2731,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 452,
+              "line": 462,
               "column": 6
             },
             "end": {
-              "line": 479,
+              "line": 489,
               "column": 7
             }
           },
@@ -2700,7 +2752,7 @@
           "column": 2
         },
         "end": {
-          "line": 481,
+          "line": 491,
           "column": 3
         }
       },
@@ -2848,8 +2900,8 @@
           "type": "string"
         },
         {
-          "name": "disabled",
-          "description": "disables the input",
+          "name": "in-percent",
+          "description": "if true the value string is percent-format",
           "sourceRange": {
             "start": {
               "line": 100,
@@ -2861,6 +2913,22 @@
             }
           },
           "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "disabled",
+          "description": "disables the input",
+          "sourceRange": {
+            "start": {
+              "line": 109,
+              "column": 10
+            },
+            "end": {
+              "line": 112,
+              "column": 11
+            }
+          },
+          "metadata": {},
           "type": "boolean"
         },
         {
@@ -2868,11 +2936,11 @@
           "description": "disable autosizing",
           "sourceRange": {
             "start": {
-              "line": 109,
+              "line": 118,
               "column": 10
             },
             "end": {
-              "line": 113,
+              "line": 122,
               "column": 11
             }
           },
@@ -2884,11 +2952,11 @@
           "description": "enables auto padding",
           "sourceRange": {
             "start": {
-              "line": 119,
+              "line": 128,
               "column": 10
             },
             "end": {
-              "line": 121,
+              "line": 130,
               "column": 11
             }
           },
@@ -2900,23 +2968,7 @@
           "description": "value string of the input",
           "sourceRange": {
             "start": {
-              "line": 127,
-              "column": 10
-            },
-            "end": {
-              "line": 131,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "string"
-        },
-        {
-          "name": "unit",
-          "description": "unit of the value",
-          "sourceRange": {
-            "start": {
-              "line": 137,
+              "line": 136,
               "column": 10
             },
             "end": {
@@ -2928,11 +2980,11 @@
           "type": "string"
         },
         {
-          "name": "locale",
-          "description": "The current locale to set the decimal-separator automatically",
+          "name": "unit",
+          "description": "unit of the value",
           "sourceRange": {
             "start": {
-              "line": 145,
+              "line": 146,
               "column": 10
             },
             "end": {
@@ -2944,15 +2996,31 @@
           "type": "string"
         },
         {
+          "name": "locale",
+          "description": "The current locale to set the decimal-separator automatically",
+          "sourceRange": {
+            "start": {
+              "line": 154,
+              "column": 10
+            },
+            "end": {
+              "line": 158,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
           "name": "decimal-separator",
           "description": "Separator for local decimal values",
           "sourceRange": {
             "start": {
-              "line": 155,
+              "line": 164,
               "column": 10
             },
             "end": {
-              "line": 157,
+              "line": 166,
               "column": 11
             }
           },
@@ -2964,11 +3032,11 @@
           "description": "always put the sign in the beginning",
           "sourceRange": {
             "start": {
-              "line": 163,
+              "line": 172,
               "column": 10
             },
             "end": {
-              "line": 165,
+              "line": 174,
               "column": 11
             }
           },
@@ -2980,11 +3048,11 @@
           "description": "minimum digits right to the decimal separator",
           "sourceRange": {
             "start": {
-              "line": 171,
+              "line": 180,
               "column": 10
             },
             "end": {
-              "line": 174,
+              "line": 183,
               "column": 11
             }
           },
@@ -2996,11 +3064,11 @@
           "description": "minimum digits left to the decimal separator",
           "sourceRange": {
             "start": {
-              "line": 180,
+              "line": 189,
               "column": 10
             },
             "end": {
-              "line": 183,
+              "line": 192,
               "column": 11
             }
           },

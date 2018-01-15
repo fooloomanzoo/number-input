@@ -65,6 +65,44 @@
 
     <div class="vertical-section-container centered">
       <demo-snippet>
+        <h4>In percent and no clamping to step</h4>
+        <template>
+          <dom-bind>
+            <template is="dom-bind">
+              <custom-style>
+                <style is="custom-style">
+                  number-input {
+                    --number-input: {
+                      background: rgba(0, 0, 0, 0.05);
+                      transition: background 150ms ease-in-out;
+                      color: #111;
+                      border-color: transparent;
+                      border-style: unset;
+                      padding: 0.3em;
+                      border-radius: 0.2em;
+                    };
+                    --number-input-focus: {
+                      background: rgba(0, 0, 0, 0.15);
+                    };
+                    --number-input-placeholder: {
+                      color: #492020;
+                    };
+                  }
+                </style>
+              </custom-style>
+              <number-input value="{{value}}" pad-length="2" no-clamp in-percent step="0.001" min="-1" max="2" default="0"></number-input>
+              <div class="vertical-section-container result">
+                <div><code>step</code>: <b>0.001</b><code>min</code>: <b>-1</b><code>max</code>: <b>2</b><code>default</code>: <b>0</b></div>
+                <div><code>value</code>: <b>[[value]]</b></div>
+              </div>
+            </template>
+          </dom-bind>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container centered">
+      <demo-snippet>
         <h4>Saturate the value</h4>
         <template>
           <dom-bind>
@@ -166,9 +204,9 @@
                   }
                 </style>
               </custom-style>
-              <number-input class="units" value="{{value}}" step="1.25" min="-10" max="90" default="0" pad-length="5" unit="°C"></number-input>
+              <number-input class="units" value="{{value}}" default="0" no-clamp step="0.5" min="-273.15" max="5505" default="0" pad-length="4" unit="°C"></number-input>
               <div class="vertical-section-container result">
-                <div><code>step</code>: <b>1.25</b><code>min</code>: <b>-10</b><code>max</code>: <b>90</b><code>pad-length</code>: <b>5</b><code>unit</code>: <b>°C</b></div>
+                <div><code>step</code>: <b>0.5</b><code>min</code>: <b>-273.15</b><code>max</code>: <b>5505</b><code>pad-length</code>: <b>3</b><code>unit</code>: <b>°C</b></div>
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
             </template>

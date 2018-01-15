@@ -95,6 +95,16 @@
           },
 
           /**
+           * if true the value string is percent-format
+           * notice: min, max and step are not in percent (so e.g. if step is 0.001, it means that the step is 0.1%)
+           * @type {string}
+           */
+          inPercent: {
+            type: Boolean,
+            observer: '_unitChanged'
+          },
+
+          /**
            * disables the input
            * @type {boolean}
            */
@@ -236,32 +246,36 @@
       }
 
       _computeMinimumFractionDigits(step, min, max) {
-        return ['0', '' + step, '' + (min || 0), '' + (max || 0)].reduce( (acc, curr) => {
+        return ['0', '' + this._safeMult(step, this.inPercent ? 100 : 1), '' + this._safeMult(min || 0, this.inPercent ? 100 : 1), '' + this._safeMult(max || 0, this.inPercent ? 100 : 1)].reduce( (acc, curr) => {
           const pos = curr.indexOf('.');
           return Math.max((pos < 0) ? 0 : (curr.length - 1 - pos), acc);
         });
       }
 
       _computeMinimumIntegerDigits(autoPadding, padLength, min, max, minimumFractionDigits) {
-        if (!(autoPadding || padLength)) {
-          return 1;
+        if (autoPadding) {
+          return [Math.max(1, (padLength || 0) - (minimumFractionDigits || 0)), '' + this._safeMult(Math.abs(min || 0), this.inPercent ? 100 : 1), '' + this._safeMult(Math.abs(max || 0), this.inPercent ? 100 : 1)].reduce( (acc, curr) => {
+            const pos = curr.indexOf('.');
+            return Math.max(pos > 0 ? pos : curr.length, acc);
+          });
         }
-        return Math.max(1, (padLength || 0) - (minimumFractionDigits || 0), ['1', '' + Math.abs(min || 0), '' + Math.abs(max || 0)].reduce( (acc, curr) => {
-          const pos = curr.indexOf('.');
-          return Math.max(pos > 0 ? pos : curr.length, acc);
-        }));
+        if (padLength) {
+          return Math.max(1, (padLength || 0) - (minimumFractionDigits || 0));
+        }
+        return 1;
       }
 
       _computePadding(autoPadding, minimumIntegerDigits, minimumFractionDigits) {
         if (autoPadding === true && minimumIntegerDigits !== undefined && minimumFractionDigits !== undefined) {
-          this.padLength = minimumIntegerDigits + minimumFractionDigits;
+          this.padLength = Math.max(minimumIntegerDigits + minimumFractionDigits, this.inPercent ? 3 : 1);
         }
       }
 
       _computeLongestStatic(min, max, placeholder, minimumIntegerDigits, minimumFractionDigits) {
-        return [this._computeChWidth((this.min && this.formatNumber(this.min)) || ''), this._computeChWidth((this.max && this.formatNumber(this.max)) || ''), this._computeChWidth(placeholder || ''), this._computeChWidth(this.formatNumber(Math.pow(10, (minimumIntegerDigits - 1) || 1) + Math.pow(10, -(minimumFractionDigits || 0))))].reduce((acc, curr) => {
-          return (acc > curr) ? acc : curr;
-        });
+        return Math.max(this._computeChWidth('' + (this.min && this._safeMult(min || 0, this.inPercent ? 100 : 1)) || ''),
+                        this._computeChWidth('' + (this.max && this._safeMult(max || 0, this.inPercent ? 100 : 1)) || ''),
+                        this._computeChWidth(placeholder || ''),
+                        this._computeChWidth(this.formatNumber(Math.pow(10, ((minimumIntegerDigits - 1) || 0) + this.inPercent ? 2 : 0) + Math.pow(10, -(minimumFractionDigits || 0) + this.inPercent ? 2 : 0))) + (this.min < 0 || this.max < 0 ? 0.5 : 0));
       }
 
       _computeChWidth(str) {
@@ -281,7 +295,14 @@
         this._valueStringChanged(this.$.input.value);
       }
 
-      _unitChanged(unit) {
+      _unitChanged() {
+        if (this.inPercent === true || this.unit === '%') {
+          this.unit = '%';
+          this.inPercent = true;
+          this._unitEmLength = 0.875;
+          return;
+        }
+        const unit = this.unit;
         this._unitEmLength = unit.length - unit.replace(/\D/g, '').length*0.25 - unit.replace(/\w/g, '').length*0.5; // estimated, that letters do have length: 1em, numbers do have length: 0.75em, other do have length: 0.5em
         this._checkInput();
       }
@@ -290,8 +311,8 @@
         if (!valueString) return;
 
         oldValueString = oldValueString || '';
-        const newValue = parseFloat(valueString.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.'));
-        const oldValue = parseFloat(oldValueString.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.'));
+        const newValue = parseFloat(this._safeMult(valueString.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.'), this.inPercent ? 0.01 : 1));
+        const oldValue = parseFloat(this._safeMult(oldValueString.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.'), this.inPercent ? 0.01 : 1));
         let value;
 
         if (isNaN(oldValue)) {
@@ -300,7 +321,7 @@
           value = this._checkValue(newValue, oldValue);
         }
 
-        valueString = this.formatNumber(value);
+        valueString = this.formatNumber(this._safeMult(value, this.inPercent ? 100 : 1));
 
         if (this.valueString !== valueString) {
           this.valueString = valueString;
@@ -324,7 +345,7 @@
           this.value = value;
           return;
         }
-        const valueString = this.formatNumber(value);
+        const valueString = this.formatNumber(this._safeMult(value, this.inPercent ? 100 : 1));
 
         this.$.input.value = valueString + (this.unit ? ('\u202F' + this.unit) : '');
         this.valueString = valueString;
@@ -379,8 +400,8 @@
 
       _increm(step) {
         if (step === undefined) return;
-        step = step || this.step || 1;
-        const value = (this.minimumFractionDigits === 0) ? ((parseInt(this.$.input.value.replace(this._regExpNotInNumber, '')) + step)) : this._safeAdd(parseFloat(this.$.input.value.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.')), step);
+        step = step || this.step || (this.inPercent ? 0.01 : 1);
+        const value = (this.minimumFractionDigits === 0) ? this._safeAdd(this._safeMult(parseInt(this.$.input.value.replace(this._regExpNotInNumber, '')), (this.inPercent ? 0.01 : 1)), step) : this._safeAdd(this._safeMult(parseFloat(this.$.input.value.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.')), (this.inPercent ? 0.01 : 1)), step);
         this.value = this._checkValue(value, this.value);
       }
 
@@ -402,11 +423,8 @@
 
         valueString = valueString || '';
 
-        if (!this.alwaysSign && !(this.min >= 0) && valueString[0] !== '-') {
-          valueString = '-' + valueString;
-        }
         const currLength = this._computeChWidth(valueString);
-        const length = (this._longestStaticLength > currLength ? this._longestStaticLength : currLength) * this._chCorrection;
+        const length = Math.max(this._longestStaticLength, currLength) * this._chCorrection;
 
         if (this._unitEmLength) {
           // add unit-string-length plus one space-length
@@ -462,11 +480,11 @@
             str += '.';
           }
         }
-        for (let i = 0; i < this.minimumIntegerDigits - decimalL; i++) {
-          str = '0' + str;
-        }
         for (let i = 0; i < this.minimumFractionDigits - decimalR; i++) {
           str += '0';
+        }
+        for (let i = 0; i < this.minimumIntegerDigits - decimalL; i++) {
+          str = '0' + str;
         }
         if (this.decimalSeparator !== '.') {
           str = str.replace('.', this.decimalSeparator || '.');
