@@ -25,7 +25,7 @@
         return `
           <style>
             :host {
-              display: block;
+              display: inline-flex;
               box-sizing: content-box;
               --number-input: {
                 @apply --input-style;
@@ -46,6 +46,8 @@
               overflow: visible;
               box-sizing: content-box;
               border: 0;
+              color: var(--number-input-color, var(--input-color, inherit));
+              background: var(--number-input-background, var(--input-background, inherit));
               @apply --number-input;
             }
             #input::placeholder {
@@ -53,9 +55,12 @@
             }
             #input:hover,
             #input:focus {
+              color: var(--number-input-focus-color, var(--input-focus-color, var(--number-input-color, inherit)));
+              background: var(--number-input-focus-background, var(--input-focus-background, var(--number-input-background, inherit)));
               @apply --number-input-focus;
             }
             :host([disabled]) {
+              color: var(--number-input-disabled-color, var(--input-disabled-color, inherit));
               @apply --input-disabled;
             }
           </style>
@@ -512,6 +517,7 @@
      * * saturate to minimum or to maximum
      * * display a specified unit and size the input
      * * specify the decimal separator (the value will still be a Number object)
+     * * use percent-format
      *
      * Example:
      * ```html
@@ -521,16 +527,23 @@
      * It sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.
      *
      * ### Styling
-     * Custom property                  | Description                            | Default
-     * ---------------------------------|----------------------------------------|--------------------
-     * `--number-input`                 | style of the input                     | {}
-     * `--number-input-focus`           | style of the focussed and hovered input | {}
-     * `--number-input-placeholder`     | style of the placeholder               | {}
+     * Custom property                   | Description                                  | Default
+     * ----------------------------------|----------------------------------------------|--------------------
+     * `--number-input`                  | style of the input                           | {}
+     * `--number-input-focus`            | style of the focussed and hovered input      | {}
+     * `--number-input-placeholder`      | style of the placeholder                     | {}
+     * `--number-input-color`            | color of the input                           | inherit
+     * `--number-input-background`       | background of the input                      | inherit
+     * `--number-input-focus-color`      | color of the focussed and hovered input      | inherit
+     * `--number-input-focus-background` | background of the focussed and hovered input | inherit
+     * `--number-input-disabled-color`   | color of the disabled input                  | inherit
      *
      * ```css
      * :host {
+     *   --number-input-disabled-color: grey;
+     *   --number-input-focus-background: rgba(0,0,0,0.25);
      *   --number-input-focus: {
-     *     background: rgba(0,0,0,.25);
+     *     font-weight: bold;
      *   };
      *   --number-input-placeholder: {
      *     color: pink;
