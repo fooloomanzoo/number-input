@@ -7,14 +7,14 @@
    * mixin to create a number-input
    *
    * @appliesMixin RangeMixin
-   * @appliesMixin FormatElementMixin
+   * @appliesMixin FormElementMixin
    *
    * @mixinFunction
    * @polymer
    */
   const NumberInputMixin = (superClass) => { // eslint-disable-line no-unused-vars
 
-    return class extends RangeMixin(FormatElementMixin(superClass)) {
+    return class extends RangeMixin(FormElementMixin(superClass)) {
 
       static get template() {
         return `

@@ -74,27 +74,24 @@
         },
         {
           "name": "value",
-          "type": "number",
+          "type": "string",
           "description": "value of the input",
           "privacy": "public",
           "sourceRange": {
-            "file": "bower_components\\property-mixins\\range-mixin.html",
+            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 40,
+              "line": 37,
               "column": 10
             },
             "end": {
-              "line": 44,
+              "line": 39,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {
-              "notify": true,
-              "observer": "\"_valueChanged\""
-            }
+            "polymer": {}
           },
-          "inheritedFrom": "RangeMixin"
+          "inheritedFrom": "FormElementMixin"
         },
         {
           "name": "default",
@@ -162,6 +159,69 @@
             }
           },
           "inheritedFrom": "RangeMixin"
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "description": "required attribute",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
+            "start": {
+              "line": 16,
+              "column": 10
+            },
+            "end": {
+              "line": 18,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "FormElementMixin"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "disables the input",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
+            "start": {
+              "line": 23,
+              "column": 10
+            },
+            "end": {
+              "line": 25,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "FormElementMixin"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "description": "name of the input",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
+            "start": {
+              "line": 30,
+              "column": 10
+            },
+            "end": {
+              "line": 32,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "FormElementMixin"
         },
         {
           "name": "padLength",
@@ -696,6 +756,24 @@
           "inheritedFrom": "RangeMixin"
         },
         {
+          "name": "validate",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 291,
+              "column": 6
+            },
+            "end": {
+              "line": 295,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
           "name": "disconnectedCallback",
           "description": "",
           "privacy": "public",
@@ -901,24 +979,6 @@
               "name": "decimalSeparator"
             }
           ],
-          "inheritedFrom": "NumberInputMixin"
-        },
-        {
-          "name": "validate",
-          "description": "",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 291,
-              "column": 6
-            },
-            "end": {
-              "line": 295,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [],
           "inheritedFrom": "NumberInputMixin"
         },
         {
@@ -1293,19 +1353,19 @@
           "name": "value",
           "description": "value of the input",
           "sourceRange": {
-            "file": "bower_components\\property-mixins\\range-mixin.html",
+            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 40,
+              "line": 37,
               "column": 10
             },
             "end": {
-              "line": 44,
+              "line": 39,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "number",
-          "inheritedFrom": "RangeMixin"
+          "type": "string",
+          "inheritedFrom": "FormElementMixin"
         },
         {
           "name": "default",
@@ -1360,6 +1420,60 @@
           "metadata": {},
           "type": "boolean",
           "inheritedFrom": "RangeMixin"
+        },
+        {
+          "name": "required",
+          "description": "required attribute",
+          "sourceRange": {
+            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
+            "start": {
+              "line": 16,
+              "column": 10
+            },
+            "end": {
+              "line": 18,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
+          "inheritedFrom": "FormElementMixin"
+        },
+        {
+          "name": "disabled",
+          "description": "disables the input",
+          "sourceRange": {
+            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
+            "start": {
+              "line": 23,
+              "column": 10
+            },
+            "end": {
+              "line": 25,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
+          "inheritedFrom": "FormElementMixin"
+        },
+        {
+          "name": "name",
+          "description": "name of the input",
+          "sourceRange": {
+            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
+            "start": {
+              "line": 30,
+              "column": 10
+            },
+            "end": {
+              "line": 32,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string",
+          "inheritedFrom": "FormElementMixin"
         },
         {
           "name": "pad-length",
@@ -1652,27 +1766,24 @@
         },
         {
           "name": "value",
-          "type": "number",
+          "type": "string",
           "description": "value of the input",
           "privacy": "public",
           "sourceRange": {
-            "file": "bower_components\\property-mixins\\range-mixin.html",
+            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 40,
+              "line": 37,
               "column": 10
             },
             "end": {
-              "line": 44,
+              "line": 39,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {
-              "notify": true,
-              "observer": "\"_valueChanged\""
-            }
+            "polymer": {}
           },
-          "inheritedFrom": "RangeMixin"
+          "inheritedFrom": "FormElementMixin"
         },
         {
           "name": "default",
@@ -1740,6 +1851,69 @@
             }
           },
           "inheritedFrom": "RangeMixin"
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "description": "required attribute",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
+            "start": {
+              "line": 16,
+              "column": 10
+            },
+            "end": {
+              "line": 18,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "FormElementMixin"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "disables the input",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
+            "start": {
+              "line": 23,
+              "column": 10
+            },
+            "end": {
+              "line": 25,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "FormElementMixin"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "description": "name of the input",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
+            "start": {
+              "line": 30,
+              "column": 10
+            },
+            "end": {
+              "line": 32,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "FormElementMixin"
         },
         {
           "name": "padLength",
@@ -2257,6 +2431,23 @@
           "inheritedFrom": "RangeMixin"
         },
         {
+          "name": "validate",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 291,
+              "column": 6
+            },
+            "end": {
+              "line": 295,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
           "name": "disconnectedCallback",
           "description": "",
           "privacy": "public",
@@ -2455,23 +2646,6 @@
               "name": "decimalSeparator"
             }
           ]
-        },
-        {
-          "name": "validate",
-          "description": "",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 291,
-              "column": 6
-            },
-            "end": {
-              "line": 295,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": []
         },
         {
           "name": "_unitChanged",
@@ -2825,19 +2999,19 @@
           "name": "value",
           "description": "value of the input",
           "sourceRange": {
-            "file": "bower_components\\property-mixins\\range-mixin.html",
+            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 40,
+              "line": 37,
               "column": 10
             },
             "end": {
-              "line": 44,
+              "line": 39,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "number",
-          "inheritedFrom": "RangeMixin"
+          "type": "string",
+          "inheritedFrom": "FormElementMixin"
         },
         {
           "name": "default",
@@ -2892,6 +3066,60 @@
           "metadata": {},
           "type": "boolean",
           "inheritedFrom": "RangeMixin"
+        },
+        {
+          "name": "required",
+          "description": "required attribute",
+          "sourceRange": {
+            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
+            "start": {
+              "line": 16,
+              "column": 10
+            },
+            "end": {
+              "line": 18,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
+          "inheritedFrom": "FormElementMixin"
+        },
+        {
+          "name": "disabled",
+          "description": "disables the input",
+          "sourceRange": {
+            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
+            "start": {
+              "line": 23,
+              "column": 10
+            },
+            "end": {
+              "line": 25,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
+          "inheritedFrom": "FormElementMixin"
+        },
+        {
+          "name": "name",
+          "description": "name of the input",
+          "sourceRange": {
+            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
+            "start": {
+              "line": 30,
+              "column": 10
+            },
+            "end": {
+              "line": 32,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string",
+          "inheritedFrom": "FormElementMixin"
         },
         {
           "name": "pad-length",
@@ -3094,7 +3322,7 @@
       "slots": [],
       "mixins": [
         "RangeMixin",
-        "FormatElementMixin"
+        "FormElementMixin"
       ]
     }
   ]
