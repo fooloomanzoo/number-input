@@ -18,8 +18,9 @@
   },
   "license": "MIT",
   "dependencies": {
-    "polymer": "Polymer/polymer",
-    "property-mixins": "fooloomanzoo/property-mixins"
+    "polymer": "Polymer/polymer#2",
+    "property-mixins": "fooloomanzoo/property-mixins#1.0.13",
+    "input-picker-pattern": "fooloomanzoo/input-picker-pattern#1.0.15"
   },
   "devDependencies": {
     "webcomponentsjs": "webcomponents/webcomponentsjs",
