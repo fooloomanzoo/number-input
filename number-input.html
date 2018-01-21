@@ -58,6 +58,7 @@
             }
             :host([disabled]) {
               color: var(--number-input-disabled-color, var(--input-disabled-color, inherit));
+              background: var(--number-input-disabled-background, var(--input-disabled-background, inherit));
               @apply --input-disabled;
             }
           </style>
@@ -525,7 +526,7 @@
      * `--number-input-color`            | color of the input                           | inherit
      * `--number-input-background`       | background of the input                      | inherit
      * `--number-input-focus-color`      | color of the focussed and hovered input      | inherit
-     * `--number-input-focus-background` | background of the focussed and hovered input | inherit
+     * `--number-input-focus-background` | background of the focussed and hovered input | rgba(0,0,0,0.1)
      * `--number-input-disabled-color`   | color of the disabled input                  | inherit
      *
      * ```css
