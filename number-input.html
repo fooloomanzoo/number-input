@@ -29,16 +29,7 @@
             :host {
               display: inline-flex;
               box-sizing: content-box;
-              --number-input: {
-                @apply --input-style;
-              };
-              --number-input-focus: {
-                @apply --input-focus;
-              };
               padding: 0 !important;
-            }
-            #input:focus {
-              outline: none;
             }
             #input {
               font-family: inherit;
@@ -48,8 +39,10 @@
               overflow: visible;
               box-sizing: content-box;
               border: 0;
+              border-color: transparent;
               color: var(--number-input-color, var(--input-color, inherit));
-              background: var(--number-input-background, var(--input-background, inherit));
+              background: var(--number-input-background, var(--input-background, transparent));
+              @apply --input-style;
               @apply --number-input;
             }
             #input::placeholder {
@@ -57,8 +50,10 @@
             }
             #input:hover,
             #input:focus {
-              color: var(--number-input-focus-color, var(--input-focus-color, var(--number-input-color, inherit)));
-              background: var(--number-input-focus-background, var(--input-focus-background, var(--number-input-background, inherit)));
+              outline: none;
+              color: var(--number-input-focus-color, var(--input-focus-color, inherit));
+              background: var(--number-input-focus-background, var(--input-focus-background, rgba(0,0,0,0.1)));
+              @apply --input-focus;
               @apply --number-input-focus;
             }
             :host([disabled]) {
