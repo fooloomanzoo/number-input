@@ -267,14 +267,14 @@
       }
 
       _computeLongestStatic(min, max, placeholder, minimumIntegerDigits, minimumFractionDigits) {
-        return Math.max(this._computeChWidth('' + (this.min && this._safeMult(min || 0, this.inPercent ? 100 : 1)) || ''),
-                        this._computeChWidth('' + (this.max && this._safeMult(max || 0, this.inPercent ? 100 : 1)) || ''),
+        return Math.max(this._computeChWidth('' + ((min && this._safeMult(min || 0, this.inPercent ? 100 : 1)) || '')),
+                        this._computeChWidth('' + ((max && this._safeMult(max || 0, this.inPercent ? 100 : 1)) || '')),
                         this._computeChWidth(placeholder || ''),
                         this._computeChWidth(this.formatNumber(Math.pow(10, ((minimumIntegerDigits - 1) || 0) + this.inPercent ? 2 : 0) + Math.pow(10, -(minimumFractionDigits || 0) + this.inPercent ? 2 : 0))) + (this.min < 0 || this.max < 0 ? 0.5 : 0));
       }
 
       _computeChWidth(str) {
-        return str.length - str.replace(/\d/g, '').length/2;
+        return str.length - str.replace(/[\d+-]/g, '').length/2;
       }
 
       _computeRegExpDecimalSeparator(decimalSeparator) {
