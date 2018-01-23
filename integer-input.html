@@ -4,7 +4,7 @@
 
 <script>
   /**
-   * mixin to create a number-input
+   * mixin to create a integer-input
    *
    * @appliesMixin RangeMixin
    * @appliesMixin FormElementMixin
@@ -134,6 +134,12 @@
             type: Boolean
           },
 
+          step: {
+            type: Number,
+            value: 1,
+            observer: '_stepChanged'
+          },
+
           /**
            * minimum digits left to the decimal separator
            * @type {number}
@@ -150,14 +156,18 @@
           _longestStaticLength: {
             type: Number,
             computed: '_computeLongestStatic(min, max, placeholder, minimumIntegerDigits)'
+          },
+
+          _regExpNotInNumber: {
+            type: RegExp,
+            value: /[^\d\-\+\\]/
           }
         }
       }
 
       static get observers() {
         return [
-          '_debouncedComputeWidth(input)',
-          '_computePadding(autoPadding, minimumIntegerDigits)'
+          '_debouncedComputeWidth(input)'
         ]
       }
 
@@ -179,32 +189,37 @@
 
       _computeMinimumIntegerDigits(autoPadding, padLength, min, max) {
         if (autoPadding) {
-          return [Math.max(1, (padLength || 0) - (minimumFractionDigits || 0)), '' + this._safeMult(Math.abs(min || 0), this.inPercent ? 100 : 1), '' + this._safeMult(Math.abs(max || 0), this.inPercent ? 100 : 1)].reduce( (acc, curr) => {
-            const pos = curr.indexOf('.');
-            return Math.max(pos > 0 ? pos : curr.length, acc);
+          return [Math.max(1, (padLength || 0)), '' + (min || 0), '' + (max || 0)].reduce( (acc, curr) => {
+            return Math.max(curr.length, acc);
           });
         }
         if (padLength) {
-          return Math.max(1, (padLength || 0) - (minimumFractionDigits || 0));
+          return Math.max(1, (padLength || 0));
         }
         return 1;
       }
 
-      _computePadding(autoPadding, minimumIntegerDigits) {
-        if (autoPadding === true && minimumIntegerDigits !== undefined && minimumFractionDigits !== undefined) {
-          this.padLength = Math.max(minimumIntegerDigits + minimumFractionDigits, this.inPercent ? 3 : 1);
-        }
-      }
-
       _computeLongestStatic(min, max, placeholder, minimumIntegerDigits) {
-        return Math.max(this._computeChWidth('' + ((min && this._safeMult(min || 0, this.inPercent ? 100 : 1)) || '')),
-                        this._computeChWidth('' + ((max && this._safeMult(max || 0, this.inPercent ? 100 : 1)) || '')),
+        return Math.max(this._computeChWidth('' + (min || 0)),
+                        this._computeChWidth('' + (max || 0)),
                         this._computeChWidth(placeholder || ''),
-                        this._computeChWidth(this.formatNumber(Math.pow(10, ((minimumIntegerDigits - 1) || 0) + this.inPercent ? 2 : 0) + Math.pow(10, -(minimumFractionDigits || 0) + this.inPercent ? 2 : 0))) + (this.min < 0 || this.max < 0 ? 0.5 : 0));
+                        this._computeChWidth(this.formatNumber(Math.pow(10, ((minimumIntegerDigits - 1))) * (this.min < 0 || this.max < 0 ? -1 : 1))));
       }
 
       _computeChWidth(str) {
         return str.length - str.replace(/[\d+-]/g, '').length/2;
+      }
+
+      _stepChanged(step) {
+        const round = Math.abs(Math.round(step));
+        if (round === 0) {
+          this.step = 1;
+          return;
+        } else if (step !== round) {
+          this.step = Math.round(step);
+          return;
+        }
+        this._inputChanged(this.$.input.value);
       }
 
       validate() {
@@ -213,24 +228,12 @@
         return super.validate();
       }
 
-      _unitChanged() {
-        if (this.inPercent === true || this.unit === '%') {
-          this.unit = '%';
-          this.inPercent = true;
-          this._unitEmLength = 0.875;
-          return;
-        }
-        const unit = this.unit;
-        this._unitEmLength = unit.length - unit.replace(/\D/g, '').length*0.25 - unit.replace(/\w/g, '').length*0.5; // estimated, that letters do have length: 1em, numbers do have length: 0.75em, other do have length: 0.5em
-        this.validate();
-      }
-
       _inputChanged(input, oldinput) {
         if (!input) return;
 
         oldinput = oldinput || '';
-        const newValue = parseFloat(this._safeMult(input.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.'), this.inPercent ? 0.01 : 1));
-        const oldValue = parseFloat(this._safeMult(oldinput.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.'), this.inPercent ? 0.01 : 1));
+        const newValue = parseInt(input.replace(this._regExpNotInNumber, ''));
+        const oldValue = parseInt(oldinput.replace(this._regExpNotInNumber, ''));
         let value;
 
         if (isNaN(oldValue)) {
@@ -239,14 +242,12 @@
           value = this._checkValue(newValue, oldValue);
         }
 
-        input = this.formatNumber(this._safeMult(value, this.inPercent ? 100 : 1));
-
         if (this.input !== input) {
           this.input = input;
           return;
         }
 
-        this.$.input.value = input + (this.unit ? ('\u202F' + this.unit) : '');
+        this.$.input.value = input;
         this.value = value;
       }
 
@@ -263,10 +264,14 @@
           this.value = value;
           return;
         }
-        const input = this.formatNumber(this._safeMult(value, this.inPercent ? 100 : 1));
+        const input = this.formatNumber(value);
 
-        this.$.input.value = input + (this.unit ? ('\u202F' + this.unit) : '');
+        this.$.input.value = input;
         this.input = input;
+      }
+
+      _checkIntStep(value, oldValue) {
+        
       }
 
       _checkKeycode(e) {
@@ -318,8 +323,8 @@
 
       _increm(step) {
         if (step === undefined) return;
-        step = step || this.step || (this.inPercent ? 0.01 : 1);
-        const value = (this.minimumFractionDigits === 0) ? this._safeAdd(this._safeMult(parseInt(this.$.input.value.replace(this._regExpNotInNumber, '')), (this.inPercent ? 0.01 : 1)), step) : this._safeAdd(this._safeMult(parseFloat(this.$.input.value.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.')), (this.inPercent ? 0.01 : 1)), step);
+        step = step || this.step || 1;
+        const value = parseInt(this.$.input.value.replace(this._regExpNotInNumber, '')) + step;
         this.value = this._checkValue(value, this.value);
       }
 
@@ -344,12 +349,7 @@
         const currLength = this._computeChWidth(input);
         const length = Math.max(this._longestStaticLength, currLength) * this._chCorrection;
 
-        if (this._unitEmLength) {
-          // add unit-string-length plus one space-length
-          this.$.input.style.width = `calc(${length}ch + ${0.125 + this._unitEmLength}em)`;
-        } else {
-          this.$.input.style.width = `${length}ch`;
-        }
+        this.$.input.style.width = `${length}ch`;
       }
 
       _noAutoWidthChanged(noAutoWidth) {
@@ -391,10 +391,10 @@
   }
 </script>
 
-<dom-module id="number-input">
+<dom-module id="integer-input">
   <script>
     /**
-     *  `number-input` is an element that can:
+     *  `integer-input` is an element that can:
      * * prevent non numeric input
      * * guarantee **live**-data to be valid
      * * pad a value with `0` (to a specific length)
@@ -402,12 +402,10 @@
      * * overflow to minimum or underflow to maximum
      * * saturate to minimum or to maximum
      * * display a specified unit and size the input
-     * * specify the decimal separator (the value will still be a Number object)
-     * * use percent-format
      *
      * Example:
      * ```html
-     * <number-input step="2" min="-20" max="140" pad-length="2"></number-input>
+     * <integer-input step="2" min="-20" max="140" pad-length="2"></integer-input>
      * ```
      *
      * It sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.
@@ -446,7 +444,7 @@
     class IntegerInput extends IntegerInputMixin(Polymer.Element) {
 
       static get is() {
-        return 'number-input';
+        return 'integer-input';
       }
     }
     window.customElements.define(IntegerInput.is, IntegerInput);

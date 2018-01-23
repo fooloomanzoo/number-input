@@ -10,6 +10,7 @@
 
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../integer-input.html">
     <link rel="import" href="../number-input.html">
 
     <custom-style>
@@ -55,6 +56,44 @@
               <number-input value="{{value}}" step="0.001" min="-1" max="1" default="0"></number-input>
               <div class="vertical-section-container result">
                 <div><code>step</code>: <b>0.001</b><code>min</code>: <b>-1</b><code>max</code>: <b>1</b><code>default</code>: <b>0</b></div>
+                <div><code>value</code>: <b>[[value]]</b></div>
+              </div>
+            </template>
+          </dom-bind>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container centered">
+      <demo-snippet>
+        <h4>Integer input</h4>
+        <template>
+          <dom-bind>
+            <template is="dom-bind">
+              <custom-style>
+                <style is="custom-style">
+                  integer-input {
+                    --number-input: {
+                      background: rgba(0, 0, 0, 0.05);
+                      transition: background 150ms ease-in-out;
+                      color: #111;
+                      border-color: transparent;
+                      border-style: unset;
+                      padding: 2px;
+                      border-radius: 2px;
+                    };
+                    --number-input-focus: {
+                      background: rgba(0, 0, 0, 0.15);
+                    };
+                    --number-input-placeholder: {
+                      color: #492020;
+                    };
+                  }
+                </style>
+              </custom-style>
+              <integer-input value="{{value}}" step="2" min="-10" max="10" default="0"></integer-input>
+              <div class="vertical-section-container result">
+                <div><code>step</code>: <b>2</b><code>min</code>: <b>-10</b><code>max</code>: <b>10</b><code>default</code>: <b>0</b></div>
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
             </template>

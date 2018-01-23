@@ -9,6 +9,7 @@
     "webcomponents",
     "polymer",
     "number",
+    "integer",
     "input",
     "step"
   ],

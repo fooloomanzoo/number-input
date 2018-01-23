@@ -37,12 +37,11 @@ This element wants to achieve that. It does use **decimal notation**, like `123.
       <style is="custom-style">
         html {
           font-family: 'Source Sans Pro', sans-serif;
-          line-height: 1.5;
           --number-input: {
             background: rgba(60, 61, 172, 0.5);
             transition: background 150ms ease-in-out;
             color: white;
-            padding: 0.5em;
+            padding: 0.1em;
             border-radius: 4px;
             border: none;
           };
@@ -50,10 +49,6 @@ This element wants to achieve that. It does use **decimal notation**, like `123.
             background: rgba(60, 61, 172, 0.9);
             outline: none;
           };
-        }
-        number-input {
-          font-size: 1.5em;
-          padding: 0.5em;
         }
       </style>
     </custom-style>
