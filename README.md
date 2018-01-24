@@ -41,18 +41,17 @@ This element wants to achieve that. It does use **decimal notation**, like `123.
             background: rgba(60, 61, 172, 0.5);
             transition: background 150ms ease-in-out;
             color: white;
-            padding: 0.1em;
-            border-radius: 4px;
-            border: none;
+            padding: 2px;
+            border-radius: 2px;
           };
           --number-input-focus: {
             background: rgba(60, 61, 172, 0.9);
-            outline: none;
           };
         }
       </style>
     </custom-style>
     <link rel="import" href="number-input.html">
+    <link rel="import" href="integer-input.html">
 
     <next-code-block></next-code-block>
   </template>
@@ -60,7 +59,9 @@ This element wants to achieve that. It does use **decimal notation**, like `123.
 ```
 -->
 ```html
-<number-input min="-150" step="0.15" max="300" pad-length="5" default="0"></number-input>
+<span>with unit: </span><number-input min="-150" step="0.15" max="300" pad-length="3" default="15" unit="°C"></number-input><br>
+<span>in percent: </span><number-input min="-150" step="0.15" max="300" pad-length="3" default="15" in-percent></number-input><br>
+<span>as integer: </span><integer-input min="-150" step="15" max="300" default="150"></integer-input>
 ```
 
 ### Installation

@@ -91,9 +91,9 @@
                   }
                 </style>
               </custom-style>
-              <integer-input value="{{value}}" step="2" min="-10" max="10" default="0"></integer-input>
+              <integer-input always-sign value="{{value}}" step="2" min="-100" max="1000" default="0"></integer-input>
               <div class="vertical-section-container result">
-                <div><code>step</code>: <b>2</b><code>min</code>: <b>-10</b><code>max</code>: <b>10</b><code>default</code>: <b>0</b></div>
+                <div><code>step</code>: <b>2</b><code>min</code>: <b>-100</b><code>max</code>: <b>1000</b><code>default</code>: <b>0</b></div>
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
             </template>
@@ -170,9 +170,9 @@
                   }
                 </style>
               </custom-style>
-              <number-input class="custom-color" value="{{value}}" pad-length="4" saturate placeholder="0000" min="0" step="100" max="999"></number-input>
+              <number-input class="custom-color" value="{{value}}" pad-length="4" saturate placeholder="0000" min="-10" step="100" max="9999.11" default="100"></number-input>
               <div class="vertical-section-container result">
-                <div><code>step</code>: <b>100</b><code>min</code>: <b>0</b><code>max</code>: <b>999</b><code>placeholder</code>: <b>0000</b><code>pad-length</code>: <b>4</b></div>
+                <div><code>step</code>: <b>100</b><code>min</code>: <b>-10</b><code>max</code>: <b>9999.11</b><code>default</code>: <b>100</b><code>placeholder</code>: <b>0000</b><code>pad-length</code>: <b>4</b></div>
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
             </template>

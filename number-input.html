@@ -60,7 +60,7 @@
            */
           minimumFractionDigits: {
             type: Number,
-            computed: '_computeMinimumFractionDigits(step, min, max)'
+            computed: '_computeMinimumFractionDigits(step, min, max, inPercent)'
           },
 
           /**
@@ -69,7 +69,7 @@
            */
           minimumIntegerDigits: {
             type: Number,
-            computed: '_computeMinimumIntegerDigits(autoPadding, padLength, min, max, minimumFractionDigits)'
+            computed: '_computeMinimumIntegerDigits(autoPadding, padLength, min, max, minimumFractionDigits, inPercent)'
           },
 
           /**
@@ -78,7 +78,7 @@
            */
           _longestStaticLength: {
             type: Number,
-            computed: '_computeLongestStatic(min, max, placeholder, minimumIntegerDigits, minimumFractionDigits)'
+            computed: '_computeLongestStatic(min, max, placeholder, alwaysSign, minimumIntegerDigits, minimumFractionDigits, inPercent)'
           },
 
           /**
@@ -91,7 +91,7 @@
           },
 
           /**
-           * regular expression to parse the numeric parts of a number string
+           * regular expression to replace non-numeric parts of a number string
            * @type {RegExp}
            */
           _regExpNotInNumber: {
@@ -101,44 +101,63 @@
         }
       }
 
-      static get observers() {
-        return [
-          '_debouncedComputeWidth(input)',
-          '_computePadding(autoPadding, minimumIntegerDigits, minimumFractionDigits)'
-        ]
-      }
+      _computeMinimumFractionDigits(step, min, max, inPercent) {
+        let corrector = 0;
+        if (inPercent) {
+          min = this._safeMult(min || 0, 100);
+          max = this._safeMult(max || 0, 100);
+          step = this._safeMult(step || 0.01, 100);
+          corrector = 2;
+        }
+        min = '' + (Math.abs(min) || '');
+        max = '' + (Math.abs(max) || '');
+        step = '' + step;
 
-      _computeMinimumFractionDigits(step, min, max) {
-        return ['0', '' + this._safeMult(step, this.inPercent ? 100 : 1), '' + this._safeMult(min || 0, this.inPercent ? 100 : 1), '' + this._safeMult(max || 0, this.inPercent ? 100 : 1)].reduce( (acc, curr) => {
+        return ['0', step, min, max].reduce( (acc, curr) => {
           const pos = curr.indexOf('.');
           return Math.max((pos < 0) ? 0 : (curr.length - 1 - pos), acc);
-        });
+        }) - corrector;
       }
 
-      _computeMinimumIntegerDigits(autoPadding, padLength, min, max, minimumFractionDigits) {
+      _computeMinimumIntegerDigits(autoPadding, padLength, min, max, minimumFractionDigits, inPercent) {
+        let corrector = 0;
+        if (inPercent) {
+          min = this._safeMult(min || 0, 100);
+          max = this._safeMult(max || 0, 100);
+          corrector = 2;
+        }
+        min = '' + (Math.abs(min) || '');
+        max = '' + (Math.abs(max) || '');
+
         if (autoPadding) {
-          return [Math.max(1, (padLength || 0) - (minimumFractionDigits || 0)), '' + this._safeMult(Math.abs(min || 0), this.inPercent ? 100 : 1), '' + this._safeMult(Math.abs(max || 0), this.inPercent ? 100 : 1)].reduce( (acc, curr) => {
+          return [Math.max(1, (padLength || 0) - (minimumFractionDigits || 0)), min, max].reduce( (acc, curr) => {
             const pos = curr.indexOf('.');
             return Math.max(pos > 0 ? pos : curr.length, acc);
-          });
+          }) + corrector;
         }
         if (padLength) {
-          return Math.max(1, (padLength || 0) - (minimumFractionDigits || 0));
+          return Math.max(1, (padLength || 0) - (minimumFractionDigits || 0)) + corrector;
         }
-        return 1;
+        return 1 + corrector;
       }
 
-      _computePadding(autoPadding, minimumIntegerDigits, minimumFractionDigits) {
+      _computePadding(autoPadding, minimumIntegerDigits, minimumFractionDigits, inPercent) {
         if (autoPadding === true && minimumIntegerDigits !== undefined && minimumFractionDigits !== undefined) {
           this.padLength = Math.max(minimumIntegerDigits + minimumFractionDigits, this.inPercent ? 3 : 1);
         }
       }
 
-      _computeLongestStatic(min, max, placeholder, minimumIntegerDigits, minimumFractionDigits) {
-        return Math.max(this._computeChWidth('' + ((min && this._safeMult(min || 0, this.inPercent ? 100 : 1)) || '')),
-                        this._computeChWidth('' + ((max && this._safeMult(max || 0, this.inPercent ? 100 : 1)) || '')),
+      _computeLongestStatic(min, max, placeholder, alwaysSign, minimumIntegerDigits, minimumFractionDigits, inPercent) {
+        if (inPercent) {
+          min = this._safeMult(min || 0, 100);
+          max = this._safeMult(max || 0, 100);
+        }
+        min = (alwaysSign && min > 0 ? '+' : '') + (min || '');
+        max = (alwaysSign && max > 0 ? '+' : '') + (max || '');
+        return Math.max(this._computeChWidth(min),
+                        this._computeChWidth(max),
                         this._computeChWidth(placeholder || ''),
-                        this._computeChWidth(this.formatNumber(Math.pow(10, ((minimumIntegerDigits - 1) || 0) + this.inPercent ? 2 : 0) + Math.pow(10, -(minimumFractionDigits || 0) + this.inPercent ? 2 : 0))) + (this.min < 0 || this.max < 0 ? 0.5 : 0));
+                        this._computeChWidth((alwaysSign ? '+' : '') + this.formatNumber(Math.pow(10, minimumIntegerDigits - 1) + Math.pow(10, -(minimumFractionDigits || 0)))));
       }
 
       _computeRegExpDecimalSeparator(decimalSeparator) {
@@ -205,27 +224,9 @@
         this.input = input;
       }
 
-      _startIncrem(step) {
-        this._stopIncrem();
-
-        if (step === undefined) return;
-
-        this._increm(step);
-        this._activeJob = setInterval(() => {
-          this._increm(step);
-        }, 150);
-      }
-
-      _stopIncrem() {
-        if (this._activeJob) {
-          clearInterval(this._activeJob);
-        }
-      }
-
       _increm(step) {
-        if (step === undefined) return;
-        step = step || this.step || (this.inPercent ? 0.01 : 1);
         const value = (this.minimumFractionDigits === 0) ? this._safeAdd(this._safeMult(parseFloat(this.$.input.value.replace(this._regExpNotInNumber, '')), (this.inPercent ? 0.01 : 1)), step) : this._safeAdd(this._safeMult(parseFloat(this.$.input.value.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.')), (this.inPercent ? 0.01 : 1)), step);
+        console.log(value, this._checkValue(value, this.value));
         this.value = this._checkValue(value, this.value);
       }
 

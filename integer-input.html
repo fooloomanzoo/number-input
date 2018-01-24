@@ -87,7 +87,8 @@
            * @type {number}
            */
           padLength: {
-            type: Number
+            type: Number,
+            observer: '_updateView'
           },
 
           /**
@@ -95,7 +96,8 @@
            * @type {string}
            */
           placeholder: {
-            type: String
+            type: String,
+            observer: '_updateView'
           },
 
           /**
@@ -113,7 +115,8 @@
            * @type {boolean}
            */
           autoPadding: {
-            type: Boolean
+            type: Boolean,
+            observer: '_updateView'
           },
 
           /**
@@ -131,7 +134,8 @@
            * @type {string}
            */
           alwaysSign: {
-            type: Boolean
+            type: Boolean,
+            observer: '_updateView'
           },
 
           step: {
@@ -141,7 +145,7 @@
           },
 
           /**
-           * minimum digits left to the decimal separator
+           * minimum digits left to the decimal separator to pad
            * @type {number}
            */
           minimumIntegerDigits: {
@@ -155,12 +159,18 @@
            */
           _longestStaticLength: {
             type: Number,
-            computed: '_computeLongestStatic(min, max, placeholder, minimumIntegerDigits)'
+            computed: '_computeLongestStatic(min, max, placeholder, alwaysSign, minimumIntegerDigits)',
+            observer: '_updateView'
           },
 
           _regExpNotInNumber: {
             type: RegExp,
-            value: /[^\d\-\+\\]/
+            value: /[^\d\-\+\.]/g
+          },
+
+          _regExpSeparators: {
+            type: RegExp,
+            value: /[^\-\+\.]/g
           }
         }
       }
@@ -184,14 +194,13 @@
       disconnectedCallback() {
         super.disconnectedCallback();
         this.removeEventListener('focus', this.focus.bind(this), false);
-        window.removeEventListener('resize', this._debouncedComputeWidth.bind(this, this.input), false);
       }
 
       _computeMinimumIntegerDigits(autoPadding, padLength, min, max) {
+        min = '' + (min || '');
+        max = '' + (max || '');
         if (autoPadding) {
-          return [Math.max(1, (padLength || 0)), '' + (min || 0), '' + (max || 0)].reduce( (acc, curr) => {
-            return Math.max(curr.length, acc);
-          });
+          return Math.max((padLength || 0), min.length, max.length);
         }
         if (padLength) {
           return Math.max(1, (padLength || 0));
@@ -199,39 +208,30 @@
         return 1;
       }
 
-      _computeLongestStatic(min, max, placeholder, minimumIntegerDigits) {
-        return Math.max(this._computeChWidth('' + (min || 0)),
-                        this._computeChWidth('' + (max || 0)),
+      _computeLongestStatic(min, max, placeholder, alwaysSign, minimumIntegerDigits) {
+        min = (alwaysSign && min > 0 ? '+' : '') + (min || '');
+        max = (alwaysSign && max > 0 ? '+' : '') + (max || '');
+        return Math.max(this._computeChWidth(min),
+                        this._computeChWidth(max),
                         this._computeChWidth(placeholder || ''),
-                        this._computeChWidth(this.formatNumber(Math.pow(10, ((minimumIntegerDigits - 1))) * (this.min < 0 || this.max < 0 ? -1 : 1))));
+                        this._computeChWidth((alwaysSign ? '+' : '') + this.formatNumber(Math.pow(10, ((minimumIntegerDigits - 1))))));
       }
 
       _computeChWidth(str) {
-        return str.length - str.replace(/[\d+-]/g, '').length/2;
-      }
-
-      _stepChanged(step) {
-        const round = Math.abs(Math.round(step));
-        if (round === 0) {
-          this.step = 1;
-          return;
-        } else if (step !== round) {
-          this.step = Math.round(step);
-          return;
-        }
-        this._inputChanged(this.$.input.value);
+        return str.length - str.replace(/[\d\+]/g, '').length/2;
       }
 
       validate() {
-        this._stopIncrem();
+        // this._stopIncrem();
         this._inputChanged(this.$.input.value);
         return super.validate();
       }
 
       _inputChanged(input, oldinput) {
         if (!input) return;
-
+        console.log(input);
         oldinput = oldinput || '';
+
         const newValue = parseInt(input.replace(this._regExpNotInNumber, ''));
         const oldValue = parseInt(oldinput.replace(this._regExpNotInNumber, ''));
         let value;
@@ -270,24 +270,18 @@
         this.input = input;
       }
 
-      _checkIntStep(value, oldValue) {
-        
-      }
-
       _checkKeycode(e) {
         if (!e.target) {
           if (e && e.preventDefault) e.preventDefault();
           return;
         }
         // up or down key press
-        if (this.step !== undefined) {
-          const inc = (e.keyCode === 38) ? this.step : (e.keyCode === 40 ? -this.step : 0);
-          if (inc !== 0) {
-            this._startIncrem(inc);
-            e.preventDefault();
-            e.stopPropagation();
-            return;
-          }
+        const inc = (e.keyCode === 38) ? this.step : (e.keyCode === 40 ? -this.step : 0);
+        if (inc !== 0) {
+          this._startIncrem(inc);
+          e.preventDefault();
+          e.stopPropagation();
+          return;
         }
 
         // enter & space
@@ -306,9 +300,7 @@
 
       _startIncrem(step) {
         this._stopIncrem();
-
-        if (step === undefined) return;
-
+        console.log(step);
         this._increm(step);
         this._activeJob = setInterval(() => {
           this._increm(step);
@@ -317,13 +309,13 @@
 
       _stopIncrem() {
         if (this._activeJob) {
+          console.log('stop');
           clearInterval(this._activeJob);
         }
       }
 
       _increm(step) {
-        if (step === undefined) return;
-        step = step || this.step || 1;
+        console.log(step);
         const value = parseInt(this.$.input.value.replace(this._regExpNotInNumber, '')) + step;
         this.value = this._checkValue(value, this.value);
       }
