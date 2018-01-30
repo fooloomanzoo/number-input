@@ -16,6 +16,14 @@
 
     return class extends RangeMixin(FormElementMixin(superClass)) {
 
+      constructor() {
+        super();
+        /**
+         * IE & Edge ch-unit fix
+         */
+        this._chCorrection = window.navigator.userAgent.match(/Edge|Trident/g) ? 1.25 : 1;
+      }
+
       static get template() {
         return `
           ${this.styleTemplate}
@@ -31,6 +39,11 @@
               box-sizing: content-box;
               padding: 0 !important;
             }
+            :host([invalid]) #input,
+            #input:invalid {
+              @apply --input-invalid;
+              @apply --number-input-invalid;
+            }
             #input {
               font-family: inherit;
               font-size: inherit;
@@ -45,7 +58,9 @@
               @apply --input-style;
               @apply --number-input;
             }
+            #input::-webkit-input-placeholder,
             #input::placeholder {
+              transform: scale(0.8);
               @apply --number-input-placeholder;
             }
             #input:hover,
@@ -72,9 +87,9 @@
             placeholder="[[placeholder]]"
             required="[[required]]"
             disabled="[[disabled]]"
-            on-focusin="validate"
-            on-focusout="validate"
-            on-blur="validate"
+            on-focusin="_updateView"
+            on-focusout="_updateView"
+            on-blur="_updateView"
             on-keydown="_checkKeycode"
             on-keyup="_stopIncrem">
         `;
@@ -97,7 +112,7 @@
            */
           placeholder: {
             type: String,
-            observer: '_updateView'
+            observer: '_computeMinWidth'
           },
 
           /**
@@ -159,7 +174,7 @@
            */
           _longestStaticLength: {
             type: Number,
-            computed: '_computeLongestStatic(min, max, placeholder, alwaysSign, minimumIntegerDigits)',
+            computed: '_computeLongestStatic(min, max, alwaysSign, minimumIntegerDigits)',
             observer: '_updateView'
           },
 
@@ -183,10 +198,6 @@
 
       connectedCallback() {
         super.connectedCallback();
-        /**
-         * IE & Edge ch-unit fix
-         */
-        this._chCorrection = window.navigator.userAgent.match(/Edge|Trident/g) ? 1.25 : 1;
         this._ensureAttribute('tabindex', 0);
         this.addEventListener('focus', this.focus.bind(this), false);
       }
@@ -208,46 +219,54 @@
         return 1;
       }
 
-      _computeLongestStatic(min, max, placeholder, alwaysSign, minimumIntegerDigits) {
+      _computeLongestStatic(min, max, alwaysSign, minimumIntegerDigits) {
         min = (alwaysSign && min > 0 ? '+' : '') + (min || '');
         max = (alwaysSign && max > 0 ? '+' : '') + (max || '');
         return Math.max(this._computeChWidth(min),
                         this._computeChWidth(max),
-                        this._computeChWidth(placeholder || ''),
                         this._computeChWidth((alwaysSign ? '+' : '') + this.formatNumber(Math.pow(10, ((minimumIntegerDigits - 1))))));
       }
 
+      // approximation of the ch-width of a number-string
       _computeChWidth(str) {
-        return str.length - str.replace(/[\d\+]/g, '').length/2;
+        return str.replace(/\D/g, '').length + str.replace(/[^+#%&$€£¥§©\\\/\?~_]/g, '').length + str.replace(/[^.,;\-*!(){}®«»±[\]'"´‹›`²³°\u2070-\u209C]/g, '').length/2;
       }
 
-      validate() {
-        // this._stopIncrem();
-        this._inputChanged(this.$.input.value);
-        return super.validate();
+      // approximation of the width of a string
+      _computeEmWidth(str) {
+        return str.replace(/[\d+#%&$€£¥§©\\\/\?~_^.,;\-*!(){}®«»±[\]'"´‹›`²³°\u2070-\u209C]/g,'').length - str.replace(/\S/g, '').length/4;
+      }
+
+      _computeMinWidth(placeholder) {
+        placeholder = '' + (placeholder || '');
+        this.$.input.style.minWidth = `calc(${this._computeEmWidth(placeholder)}em + ${this._computeChWidth(placeholder)}ch)`;
+      }
+
+      _computeInvalid(required, value) {
+        return required && isNaN(value);
       }
 
       _inputChanged(input, oldinput) {
         if (!input) return;
-        console.log(input);
-        oldinput = oldinput || '';
 
-        const newValue = parseInt(input.replace(this._regExpNotInNumber, ''));
-        const oldValue = parseInt(oldinput.replace(this._regExpNotInNumber, ''));
+        input = input.replace(this._regExpNotInNumber, '');
+        oldinput = (oldinput || '').replace(this._regExpNotInNumber, '');
+
+        const newValue = parseInt(input);
+        const oldValue = parseInt(oldinput);
         let value;
 
         if (isNaN(oldValue)) {
-          value = this._checkValue(newValue);
+          if (isNaN(this.default)) {
+            value = this._checkValue(newValue);
+          } else {
+            value = this._checkValue(newValue, this.default);
+          }
         } else {
           value = this._checkValue(newValue, oldValue);
         }
 
-        if (this.input !== input) {
-          this.input = input;
-          return;
-        }
-
-        this.$.input.value = input;
+        this.$.input.value = this.formatNumber(value);
         this.value = value;
       }
 
@@ -286,13 +305,13 @@
 
         // enter & space
         if (e.keyCode === 13 || e.keyCode === 32) {
-          this.validate();
+          this._updateView(true);
           return;
         }
 
         // esc
         if (e.keyCode === 27) {
-          this.validate();
+          this._updateView(true);
           this.blur();
           return;
         }
@@ -300,28 +319,26 @@
 
       _startIncrem(step) {
         this._stopIncrem();
-        console.log(step);
         this._increm(step);
-        this._activeJob = setInterval(() => {
+        this._activeIncremJob = setInterval(() => {
           this._increm(step);
         }, 150);
       }
 
       _stopIncrem() {
-        if (this._activeJob) {
-          console.log('stop');
-          clearInterval(this._activeJob);
+        if (this._activeIncremJob) {
+          clearInterval(this._activeIncremJob);
         }
       }
 
       _increm(step) {
-        console.log(step);
         const value = parseInt(this.$.input.value.replace(this._regExpNotInNumber, '')) + step;
         this.value = this._checkValue(value, this.value);
       }
 
       _updateView(prop) {
         if (prop !== undefined) {
+          this._inputChanged(this.$.input.value);
           this._debouncedComputeWidth(this.input);
         }
       }
@@ -432,6 +449,7 @@
      * @appliesMixin IntegerInputMixin
      *
      * @demo demo/index.html
+     * @demo demo/form.html Form Demo
      **/
     class IntegerInput extends IntegerInputMixin(Polymer.Element) {
 

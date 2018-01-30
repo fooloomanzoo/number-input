@@ -78,7 +78,7 @@
            */
           _longestStaticLength: {
             type: Number,
-            computed: '_computeLongestStatic(min, max, placeholder, alwaysSign, minimumIntegerDigits, minimumFractionDigits, inPercent)'
+            computed: '_computeLongestStatic(min, max, alwaysSign, minimumIntegerDigits, minimumFractionDigits, inPercent)'
           },
 
           /**
@@ -147,7 +147,7 @@
         }
       }
 
-      _computeLongestStatic(min, max, placeholder, alwaysSign, minimumIntegerDigits, minimumFractionDigits, inPercent) {
+      _computeLongestStatic(min, max, alwaysSign, minimumIntegerDigits, minimumFractionDigits, inPercent) {
         if (inPercent) {
           min = this._safeMult(min || 0, 100);
           max = this._safeMult(max || 0, 100);
@@ -156,7 +156,6 @@
         max = (alwaysSign && max > 0 ? '+' : '') + (max || '');
         return Math.max(this._computeChWidth(min),
                         this._computeChWidth(max),
-                        this._computeChWidth(placeholder || ''),
                         this._computeChWidth((alwaysSign ? '+' : '') + this.formatNumber(Math.pow(10, minimumIntegerDigits - 1) + Math.pow(10, -(minimumFractionDigits || 0)))));
       }
 
@@ -176,8 +175,9 @@
           return;
         }
         const unit = this.unit;
-        this._unitEmLength = unit.length - unit.replace(/\D/g, '').length*0.25 - unit.replace(/\w/g, '').length*0.5; // estimated, that letters do have length: 1em, numbers do have length: 0.75em, other do have length: 0.5em
-        this.validate();
+        this._unitEmLength = this._computeEmWidth(this.unit) + 0.125;
+        this._unitChLength = this._computeChWidth(this.unit) * this._chCorrection;
+        this._updateView();
       }
 
       _inputChanged(input, oldinput) {
@@ -226,7 +226,6 @@
 
       _increm(step) {
         const value = (this.minimumFractionDigits === 0) ? this._safeAdd(this._safeMult(parseFloat(this.$.input.value.replace(this._regExpNotInNumber, '')), (this.inPercent ? 0.01 : 1)), step) : this._safeAdd(this._safeMult(parseFloat(this.$.input.value.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.')), (this.inPercent ? 0.01 : 1)), step);
-        console.log(value, this._checkValue(value, this.value));
         this.value = this._checkValue(value, this.value);
       }
 
@@ -237,10 +236,10 @@
 
         const currLength = this._computeChWidth(input);
         const length = Math.max(this._longestStaticLength, currLength) * this._chCorrection;
-
-        if (this._unitEmLength) {
+        if (this.unit !== undefined) {
           // add unit-string-length plus one space-length
-          this.$.input.style.width = `calc(${length}ch + ${0.125 + this._unitEmLength}em)`;
+          length += this._unitChLength;
+          this.$.input.style.width = `calc(${length}ch + ${this._unitEmLength}em)`;
         } else {
           this.$.input.style.width = `${length}ch`;
         }
@@ -339,6 +338,7 @@
      * @appliesMixin NumberInputMixin
      *
      * @demo demo/index.html
+     * @demo demo/form.html Form Demo
      **/
     class NumberInput extends NumberInputMixin(Polymer.Element) {
 
