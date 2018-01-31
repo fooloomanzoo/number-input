@@ -207,8 +207,8 @@
 
         const currLength = this._computeChWidth(input);
         const length = Math.max(this._longestStaticLength, currLength) * this._chCorrection;
-        if (this.unit !== undefined) {
 
+        if (this.unit !== undefined) {
           length += this._unitChLength;
           this.$.input.style.width = `calc(${length}ch + ${this._unitEmLength}em)`;
         } else {
