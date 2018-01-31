@@ -93,7 +93,7 @@
               </custom-style>
               <integer-input always-sign value="{{value}}" step="2" min="-100" max="1000" default="0"></integer-input>
               <div class="vertical-section-container result">
-                <div><code>step</code>: <b>2</b><code>min</code>: <b>-100</b><code>max</code>: <b>1000</b><code>default</code>: <b>0</b></div>
+                <div><code>step</code>: <b>2</b><code>min</code>: <b>-100</b><code>max</code>: <b>1000</b><code>default</code>: <b>0</b><code>always-sign</code></div>
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
             </template>
@@ -129,9 +129,12 @@
                   }
                 </style>
               </custom-style>
-              <number-input value="{{value}}" pad-length="2" no-clamp in-percent step="0.001" min="-1" max="2" default="0"></number-input>
+              <input type="checkbox" checked="{{inPercent::change}}">in Percent<br>
+              <input type="checkbox" checked="{{autoPadding::change}}">auto Padding<br>
+              <br>
+              <number-input value="{{value}}" no-clamp step="0.001" min="-1" max="20" default="0" in-percent="[[inPercent]]" auto-padding="[[autoPadding]]"></number-input>
               <div class="vertical-section-container result">
-                <div><code>step</code>: <b>0.001</b><code>min</code>: <b>-1</b><code>max</code>: <b>2</b><code>default</code>: <b>0</b></div>
+                <div><code>step</code>: <b>0.001</b><code>min</code>: <b>-1</b><code>max</code>: <b>20</b><code>default</code>: <b>0</b></div>
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
             </template>

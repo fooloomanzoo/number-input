@@ -15,15 +15,17 @@ The normal `input` with `type="number"` is fairly good to use, but it has some f
 
 * prevent non numeric input
 * guarantee **live**-data to be valid
+* use the local decimal separator
 * pad a value with `0` (to a specific length)
 * size the input (according to it's length)
 * overflow to minimum or underflow to maximum
 * saturate to minimum or to maximum
 * display a specified unit and size the input
+* can use percentage values and do have automatically the correct decimal value
 
-This element wants to achieve that. It does use **decimal notation**, like `123.4`, but does not display _scientific (exponential) notation_, like `1.234e+2`.
+This element wants to achieve that. It does use **decimal notation**, like `123.4`, but does not display _scientific (exponential) notation_, like `1.234e+2`. A more simpler element \<integer-input\> just uses integer values and doesn't use units or percent values.
 
-![alt text](https://github.com/fooloomanzoo/number-input/raw/master/docs/number-input.gif "Demo")
+![img](https://github.com/fooloomanzoo/number-input/raw/master/docs/number-input.gif "Demo")
 
 ### Example
 
@@ -38,14 +40,16 @@ This element wants to achieve that. It does use **decimal notation**, like `123.
         html {
           font-family: 'Source Sans Pro', sans-serif;
           --number-input: {
-            background: rgba(60, 61, 172, 0.5);
+            background: rgba(35, 35, 40, 0.5);
             transition: background 150ms ease-in-out;
-            color: white;
-            padding: 2px;
-            border-radius: 2px;
+            color: #f1f1f1;
+            padding: 3px;
+            border-radius: 0;
           };
           --number-input-focus: {
-            background: rgba(60, 61, 172, 0.9);
+            background: rgba(35, 35, 40, 1);
+            color: #f1f1f1;
+            outline: none;
           };
         }
       </style>
@@ -61,7 +65,7 @@ This element wants to achieve that. It does use **decimal notation**, like `123.
 ```html
 <span>with unit: </span><number-input min="-150" step="0.15" max="300" pad-length="3" default="15" unit="°C"></number-input><br>
 <span>in percent: </span><number-input min="-150" step="0.15" max="300" pad-length="3" default="15" in-percent></number-input><br>
-<span>as integer: </span><integer-input min="-150" step="15" max="300" default="150"></integer-input>
+<span>as integer: </span><integer-input min="-150" step="15" max="300" default="15"></integer-input>
 ```
 
 ### Installation

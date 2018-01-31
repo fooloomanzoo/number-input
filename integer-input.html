@@ -87,8 +87,7 @@
             placeholder="[[placeholder]]"
             required="[[required]]"
             disabled="[[disabled]]"
-            on-focusin="_updateView"
-            on-focusout="_updateView"
+            on-focus="_updateView"
             on-blur="_updateView"
             on-keydown="_checkKeycode"
             on-keyup="_stopIncrem">
@@ -165,7 +164,8 @@
            */
           minimumIntegerDigits: {
             type: Number,
-            computed: '_computeMinimumIntegerDigits(autoPadding, padLength, min, max)'
+            // polymorphism bug in polymer
+            computed: '_computeMinimumIntegerDigits(autoPadding, padLength, min, max, step, inPercent)'
           },
 
           /**
@@ -174,7 +174,7 @@
            */
           _longestStaticLength: {
             type: Number,
-            computed: '_computeLongestStatic(min, max, alwaysSign, minimumIntegerDigits)',
+            computed: '_computeLongestStatic(alwaysSign, minimumIntegerDigits, minimumFractionDigits)',
             observer: '_updateView'
           },
 
@@ -219,22 +219,24 @@
         return 1;
       }
 
-      _computeLongestStatic(min, max, alwaysSign, minimumIntegerDigits) {
-        min = (alwaysSign && min > 0 ? '+' : '') + (min || '');
-        max = (alwaysSign && max > 0 ? '+' : '') + (max || '');
-        return Math.max(this._computeChWidth(min),
-                        this._computeChWidth(max),
-                        this._computeChWidth((alwaysSign ? '+' : '') + this.formatNumber(Math.pow(10, ((minimumIntegerDigits - 1))))));
+      _computeLongestStatic(alwaysSign, minimumIntegerDigits) {
+        return this._computeChWidth((!alwaysSign && (this.min < 0 || this.max < 0) ? '-' : '') + this.formatNumber(Math.pow(10, minimumIntegerDigits - 1)));
       }
 
       // approximation of the ch-width of a number-string
       _computeChWidth(str) {
-        return str.replace(/\D/g, '').length + str.replace(/[^+#%&$€£¥§©\\\/\?~_]/g, '').length + str.replace(/[^.,;\-*!(){}®«»±[\]'"´‹›`²³°\u2070-\u209C]/g, '').length/2;
+        if (str === undefined) {
+          return 0;
+        }
+        return str.replace(/\D/g, '').length + str.replace(/[^+\\\/\?~_]/g, '').length + str.replace(/[^.,;\-*!(){}®«»±[\]'"´‹›`²³°\u2070-\u209C]/g, '').length/2;
       }
 
       // approximation of the width of a string
       _computeEmWidth(str) {
-        return str.replace(/[\d+#%&$€£¥§©\\\/\?~_^.,;\-*!(){}®«»±[\]'"´‹›`²³°\u2070-\u209C]/g,'').length - str.replace(/\S/g, '').length/4;
+        if (str === undefined) {
+          return 0;
+        }
+        return str.replace(/[\d\s+\\\/\?~_^.,;\-*!(){}®«»±[\]'"´‹›`²³°\u2070-\u209C]/g,'').length + str.replace(/[^%#&$€£¥§©]/g,'')*0.75 + str.replace(/\S/g, '').length/4;
       }
 
       _computeMinWidth(placeholder) {
@@ -305,13 +307,13 @@
 
         // enter & space
         if (e.keyCode === 13 || e.keyCode === 32) {
-          this._updateView(true);
+          this._updateView();
           return;
         }
 
         // esc
         if (e.keyCode === 27) {
-          this._updateView(true);
+          this._updateView();
           this.blur();
           return;
         }
@@ -337,10 +339,8 @@
       }
 
       _updateView(prop) {
-        if (prop !== undefined) {
-          this._inputChanged(this.$.input.value);
-          this._debouncedComputeWidth(this.input);
-        }
+        this._inputChanged(this.$.input.value);
+        this._debouncedComputeWidth(this.input);
       }
 
       _debouncedComputeWidth(input) {
