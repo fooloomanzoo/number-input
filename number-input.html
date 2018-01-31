@@ -209,8 +209,7 @@
         const length = Math.max(this._longestStaticLength, currLength) * this._chCorrection;
 
         if (this.unit !== undefined) {
-          length += this._unitChLength;
-          this.$.input.style.width = `calc(${length}ch + ${this._unitEmLength}em)`;
+          this.$.input.style.width = `calc(${length + this._unitChLength}ch + ${this._unitEmLength}em)`;
         } else {
           this.$.input.style.width = `${length}ch`;
         }
