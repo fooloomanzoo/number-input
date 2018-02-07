@@ -71,8 +71,9 @@
             <form action="/foo" method="get">
               name: <input name="name" required value="Batman"/><br>
               job: <input name="job" required value="Hero"/><br>
-              age: <integer-input name="age" required min="0" placeholder="age"></integer-input><br>
-              height: <number-input name="height" step="0.1" min="0" unit="cm"></number-input><br>
+              age: <integer-input name="age" required min="0" start-at="30" placeholder="age"></integer-input><br>
+              height: <number-input name="height" step="0.1" start-at="180" min="0" unit="cm"></number-input><br>
+              cases-solved record: <number-input name="record" required step="0.1" min="0" max="1" in-percent></number-input><br>
               <button onclick="form1.submit()">Submit</button>
               <button onclick="form1.validate()">Validate</button>
             </form>

@@ -14,7 +14,7 @@
    */
   const IntegerInputMixin = (superClass) => { // eslint-disable-line no-unused-vars
 
-    return class extends RangeMixin(FormElementMixin(superClass)) {
+    return class extends RangeMixin(FormElementMixin(superClass)) { // eslint-disable-line no-undef
 
       constructor() {
         super();
@@ -151,10 +151,20 @@
             observer: '_updateView'
           },
 
+          /**
+           * step to increment the value
+           */
           step: {
             type: Number,
             value: 1,
             observer: '_stepChanged'
+          },
+
+          /**
+           * start where to increment the value
+           */
+          startAt: {
+            type: Number
           },
 
           /**
@@ -179,12 +189,12 @@
 
           _regExpNotInNumber: {
             type: RegExp,
-            value: /[^\d\-\+\.]/g
+            value: /[^\d-+.]/g
           },
 
           _regExpSeparators: {
             type: RegExp,
-            value: /[^\-\+\.]/g
+            value: /[^-+.]/g
           }
         }
       }
@@ -227,7 +237,7 @@
         if (str === undefined) {
           return 0;
         }
-        return str.replace(/\D/g, '').length + str.replace(/[^+\\\/\?~_]/g, '').length + str.replace(/[^.,;\-*!(){}®«»±[\]'"´‹›`²³°\u2070-\u209C]/g, '').length/2;
+        return str.replace(/\D/g, '').length + str.replace(/[^+\\/?~_]/g, '').length + str.replace(/[^.,;\-*!(){}®«»±[\]'"´‹›`²³°\u2070-\u209C]/g, '').length/2;
       }
 
       // approximation of the width of a string
@@ -235,7 +245,7 @@
         if (str === undefined) {
           return 0;
         }
-        return str.replace(/[\d\s+\\\/\?~_^.,;\-*!(){}®«»±[\]'"´‹›`²³°\u2070-\u209C]/g,'').length + str.replace(/[^%#&$€£¥§©]/g,'')*0.75 + str.replace(/\S/g, '').length/4;
+        return str.replace(/[\d\s+\\/?~_^.,;\-*!(){}®«»±[\]'"´‹›`²³°\u2070-\u209C]/g,'').length + str.replace(/[^%#&$€£¥§©]/g,'')*0.75 + str.replace(/\S/g, '').length/4;
       }
 
       _computeMinWidth(placeholder) {
@@ -340,7 +350,16 @@
       }
 
       _increm(step) {
-        const value = parseInt(this.$.input.value.replace(this._regExpNotInNumber, '')) + step;
+        let value = parseInt(this.$.input.value.replace(this._regExpNotInNumber, '')) + step;
+        if (isNaN(value)) {
+          if (!isNaN(this.startAt)) {
+            value = this.startAt;
+          } else if (!isNaN(this.default)) {
+            value = this.default;
+          } else {
+            value = this.min < 0 ? 0 : this.min || 0;
+          }
+        }
         this.value = this._checkValue(value, this.value);
       }
 
@@ -457,7 +476,7 @@
      * @demo demo/index.html
      * @demo demo/form.html Form Demo
      **/
-    class IntegerInput extends IntegerInputMixin(Polymer.Element) {
+    class IntegerInput extends IntegerInputMixin(Polymer.Element) {  // eslint-disable-line no-undef
 
       static get is() {
         return 'integer-input';

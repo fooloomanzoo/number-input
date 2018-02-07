@@ -91,11 +91,49 @@
                   }
                 </style>
               </custom-style>
-              <integer-input always-sign value="{{value}}" step="2" min="-100" max="1000" default="0"></integer-input>
+              <integer-input always-sign value="{{value}}" step="2" min="-100" max="1000" default="10"></integer-input>
               <div class="vertical-section-container result">
-                <div><code>step</code>: <b>2</b><code>min</code>: <b>-100</b><code>max</code>: <b>1000</b><code>default</code>: <b>0</b><code>always-sign</code></div>
+                <div><code>step</code>: <b>2</b><code>min</code>: <b>-100</b><code>max</code>: <b>1000</b><code>default</code>: <b>10</b><code>always-sign</code></div>
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
+            </template>
+          </dom-bind>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container centered">
+      <demo-snippet>
+        <h4>start incrementing at a certain value</h4>
+        <template>
+          <dom-bind>
+            <template is="dom-bind">
+              <custom-style>
+                <style is="custom-style">
+                  integer-input {
+                    --number-input: {
+                      background: rgba(0, 0, 0, 0.05);
+                      transition: background 150ms ease-in-out;
+                      color: #111;
+                      border-color: transparent;
+                      border-style: unset;
+                      padding: 2px;
+                      border-radius: 2px;
+                    };
+                    --number-input-focus: {
+                      background: rgba(0, 0, 0, 0.15);
+                    };
+                    --number-input-placeholder: {
+                      color: #492020;
+                    };
+                  }
+                </style>
+              </custom-style>
+              starts at this year: <integer-input id="year" value="{{value}}"></integer-input>
+              <script>
+                const input = document.querySelector('integer-input#year');
+                input.startAt = new Date().getFullYear();
+              </script>
             </template>
           </dom-bind>
         </template>
@@ -132,9 +170,9 @@
               <input type="checkbox" checked="{{inPercent::change}}">in Percent<br>
               <input type="checkbox" checked="{{autoPadding::change}}">auto Padding<br>
               <br>
-              <number-input value="{{value}}" no-clamp step="0.001" min="-1" max="20" default="0" in-percent="[[inPercent]]" auto-padding="[[autoPadding]]"></number-input>
+              <number-input value="{{value}}" pad-length="2" no-clamp step="0.001" min="-1" max="20" start-at="1" in-percent="[[inPercent]]" auto-padding="[[autoPadding]]"></number-input>
               <div class="vertical-section-container result">
-                <div><code>step</code>: <b>0.001</b><code>min</code>: <b>-1</b><code>max</code>: <b>20</b><code>default</code>: <b>0</b></div>
+                <div><code>step</code>: <b>0.001</b><code>min</code>: <b>-1</b><code>max</code>: <b>20</b><code>default</code>: <b>1</b></div>
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
             </template>
@@ -246,9 +284,9 @@
                   }
                 </style>
               </custom-style>
-              <number-input class="units" value="{{value}}" default="0" no-clamp step="0.5" min="-273.15" max="5505" default="0" pad-length="4" unit="°C"></number-input>
+              <number-input class="units" value="{{value}}" default="0" no-clamp step="0.5" min="-273.15" max="5505" default="0" unit="°C"></number-input>
               <div class="vertical-section-container result">
-                <div><code>step</code>: <b>0.5</b><code>min</code>: <b>-273.15</b><code>max</code>: <b>5505</b><code>pad-length</code>: <b>3</b><code>unit</code>: <b>°C</b></div>
+                <div><code>step</code>: <b>0.5</b><code>min</code>: <b>-273.15</b><code>max</code>: <b>5505</b><code><code>unit</code>: <b>°C</b></div>
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
             </template>

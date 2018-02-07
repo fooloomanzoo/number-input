@@ -64,7 +64,7 @@ This element wants to achieve that. It does use **decimal notation**, like `123.
 -->
 ```html
 <span>with unit: </span><number-input min="-150" step="0.15" max="300" pad-length="3" default="15" unit="°C"></number-input><br>
-<span>in percent: </span><number-input min="-150" step="0.15" max="300" pad-length="3" default="15" in-percent></number-input><br>
+<span>in percent: </span><number-input min="-1" step="0.15" max="3" pad-length="3" start-at="1" in-percent></number-input><br>
 <span>as integer: </span><integer-input min="-150" step="15" max="300" default="15"></integer-input>
 ```
 

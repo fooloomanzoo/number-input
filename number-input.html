@@ -14,7 +14,7 @@
    */
   const NumberInputMixin = (superClass) => { // eslint-disable-line no-unused-vars
 
-    return class extends IntegerInputMixin(superClass) {
+    return class extends IntegerInputMixin(superClass) {  // eslint-disable-line no-undef
 
       static get properties() {
         return {
@@ -130,7 +130,7 @@
       }
 
       _computeRegExpNotInNumber(decimalSeparator) {
-        return new RegExp('[^\\d\-\+\\' + decimalSeparator + ']', 'g');
+        return new RegExp('[^\\d-+\\' + decimalSeparator + ']', 'g');
       }
 
       _unitChanged() {
@@ -139,12 +139,18 @@
             this.unit = '%';
             return;
           }
+          if (this.value !== undefined) {
+            this.$.input.value = this.formatNumber(this._safeMult(this.value, 100)) + '\u202F%';
+          }
           this._unitEmLength = 1.125;
           this._unitChLength = 0;
         } else if (this.unit === '%') {
           this.unit = '';
           return;
         } else {
+          if (this.value !== undefined) {
+            this.$.input.value = this.formatNumber(this.value) + (this.unit ? ('\u202F' + this.unit) : '');
+          }
           this._unitEmLength = (this._computeEmWidth(this.unit) || 0) + 0.125;
           this._unitChLength = (this._computeChWidth(this.unit) || 0) * this._chCorrection;
         }
@@ -165,7 +171,7 @@
           value = this._checkValue(newValue, oldValue);
         }
 
-        input = this.formatNumber(this._safeMult(value, this.inPercent ? 100 : 1));
+        input = this.formatNumber(this.inPercent ? this._safeMult(value, 100) : value);
 
         if (this.input !== input) {
           this.input = input;
@@ -189,15 +195,27 @@
           this.value = value;
           return;
         }
-        const input = this.formatNumber(this._safeMult(value, this.inPercent ? 100 : 1));
+        const input = this.formatNumber(this.inPercent ? this._safeMult(value, 100) : value);
 
         this.$.input.value = input + (this.unit ? ('\u202F' + this.unit) : '');
         this.input = input;
       }
 
       _increm(step) {
-        const value = (this.minimumFractionDigits === 0) ? this._safeAdd(this._safeMult(parseFloat(this.$.input.value.replace(this._regExpNotInNumber, '')), (this.inPercent ? 0.01 : 1)), step) : this._safeAdd(this._safeMult(parseFloat(this.$.input.value.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.')), (this.inPercent ? 0.01 : 1)), step);
-        this.value = this._checkValue(value, this.value);
+        const value = parseFloat(this.$.input.value.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.'));
+        let input;
+        if (isNaN(value)) {
+          if (!isNaN(this.startAt)) {
+            input = this.startAt;
+          } else if (!isNaN(this.default)) {
+            input = this.default;
+          } else {
+            input = (this.min < 0 ? 0 : this.min || 0);
+          }
+        } else {
+          input = this._safeAdd(this._safeMult(value, (this.inPercent ? 0.01 : 1)), step);
+        }
+        this.value = this._checkValue(input, this.value);
       }
 
       _computeWidth(input) {
@@ -309,7 +327,7 @@
      * @demo demo/index.html
      * @demo demo/form.html Form Demo
      **/
-    class NumberInput extends NumberInputMixin(Polymer.Element) {
+    class NumberInput extends NumberInputMixin(Polymer.Element) {  // eslint-disable-line no-undef
 
       static get is() {
         return 'number-input';
