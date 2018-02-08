@@ -139,9 +139,6 @@
             this.unit = '%';
             return;
           }
-          if (this.value !== undefined) {
-            this.$.input.value = this.formatNumber(this._safeMult(this.value, 100)) + '\u202F%';
-          }
           this._unitEmLength = 1.125;
           this._unitChLength = 0;
         } else if (this.unit === '%') {
