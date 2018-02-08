@@ -209,11 +209,13 @@
         super.connectedCallback();
         this._ensureAttribute('tabindex', 0);
         this.addEventListener('focus', this.focus.bind(this), false);
+        this.addEventListener('contextmenu', this._stopIncrem.bind(this), false);
       }
 
       disconnectedCallback() {
         super.disconnectedCallback();
         this.removeEventListener('focus', this.focus.bind(this), false);
+        this.removeEventListener('contextmenu', this._stopIncrem.bind(this), false);
       }
 
       _computeMinimumIntegerDigits(autoPadding, padLength, min, max) {
