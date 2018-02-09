@@ -377,8 +377,10 @@
       }
 
       _updateView() {
-        this._inputChanged(this.$.input.value, this.input);
-        this._debouncedComputeWidth(this.input);
+        setTimeout(() => {
+          this._inputChanged(this.$.input.value, this.input);
+          this._debouncedComputeWidth(this.input);
+        }, 0)
       }
 
       _debouncedComputeWidth(input) {
