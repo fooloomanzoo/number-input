@@ -238,7 +238,7 @@
       }
 
       _computeLongestStatic(minlength, alwaysSign, minimumIntegerDigits) {
-        return Math.max(minlength, this._computeChWidth((!alwaysSign && (this.min < 0 || this.max < 0) ? '-' : '') + this.formatNumber(Math.pow(10, minimumIntegerDigits - 1))));
+        return Math.max(minlength || 1, this._computeChWidth((!alwaysSign && (this.min < 0 || this.max < 0) ? '-' : '') + this.formatNumber(Math.pow(10, minimumIntegerDigits - 1))));
       }
 
       // approximation of the ch-width of a number-string
@@ -368,8 +368,12 @@
           } else {
             value = this.min < 0 ? 0 : this.min || 0;
           }
+        } else if (this.noClamp){
+          // still clamp to step, when incrementing
+          this.value = this._checkStep(this._checkValue(value, this.value), this.step);
+        } else {
+          this.value = this._checkValue(value, this.value);
         }
-        this.value = this._checkValue(value, this.value);
       }
 
       _updateView() {

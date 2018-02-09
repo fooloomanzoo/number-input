@@ -91,9 +91,9 @@
                   }
                 </style>
               </custom-style>
-              <integer-input always-sign value="{{value}}" step="2" min="-100" max="1000" default="10"></integer-input>
+              <integer-input always-sign value="{{value}}" minlength="3" step="2" min="-100" max="1000" default="10" no-clamp></integer-input>
               <div class="vertical-section-container result">
-                <div><code>step</code>: <b>2</b><code>min</code>: <b>-100</b><code>max</code>: <b>1000</b><code>default</code>: <b>10</b><code>always-sign</code></div>
+                <div><code>step</code>: <b>2</b><code>min</code>: <b>-100</b><code>max</code>: <b>1000</b><code>default</code>: <b>10</b><code> always-sign</code></div>
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
             </template>
@@ -129,7 +129,7 @@
                   }
                 </style>
               </custom-style>
-              starts at this year: <integer-input id="year" value="{{value}}"></integer-input>
+              starts at this year: <integer-input id="year" minlength="4" value="{{value}}"></integer-input>
               <script>
                 const input = document.querySelector('integer-input#year');
                 input.startAt = new Date().getFullYear();
@@ -170,7 +170,7 @@
               <input type="checkbox" checked="{{inPercent::change}}">in Percent<br>
               <input type="checkbox" checked="{{autoPadding::change}}">auto Padding<br>
               <br>
-              <number-input value="{{value}}" pad-length="2" no-clamp step="0.001" min="-1" max="20" start-at="1" in-percent="[[inPercent]]" auto-padding="[[autoPadding]]"></number-input>
+              <number-input value="{{value}}" minlength="5" no-clamp step="0.001" min="-1" max="20" start-at="1" in-percent="[[inPercent]]" auto-padding="[[autoPadding]]"></number-input>
               <div class="vertical-section-container result">
                 <div><code>step</code>: <b>0.001</b><code>min</code>: <b>-1</b><code>max</code>: <b>20</b><code>default</code>: <b>1</b></div>
                 <div><code>value</code>: <b>[[value]]</b></div>

@@ -122,7 +122,7 @@
       }
 
       _computeLongestStatic(minlength, alwaysSign, minimumIntegerDigits, minimumFractionDigits) {
-        return Math.max(minlength, this._computeChWidth((!alwaysSign && (this.min < 0 || this.max < 0) ? '-' : '') + this.formatNumber(Math.pow(10, minimumIntegerDigits - 1) + Math.pow(10, -(minimumFractionDigits || 0)))));
+        return Math.max(minlength || 1, this._computeChWidth((!alwaysSign && (this.min < 0 || this.max < 0) ? '-' : '') + this.formatNumber(Math.pow(10, minimumIntegerDigits - 1) + Math.pow(10, -(minimumFractionDigits || 0)))));
       }
 
       _computeRegExpDecimalSeparator(decimalSeparator) {
@@ -141,6 +141,9 @@
           }
           this._unitEmLength = 1.125;
           this._unitChLength = 0;
+          if (this.value !== undefined) {
+            this.$.input.value = this.formatNumber(this._safeMult(this.value, 100)) + '\u202F%';
+          }
         } else if (this.unit === '%') {
           this.unit = '';
           return;
@@ -156,12 +159,17 @@
 
       _inputChanged(input, oldinput) {
         if (!input) return;
-
         oldinput = oldinput || '';
-        const newValue = parseFloat(this._safeMult(input.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.'), this.inPercent ? 0.01 : 1));
-        const oldValue = parseFloat(this._safeMult(oldinput.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.'), this.inPercent ? 0.01 : 1));
-        let value;
 
+        let newValue, oldValue, value;
+
+        if (this.inPercent) {
+          newValue = parseFloat(this._safeMult(input.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.'), 0.01));
+          oldValue = parseFloat(this._safeMult(oldinput.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.'), 0.01));
+        } else {
+          newValue = parseFloat(input.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.'));
+          oldValue = parseFloat(oldinput.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.'));
+        }
         if (isNaN(oldValue)) {
           value = this._checkValue(newValue);
         } else {
@@ -199,7 +207,7 @@
       }
 
       _increm(step) {
-        const value = parseFloat(this.$.input.value.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.'));
+        let value = parseFloat(this.$.input.value.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.'));
         let input;
         if (isNaN(value)) {
           if (!isNaN(this.startAt)) {
@@ -209,10 +217,17 @@
           } else {
             input = (this.min < 0 ? 0 : this.min || 0);
           }
+        } else if (this.inPercent) {
+          input = this._safeAdd(this._safeMult(value, 0.01), step);
         } else {
-          input = this._safeAdd(this._safeMult(value, (this.inPercent ? 0.01 : 1)), step);
+          input = this._safeAdd(value, step);
         }
-        this.value = this._checkValue(input, this.value);
+        if (this.noClamp) {
+          // still clamp to step, when incrementing
+          this.value = this._checkStep(this._checkValue(input, this.value), this.step);
+        } else {
+          this.value = this._checkValue(input, this.value);
+        }
       }
 
       _computeWidth(input) {
