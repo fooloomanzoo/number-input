@@ -168,6 +168,13 @@
           },
 
           /**
+           * minimum character width of the input
+           */
+          minlength: {
+            type: Number
+          },
+
+          /**
            * minimum digits left to the decimal separator to pad
            * @type {number}
            */
@@ -183,7 +190,7 @@
            */
           _longestStaticLength: {
             type: Number,
-            computed: '_computeLongestStatic(alwaysSign, minimumIntegerDigits, minimumFractionDigits)',
+            computed: '_computeLongestStatic(minlength, alwaysSign, minimumIntegerDigits, minimumFractionDigits)',
             observer: '_updateView'
           },
 
@@ -230,8 +237,8 @@
         return 1;
       }
 
-      _computeLongestStatic(alwaysSign, minimumIntegerDigits) {
-        return this._computeChWidth((!alwaysSign && (this.min < 0 || this.max < 0) ? '-' : '') + this.formatNumber(Math.pow(10, minimumIntegerDigits - 1)));
+      _computeLongestStatic(minlength, alwaysSign, minimumIntegerDigits) {
+        return Math.max(minlength, this._computeChWidth((!alwaysSign && (this.min < 0 || this.max < 0) ? '-' : '') + this.formatNumber(Math.pow(10, minimumIntegerDigits - 1))));
       }
 
       // approximation of the ch-width of a number-string

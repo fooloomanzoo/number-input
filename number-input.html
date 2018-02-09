@@ -121,8 +121,8 @@
         return padLength || 1;
       }
 
-      _computeLongestStatic(alwaysSign, minimumIntegerDigits, minimumFractionDigits) {
-        return this._computeChWidth((!alwaysSign && (this.min < 0 || this.max < 0) ? '-' : '') + this.formatNumber(Math.pow(10, minimumIntegerDigits - 1) + Math.pow(10, -(minimumFractionDigits || 0))));
+      _computeLongestStatic(minlength, alwaysSign, minimumIntegerDigits, minimumFractionDigits) {
+        return Math.max(minlength, this._computeChWidth((!alwaysSign && (this.min < 0 || this.max < 0) ? '-' : '') + this.formatNumber(Math.pow(10, minimumIntegerDigits - 1) + Math.pow(10, -(minimumFractionDigits || 0)))));
       }
 
       _computeRegExpDecimalSeparator(decimalSeparator) {
