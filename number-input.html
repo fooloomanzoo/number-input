@@ -158,7 +158,14 @@
       }
 
       _inputChanged(input, oldinput) {
-        if (!input) return;
+        if (!input) {
+          if (!isNaN(this.default)) {
+            this.input = '' + this.default;
+          } else {
+            this.$.input.value = '';
+          }
+          return;
+        }
         oldinput = oldinput || '';
 
         let newValue, oldValue, value;
@@ -188,7 +195,14 @@
       }
 
       _valueChanged(value, oldValue) {
-        if (value === undefined) return;
+        if (value === undefined) {
+          if (!isNaN(this.default)) {
+            this.value = this.default;
+          } else {
+            this.input = undefined;
+          }
+          return
+        }
 
         if (isNaN(oldValue)) {
           value = this._checkValue(value);

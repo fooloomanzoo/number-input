@@ -268,8 +268,10 @@
 
       _inputChanged(input, oldinput) {
         if (!input) {
-          if (oldinput) {
-            this._inputChanged(oldinput);
+          if (!isNaN(this.default)) {
+            this.input = '' + this.default;
+          } else {
+            this.$.input.value = '';
           }
           return;
         }
@@ -301,7 +303,14 @@
       }
 
       _valueChanged(value, oldValue) {
-        if (value === undefined) return;
+        if (value === undefined) {
+          if (!isNaN(this.default)) {
+            this.value = this.default;
+          } else {
+            this.input = undefined;
+          }
+          return
+        }
 
         if (isNaN(oldValue)) {
           value = this._checkValue(value);
@@ -362,11 +371,11 @@
         let value = parseInt(this.$.input.value.replace(this._regExpNotInNumber, '')) + step;
         if (isNaN(value)) {
           if (!isNaN(this.startAt)) {
-            value = this.startAt;
+            this.value = this.startAt;
           } else if (!isNaN(this.default)) {
-            value = this.default;
+            this.value = this.default;
           } else {
-            value = this.min < 0 ? 0 : this.min || 0;
+            this.value = this.min < 0 ? 0 : this.min || 0;
           }
         } else if (this.noClamp){
           // still clamp to step, when incrementing
@@ -377,10 +386,8 @@
       }
 
       _updateView() {
-        setTimeout(() => {
-          this._inputChanged(this.$.input.value, this.input);
-          this._debouncedComputeWidth(this.input);
-        }, 0)
+        this._inputChanged(this.$.input.value, this.input);
+        this._debouncedComputeWidth(this.input);
       }
 
       _debouncedComputeWidth(input) {
