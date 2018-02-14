@@ -159,8 +159,11 @@
 
       _inputChanged(input, oldinput) {
         if (!input) {
-          value = undefined;
-          this.$.input.value = '';
+          if (!isNaN(this.default)) {
+            this.input = '' + this.default;
+          } else {
+            this.$.input.value = '';
+          }
           return;
         }
         oldinput = oldinput || '';
@@ -199,7 +202,7 @@
             this.input = undefined;
           }
           return
-        };
+        }
 
         if (isNaN(oldValue)) {
           value = this._checkValue(value);

@@ -53,10 +53,10 @@
               box-sizing: content-box;
               border: 0;
               border-color: transparent;
-              color: var(--number-input-color, var(--input-color, inherit));
-              background: var(--number-input-background, var(--input-background, transparent));
               @apply --input-style;
               @apply --number-input;
+              color: var(--number-input-color, var(--input-color, inherit));
+              background: var(--number-input-background, var(--input-background, transparent));
             }
             #input::-webkit-input-placeholder,
             #input::placeholder {
@@ -65,15 +65,15 @@
             #input:hover,
             #input:focus {
               outline: none;
-              color: var(--number-input-focus-color, var(--input-focus-color, inherit));
-              background: var(--number-input-focus-background, var(--input-focus-background, rgba(0,0,0,0.1)));
               @apply --input-focus;
               @apply --number-input-focus;
+              color: var(--number-input-focus-color, var(--input-focus-color, inherit));
+              background: var(--number-input-focus-background, var(--input-focus-background, rgba(0,0,0,0.1)));
             }
             :host([disabled]) {
+              @apply --input-disabled;
               color: var(--number-input-disabled-color, var(--input-disabled-color, inherit));
               background: var(--number-input-disabled-background, var(--input-disabled-background, inherit));
-              @apply --input-disabled;
             }
           </style>
         `;
@@ -263,13 +263,16 @@
       }
 
       _computeInvalid(required, value) {
-        return required && isNaN(value);
+        this.invalid = required && isNaN(value);
       }
 
       _inputChanged(input, oldinput) {
         if (!input) {
-          value = undefined;
-          this.$.input.value = '';
+          if (!isNaN(this.default)) {
+            this.input = '' + this.default;
+          } else {
+            this.$.input.value = '';
+          }
           return;
         }
         input = input.replace(this._regExpNotInNumber, '');
@@ -307,7 +310,7 @@
             this.input = undefined;
           }
           return
-        };
+        }
 
         if (isNaN(oldValue)) {
           value = this._checkValue(value);
