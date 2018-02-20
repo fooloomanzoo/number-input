@@ -421,7 +421,11 @@
        */
       focus() {
         this.$.input.focus();
+        if (this.$.input.scrollIntoViewIfNeeded) {
+          this.$.input.scrollIntoViewIfNeeded();
+        }
       }
+
 
       /**
        * focus the input
