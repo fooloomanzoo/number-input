@@ -214,7 +214,6 @@
 
       connectedCallback() {
         super.connectedCallback();
-        this._ensureAttribute('tabindex', 0);
         this.addEventListener('focus', this.focus.bind(this), false);
         this.addEventListener('contextmenu', this._stopIncrem.bind(this), false);
       }
@@ -334,7 +333,6 @@
         const inc = (e.keyCode === 38) ? this.step : (e.keyCode === 40 ? -this.step : 0);
         if (inc !== 0) {
           this._startIncrem(inc);
-          e.preventDefault();
           e.stopPropagation();
           return;
         }
@@ -342,12 +340,14 @@
         // enter & space
         if (e.keyCode === 13 || e.keyCode === 32) {
           this._updateView();
+          e.stopPropagation();
           return;
         }
 
         // esc
         if (e.keyCode === 27) {
           this._updateView();
+          e.stopPropagation();
           this.blur();
           return;
         }
@@ -385,9 +385,10 @@
         }
       }
 
-      _updateView() {
+      _updateView(e) {
         this._inputChanged(this.$.input.value, this.input);
         this._debouncedComputeWidth(this.input);
+        e && e.stopPropagation && e.stopPropagation();
       }
 
       _debouncedComputeWidth(input) {
@@ -419,19 +420,19 @@
       /**
        * focus the input
        */
-      focus() {
+      focus(e) {
         this.$.input.focus();
         if (this.$.input.scrollIntoViewIfNeeded) {
           this.$.input.scrollIntoViewIfNeeded();
         }
       }
 
-
       /**
        * focus the input
        */
-      blur() {
+      blur(e) {
         this.$.input.blur();
+        e && e.stopPropagation && e.stopPropagation();
       }
 
       formatNumber() {
