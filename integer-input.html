@@ -51,13 +51,16 @@
               text-align: var(--number-input-allign, center);
               overflow: visible;
               box-sizing: content-box;
-              border: 0;
+              border: none;
+              outline: none;
+              -webkit-background-clip: padding-box;
+              background-clip: padding-box;
               border-color: transparent;
               line-height: 1;
-              @apply --input-style;
-              @apply --number-input;
               color: var(--number-input-color, var(--input-color, inherit));
               background: var(--number-input-background, var(--input-background, transparent));
+              @apply --input-style;
+              @apply --number-input;
             }
             #input::-webkit-input-placeholder,
             #input::placeholder {
@@ -66,15 +69,40 @@
             #input:hover,
             #input:focus {
               outline: none;
-              @apply --input-focus;
-              @apply --number-input-focus;
               color: var(--number-input-focus-color, var(--input-focus-color, inherit));
               background: var(--number-input-focus-background, var(--input-focus-background, rgba(0,0,0,0.1)));
+              @apply --input-focus;
+              @apply --number-input-focus;
             }
             :host([disabled]) {
-              @apply --input-disabled;
               color: var(--number-input-disabled-color, var(--input-disabled-color, inherit));
               background: var(--number-input-disabled-background, var(--input-disabled-background, inherit));
+              @apply --input-disabled;
+            }
+            input::-moz-focus-inner {
+              border-style: none;
+              padding: 0;
+            }
+            input::-moz-focusring {
+              border-width: 0;
+              color: transparent;
+              text-shadow: 0 0 0 var(--number-input-focus-color, var(--input-focus-color, #000));
+            }
+            input::-moz-selection {
+              color: var(--number-input-color, var(--input-color, inherit));
+              background: var(--number-input-background, var(--input-background, transparent));
+            }
+            input:focus::-moz-selection {
+              color: var(--input-selection-color, inherit);
+              background: var(--input-selection-background, rgba(0,0,0,0.5));
+            }
+            input::selection {
+              color: var(--number-input-color, var(--input-color, inherit));
+              background: var(--number-input-background, var(--input-background, transparent));
+            }
+            input:focus::selection {
+              color: var(--input-selection-color, inherit);
+              background: var(--input-selection-background, rgba(0,0,0,0.5));
             }
           </style>
         `;
@@ -246,7 +274,7 @@
         if (str === undefined) {
           return 0;
         }
-        return str.replace(/\D/g, '').length + str.replace(/[^+\\/?~_]/g, '').length + str.replace(/[^.,;\-*!(){}®«»±[\]'"´‹›`²³°\u2070-\u209C]/g, '').length/2;
+        return str.replace(/\D/g, '').length + str.replace(/[^+\\/?~_]/g, '').length + str.replace(/[^.,;\-*!(){}®«»±[\]'"´‹›`²³°\u2070-\u209C]/g, '').length / 2;
       }
 
       // approximation of the width of a string
@@ -254,7 +282,7 @@
         if (str === undefined) {
           return 0;
         }
-        return str.replace(/[\d\s+\\/?~_^.,;\-*!(){}®«»±[\]'"´‹›`²³°\u2070-\u209C]/g,'').length + str.replace(/[^%#&$€£¥§©]/g,'')*0.75 + str.replace(/\S/g, '').length/4;
+        return str.replace(/[\d\s+\\/?~_^.,;\-*!(){}®«»±[\]'"´‹›`²³°\u2070-\u209C]/g, '').length + str.replace(/[^%#&$€£¥§©]/g, '') * 0.75 + str.replace(/\S/g, '').length / 4;
       }
 
       _computeMinWidth(placeholder) {
@@ -378,7 +406,7 @@
           } else {
             this.value = this.min < 0 ? 0 : this.min || 0;
           }
-        } else if (this.noClamp){
+        } else if (this.noClamp) {
           // still clamp to step, when incrementing
           this.value = this._checkStep(this._checkValue(value, this.value), this.step);
         } else {
@@ -504,7 +532,7 @@
      * @demo demo/index.html
      * @demo demo/form.html Form Demo
      **/
-    class IntegerInput extends IntegerInputMixin(Polymer.Element) {  // eslint-disable-line no-undef
+    class IntegerInput extends IntegerInputMixin(Polymer.Element) { // eslint-disable-line no-undef
 
       static get is() {
         return 'integer-input';
