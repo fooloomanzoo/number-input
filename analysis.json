@@ -55,11 +55,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 156,
+              "line": 185,
               "column": 10
             },
             "end": {
-              "line": 160,
+              "line": 189,
               "column": 11
             }
           },
@@ -79,11 +79,11 @@
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 48,
+              "line": 47,
               "column": 10
             },
             "end": {
-              "line": 50,
+              "line": 49,
               "column": 11
             }
           },
@@ -215,14 +215,12 @@
               "column": 10
             },
             "end": {
-              "line": 28,
+              "line": 27,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {
-              "readOnly": true
-            }
+            "polymer": {}
           },
           "inheritedFrom": "FormElementMixin"
         },
@@ -234,11 +232,11 @@
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 33,
+              "line": 32,
               "column": 10
             },
             "end": {
-              "line": 36,
+              "line": 35,
               "column": 11
             }
           },
@@ -255,11 +253,11 @@
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 41,
+              "line": 40,
               "column": 10
             },
             "end": {
-              "line": 43,
+              "line": 42,
               "column": 11
             }
           },
@@ -269,17 +267,39 @@
           "inheritedFrom": "FormElementMixin"
         },
         {
+          "name": "_valueIsSet",
+          "type": "boolean",
+          "description": "is true when the value is not undefined",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
+            "start": {
+              "line": 54,
+              "column": 10
+            },
+            "end": {
+              "line": 57,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false",
+          "inheritedFrom": "FormElementMixin"
+        },
+        {
           "name": "padLength",
           "type": "number",
           "description": "length to pad the string (with `0`) according to the total amount of numbers",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 101,
+              "line": 130,
               "column": 10
             },
             "end": {
-              "line": 104,
+              "line": 133,
               "column": 11
             }
           },
@@ -297,11 +317,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 110,
+              "line": 139,
               "column": 10
             },
             "end": {
-              "line": 113,
+              "line": 142,
               "column": 11
             }
           },
@@ -319,11 +339,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 119,
+              "line": 148,
               "column": 10
             },
             "end": {
-              "line": 123,
+              "line": 152,
               "column": 11
             }
           },
@@ -342,11 +362,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 129,
+              "line": 158,
               "column": 10
             },
             "end": {
-              "line": 132,
+              "line": 161,
               "column": 11
             }
           },
@@ -364,11 +384,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 138,
+              "line": 167,
               "column": 10
             },
             "end": {
-              "line": 142,
+              "line": 171,
               "column": 11
             }
           },
@@ -387,11 +407,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 148,
+              "line": 177,
               "column": 10
             },
             "end": {
-              "line": 151,
+              "line": 180,
               "column": 11
             }
           },
@@ -409,11 +429,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 165,
+              "line": 194,
               "column": 10
             },
             "end": {
-              "line": 167,
+              "line": 196,
               "column": 11
             }
           },
@@ -429,11 +449,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 172,
+              "line": 201,
               "column": 10
             },
             "end": {
-              "line": 174,
+              "line": 203,
               "column": 11
             }
           },
@@ -449,11 +469,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 180,
+              "line": 209,
               "column": 10
             },
             "end": {
-              "line": 184,
+              "line": 213,
               "column": 11
             }
           },
@@ -471,11 +491,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 190,
+              "line": 219,
               "column": 10
             },
             "end": {
-              "line": 194,
+              "line": 223,
               "column": 11
             }
           },
@@ -494,11 +514,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 196,
+              "line": 225,
               "column": 10
             },
             "end": {
-              "line": 199,
+              "line": 228,
               "column": 11
             }
           },
@@ -515,11 +535,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 201,
+              "line": 230,
               "column": 10
             },
             "end": {
-              "line": 204,
+              "line": 233,
               "column": 11
             }
           },
@@ -537,11 +557,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 214,
+              "line": 243,
               "column": 6
             },
             "end": {
-              "line": 219,
+              "line": 247,
               "column": 7
             }
           },
@@ -581,11 +601,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 304,
+              "line": 332,
               "column": 6
             },
             "end": {
-              "line": 325,
+              "line": 353,
               "column": 7
             }
           },
@@ -791,11 +811,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 264,
+              "line": 292,
               "column": 6
             },
             "end": {
-              "line": 266,
+              "line": 294,
               "column": 7
             }
           },
@@ -811,17 +831,40 @@
           "inheritedFrom": "IntegerInputMixin"
         },
         {
+          "name": "_computeValueIsSet",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
+            "start": {
+              "line": 77,
+              "column": 6
+            },
+            "end": {
+              "line": 79,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            }
+          ],
+          "inheritedFrom": "FormElementMixin"
+        },
+        {
           "name": "validate",
           "description": "validates the input for iron-form",
           "privacy": "public",
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 61,
+              "line": 84,
               "column": 6
             },
             "end": {
-              "line": 63,
+              "line": 86,
               "column": 7
             }
           },
@@ -835,11 +878,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 221,
+              "line": 249,
               "column": 6
             },
             "end": {
-              "line": 225,
+              "line": 253,
               "column": 7
             }
           },
@@ -853,11 +896,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 227,
+              "line": 255,
               "column": 6
             },
             "end": {
-              "line": 237,
+              "line": 265,
               "column": 7
             }
           },
@@ -884,11 +927,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 239,
+              "line": 267,
               "column": 6
             },
             "end": {
-              "line": 241,
+              "line": 269,
               "column": 7
             }
           },
@@ -912,11 +955,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 244,
+              "line": 272,
               "column": 6
             },
             "end": {
-              "line": 249,
+              "line": 277,
               "column": 7
             }
           },
@@ -934,11 +977,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 252,
+              "line": 280,
               "column": 6
             },
             "end": {
-              "line": 257,
+              "line": 285,
               "column": 7
             }
           },
@@ -956,11 +999,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 259,
+              "line": 287,
               "column": 6
             },
             "end": {
-              "line": 262,
+              "line": 290,
               "column": 7
             }
           },
@@ -978,11 +1021,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 268,
+              "line": 296,
               "column": 6
             },
             "end": {
-              "line": 302,
+              "line": 330,
               "column": 7
             }
           },
@@ -1003,11 +1046,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 327,
+              "line": 355,
               "column": 6
             },
             "end": {
-              "line": 353,
+              "line": 382,
               "column": 7
             }
           },
@@ -1025,11 +1068,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 355,
+              "line": 384,
               "column": 6
             },
             "end": {
-              "line": 361,
+              "line": 390,
               "column": 7
             }
           },
@@ -1047,11 +1090,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 363,
+              "line": 392,
               "column": 6
             },
             "end": {
-              "line": 367,
+              "line": 396,
               "column": 7
             }
           },
@@ -1065,11 +1108,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 369,
+              "line": 398,
               "column": 6
             },
             "end": {
-              "line": 385,
+              "line": 414,
               "column": 7
             }
           },
@@ -1087,16 +1130,20 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 387,
+              "line": 416,
               "column": 6
             },
             "end": {
-              "line": 390,
+              "line": 420,
               "column": 7
             }
           },
           "metadata": {},
-          "params": [],
+          "params": [
+            {
+              "name": "e"
+            }
+          ],
           "inheritedFrom": "IntegerInputMixin"
         },
         {
@@ -1105,11 +1152,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 392,
+              "line": 422,
               "column": 6
             },
             "end": {
-              "line": 397,
+              "line": 427,
               "column": 7
             }
           },
@@ -1127,11 +1174,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 399,
+              "line": 429,
               "column": 6
             },
             "end": {
-              "line": 408,
+              "line": 438,
               "column": 7
             }
           },
@@ -1149,11 +1196,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 410,
+              "line": 440,
               "column": 6
             },
             "end": {
-              "line": 416,
+              "line": 446,
               "column": 7
             }
           },
@@ -1171,16 +1218,20 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 421,
+              "line": 451,
               "column": 6
             },
             "end": {
-              "line": 423,
+              "line": 456,
               "column": 7
             }
           },
           "metadata": {},
-          "params": [],
+          "params": [
+            {
+              "name": "e"
+            }
+          ],
           "inheritedFrom": "IntegerInputMixin"
         },
         {
@@ -1189,16 +1240,20 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 428,
+              "line": 461,
               "column": 6
             },
             "end": {
-              "line": 430,
+              "line": 464,
               "column": 7
             }
           },
           "metadata": {},
-          "params": [],
+          "params": [
+            {
+              "name": "e"
+            }
+          ],
           "inheritedFrom": "IntegerInputMixin"
         },
         {
@@ -1207,11 +1262,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 432,
+              "line": 466,
               "column": 6
             },
             "end": {
-              "line": 444,
+              "line": 478,
               "column": 7
             }
           },
@@ -1234,11 +1289,11 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 500,
+          "line": 534,
           "column": 4
         },
         "end": {
-          "line": 505,
+          "line": 539,
           "column": 5
         }
       },
@@ -1287,11 +1342,11 @@
           "description": "step to increment the value",
           "sourceRange": {
             "start": {
-              "line": 156,
+              "line": 185,
               "column": 10
             },
             "end": {
-              "line": 160,
+              "line": 189,
               "column": 11
             }
           },
@@ -1305,11 +1360,11 @@
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 48,
+              "line": 47,
               "column": 10
             },
             "end": {
-              "line": 50,
+              "line": 49,
               "column": 11
             }
           },
@@ -1399,7 +1454,7 @@
               "column": 10
             },
             "end": {
-              "line": 28,
+              "line": 27,
               "column": 11
             }
           },
@@ -1413,11 +1468,11 @@
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 33,
+              "line": 32,
               "column": 10
             },
             "end": {
-              "line": 36,
+              "line": 35,
               "column": 11
             }
           },
@@ -1431,11 +1486,11 @@
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 41,
+              "line": 40,
               "column": 10
             },
             "end": {
-              "line": 43,
+              "line": 42,
               "column": 11
             }
           },
@@ -1448,11 +1503,11 @@
           "description": "length to pad the string (with `0`) according to the total amount of numbers",
           "sourceRange": {
             "start": {
-              "line": 101,
+              "line": 130,
               "column": 10
             },
             "end": {
-              "line": 104,
+              "line": 133,
               "column": 11
             }
           },
@@ -1465,58 +1520,7 @@
           "description": "placeholder string",
           "sourceRange": {
             "start": {
-              "line": 110,
-              "column": 10
-            },
-            "end": {
-              "line": 113,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "string",
-          "inheritedFrom": "IntegerInputMixin"
-        },
-        {
-          "name": "no-auto-width",
-          "description": "disable autosizing",
-          "sourceRange": {
-            "start": {
-              "line": 119,
-              "column": 10
-            },
-            "end": {
-              "line": 123,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "boolean",
-          "inheritedFrom": "IntegerInputMixin"
-        },
-        {
-          "name": "auto-padding",
-          "description": "enables auto padding",
-          "sourceRange": {
-            "start": {
-              "line": 129,
-              "column": 10
-            },
-            "end": {
-              "line": 132,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "boolean",
-          "inheritedFrom": "IntegerInputMixin"
-        },
-        {
-          "name": "input",
-          "description": "string value of the input",
-          "sourceRange": {
-            "start": {
-              "line": 138,
+              "line": 139,
               "column": 10
             },
             "end": {
@@ -1529,15 +1533,66 @@
           "inheritedFrom": "IntegerInputMixin"
         },
         {
-          "name": "always-sign",
-          "description": "always put the sign in the beginning",
+          "name": "no-auto-width",
+          "description": "disable autosizing",
           "sourceRange": {
             "start": {
               "line": 148,
               "column": 10
             },
             "end": {
-              "line": 151,
+              "line": 152,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
+          "inheritedFrom": "IntegerInputMixin"
+        },
+        {
+          "name": "auto-padding",
+          "description": "enables auto padding",
+          "sourceRange": {
+            "start": {
+              "line": 158,
+              "column": 10
+            },
+            "end": {
+              "line": 161,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
+          "inheritedFrom": "IntegerInputMixin"
+        },
+        {
+          "name": "input",
+          "description": "string value of the input",
+          "sourceRange": {
+            "start": {
+              "line": 167,
+              "column": 10
+            },
+            "end": {
+              "line": 171,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string",
+          "inheritedFrom": "IntegerInputMixin"
+        },
+        {
+          "name": "always-sign",
+          "description": "always put the sign in the beginning",
+          "sourceRange": {
+            "start": {
+              "line": 177,
+              "column": 10
+            },
+            "end": {
+              "line": 180,
               "column": 11
             }
           },
@@ -1550,11 +1605,11 @@
           "description": "start where to increment the value",
           "sourceRange": {
             "start": {
-              "line": 165,
+              "line": 194,
               "column": 10
             },
             "end": {
-              "line": 167,
+              "line": 196,
               "column": 11
             }
           },
@@ -1567,11 +1622,11 @@
           "description": "minimum character width of the input",
           "sourceRange": {
             "start": {
-              "line": 172,
+              "line": 201,
               "column": 10
             },
             "end": {
-              "line": 174,
+              "line": 203,
               "column": 11
             }
           },
@@ -1584,11 +1639,11 @@
           "description": "minimum digits left to the decimal separator to pad",
           "sourceRange": {
             "start": {
-              "line": 180,
+              "line": 209,
               "column": 10
             },
             "end": {
-              "line": 184,
+              "line": 213,
               "column": 11
             }
           },
@@ -1663,11 +1718,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 156,
+              "line": 185,
               "column": 10
             },
             "end": {
-              "line": 160,
+              "line": 189,
               "column": 11
             }
           },
@@ -1687,11 +1742,11 @@
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 48,
+              "line": 47,
               "column": 10
             },
             "end": {
-              "line": 50,
+              "line": 49,
               "column": 11
             }
           },
@@ -1823,14 +1878,12 @@
               "column": 10
             },
             "end": {
-              "line": 28,
+              "line": 27,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {
-              "readOnly": true
-            }
+            "polymer": {}
           },
           "inheritedFrom": "FormElementMixin"
         },
@@ -1842,11 +1895,11 @@
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 33,
+              "line": 32,
               "column": 10
             },
             "end": {
-              "line": 36,
+              "line": 35,
               "column": 11
             }
           },
@@ -1863,17 +1916,39 @@
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 41,
+              "line": 40,
               "column": 10
             },
             "end": {
-              "line": 43,
+              "line": 42,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {}
           },
+          "inheritedFrom": "FormElementMixin"
+        },
+        {
+          "name": "_valueIsSet",
+          "type": "boolean",
+          "description": "is true when the value is not undefined",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
+            "start": {
+              "line": 54,
+              "column": 10
+            },
+            "end": {
+              "line": 57,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false",
           "inheritedFrom": "FormElementMixin"
         },
         {
@@ -1884,11 +1959,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 101,
+              "line": 130,
               "column": 10
             },
             "end": {
-              "line": 104,
+              "line": 133,
               "column": 11
             }
           },
@@ -1907,11 +1982,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 110,
+              "line": 139,
               "column": 10
             },
             "end": {
-              "line": 113,
+              "line": 142,
               "column": 11
             }
           },
@@ -1930,11 +2005,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 119,
+              "line": 148,
               "column": 10
             },
             "end": {
-              "line": 123,
+              "line": 152,
               "column": 11
             }
           },
@@ -1954,11 +2029,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 129,
+              "line": 158,
               "column": 10
             },
             "end": {
-              "line": 132,
+              "line": 161,
               "column": 11
             }
           },
@@ -1977,11 +2052,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 138,
+              "line": 167,
               "column": 10
             },
             "end": {
-              "line": 142,
+              "line": 171,
               "column": 11
             }
           },
@@ -2001,11 +2076,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 148,
+              "line": 177,
               "column": 10
             },
             "end": {
-              "line": 151,
+              "line": 180,
               "column": 11
             }
           },
@@ -2024,11 +2099,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 165,
+              "line": 194,
               "column": 10
             },
             "end": {
-              "line": 167,
+              "line": 196,
               "column": 11
             }
           },
@@ -2045,11 +2120,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 172,
+              "line": 201,
               "column": 10
             },
             "end": {
-              "line": 174,
+              "line": 203,
               "column": 11
             }
           },
@@ -2066,11 +2141,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 180,
+              "line": 209,
               "column": 10
             },
             "end": {
-              "line": 184,
+              "line": 213,
               "column": 11
             }
           },
@@ -2089,11 +2164,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 190,
+              "line": 219,
               "column": 10
             },
             "end": {
-              "line": 194,
+              "line": 223,
               "column": 11
             }
           },
@@ -2135,11 +2210,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 201,
+              "line": 230,
               "column": 10
             },
             "end": {
-              "line": 204,
+              "line": 233,
               "column": 11
             }
           },
@@ -2289,11 +2364,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 214,
+              "line": 243,
               "column": 6
             },
             "end": {
-              "line": 219,
+              "line": 247,
               "column": 7
             }
           },
@@ -2544,11 +2619,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 264,
+              "line": 292,
               "column": 6
             },
             "end": {
-              "line": 266,
+              "line": 294,
               "column": 7
             }
           },
@@ -2564,17 +2639,40 @@
           "inheritedFrom": "IntegerInputMixin"
         },
         {
+          "name": "_computeValueIsSet",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
+            "start": {
+              "line": 77,
+              "column": 6
+            },
+            "end": {
+              "line": 79,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            }
+          ],
+          "inheritedFrom": "FormElementMixin"
+        },
+        {
           "name": "validate",
           "description": "validates the input for iron-form",
           "privacy": "public",
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 61,
+              "line": 84,
               "column": 6
             },
             "end": {
-              "line": 63,
+              "line": 86,
               "column": 7
             }
           },
@@ -2589,11 +2687,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 221,
+              "line": 249,
               "column": 6
             },
             "end": {
-              "line": 225,
+              "line": 253,
               "column": 7
             }
           },
@@ -2676,11 +2774,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 244,
+              "line": 272,
               "column": 6
             },
             "end": {
-              "line": 249,
+              "line": 277,
               "column": 7
             }
           },
@@ -2699,11 +2797,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 252,
+              "line": 280,
               "column": 6
             },
             "end": {
-              "line": 257,
+              "line": 285,
               "column": 7
             }
           },
@@ -2722,11 +2820,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 259,
+              "line": 287,
               "column": 6
             },
             "end": {
-              "line": 262,
+              "line": 290,
               "column": 7
             }
           },
@@ -2770,11 +2868,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 327,
+              "line": 355,
               "column": 6
             },
             "end": {
-              "line": 353,
+              "line": 382,
               "column": 7
             }
           },
@@ -2793,11 +2891,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 355,
+              "line": 384,
               "column": 6
             },
             "end": {
-              "line": 361,
+              "line": 390,
               "column": 7
             }
           },
@@ -2816,11 +2914,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 363,
+              "line": 392,
               "column": 6
             },
             "end": {
-              "line": 367,
+              "line": 396,
               "column": 7
             }
           },
@@ -2857,16 +2955,20 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 387,
+              "line": 416,
               "column": 6
             },
             "end": {
-              "line": 390,
+              "line": 420,
               "column": 7
             }
           },
           "metadata": {},
-          "params": [],
+          "params": [
+            {
+              "name": "e"
+            }
+          ],
           "inheritedFrom": "IntegerInputMixin"
         },
         {
@@ -2876,11 +2978,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 392,
+              "line": 422,
               "column": 6
             },
             "end": {
-              "line": 397,
+              "line": 427,
               "column": 7
             }
           },
@@ -2921,11 +3023,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 410,
+              "line": 440,
               "column": 6
             },
             "end": {
-              "line": 416,
+              "line": 446,
               "column": 7
             }
           },
@@ -2944,16 +3046,20 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 421,
+              "line": 451,
               "column": 6
             },
             "end": {
-              "line": 423,
+              "line": 456,
               "column": 7
             }
           },
           "metadata": {},
-          "params": [],
+          "params": [
+            {
+              "name": "e"
+            }
+          ],
           "inheritedFrom": "IntegerInputMixin"
         },
         {
@@ -2963,16 +3069,20 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 428,
+              "line": 461,
               "column": 6
             },
             "end": {
-              "line": 430,
+              "line": 464,
               "column": 7
             }
           },
           "metadata": {},
-          "params": [],
+          "params": [
+            {
+              "name": "e"
+            }
+          ],
           "inheritedFrom": "IntegerInputMixin"
         },
         {
@@ -3177,11 +3287,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 156,
+              "line": 185,
               "column": 10
             },
             "end": {
-              "line": 160,
+              "line": 189,
               "column": 11
             }
           },
@@ -3195,11 +3305,11 @@
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 48,
+              "line": 47,
               "column": 10
             },
             "end": {
-              "line": 50,
+              "line": 49,
               "column": 11
             }
           },
@@ -3289,7 +3399,7 @@
               "column": 10
             },
             "end": {
-              "line": 28,
+              "line": 27,
               "column": 11
             }
           },
@@ -3303,11 +3413,11 @@
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 33,
+              "line": 32,
               "column": 10
             },
             "end": {
-              "line": 36,
+              "line": 35,
               "column": 11
             }
           },
@@ -3321,11 +3431,11 @@
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 41,
+              "line": 40,
               "column": 10
             },
             "end": {
-              "line": 43,
+              "line": 42,
               "column": 11
             }
           },
@@ -3339,11 +3449,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 101,
+              "line": 130,
               "column": 10
             },
             "end": {
-              "line": 104,
+              "line": 133,
               "column": 11
             }
           },
@@ -3357,11 +3467,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 110,
+              "line": 139,
               "column": 10
             },
             "end": {
-              "line": 113,
+              "line": 142,
               "column": 11
             }
           },
@@ -3375,11 +3485,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 119,
+              "line": 148,
               "column": 10
             },
             "end": {
-              "line": 123,
+              "line": 152,
               "column": 11
             }
           },
@@ -3393,11 +3503,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 129,
+              "line": 158,
               "column": 10
             },
             "end": {
-              "line": 132,
+              "line": 161,
               "column": 11
             }
           },
@@ -3411,11 +3521,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 138,
+              "line": 167,
               "column": 10
             },
             "end": {
-              "line": 142,
+              "line": 171,
               "column": 11
             }
           },
@@ -3429,11 +3539,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 148,
+              "line": 177,
               "column": 10
             },
             "end": {
-              "line": 151,
+              "line": 180,
               "column": 11
             }
           },
@@ -3447,11 +3557,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 165,
+              "line": 194,
               "column": 10
             },
             "end": {
-              "line": 167,
+              "line": 196,
               "column": 11
             }
           },
@@ -3465,11 +3575,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 172,
+              "line": 201,
               "column": 10
             },
             "end": {
-              "line": 174,
+              "line": 203,
               "column": 11
             }
           },
@@ -3483,11 +3593,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 180,
+              "line": 209,
               "column": 10
             },
             "end": {
-              "line": 184,
+              "line": 213,
               "column": 11
             }
           },
@@ -3648,11 +3758,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 156,
+              "line": 185,
               "column": 10
             },
             "end": {
-              "line": 160,
+              "line": 189,
               "column": 11
             }
           },
@@ -3671,11 +3781,11 @@
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 48,
+              "line": 47,
               "column": 10
             },
             "end": {
-              "line": 50,
+              "line": 49,
               "column": 11
             }
           },
@@ -3807,14 +3917,12 @@
               "column": 10
             },
             "end": {
-              "line": 28,
+              "line": 27,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {
-              "readOnly": true
-            }
+            "polymer": {}
           },
           "inheritedFrom": "FormElementMixin"
         },
@@ -3826,11 +3934,11 @@
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 33,
+              "line": 32,
               "column": 10
             },
             "end": {
-              "line": 36,
+              "line": 35,
               "column": 11
             }
           },
@@ -3847,11 +3955,11 @@
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 41,
+              "line": 40,
               "column": 10
             },
             "end": {
-              "line": 43,
+              "line": 42,
               "column": 11
             }
           },
@@ -3861,17 +3969,39 @@
           "inheritedFrom": "FormElementMixin"
         },
         {
+          "name": "_valueIsSet",
+          "type": "boolean",
+          "description": "is true when the value is not undefined",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
+            "start": {
+              "line": 54,
+              "column": 10
+            },
+            "end": {
+              "line": 57,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false",
+          "inheritedFrom": "FormElementMixin"
+        },
+        {
           "name": "padLength",
           "type": "number",
           "description": "length to pad the string (with `0`) according to the total amount of numbers",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 101,
+              "line": 130,
               "column": 10
             },
             "end": {
-              "line": 104,
+              "line": 133,
               "column": 11
             }
           },
@@ -3888,11 +4018,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 110,
+              "line": 139,
               "column": 10
             },
             "end": {
-              "line": 113,
+              "line": 142,
               "column": 11
             }
           },
@@ -3909,11 +4039,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 119,
+              "line": 148,
               "column": 10
             },
             "end": {
-              "line": 123,
+              "line": 152,
               "column": 11
             }
           },
@@ -3931,11 +4061,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 129,
+              "line": 158,
               "column": 10
             },
             "end": {
-              "line": 132,
+              "line": 161,
               "column": 11
             }
           },
@@ -3952,11 +4082,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 138,
+              "line": 167,
               "column": 10
             },
             "end": {
-              "line": 142,
+              "line": 171,
               "column": 11
             }
           },
@@ -3974,11 +4104,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 148,
+              "line": 177,
               "column": 10
             },
             "end": {
-              "line": 151,
+              "line": 180,
               "column": 11
             }
           },
@@ -3995,11 +4125,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 165,
+              "line": 194,
               "column": 10
             },
             "end": {
-              "line": 167,
+              "line": 196,
               "column": 11
             }
           },
@@ -4014,11 +4144,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 172,
+              "line": 201,
               "column": 10
             },
             "end": {
-              "line": 174,
+              "line": 203,
               "column": 11
             }
           },
@@ -4033,11 +4163,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 180,
+              "line": 209,
               "column": 10
             },
             "end": {
-              "line": 184,
+              "line": 213,
               "column": 11
             }
           },
@@ -4054,11 +4184,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 190,
+              "line": 219,
               "column": 10
             },
             "end": {
-              "line": 194,
+              "line": 223,
               "column": 11
             }
           },
@@ -4076,11 +4206,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 196,
+              "line": 225,
               "column": 10
             },
             "end": {
-              "line": 199,
+              "line": 228,
               "column": 11
             }
           },
@@ -4096,11 +4226,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 201,
+              "line": 230,
               "column": 10
             },
             "end": {
-              "line": 204,
+              "line": 233,
               "column": 11
             }
           },
@@ -4117,11 +4247,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 214,
+              "line": 243,
               "column": 6
             },
             "end": {
-              "line": 219,
+              "line": 247,
               "column": 7
             }
           },
@@ -4160,11 +4290,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 304,
+              "line": 332,
               "column": 6
             },
             "end": {
-              "line": 325,
+              "line": 353,
               "column": 7
             }
           },
@@ -4369,11 +4499,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 264,
+              "line": 292,
               "column": 6
             },
             "end": {
-              "line": 266,
+              "line": 294,
               "column": 7
             }
           },
@@ -4388,17 +4518,40 @@
           ]
         },
         {
+          "name": "_computeValueIsSet",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
+            "start": {
+              "line": 77,
+              "column": 6
+            },
+            "end": {
+              "line": 79,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            }
+          ],
+          "inheritedFrom": "FormElementMixin"
+        },
+        {
           "name": "validate",
           "description": "validates the input for iron-form",
           "privacy": "public",
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 61,
+              "line": 84,
               "column": 6
             },
             "end": {
-              "line": 63,
+              "line": 86,
               "column": 7
             }
           },
@@ -4412,11 +4565,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 221,
+              "line": 249,
               "column": 6
             },
             "end": {
-              "line": 225,
+              "line": 253,
               "column": 7
             }
           },
@@ -4429,11 +4582,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 227,
+              "line": 255,
               "column": 6
             },
             "end": {
-              "line": 237,
+              "line": 265,
               "column": 7
             }
           },
@@ -4459,11 +4612,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 239,
+              "line": 267,
               "column": 6
             },
             "end": {
-              "line": 241,
+              "line": 269,
               "column": 7
             }
           },
@@ -4486,11 +4639,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 244,
+              "line": 272,
               "column": 6
             },
             "end": {
-              "line": 249,
+              "line": 277,
               "column": 7
             }
           },
@@ -4507,11 +4660,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 252,
+              "line": 280,
               "column": 6
             },
             "end": {
-              "line": 257,
+              "line": 285,
               "column": 7
             }
           },
@@ -4528,11 +4681,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 259,
+              "line": 287,
               "column": 6
             },
             "end": {
-              "line": 262,
+              "line": 290,
               "column": 7
             }
           },
@@ -4549,11 +4702,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 268,
+              "line": 296,
               "column": 6
             },
             "end": {
-              "line": 302,
+              "line": 330,
               "column": 7
             }
           },
@@ -4573,11 +4726,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 327,
+              "line": 355,
               "column": 6
             },
             "end": {
-              "line": 353,
+              "line": 382,
               "column": 7
             }
           },
@@ -4594,11 +4747,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 355,
+              "line": 384,
               "column": 6
             },
             "end": {
-              "line": 361,
+              "line": 390,
               "column": 7
             }
           },
@@ -4615,11 +4768,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 363,
+              "line": 392,
               "column": 6
             },
             "end": {
-              "line": 367,
+              "line": 396,
               "column": 7
             }
           },
@@ -4632,11 +4785,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 369,
+              "line": 398,
               "column": 6
             },
             "end": {
-              "line": 385,
+              "line": 414,
               "column": 7
             }
           },
@@ -4653,16 +4806,20 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 387,
+              "line": 416,
               "column": 6
             },
             "end": {
-              "line": 390,
+              "line": 420,
               "column": 7
             }
           },
           "metadata": {},
-          "params": []
+          "params": [
+            {
+              "name": "e"
+            }
+          ]
         },
         {
           "name": "_debouncedComputeWidth",
@@ -4670,11 +4827,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 392,
+              "line": 422,
               "column": 6
             },
             "end": {
-              "line": 397,
+              "line": 427,
               "column": 7
             }
           },
@@ -4691,11 +4848,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 399,
+              "line": 429,
               "column": 6
             },
             "end": {
-              "line": 408,
+              "line": 438,
               "column": 7
             }
           },
@@ -4712,11 +4869,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 410,
+              "line": 440,
               "column": 6
             },
             "end": {
-              "line": 416,
+              "line": 446,
               "column": 7
             }
           },
@@ -4733,16 +4890,20 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 421,
+              "line": 451,
               "column": 6
             },
             "end": {
-              "line": 423,
+              "line": 456,
               "column": 7
             }
           },
           "metadata": {},
-          "params": []
+          "params": [
+            {
+              "name": "e"
+            }
+          ]
         },
         {
           "name": "blur",
@@ -4750,16 +4911,20 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 428,
+              "line": 461,
               "column": 6
             },
             "end": {
-              "line": 430,
+              "line": 464,
               "column": 7
             }
           },
           "metadata": {},
-          "params": []
+          "params": [
+            {
+              "name": "e"
+            }
+          ]
         },
         {
           "name": "formatNumber",
@@ -4767,11 +4932,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 432,
+              "line": 466,
               "column": 6
             },
             "end": {
-              "line": 444,
+              "line": 478,
               "column": 7
             }
           },
@@ -4788,7 +4953,7 @@
           "column": 2
         },
         "end": {
-          "line": 446,
+          "line": 480,
           "column": 3
         }
       },
@@ -4836,11 +5001,11 @@
           "description": "step to increment the value",
           "sourceRange": {
             "start": {
-              "line": 156,
+              "line": 185,
               "column": 10
             },
             "end": {
-              "line": 160,
+              "line": 189,
               "column": 11
             }
           },
@@ -4853,11 +5018,11 @@
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 48,
+              "line": 47,
               "column": 10
             },
             "end": {
-              "line": 50,
+              "line": 49,
               "column": 11
             }
           },
@@ -4947,7 +5112,7 @@
               "column": 10
             },
             "end": {
-              "line": 28,
+              "line": 27,
               "column": 11
             }
           },
@@ -4961,11 +5126,11 @@
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 33,
+              "line": 32,
               "column": 10
             },
             "end": {
-              "line": 36,
+              "line": 35,
               "column": 11
             }
           },
@@ -4979,11 +5144,11 @@
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 41,
+              "line": 40,
               "column": 10
             },
             "end": {
-              "line": 43,
+              "line": 42,
               "column": 11
             }
           },
@@ -4996,11 +5161,11 @@
           "description": "length to pad the string (with `0`) according to the total amount of numbers",
           "sourceRange": {
             "start": {
-              "line": 101,
+              "line": 130,
               "column": 10
             },
             "end": {
-              "line": 104,
+              "line": 133,
               "column": 11
             }
           },
@@ -5012,55 +5177,7 @@
           "description": "placeholder string",
           "sourceRange": {
             "start": {
-              "line": 110,
-              "column": 10
-            },
-            "end": {
-              "line": 113,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "string"
-        },
-        {
-          "name": "no-auto-width",
-          "description": "disable autosizing",
-          "sourceRange": {
-            "start": {
-              "line": 119,
-              "column": 10
-            },
-            "end": {
-              "line": 123,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "boolean"
-        },
-        {
-          "name": "auto-padding",
-          "description": "enables auto padding",
-          "sourceRange": {
-            "start": {
-              "line": 129,
-              "column": 10
-            },
-            "end": {
-              "line": 132,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "boolean"
-        },
-        {
-          "name": "input",
-          "description": "string value of the input",
-          "sourceRange": {
-            "start": {
-              "line": 138,
+              "line": 139,
               "column": 10
             },
             "end": {
@@ -5072,15 +5189,63 @@
           "type": "string"
         },
         {
-          "name": "always-sign",
-          "description": "always put the sign in the beginning",
+          "name": "no-auto-width",
+          "description": "disable autosizing",
           "sourceRange": {
             "start": {
               "line": 148,
               "column": 10
             },
             "end": {
-              "line": 151,
+              "line": 152,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "auto-padding",
+          "description": "enables auto padding",
+          "sourceRange": {
+            "start": {
+              "line": 158,
+              "column": 10
+            },
+            "end": {
+              "line": 161,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "input",
+          "description": "string value of the input",
+          "sourceRange": {
+            "start": {
+              "line": 167,
+              "column": 10
+            },
+            "end": {
+              "line": 171,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "always-sign",
+          "description": "always put the sign in the beginning",
+          "sourceRange": {
+            "start": {
+              "line": 177,
+              "column": 10
+            },
+            "end": {
+              "line": 180,
               "column": 11
             }
           },
@@ -5092,11 +5257,11 @@
           "description": "start where to increment the value",
           "sourceRange": {
             "start": {
-              "line": 165,
+              "line": 194,
               "column": 10
             },
             "end": {
-              "line": 167,
+              "line": 196,
               "column": 11
             }
           },
@@ -5108,11 +5273,11 @@
           "description": "minimum character width of the input",
           "sourceRange": {
             "start": {
-              "line": 172,
+              "line": 201,
               "column": 10
             },
             "end": {
-              "line": 174,
+              "line": 203,
               "column": 11
             }
           },
@@ -5124,11 +5289,11 @@
           "description": "minimum digits left to the decimal separator to pad",
           "sourceRange": {
             "start": {
-              "line": 180,
+              "line": 209,
               "column": 10
             },
             "end": {
-              "line": 184,
+              "line": 213,
               "column": 11
             }
           },
@@ -5202,11 +5367,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 156,
+              "line": 185,
               "column": 10
             },
             "end": {
-              "line": 160,
+              "line": 189,
               "column": 11
             }
           },
@@ -5226,11 +5391,11 @@
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 48,
+              "line": 47,
               "column": 10
             },
             "end": {
-              "line": 50,
+              "line": 49,
               "column": 11
             }
           },
@@ -5362,14 +5527,12 @@
               "column": 10
             },
             "end": {
-              "line": 28,
+              "line": 27,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {
-              "readOnly": true
-            }
+            "polymer": {}
           },
           "inheritedFrom": "FormElementMixin"
         },
@@ -5381,11 +5544,11 @@
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 33,
+              "line": 32,
               "column": 10
             },
             "end": {
-              "line": 36,
+              "line": 35,
               "column": 11
             }
           },
@@ -5402,17 +5565,39 @@
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 41,
+              "line": 40,
               "column": 10
             },
             "end": {
-              "line": 43,
+              "line": 42,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {}
           },
+          "inheritedFrom": "FormElementMixin"
+        },
+        {
+          "name": "_valueIsSet",
+          "type": "boolean",
+          "description": "is true when the value is not undefined",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
+            "start": {
+              "line": 54,
+              "column": 10
+            },
+            "end": {
+              "line": 57,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false",
           "inheritedFrom": "FormElementMixin"
         },
         {
@@ -5423,11 +5608,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 101,
+              "line": 130,
               "column": 10
             },
             "end": {
-              "line": 104,
+              "line": 133,
               "column": 11
             }
           },
@@ -5446,11 +5631,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 110,
+              "line": 139,
               "column": 10
             },
             "end": {
-              "line": 113,
+              "line": 142,
               "column": 11
             }
           },
@@ -5469,11 +5654,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 119,
+              "line": 148,
               "column": 10
             },
             "end": {
-              "line": 123,
+              "line": 152,
               "column": 11
             }
           },
@@ -5493,11 +5678,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 129,
+              "line": 158,
               "column": 10
             },
             "end": {
-              "line": 132,
+              "line": 161,
               "column": 11
             }
           },
@@ -5516,11 +5701,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 138,
+              "line": 167,
               "column": 10
             },
             "end": {
-              "line": 142,
+              "line": 171,
               "column": 11
             }
           },
@@ -5540,11 +5725,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 148,
+              "line": 177,
               "column": 10
             },
             "end": {
-              "line": 151,
+              "line": 180,
               "column": 11
             }
           },
@@ -5563,11 +5748,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 165,
+              "line": 194,
               "column": 10
             },
             "end": {
-              "line": 167,
+              "line": 196,
               "column": 11
             }
           },
@@ -5584,11 +5769,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 172,
+              "line": 201,
               "column": 10
             },
             "end": {
-              "line": 174,
+              "line": 203,
               "column": 11
             }
           },
@@ -5605,11 +5790,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 180,
+              "line": 209,
               "column": 10
             },
             "end": {
-              "line": 184,
+              "line": 213,
               "column": 11
             }
           },
@@ -5628,11 +5813,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 190,
+              "line": 219,
               "column": 10
             },
             "end": {
-              "line": 194,
+              "line": 223,
               "column": 11
             }
           },
@@ -5673,11 +5858,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 201,
+              "line": 230,
               "column": 10
             },
             "end": {
-              "line": 204,
+              "line": 233,
               "column": 11
             }
           },
@@ -5821,11 +6006,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 214,
+              "line": 243,
               "column": 6
             },
             "end": {
-              "line": 219,
+              "line": 247,
               "column": 7
             }
           },
@@ -6075,11 +6260,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 264,
+              "line": 292,
               "column": 6
             },
             "end": {
-              "line": 266,
+              "line": 294,
               "column": 7
             }
           },
@@ -6095,17 +6280,40 @@
           "inheritedFrom": "IntegerInputMixin"
         },
         {
+          "name": "_computeValueIsSet",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
+            "start": {
+              "line": 77,
+              "column": 6
+            },
+            "end": {
+              "line": 79,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            }
+          ],
+          "inheritedFrom": "FormElementMixin"
+        },
+        {
           "name": "validate",
           "description": "validates the input for iron-form",
           "privacy": "public",
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 61,
+              "line": 84,
               "column": 6
             },
             "end": {
-              "line": 63,
+              "line": 86,
               "column": 7
             }
           },
@@ -6120,11 +6328,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 221,
+              "line": 249,
               "column": 6
             },
             "end": {
-              "line": 225,
+              "line": 253,
               "column": 7
             }
           },
@@ -6205,11 +6413,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 244,
+              "line": 272,
               "column": 6
             },
             "end": {
-              "line": 249,
+              "line": 277,
               "column": 7
             }
           },
@@ -6228,11 +6436,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 252,
+              "line": 280,
               "column": 6
             },
             "end": {
-              "line": 257,
+              "line": 285,
               "column": 7
             }
           },
@@ -6251,11 +6459,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 259,
+              "line": 287,
               "column": 6
             },
             "end": {
-              "line": 262,
+              "line": 290,
               "column": 7
             }
           },
@@ -6298,11 +6506,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 327,
+              "line": 355,
               "column": 6
             },
             "end": {
-              "line": 353,
+              "line": 382,
               "column": 7
             }
           },
@@ -6321,11 +6529,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 355,
+              "line": 384,
               "column": 6
             },
             "end": {
-              "line": 361,
+              "line": 390,
               "column": 7
             }
           },
@@ -6344,11 +6552,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 363,
+              "line": 392,
               "column": 6
             },
             "end": {
-              "line": 367,
+              "line": 396,
               "column": 7
             }
           },
@@ -6384,16 +6592,20 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 387,
+              "line": 416,
               "column": 6
             },
             "end": {
-              "line": 390,
+              "line": 420,
               "column": 7
             }
           },
           "metadata": {},
-          "params": [],
+          "params": [
+            {
+              "name": "e"
+            }
+          ],
           "inheritedFrom": "IntegerInputMixin"
         },
         {
@@ -6403,11 +6615,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 392,
+              "line": 422,
               "column": 6
             },
             "end": {
-              "line": 397,
+              "line": 427,
               "column": 7
             }
           },
@@ -6447,11 +6659,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 410,
+              "line": 440,
               "column": 6
             },
             "end": {
-              "line": 416,
+              "line": 446,
               "column": 7
             }
           },
@@ -6470,16 +6682,20 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 421,
+              "line": 451,
               "column": 6
             },
             "end": {
-              "line": 423,
+              "line": 456,
               "column": 7
             }
           },
           "metadata": {},
-          "params": [],
+          "params": [
+            {
+              "name": "e"
+            }
+          ],
           "inheritedFrom": "IntegerInputMixin"
         },
         {
@@ -6489,16 +6705,20 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 428,
+              "line": 461,
               "column": 6
             },
             "end": {
-              "line": 430,
+              "line": 464,
               "column": 7
             }
           },
           "metadata": {},
-          "params": [],
+          "params": [
+            {
+              "name": "e"
+            }
+          ],
           "inheritedFrom": "IntegerInputMixin"
         },
         {
@@ -6687,11 +6907,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 156,
+              "line": 185,
               "column": 10
             },
             "end": {
-              "line": 160,
+              "line": 189,
               "column": 11
             }
           },
@@ -6705,11 +6925,11 @@
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 48,
+              "line": 47,
               "column": 10
             },
             "end": {
-              "line": 50,
+              "line": 49,
               "column": 11
             }
           },
@@ -6799,7 +7019,7 @@
               "column": 10
             },
             "end": {
-              "line": 28,
+              "line": 27,
               "column": 11
             }
           },
@@ -6813,11 +7033,11 @@
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 33,
+              "line": 32,
               "column": 10
             },
             "end": {
-              "line": 36,
+              "line": 35,
               "column": 11
             }
           },
@@ -6831,11 +7051,11 @@
           "sourceRange": {
             "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 41,
+              "line": 40,
               "column": 10
             },
             "end": {
-              "line": 43,
+              "line": 42,
               "column": 11
             }
           },
@@ -6849,11 +7069,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 101,
+              "line": 130,
               "column": 10
             },
             "end": {
-              "line": 104,
+              "line": 133,
               "column": 11
             }
           },
@@ -6867,11 +7087,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 110,
+              "line": 139,
               "column": 10
             },
             "end": {
-              "line": 113,
+              "line": 142,
               "column": 11
             }
           },
@@ -6885,11 +7105,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 119,
+              "line": 148,
               "column": 10
             },
             "end": {
-              "line": 123,
+              "line": 152,
               "column": 11
             }
           },
@@ -6903,11 +7123,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 129,
+              "line": 158,
               "column": 10
             },
             "end": {
-              "line": 132,
+              "line": 161,
               "column": 11
             }
           },
@@ -6921,11 +7141,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 138,
+              "line": 167,
               "column": 10
             },
             "end": {
-              "line": 142,
+              "line": 171,
               "column": 11
             }
           },
@@ -6939,11 +7159,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 148,
+              "line": 177,
               "column": 10
             },
             "end": {
-              "line": 151,
+              "line": 180,
               "column": 11
             }
           },
@@ -6957,11 +7177,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 165,
+              "line": 194,
               "column": 10
             },
             "end": {
-              "line": 167,
+              "line": 196,
               "column": 11
             }
           },
@@ -6975,11 +7195,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 172,
+              "line": 201,
               "column": 10
             },
             "end": {
-              "line": 174,
+              "line": 203,
               "column": 11
             }
           },
@@ -6993,11 +7213,11 @@
           "sourceRange": {
             "file": "integer-input.html",
             "start": {
-              "line": 180,
+              "line": 209,
               "column": 10
             },
             "end": {
-              "line": 184,
+              "line": 213,
               "column": 11
             }
           },
