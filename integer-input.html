@@ -39,6 +39,9 @@
               box-sizing: content-box;
               padding: 0 !important;
             }
+            :host(:focus) {
+              outline: none;
+            }
             :host([invalid]) #input,
             #input:invalid {
               @apply --input-invalid;
@@ -448,7 +451,7 @@
       /**
        * focus the input
        */
-      focus(e) {
+      focus() {
         this.$.input.focus();
         if (this.$.input.scrollIntoViewIfNeeded) {
           this.$.input.scrollIntoViewIfNeeded();
