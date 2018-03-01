@@ -373,13 +373,13 @@
         // enter & space
         if (e.keyCode === 13 || e.keyCode === 32) {
           this._updateView();
-          e.stopPropagation();
           return;
         }
 
         // esc
         if (e.keyCode === 27) {
           this._updateView();
+          e.stopPropagation();
           this.blur();
           return;
         }

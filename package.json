@@ -3,6 +3,9 @@
   "version": "2.1.7",
   "description": "input for numeric values",
   "main": "index.html",
+  "authors": [
+    "Johannes Brautzsch <fooloomanzoo>"
+  ],
   "directories": {
     "test": "test"
   },
@@ -25,6 +28,16 @@
     "min",
     "max"
   ],
-  "author": "fooloomanzoo",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@polymer/polymer": "^2",
+    "@fooloomanzoo/property-mixins": "^2"
+  },
+  "devDependencies": {
+    "@webcomponents/webcomponentsjs": "*",
+    "@polymer/iron-component-page": "*",
+    "@polymer/iron-flex-layout": "*",
+    "@polymer/iron-demo-helpers": "*",
+    "@polymer/iron-form": "*"
+  }
 }
