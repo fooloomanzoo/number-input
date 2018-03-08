@@ -1,11 +1,14 @@
 <link rel="import" href="../polymer/polymer.html">
+
 <link rel="import" href="../property-mixins/range-mixin.html">
+<link rel="import" href="../property-mixins/intl-number-format-mixin.html">
 <link rel="import" href="../input-picker-pattern/form-element-mixin.html">
 
 <script>
   /**
    * mixin to create a integer-input
    *
+   * @appliesMixin IntlNumberFormatMixin
    * @appliesMixin RangeMixin
    * @appliesMixin FormElementMixin
    *
@@ -14,7 +17,7 @@
    */
   const IntegerInputMixin = (superClass) => { // eslint-disable-line no-unused-vars
 
-    return class extends RangeMixin(FormElementMixin(superClass)) { // eslint-disable-line no-undef
+    return class extends RangeMixin(FormElementMixin(IntlNumberFormatMixin(superClass)) { // eslint-disable-line no-undef
 
       constructor() {
         super();
@@ -133,8 +136,7 @@
            * @type {number}
            */
           padLength: {
-            type: Number,
-            observer: '_updateView'
+            type: Number
           },
 
           /**
@@ -145,6 +147,24 @@
             type: String,
             observer: '_computeMinWidth'
           },
+
+          /**
+           * locale separator for local decimal values
+           * @type {string}
+           */
+          decimalSeparator: {
+            type: String,
+            readOnly: true
+          },
+
+          /**
+           * locale separator for grouping decimal values
+           * @type {string}
+           */
+          groupingSeparator: {
+            type: String,
+            readOnly: true
+          }
 
           /**
            * disable autosizing
@@ -161,8 +181,7 @@
            * @type {boolean}
            */
           autoPadding: {
-            type: Boolean,
-            observer: '_updateView'
+            type: Boolean
           },
 
           /**
@@ -182,6 +201,36 @@
           alwaysSign: {
             type: Boolean,
             observer: '_updateView'
+          },
+
+          /**
+           * The formatting style to use. Possible values are "decimal" for plain number formatting, "currency" for currency formatting, and "percent" for percent formatting; the default is "decimal".
+           * notice: min, max and step are not in percent (so e.g. if step is 0.01, it means that the step is 1%)
+           */
+          style: {
+            type: String,
+            value: 'decimal'
+          },
+
+          /**
+           * if true the number will be grouped according to the locale
+           */
+          useGrouping: {
+            type: Boolean
+          },
+
+          /**
+           * [currency description]
+           */
+          currency: {
+            type: String
+          },
+
+          /**
+           * [currency description]
+           */
+          currencyDisplay: {
+            type: String
           },
 
           /**
@@ -214,7 +263,7 @@
           minimumIntegerDigits: {
             type: Number,
             // polymorphism bug in polymer
-            computed: '_computeMinimumIntegerDigits(autoPadding, padLength, min, max, step, inPercent)'
+            computed: '_computeMinimumIntegerDigits(autoPadding, padLength, min, max, step, style)'
           },
 
           /**
@@ -227,6 +276,14 @@
             observer: '_updateView'
           },
 
+          /**
+           * number format options
+           */
+          _numberOptions: {
+            type: Number,
+            computed: '_computeNumberOptions(minimumIntegerDigits, minimumFractionDigits, useGrouping, style, currency, currencyDisplay)'
+          },
+
           _regExpNotInNumber: {
             type: RegExp,
             value: /[^\d-+.]/g
@@ -235,6 +292,15 @@
           _regExpSeparators: {
             type: RegExp,
             value: /[^-+.]/g
+          },
+
+          /**
+           * number format function
+           */
+          formatNumber: {
+            type: Function,
+            computed: '_computeFormatNumber(locale, _numberOptions)',
+            observer: '_updateView'
           }
         }
       }
@@ -449,6 +515,31 @@
         this.$.input.style.width = '';
       }
 
+      _localeChanged(locale, numberingSystem, calendar) {
+        if (!(locale && Intl.NumberFormat && Intl.NumberFormat.supportedLocalesOf(locale)) {
+          this.locale = window.navigator.language;
+          return;
+        }
+        let pos, next;
+        // currently just 'latn' is supported as numbering system
+        if (locale && locale.indexOf('-u-') !== -1 && (pos = locale.indexOf('-nu-')) !== -1) {
+          pos += 4;
+          next = locale.indexOf('-', pos);
+
+          if (next === -1) {
+            numberingSystem = locale.slice(pos);
+          } else {
+            numberingSystem = locale.slice(pos, next);
+          }
+
+          if (numberingSystem !== 'latn') {
+            this.numberingSystem = 'latn';
+            return;
+          }
+        }
+        super._localeChanged(locale, numberingSystem, calendar);
+      }
+
       /**
        * focus the input
        */
@@ -467,19 +558,37 @@
         e && e.stopPropagation && e.stopPropagation();
       }
 
-      formatNumber() {
-        const n = arguments[0];
-        let str = '' + Math.abs(n);
-        while (str.length < this.minimumIntegerDigits) {
-          str = '0' + str;
+      _computeNumberOptions(minimumIntegerDigits, minimumFractionDigits, useGrouping, style, currency, currencyDisplay) {
+        return {
+          minimumIntegerDigits: minimumIntegerDigits || 1,
+          minimumFractionDigits: minimumFractionDigits || 0,
+          useGrouping: Boolean(useGrouping),
+          style: style || 'decimal',
+          currency: currency,
+          currencyDisplay: currencyDisplay
         }
-        if (n < 0) {
-          str = '-' + str;
-        } else if (this.alwaysSign) {
-          str = '+' + str;
-        }
-        return str;
       }
+
+      _computeFormatNumber(locale, _numberOptions) {
+        const format = new Intl.NumberFormat(locale, _numberOptions).format;
+        return (n) => {
+          return ((this.alwaysSign && n > 0) ? '+' : '') + format(n)
+        }
+      }
+
+      // formatNumber() {
+      //   const n = arguments[0];
+      //   let str = '' + Math.abs(n);
+      //   while (str.length < this.minimumIntegerDigits) {
+      //     str = '0' + str;
+      //   }
+      //   if (n < 0) {
+      //     str = '-' + str;
+      //   } else if (this.alwaysSign) {
+      //     str = '+' + str;
+      //   }
+      //   return str;
+      // }
     }
   }
 </script>
