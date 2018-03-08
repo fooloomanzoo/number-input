@@ -1,12 +1,12 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../property-mixins/range-mixin.html">
-<link rel="import" href="../input-picker-pattern/form-element-mixin.html">
+<link rel="import" href="../property-mixins/intl-format-mixin.html">
 <link rel="import" href="integer-input.html">
 
 <script>
   /**
    * mixin to create a number-input
    *
+   * @appliesMixin IntlFormatMixin
    * @appliesMixin IntegerInputMixin
    *
    * @mixinFunction
@@ -14,7 +14,7 @@
    */
   const NumberInputMixin = (superClass) => { // eslint-disable-line no-unused-vars
 
-    return class extends IntegerInputMixin(superClass) {  // eslint-disable-line no-undef
+    return class extends IntegerInputMixin(IntlFormatMixin(superClass)) {  // eslint-disable-line no-undef
 
       static get properties() {
         return {
@@ -257,16 +257,6 @@
         } else {
           this.$.input.style.width = `${length}ch`;
         }
-      }
-
-      _localeChanged(locale) {
-        if (!(locale && Intl.NumberFormat && Intl.NumberFormat.supportedLocalesOf(locale))) {
-          this.decimalSeparator = '.';
-          return;
-        }
-        locale += '-u-nu-latn-ca-iso8601';
-        const decimalSeparator = new Intl.NumberFormat(locale).format(1.2).split(/\d/g).filter(s => { return s !== ''; }).pop();
-        this.decimalSeparator = decimalSeparator !== '\u202F' ? decimalSeparator : '.';
       }
 
       formatNumber() {
