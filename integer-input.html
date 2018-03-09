@@ -17,7 +17,7 @@
    */
   const IntegerInputMixin = (superClass) => { // eslint-disable-line no-unused-vars
 
-    return class extends RangeMixin(FormElementMixin(IntlNumberFormatMixin(superClass)) { // eslint-disable-line no-undef
+    return class extends RangeMixin(FormElementMixin(IntlNumberFormatMixin(superClass))) { // eslint-disable-line no-undef
 
       constructor() {
         super();
@@ -101,7 +101,7 @@
             }
             input:focus::-moz-selection {
               color: var(--input-selection-color, inherit);
-              background: var(--input-selection-background, rgba(255,255,255,0.1));
+              background: var(--input-selection-background, rgba(255,255,255,0.2));
             }
             input::selection {
               color: var(--number-input-color, var(--input-color, inherit));
@@ -109,7 +109,7 @@
             }
             input:focus::selection {
               color: var(--input-selection-color, inherit);
-              background: var(--input-selection-background, rgba(255,255,255,0.1));
+              background: var(--input-selection-background, rgba(255,255,255,0.2));
             }
           </style>
         `;
@@ -164,7 +164,7 @@
           groupingSeparator: {
             type: String,
             readOnly: true
-          }
+          },
 
           /**
            * disable autosizing
@@ -207,39 +207,30 @@
            * The formatting style to use. Possible values are "decimal" for plain number formatting, "currency" for currency formatting, and "percent" for percent formatting; the default is "decimal".
            * notice: min, max and step are not in percent (so e.g. if step is 0.01, it means that the step is 1%)
            */
-          style: {
+          numberStyle: {
             type: String,
             value: 'decimal'
           },
 
           /**
-           * if true the number will be grouped according to the locale
+           * if true the number will be grouped according to the locale.
            */
           useGrouping: {
             type: Boolean
           },
 
           /**
-           * [currency description]
+           * The currency to use in currency formatting. Possible values are the ISO 4217 currency codes, such as "USD" for the US dollar, "EUR" for the euro, or "CNY" for the Chinese RMB — see http://www.currency-iso.org/en/home/tables/table-a1.html. There is no default value; if the style is "currency", the currency property must be provided.
            */
           currency: {
             type: String
           },
 
           /**
-           * [currency description]
+           * How to display the currency in currency formatting. Possible values are "symbol" to use a localized currency symbol such as €, "code" to use the ISO currency code, "name" to use a localized currency name such as "dollar"; the default is "symbol".
            */
           currencyDisplay: {
             type: String
-          },
-
-          /**
-           * step to increment the value
-           */
-          step: {
-            type: Number,
-            value: 1,
-            observer: '_stepChanged'
           },
 
           /**
@@ -263,7 +254,7 @@
           minimumIntegerDigits: {
             type: Number,
             // polymorphism bug in polymer
-            computed: '_computeMinimumIntegerDigits(autoPadding, padLength, min, max, step, style)'
+            computed: '_computeMinimumIntegerDigits(autoPadding, padLength, default, min, max, _step, numberStyle)'
           },
 
           /**
@@ -281,17 +272,12 @@
            */
           _numberOptions: {
             type: Number,
-            computed: '_computeNumberOptions(minimumIntegerDigits, minimumFractionDigits, useGrouping, style, currency, currencyDisplay)'
+            computed: '_computeNumberOptions(minimumIntegerDigits, minimumFractionDigits, useGrouping, numberStyle, currency, currencyDisplay)'
           },
 
           _regExpNotInNumber: {
             type: RegExp,
-            value: /[^\d-+.]/g
-          },
-
-          _regExpSeparators: {
-            type: RegExp,
-            value: /[^-+.]/g
+            value: /[^\d-+.%]/g
           },
 
           /**
@@ -323,11 +309,12 @@
         this.removeEventListener('contextmenu', this._stopIncrem.bind(this), false);
       }
 
-      _computeMinimumIntegerDigits(autoPadding, padLength, min, max) {
+      _computeMinimumIntegerDigits(autoPadding, padLength, def, min, max) {
         min = '' + (min || '');
         max = '' + (max || '');
+        def = '' + (def || '');
         if (autoPadding) {
-          return Math.max((padLength || 0), min.length, max.length);
+          return Math.max((padLength || 0), def.length, min.length, max.length);
         }
         if (padLength) {
           return Math.max(1, (padLength || 0));
@@ -344,7 +331,7 @@
         if (str === undefined) {
           return 0;
         }
-        return str.replace(/\D/g, '').length + str.replace(/[^+\\/?~_]/g, '').length + str.replace(/[^.,;\-*!(){}®«»±[\]'"´‹›`²³°\u2070-\u209C]/g, '').length / 2;
+        return str.replace(/\D/g, '').length + str.replace(/[^+\\/?~_]/g, '').length + str.replace(/[^.,;\-*!(){}®«»¤±[\]'"´‹›`²³°\u2070-\u209C]/g, '').length / 2;
       }
 
       // approximation of the width of a string
@@ -352,7 +339,7 @@
         if (str === undefined) {
           return 0;
         }
-        return str.replace(/[\d\s+\\/?~_^.,;\-*!(){}®«»±[\]'"´‹›`²³°\u2070-\u209C]/g, '').length + str.replace(/[^%#&$€£¥§©]/g, '') * 0.75 + str.replace(/\S/g, '').length / 4;
+        return str.replace(/[\d\s+\\/?~_^.,¤;\-*!(){}®«»±[\]'"´‹›`²³°\u2070-\u209C]/g, '').length + str.replace(/[^%#&$€£¥§©\u20A0-\u20CF]/g, '').length * 0.75 + str.replace(/\S/g, '').length / 4;
       }
 
       _computeMinWidth(placeholder) {
@@ -429,7 +416,7 @@
           return;
         }
         // up or down key press
-        const inc = (e.keyCode === 38) ? this.step : (e.keyCode === 40 ? -this.step : 0);
+        const inc = (e.keyCode === 38) ? this._step : (e.keyCode === 40 ? -this._step : 0);
         if (inc !== 0) {
           this._startIncrem(inc);
           e.stopPropagation();
@@ -477,7 +464,7 @@
           }
         } else if (this.noClamp) {
           // still clamp to step, when incrementing
-          this.value = this._checkStep(this._checkValue(value, this.value), this.step);
+          this.value = this._checkStep(this._checkValue(value, this.value), this._step);
         } else {
           this.value = this._checkValue(value, this.value);
         }
@@ -515,31 +502,6 @@
         this.$.input.style.width = '';
       }
 
-      _localeChanged(locale, numberingSystem, calendar) {
-        if (!(locale && Intl.NumberFormat && Intl.NumberFormat.supportedLocalesOf(locale)) {
-          this.locale = window.navigator.language;
-          return;
-        }
-        let pos, next;
-        // currently just 'latn' is supported as numbering system
-        if (locale && locale.indexOf('-u-') !== -1 && (pos = locale.indexOf('-nu-')) !== -1) {
-          pos += 4;
-          next = locale.indexOf('-', pos);
-
-          if (next === -1) {
-            numberingSystem = locale.slice(pos);
-          } else {
-            numberingSystem = locale.slice(pos, next);
-          }
-
-          if (numberingSystem !== 'latn') {
-            this.numberingSystem = 'latn';
-            return;
-          }
-        }
-        super._localeChanged(locale, numberingSystem, calendar);
-      }
-
       /**
        * focus the input
        */
@@ -559,21 +521,48 @@
       }
 
       _computeNumberOptions(minimumIntegerDigits, minimumFractionDigits, useGrouping, style, currency, currencyDisplay) {
-        return {
+        let options = {
           minimumIntegerDigits: minimumIntegerDigits || 1,
           minimumFractionDigits: minimumFractionDigits || 0,
           useGrouping: Boolean(useGrouping),
-          style: style || 'decimal',
-          currency: currency,
-          currencyDisplay: currencyDisplay
+          style: style || 'decimal'
         }
+        if (currency !== undefined) {
+          options.currency = currency;
+        }
+        if (currencyDisplay !== undefined) {
+          options.currencyDisplay = currencyDisplay;
+        }
+        return options;
       }
 
-      _computeFormatNumber(locale, _numberOptions) {
-        const format = new Intl.NumberFormat(locale, _numberOptions).format;
+      _computeFormatNumber(locale, numberOptions) {
+        console.log(locale,numberOptions);
+        if (numberOptions && numberOptions.style === 'currency' && !numberOptions.currency) {
+          console.warn('No currency is given. Using number style: \'decimal\'.');
+          numberOptions.style = 'decimal';
+        }
+        const format = new Intl.NumberFormat(locale, numberOptions).format;
         return (n) => {
           return ((this.alwaysSign && n > 0) ? '+' : '') + format(n)
         }
+      }
+
+      _stepChanged(step, stepMod) {
+        if (!step) {
+          this.step = 1;
+          return;
+        } else if (step !== Math.abs(step)) {
+          this.step = Math.abs(step);
+          return;
+        }
+        const _step = Math.floor(this._safeMult(step, stepMod || 1));
+        if (_step === 0) {
+          this._step = 1;
+        } else {
+          this._step = _step;
+        }
+        this._updateValue();
       }
 
       // formatNumber() {

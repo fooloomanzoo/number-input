@@ -167,12 +167,39 @@
                   }
                 </style>
               </custom-style>
-              <input type="checkbox" checked="{{inPercent::change}}">in Percent<br>
+              <select value="{{numberStyle::change}}">
+                <option value="decimal">decimal</option>
+                <option value="percent">percent</option>
+                <option value="currency">currency</option>
+              </select>
+              <select value="{{currency::change}}">
+                <option value=""></option>
+                <option value="EUR">EUR</option>
+                <option value="USD">USD</option>
+                <option value="GBP">GBP</option>
+                <option value="RUB">RUB</option>
+                <option value="JPY">JPY</option>
+                <option value="CNY">CNY</option>
+              </select>
+              <select value="{{locale::change}}">
+                <option value=""></option>
+                <option value="en">english</option>
+                <option value="fr">français</option>
+                <option value="de">deutsch</option>
+                <option value="es">español</option>
+                <option value="it">italiano</option>
+                <option value="ru">русский</option>
+                <option value="tr">Türkçe</option>
+                <option value="ar">العربية</option>
+                <option value="he">עברית</option>
+                <option value="ja">日本語</option>
+                <option value="zh">中文</option>
+              </select>
               <input type="checkbox" checked="{{autoPadding::change}}">auto Padding<br>
               <br>
-              <number-input value="{{value}}" minlength="5" no-clamp step="0.001" min="-1" max="20" start-at="1" in-percent="[[inPercent]]" auto-padding="[[autoPadding]]"></number-input>
+              <number-input value="{{value}}" no-clamp default="1" step="0.01" min="-1" max="20" start-at="1" locale="{{locale}}" number-style="[[numberStyle]]" currency="[[currency]]" auto-padding="[[autoPadding]]"></number-input>
               <div class="vertical-section-container result">
-                <div><code>step</code>: <b>0.001</b><code>min</code>: <b>-1</b><code>max</code>: <b>20</b><code>default</code>: <b>1</b></div>
+                <div><code>step</code>: <b>0.01</b><code>min</code>: <b>-1</b><code>max</code>: <b>20</b><code>default</code>: <b>1</b></div>
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
             </template>

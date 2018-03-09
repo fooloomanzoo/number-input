@@ -28,6 +28,15 @@
           },
 
           /**
+           * unit of the value
+           * @type {string}
+           */
+          currency: {
+            type: String,
+            observer: '_unitChanged'
+          },
+
+          /**
            * Separator for local decimal values
            * @type {string}
            */
@@ -41,7 +50,7 @@
            */
           minimumFractionDigits: {
             type: Number,
-            computed: '_computeMinimumFractionDigits(step, min, max, style)'
+            computed: '_computeMinimumFractionDigits(_step, min, max, numberStyle)'
           },
 
           /**
@@ -66,12 +75,12 @@
 
       static get observers() {
         return [
-          '_unitChanged(style)'
+          '_unitChanged(_numberOptions)'
         ]
       }
 
-      _computeMinimumFractionDigits(step, min, max, style) {
-        if (style === 'percent') {
+      _computeMinimumFractionDigits(step, min, max, numberStyle) {
+        if (numberStyle === 'percent') {
           min = this._safeMult(min || 0, 100);
           max = this._safeMult(max || 0, 100);
           step = this._safeMult(step || 0.01, 100);
@@ -87,22 +96,25 @@
         });
       }
 
-      _computeMinimumIntegerDigits(autoPadding, padLength, min, max, step, style) {
-        if (style === 'percent') {
+      _computeMinimumIntegerDigits(autoPadding, padLength, def, min, max, step, numberStyle) {
+        if (numberStyle === 'percent') {
           min = Math.round(min * 100);
           max = Math.round(max * 100);
+          def = Math.round(def * 100);
           step = Math.round(step * 100);
         } else {
           min = Math.round(min);
           max = Math.round(max);
+          def = Math.round(def);
           step = Math.round(step);
         }
         min = '' + (Math.abs(min) || 0);
         max = '' + (Math.abs(max) || 0);
+        def = '' + (Math.abs(def) || 0);
         step = '' + (Math.abs(step) || 0);
 
         if (autoPadding) {
-          return Math.max((padLength || 1), step.length, min.length, max.length);
+          return Math.max((padLength || 1), step.length, def.length, min.length, max.length);
         }
         return padLength || 1;
       }
@@ -120,9 +132,17 @@
       }
 
       _unitChanged() {
-        if (this.style !== 'decimal') {
-          this._unitEmLength = 1.125;
+        if (this.numberStyle !== 'decimal') {
+          let numberOptions = this._numberOptions;
+          console.log(numberOptions);
+          if (numberOptions && numberOptions.style === 'currency' && !numberOptions.currency) {
+            console.warn('No currency is given. Using number style: \'decimal\'.');
+            numberOptions.style = 'decimal';
+          }
+          const test = (1).toLocaleString(this.locale, numberOptions).replace(this.decimalSeparator, '').replace(/\d/g, '');
+          this._unitEmLength = test.replace(/\S/g, '').length/4 + test.replace(/\s/g, '').length;
           this._unitChLength = 0;
+          console.log(test, this._unitEmLength, this._computeEmWidth(test));
           if (this.unit !== '') {
             this.unit = '';
             return;
@@ -153,7 +173,7 @@
 
         let newValue, oldValue, value;
 
-        if (this.style === 'percent') {
+        if (this.numberStyle === 'percent') {
           newValue = parseFloat(this._safeMult(input.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.'), 0.01));
           oldValue = parseFloat(this._safeMult(oldinput.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.'), 0.01));
         } else {
@@ -214,14 +234,14 @@
           } else {
             input = (this.min < 0 ? 0 : this.min || 0);
           }
-        } else if (this.style === 'percent') {
+        } else if (this.numberStyle === 'percent') {
           input = this._safeAdd(this._safeMult(value, 0.01), step);
         } else {
           input = this._safeAdd(value, step);
         }
         if (this.noClamp) {
           // still clamp to step, when incrementing
-          this.value = this._checkStep(this._checkValue(input, this.value), this.step);
+          this.value = this._checkStep(this._checkValue(input, this.value), this._step);
         } else {
           this.value = this._checkValue(input, this.value);
         }
@@ -240,6 +260,18 @@
         } else {
           this.$.input.style.width = `${length}ch`;
         }
+      }
+
+      _stepChanged(step, stepMod) {
+        if (!step) {
+          this.step = 1;
+          return;
+        } else if (step !== Math.abs(step)) {
+          this.step = Math.abs(step);
+          return;
+        }
+        this._step = this._safeMult(step, stepMod || 1);
+        this._updateValue();
       }
 
       // formatNumber() {
@@ -271,6 +303,7 @@
       // }
     }
   }
+
 </script>
 
 <dom-module id="number-input">
