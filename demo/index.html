@@ -26,7 +26,7 @@
     </custom-style>
   </head>
   <body>
-    <div class="vertical-section-container centered">
+    <!-- <div class="vertical-section-container centered">
       <demo-snippet>
         <h4>Simple demo</h4>
         <template>
@@ -138,7 +138,7 @@
           </dom-bind>
         </template>
       </demo-snippet>
-    </div>
+    </div> -->
 
     <div class="vertical-section-container centered">
       <demo-snippet>
@@ -195,9 +195,10 @@
                 <option value="ja">日本語</option>
                 <option value="zh">中文</option>
               </select>
-              <input type="checkbox" checked="{{autoPadding::change}}">auto Padding<br>
+              <input type="checkbox" checked="{{autoPadding::change}}">auto padding<br>
+              <input type="checkbox" checked="{{useGrouping::change}}">use grouping<br>
               <br>
-              <number-input value="{{value}}" no-clamp default="1" step="0.01" min="-1" max="20" start-at="1" locale="{{locale}}" number-style="[[numberStyle]]" currency="[[currency]]" auto-padding="[[autoPadding]]"></number-input>
+              <number-input value="{{value}}" no-clamp default="1" step="0.01" min="-1" max="20000" start-at="1" use-grouping="[[useGrouping]]" locale="{{locale}}" number-style="[[numberStyle]]" currency="[[currency]]" auto-padding="[[autoPadding]]"></number-input>
               <div class="vertical-section-container result">
                 <div><code>step</code>: <b>0.01</b><code>min</code>: <b>-1</b><code>max</code>: <b>20</b><code>default</code>: <b>1</b></div>
                 <div><code>value</code>: <b>[[value]]</b></div>
