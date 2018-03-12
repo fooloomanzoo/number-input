@@ -26,7 +26,7 @@
     </custom-style>
   </head>
   <body>
-    <!-- <div class="vertical-section-container centered">
+    <div class="vertical-section-container centered">
       <demo-snippet>
         <h4>Simple demo</h4>
         <template>
@@ -138,11 +138,11 @@
           </dom-bind>
         </template>
       </demo-snippet>
-    </div> -->
+    </div>
 
     <div class="vertical-section-container centered">
       <demo-snippet>
-        <h4>In percent and no clamping to step</h4>
+        <h4>various options</h4>
         <template>
           <dom-bind>
             <template is="dom-bind">
@@ -167,12 +167,12 @@
                   }
                 </style>
               </custom-style>
-              <select value="{{numberStyle::change}}">
+              number-style: <select value="{{numberStyle::change}}">
                 <option value="decimal">decimal</option>
                 <option value="percent">percent</option>
                 <option value="currency">currency</option>
               </select>
-              <select value="{{currency::change}}">
+              currency: <select value="{{currency::change}}">
                 <option value=""></option>
                 <option value="EUR">EUR</option>
                 <option value="USD">USD</option>
@@ -181,7 +181,7 @@
                 <option value="JPY">JPY</option>
                 <option value="CNY">CNY</option>
               </select>
-              <select value="{{locale::change}}">
+              locale: <select value="{{locale::change}}">
                 <option value=""></option>
                 <option value="en">english</option>
                 <option value="fr">français</option>
@@ -192,15 +192,18 @@
                 <option value="tr">Türkçe</option>
                 <option value="ar">العربية</option>
                 <option value="he">עברית</option>
+                <option value="hi">हिन्दी</option>
                 <option value="ja">日本語</option>
                 <option value="zh">中文</option>
-              </select>
-              <input type="checkbox" checked="{{autoPadding::change}}">auto padding<br>
+              </select><br>
+              unit: <input type="text" value="{{unit::change}}">
+              <input type="checkbox" checked="{{autoPadding::change}}">auto padding
+              <input type="checkbox" checked="{{alwaysSign::change}}">always sign
               <input type="checkbox" checked="{{useGrouping::change}}">use grouping<br>
               <br>
-              <number-input value="{{value}}" no-clamp default="1" step="0.01" min="-1" max="20000" start-at="1" use-grouping="[[useGrouping]]" locale="{{locale}}" number-style="[[numberStyle]]" currency="[[currency]]" auto-padding="[[autoPadding]]"></number-input>
+              <number-input value="{{value}}" no-clamp default="1" step="0.01" min="-1" max="20000" unit="[[unit]]" start-at="1" use-grouping="[[useGrouping]]" always-sign="[[alwaysSign]]" locale="{{locale}}" number-style="[[numberStyle]]" currency="[[currency]]" auto-padding="[[autoPadding]]"></number-input>
               <div class="vertical-section-container result">
-                <div><code>step</code>: <b>0.01</b><code>min</code>: <b>-1</b><code>max</code>: <b>20</b><code>default</code>: <b>1</b></div>
+                <div><code>step</code>: <b>0.01</b><code>min</code>: <b>-1</b><code>max</code>: <b>20000</b><code>default</code>: <b>1.00</b></div>
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
             </template>

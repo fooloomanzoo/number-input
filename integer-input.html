@@ -29,18 +29,20 @@
           },
 
           /**
-           * The currency to use in currency formatting. Option is disabled for `integer-input`.
+           * The minimum number of fraction digits to use. Is always `0` for `integer-input`.
            */
-          currency: {
-            type: String,
+          minimumFractionDigits: {
+            type: Number,
+            value: 0,
             readOnly: true
           },
 
           /**
-           * How to display the currency in currency formatting. Option is disabled for `integer-input`.
+           * The maximum number of fraction digits to use. Is always `0` for `integer-input`.
            */
-          currencyDisplay: {
-            type: String,
+          maximumFractionDigits: {
+            type: Number,
+            value: 0,
             readOnly: true
           }
         }
@@ -63,19 +65,25 @@
         this._updateValue();
       }
 
-      // formatNumber() {
-      //   const n = arguments[0];
-      //   let str = '' + Math.abs(n);
-      //   while (str.length < this.minimumIntegerDigits) {
-      //     str = '0' + str;
-      //   }
-      //   if (n < 0) {
-      //     str = '-' + str;
-      //   } else if (this.alwaysSign) {
-      //     str = '+' + str;
-      //   }
-      //   return str;
-      // }
+      _safeMult(a, b) {
+        return +a*b;
+      }
+
+      _safeAdd(a, b) {
+        return +a+(+b);
+      }
+
+      _computeParseNumber(decimalSeparator, numberStyle, useGrouping) {
+        if (useGrouping) {
+          return (input) => {
+            return parseInt(input.replace(this.groupingSeparator, ''));
+          }
+        } else {
+          return (input) => {
+            return parseInt(input);
+          }
+        }
+      }
     }
   }
 </script>
