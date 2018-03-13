@@ -5,9 +5,7 @@
   /**
    * mixin to create a integer-input
    *
-   * @appliesMixin IntlNumberFormatMixin
-   * @appliesMixin RangeMixin
-   * @appliesMixin FormElementMixin
+   * @appliesMixin NumberInputMixin
    *
    * @mixinFunction
    * @polymer
@@ -26,57 +24,33 @@
             type: String,
             value: 'decimal',
             readOnly: true
-          },
-
-          /**
-           * The minimum number of fraction digits to use. Is always `0` for `integer-input`.
-           */
-          minimumFractionDigits: {
-            type: Number,
-            value: 0,
-            readOnly: true
-          },
-
-          /**
-           * The maximum number of fraction digits to use. Is always `0` for `integer-input`.
-           */
-          maximumFractionDigits: {
-            type: Number,
-            value: 0,
-            readOnly: true
           }
         }
       }
 
       _stepChanged(step, stepMod) {
-        if (!step) {
-          this.step = 1;
-          return;
-        } else if (step !== Math.abs(step)) {
+        step = step || 0;
+        if (step !== Math.abs(step)) {
           this.step = Math.abs(step);
           return;
         }
-        const _step = Math.floor(this._safeMult(step, stepMod || 1));
-        if (_step === 0) {
-          this._step = 1;
-        } else {
-          this._step = _step;
-        }
+        this._step = Math.floor(this._safeMult(step, stepMod || 1));
         this._updateValue();
       }
 
-      _safeMult(a, b) {
-        return +a*b;
+      _computeMinimumFractionDigits() {
+        return 0;
       }
 
-      _safeAdd(a, b) {
-        return +a+(+b);
+      _computeMaximumFractionDigits() {
+        return 0;
       }
 
       _computeParseNumber(decimalSeparator, numberStyle, useGrouping) {
         if (useGrouping) {
+          const regExpGrouping = new RegExp('[' + (this.groupingSeparator || '') + ']', 'g');
           return (input) => {
-            return parseInt(input.replace(this.groupingSeparator, ''));
+            return parseInt(input.replace(regExpGrouping, ''));
           }
         } else {
           return (input) => {
@@ -118,6 +92,8 @@
      * `--number-input-focus-color`      | color of the focussed and hovered input      | inherit
      * `--number-input-focus-background` | background of the focussed and hovered input | rgba(0,0,0,0.1)
      * `--number-input-disabled-color`   | color of the disabled input                  | inherit
+     * `--input-selection-color`         | color of the selected text                   | inherit
+     * `--input-selection-background`    | background of the selected text              | rgba(255,255,255,0.5
      *
      * ```css
      * :host {

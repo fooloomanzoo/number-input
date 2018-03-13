@@ -20,10 +20,11 @@ The normal `input` with `type="number"` is fairly good to use, but it has some f
 * size the input (according to it's length)
 * overflow to minimum or underflow to maximum
 * saturate to minimum or to maximum
-* display a specified unit and size the input
+* display a specified unit
+* display a specified currencies
 * can use percentage values and do have automatically the correct decimal value
 
-This element wants to achieve that. It does use **decimal notation**, like `123.4`, but does not display _scientific (exponential) notation_, like `1.234e+2`. A more simpler element \<integer-input\> just uses integer values and doesn't use units or percent values.
+This element wants to achieve that, by using the [Intl.NumberFormat API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat). A more simpler element \<integer-input\> just uses integer values and doesn't use units or percent values.
 
 ![img](https://github.com/fooloomanzoo/number-input/raw/master/docs/number-input.gif "Demo")
 
@@ -37,8 +38,10 @@ This element wants to achieve that. It does use **decimal notation**, like `123.
 
     <custom-style>
       <style is="custom-style">
-        html {
+        body {
           font-family: 'Source Sans Pro', sans-serif;
+        }
+        integer-input, number-input {
           --number-input: {
             background: rgba(35, 35, 40, 0.5);
             transition: background 150ms ease-in-out;
@@ -64,8 +67,9 @@ This element wants to achieve that. It does use **decimal notation**, like `123.
 -->
 ```html
 <span>with unit: </span><number-input min="-150" step="0.15" max="300" pad-length="3" default="15" unit="°C"></number-input><br>
-<span>in percent: </span><number-input min="-1" step="0.15" max="3" pad-length="3" start-at="1" in-percent></number-input><br>
-<span>as integer: </span><integer-input min="-150" step="15" max="300" default="15"></integer-input>
+<span>in percent: </span><number-input min="-1" step="0.15" max="3" start-at="1" number-style="percent"></number-input><br>
+<span>with currency: </span><number-input min="0" step="0.01" start-at="1000" use-grouping number-style="currency" currency="EUR"></number-input><br>
+<span>as integer: </span><integer-input min="-150" step="15" max="300" always-sign default="15"></integer-input>
 ```
 
 ### Installation

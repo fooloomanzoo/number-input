@@ -8,7 +8,9 @@
   /**
    * mixin to create a number-input
    *
-   * @appliesMixin IntegerInputMixin
+   * @appliesMixin IntlNumberFormatMixin
+   * @appliesMixin RangeMixin
+   * @appliesMixin FormElementMixin
    *
    * @mixinFunction
    * @polymer
@@ -16,14 +18,6 @@
   const NumberInputMixin = superClass => { // eslint-disable-line no-unused-vars
 
     return class extends RangeMixin(FormElementMixin(IntlNumberFormatMixin(superClass))) {  // eslint-disable-line no-undef
-
-      constructor() {
-        super();
-        /**
-         * IE & Edge ch-unit fix
-         */
-        this._chCorrection = window.navigator.userAgent.match(/Edge|Trident/g) ? 1.25 : 1;
-      }
 
       static get template() {
         return `
@@ -53,26 +47,26 @@
               font-family: inherit;
               font-size: inherit;
               font-weight: inherit;
-              text-align: var(--number-input-allign, center);
-              overflow: visible;
-              box-sizing: content-box;
               border: none;
               outline: none;
-              -webkit-background-clip: padding-box;
-              background-clip: padding-box;
               border-color: transparent;
-              line-height: 1;
+              line-height: normal;
               color: var(--number-input-color, var(--input-color, inherit));
               background: var(--number-input-background, var(--input-background, transparent));
+              text-align: var(--number-input-allign, center);
               @apply --input-style;
               @apply --number-input;
+              overflow: visible;
+              -webkit-background-clip: padding-box;
+              background-clip: padding-box;
+              box-sizing: border-box;
             }
             #size {
               position: fixed;
-              top: 0;
-              left: 0;
-              visibility: hidden;
-              pointer-events: none;
+              top: 0; left: 0;
+              visibility: hidden !important;
+              opacity: 0 !important;
+              pointer-events: none !important;
             }
             #input::-webkit-input-placeholder,
             #input::placeholder {
@@ -117,13 +111,14 @@
               color: var(--input-selection-color, inherit);
               background: var(--input-selection-background, rgba(255,255,255,0.5));
             }
-            #test {
-
-            }
           </style>
         `;
       }
 
+      /**
+       * An input of type 'tel' is used to use on mobile devices an numeric keyboard.
+       * To compute the correct width of the input a div is used that uses the same style (only that it is not visible and not bound to the context) to compute the style.
+       */
       static get contentTemplate() {
         return `
           <input id="input"
@@ -132,7 +127,7 @@
             required="[[required]]"
             disabled="[[disabled]]"
             spellcheck="false">
-          <div id="size">[[input]]<div>
+          <div id="size"><div>
         `;
       }
 
@@ -216,32 +211,12 @@
           minimumIntegerDigits: {
             type: Number,
             computed: '_computeMinimumIntegerDigits(autoPadding, padLength, default, startAt, min, max, _step, numberStyle)'
-          },
-
-          /**
-           * locale separator for local decimal values
-           * @type {string}
-           */
-          decimalSeparator: {
-            type: String,
-            readOnly: true
-          },
-
-          /**
-           * locale separator for grouping decimal values
-           * @type {string}
-           */
-          groupingSeparator: {
-            type: String,
-            readOnly: true
           }
-
         }
       }
 
       static get observers() {
         return [
-          '_updateValue(formatNumber)',
           '_computeMinWidth(formatNumber, placeholder, minlength, default, startAt, min, max, minimumIntegerDigits, minimumFractionDigits)'
         ]
       }
@@ -340,7 +315,7 @@
       }
 
       _increm(step) {
-        let value = this.parseNumber(this.$.input.value) + step;
+        let value = this._safeAdd(this.parseNumber(this.$.input.value), step);
         if (isNaN(value)) {
           if (!isNaN(this.startAt)) {
             this.value = this.startAt;
@@ -351,7 +326,7 @@
           }
         } else if (this.noClamp) {
           // still clamp to step, when incrementing
-          this.value = this._checkStep(this._checkValue(value, this.value), this._step);
+          this.value = this._checkStep(this._checkValue(value, this.value), step);
         } else {
           this.value = this._checkValue(value, this.value);
         }
@@ -367,6 +342,7 @@
             this.input = '' + this.default;
           } else {
             this.$.input.value = '';
+            this._debouncedComputeWidth(input);
           }
           return;
         }
@@ -390,8 +366,9 @@
             this.value = this.default;
           } else {
             this.input = undefined;
+            this._debouncedComputeWidth();
           }
-          return
+          return;
         }
 
         if (isNaN(oldValue)) {
@@ -419,10 +396,10 @@
 
       _debouncedComputeWidth(input) {
         if (this._activeResizeJob) {
-          clearTimeout(this._activeResizeJob);
+          window.cancelAnimationFrame(this._activeResizeJob);
         }
-        this.$.size.innerHTML = input;
-        this._activeResizeJob = setTimeout(this._computeWidth.bind(this));
+        this.$.size.innerHTML = input || '';
+        this._activeResizeJob = window.requestAnimationFrame(this._computeWidth.bind(this));
       }
 
       _computeWidth() {
@@ -437,13 +414,14 @@
         max = formatNumber(max || 0);
         let gen = (!this.alwaysSign && (min < 0 || max < 0) ? '-' : '') + formatNumber(Math.pow(10, (minimumIntegerDigits || 1) - 1) + Math.pow(10, -(minimumFractionDigits || 0)));
 
-        const maxLenghtString = [formatNumber(Math.pow(10, minlength || 0)), gen, def, startAt, min, max].reduce( (acc, curr) => {
+        const maxLenghtString = [formatNumber(Math.pow(10, (minlength || 1) - 1)), gen, def, startAt, min, max].reduce( (acc, curr) => {
           return curr.length > acc.length ? curr : acc;
         }, placeholder || '');
         this.$.size.innerHTML = maxLenghtString;
         setTimeout(() => {
-          this.$.input.style.minWidth = `${this.$.size.getBoundingClientRect().width}px`;
-          this._debouncedComputeWidth(maxLenghtString);
+          const minWidth = this.$.size.getBoundingClientRect().width;
+          this.$.input.style.minWidth = `${minWidth}px`;
+          this._updateValue();
         }, 0)
       }
 
@@ -496,29 +474,6 @@
         }
         return minimumFractionDigits;
       }
-
-      _computeParseNumber(decimalSeparator, numberStyle, useGrouping) {
-        if (numberStyle === 'percent') {
-          if (useGrouping) {
-            return (input) => {
-              return this._safeMult(parseFloat(input.replace(this.groupingSeparator, '').replace(decimalSeparator, '.')), 0.01);
-            }
-          } else {
-            return (input) => {
-              return this._safeMult(parseFloat(input.replace(decimalSeparator, '.')), 0.01);
-            }
-          }
-        }
-        if (useGrouping) {
-          return (input) => {
-            return parseFloat(input.replace(this.groupingSeparator, '').replace(decimalSeparator, '.').replace(this._regExpNotInNumber, ''));
-          }
-        } else {
-          return (input) => {
-            return parseFloat(input.replace(decimalSeparator, '.').replace(this._regExpNotInNumber, ''));
-          }
-        }
-      }
     }
   }
 
@@ -556,6 +511,8 @@
      * `--number-input-focus-color`      | color of the focussed and hovered input      | inherit
      * `--number-input-focus-background` | background of the focussed and hovered input | rgba(0,0,0,0.1)
      * `--number-input-disabled-color`   | color of the disabled input                  | inherit
+     * `--input-selection-color`         | color of the selected text                   | inherit
+     * `--input-selection-background`    | background of the selected text              | rgba(255,255,255,0.5
      *
      * ```css
      * :host {
