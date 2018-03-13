@@ -150,6 +150,13 @@
           },
 
           /**
+           * if set `true`, the attributes `min`, `max`, `start-at` and `default` won't be used to compute a mininmal width. `minlenght` and `placeholder` will still be used.
+           */
+          noAutoWidth: {
+            type: String
+          },
+
+          /**
            * always put the sign at the beginning
            */
           alwaysSign: {
@@ -217,7 +224,7 @@
 
       static get observers() {
         return [
-          '_computeMinWidth(formatNumber, placeholder, minlength, default, startAt, min, max, minimumIntegerDigits, minimumFractionDigits)'
+          '_computeMinWidth(noAutoWidth, formatNumber, placeholder, minlength, default, startAt, min, max, minimumIntegerDigits, minimumFractionDigits)'
         ]
       }
 
@@ -398,26 +405,24 @@
         if (this._activeResizeJob) {
           window.cancelAnimationFrame(this._activeResizeJob);
         }
-        this.$.size.innerHTML = input || '';
+        this.$.size.innerHTML = input || this._minWidthString || '';
         this._activeResizeJob = window.requestAnimationFrame(this._computeWidth.bind(this));
       }
 
       _computeWidth() {
-        if (this.noAutoWidth) return;
         this.$.input.style.width = `${this.$.size.getBoundingClientRect().width}px`;
       }
 
-      _computeMinWidth(formatNumber, placeholder, minlength, def, startAt, min, max, minimumIntegerDigits, minimumFractionDigits) {
+      _computeMinWidth(noAutoWidth, formatNumber, placeholder, minlength, def, startAt, min, max, minimumIntegerDigits, minimumFractionDigits) {
         def = formatNumber(def || 0);
         startAt = formatNumber(startAt || 0);
         min = formatNumber(min || 0);
         max = formatNumber(max || 0);
+        minlength = formatNumber(Math.pow(10, (minlength || 1) - 1));
         let gen = (!this.alwaysSign && (min < 0 || max < 0) ? '-' : '') + formatNumber(Math.pow(10, (minimumIntegerDigits || 1) - 1) + Math.pow(10, -(minimumFractionDigits || 0)));
-
-        const maxLenghtString = [formatNumber(Math.pow(10, (minlength || 1) - 1)), gen, def, startAt, min, max].reduce( (acc, curr) => {
+        this.$.size.innerHTML = this._minWidthString = (noAutoWidth ? [minlength] : [minlength, gen, def, startAt, min, max]).reduce( (acc, curr) => {
           return curr.length > acc.length ? curr : acc;
         }, placeholder || '');
-        this.$.size.innerHTML = maxLenghtString;
         setTimeout(() => {
           const minWidth = this.$.size.getBoundingClientRect().width;
           this.$.input.style.minWidth = `${minWidth}px`;
