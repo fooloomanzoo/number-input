@@ -47,6 +47,7 @@
               font-family: inherit;
               font-size: inherit;
               font-weight: inherit;
+              font-style: inherit;
               border: thin solid transparent;
               outline: none;
               line-height: normal;
@@ -89,11 +90,15 @@
               @apply --input-focus;
               @apply --number-input-focus;
             }
-            :host([disabled]) {
+            :host([disabled]) #input {
               color: var(--number-input-disabled-color, var(--input-disabled-color, inherit));
               background: var(--number-input-disabled-background, var(--input-disabled-background, inherit));
-              border-color: var(--number-input-disabled-background, var(--input-disabled-background, inherit));
+              border-color: var(--number-input-disabled-background, var(--input-disabled-background, transparent));
               @apply --input-disabled;
+              @apply --number-input-disabled;
+            }
+            :host([disabled]) {
+              pointer-events: none;
             }
             input::-moz-focus-inner {
               border-style: none;
@@ -135,9 +140,10 @@
             placeholder="[[placeholder]]"
             required="[[required]]"
             disabled="[[disabled]]"
-            spellcheck="false">
+            spellcheck="false"
+            value="{{_input::input}}">
           <div id="size">
-            <span>[[input]]</span>
+            <span>[[_input]]</span>
             <span>[[_minWidthString]]</span>
           </div>
         `;
@@ -194,6 +200,14 @@
           },
 
           /**
+           * the live-input
+           */
+          _input: {
+            type: String,
+            observer: '_debouncedComputeWidth'
+          },
+
+          /**
            * string that is used to compute the minimal width of the input
            */
           _minWidthString: {
@@ -237,6 +251,11 @@
           minimumIntegerDigits: {
             type: Number,
             computed: '_computeMinimumIntegerDigits(autoPadding, padLength, default, startAt, min, max, _step, numberStyle)'
+          },
+
+          hidden: {
+            type: Boolean,
+            observer: 'resize'
           }
         }
       }
@@ -266,7 +285,7 @@
         this.addEventListener('focus', this.focus, false);
         this.addEventListener('contextmenu', this._stopIncrem, false);
         this.$.input.addEventListener('focus', this._updateValue, false);
-        this.$.input.addEventListener('blur', this._updateValue, false);
+        this.$.input.addEventListener('blur', this._checkInput, false);
         this.$.input.addEventListener('keydown', this._checkKeycode, false);
         this.$.input.addEventListener('keyup', this._stopIncrem, false);
       }
@@ -275,7 +294,7 @@
         this.removeEventListener('focus', this.focus, false);
         this.removeEventListener('contextmenu', this._stopIncrem, false);
         this.$.input.removeEventListener('focus', this._updateValue, false);
-        this.$.input.removeEventListener('blur', this._updateValue, false);
+        this.$.input.removeEventListener('blur', this._checkInput, false);
         this.$.input.removeEventListener('keydown', this._checkKeycode, false);
         this.$.input.removeEventListener('keyup', this._stopIncrem, false);
       }
@@ -294,15 +313,22 @@
        * focus the input
        */
       blur(e) {
+        this._checkInput(e);
         this.$.input.blur();
-        e && e.stopPropagation && e.stopPropagation();
+      }
+
+      /**
+       * manually resize the input, when the input is for example initially hidden
+       */
+      resize() {
+        setTimeout(() => {
+          const minWidth = this.$.size.getBoundingClientRect().width;
+          this.$.input.style.minWidth = `${minWidth}px`;
+        }, 0)
       }
 
       _checkKeycode(e) {
-        if (!e.target) {
-          if (e && e.preventDefault) e.preventDefault();
-          return;
-        }
+        this._stopIncrem();
         // up or down key press
         const inc = (e.keyCode === 38) ? this._step : (e.keyCode === 40 ? -this._step : 0);
         if (inc !== 0) {
@@ -327,7 +353,6 @@
       }
 
       _startIncrem(step) {
-        this._stopIncrem();
         this._increm(step);
         this._activeIncremJob = setInterval(() => {
           this._increm(step);
@@ -341,7 +366,7 @@
       }
 
       _increm(step) {
-        let value = this._safeAdd(this.parseNumber(this.$.input.value), step);
+        let value = this._safeAdd(this.value, step);
         if (isNaN(value)) {
           if (!isNaN(this.startAt)) {
             this.value = this.startAt;
@@ -350,7 +375,7 @@
           } else {
             this.value = this.min < 0 ? 0 : this.min || 0;
           }
-        } else if (this.noClamp) {
+        } else if (!this.noClamp) {
           // still clamp to step, when incrementing
           this.value = this._checkStep(this._checkValue(value, this.value), step);
         } else {
@@ -367,7 +392,7 @@
           if (!isNaN(this.default)) {
             this.input = '' + this.default;
           } else {
-            this.$.input.value = '';
+            this._input = '';
             this._debouncedComputeWidth(input);
           }
           return;
@@ -380,7 +405,7 @@
           return;
         }
 
-        this.$.input.value = input;
+        this._input = input;
         this.value = value;
 
         this._debouncedComputeWidth(input);
@@ -407,20 +432,22 @@
           this.value = value;
           return;
         }
-        this.input = this.$.input.value = this.formatNumber(value);
+        this.input = this._input = this.formatNumber(value);
       }
 
       _checkInput(e) {
-        this._inputChanged(this.$.input.value);
+        this._stopIncrem();
+        this._inputChanged(this._input);
         e && e.stopPropagation && e.stopPropagation();
       }
 
       _updateValue(e) {
+        this._stopIncrem();
         this._valueChanged(this.value);
         e && e.stopPropagation && e.stopPropagation();
       }
 
-      _debouncedComputeWidth(input) {
+      _debouncedComputeWidth() {
         if (this._activeResizeJob) {
           window.cancelAnimationFrame(this._activeResizeJob);
         }
@@ -441,10 +468,7 @@
         this._minWidthString = (noAutoWidth ? [minlength] : [minlength, gen, def, startAt, min, max]).reduce( (acc, curr) => {
           return curr.length > acc.length ? curr : acc;
         }, placeholder || '');
-        setTimeout(() => {
-          const minWidth = this.$.size.getBoundingClientRect().width;
-          this.$.input.style.minWidth = `${minWidth}px`;
-        }, 0)
+        this.resize();
       }
 
       _computeMinimumIntegerDigits(autoPadding, padLength, def, startAt, min, max, step, numberStyle) {
