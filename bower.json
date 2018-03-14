@@ -29,8 +29,5 @@
     "iron-flex-layout": "PolymerElements/iron-flex-layout",
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers",
     "iron-form": "PolymerElements/iron-form"
-  },
-  "resolutions": {
-    "webcomponentsjs": "^1.0.0"
   }
 }
