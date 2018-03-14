@@ -62,11 +62,18 @@
               box-sizing: border-box;
             }
             #size {
+              display: block;
               position: fixed;
               top: 0; left: 0;
               visibility: hidden !important;
               opacity: 0 !important;
               pointer-events: none !important;
+            }
+            #size > * {
+              padding: 0;
+              margin: 0;
+              float: left;
+              clear: both;
             }
             #input::-webkit-input-placeholder,
             #input::placeholder {
@@ -127,7 +134,10 @@
             required="[[required]]"
             disabled="[[disabled]]"
             spellcheck="false">
-          <div id="size"><div>
+          <div id="size">
+            <span>[[input]]</span>
+            <span>[[_minWidthString]]</span>
+          </div>
         `;
       }
 
@@ -174,12 +184,18 @@
 
           /**
            * string value of the input
-           * @type {string}
            */
           input: {
             type: String,
             notify: true,
             observer: '_inputChanged'
+          },
+
+          /**
+           * string that is used to compute the minimal width of the input
+           */
+          _minWidthString: {
+            type: String
           },
 
           /**
@@ -193,7 +209,8 @@
            * minimum character width of the input
            */
           minlength: {
-            type: Number
+            type: Number,
+            value: 1
           },
 
           /**
@@ -405,7 +422,6 @@
         if (this._activeResizeJob) {
           window.cancelAnimationFrame(this._activeResizeJob);
         }
-        this.$.size.innerHTML = input || this._minWidthString || '';
         this._activeResizeJob = window.requestAnimationFrame(this._computeWidth.bind(this));
       }
 
@@ -420,13 +436,12 @@
         max = formatNumber(max || 0);
         minlength = formatNumber(Math.pow(10, (minlength || 1) - 1));
         let gen = (!this.alwaysSign && (min < 0 || max < 0) ? '-' : '') + formatNumber(Math.pow(10, (minimumIntegerDigits || 1) - 1) + Math.pow(10, -(minimumFractionDigits || 0)));
-        this.$.size.innerHTML = this._minWidthString = (noAutoWidth ? [minlength] : [minlength, gen, def, startAt, min, max]).reduce( (acc, curr) => {
+        this._minWidthString = (noAutoWidth ? [minlength] : [minlength, gen, def, startAt, min, max]).reduce( (acc, curr) => {
           return curr.length > acc.length ? curr : acc;
         }, placeholder || '');
         setTimeout(() => {
           const minWidth = this.$.size.getBoundingClientRect().width;
           this.$.input.style.minWidth = `${minWidth}px`;
-          this._updateValue();
         }, 0)
       }
 
