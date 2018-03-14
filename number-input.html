@@ -47,15 +47,15 @@
               font-family: inherit;
               font-size: inherit;
               font-weight: inherit;
-              border: none;
+              border: thin solid transparent;
               outline: none;
-              border-color: transparent;
               line-height: normal;
               color: var(--number-input-color, var(--input-color, inherit));
               background: var(--number-input-background, var(--input-background, transparent));
               text-align: var(--number-input-allign, center);
               @apply --input-style;
               @apply --number-input;
+              display: block;
               overflow: visible;
               -webkit-background-clip: padding-box;
               background-clip: padding-box;
@@ -85,12 +85,14 @@
               outline: none;
               color: var(--number-input-focus-color, var(--input-focus-color, inherit));
               background: var(--number-input-focus-background, var(--input-focus-background, rgba(0,0,0,0.1)));
+              border-color: var(--number-input-focus-background, var(--input-focus-background, rgba(0,0,0,0.1)));
               @apply --input-focus;
               @apply --number-input-focus;
             }
             :host([disabled]) {
               color: var(--number-input-disabled-color, var(--input-disabled-color, inherit));
               background: var(--number-input-disabled-background, var(--input-disabled-background, inherit));
+              border-color: var(--number-input-disabled-background, var(--input-disabled-background, inherit));
               @apply --input-disabled;
             }
             input::-moz-focus-inner {
