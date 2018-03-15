@@ -100,6 +100,7 @@
               <custom-style>
                 <style is="custom-style">
                   #year {
+                    --input-placeholder-opacity: 0.25;
                     --number-input: {
                       background: rgba(0, 0, 0, 0.8);
                       transition: background 150ms ease-in-out;
@@ -120,6 +121,7 @@
               <script>
                 const input = document.querySelector('integer-input#year');
                 input.startAt = new Date().getFullYear();
+                input.placeholder = new Date().getFullYear();
               </script>
             </template>
           </dom-bind>
