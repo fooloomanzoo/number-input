@@ -25,22 +25,18 @@
         }
         integer-input,
         number-input {
-          --number-input: {
-            color: #111;
-            padding: 0.2em;
-            border-radius: 2px;
-            border-color: #ddd;
-            border-width: thin;
-            border-style: dotted;
-            transition: background-color 150ms ease-in-out;
-          };
-          --number-input-focus: {
-            border-color: #555;
-            border-style: solid;
-            background: rgba(0, 0, 0, 0.15);
+          --input-color: #111;
+          --input-padding: 0.2em;
+          --input-border-radius: 6px;
+          --input-border: thin dotted #ddd;
+          --input-transition: background-color 150ms ease-in-out;
+          --input-focus-border: thin solid #555;
+          --input-focus-background: rgba(0, 0, 0, 0.15);
+          --input-invalid-background: rgba(0, 0, 255, 0.15);
+          --input-invalid: {
+            background: rgba(255, 0, 0, 0.15);
           };
           --number-input-invalid: {
-            background: rgba(255, 0, 0, 0.15);
             border-color: #999;
             border-style: dashed;
           };

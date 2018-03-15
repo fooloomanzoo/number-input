@@ -31,44 +31,77 @@
           <style>
             :host {
               display: inline-flex;
-              box-sizing: content-box;
-              padding: 0 !important;
+              justify-content: center;
+              -webkit-background-clip: padding-box;
+              background-clip: padding-box;
+              box-sizing: border-box;
+              color: var(--input-color, inherit);
+              background: var(--input-background, transparent);
+              border: var(--input-border, thin dotted transparent);
+              padding: var(--input-padding, 0.2em);
+              border-radius: var(--input-border-radius, 0.2em);
+              transition: var(--input-transition, background 250ms cubic-bezier(0.6, 1, 0.2, 1));
+              @apply --input-style;
+              @apply --number-input;
             }
-            :host(:focus) {
+            :host(:hover),
+            :host(:focus),
+            :host(:focus-within) {
+              color: var(--input-focus-color, inherit);
+              background: var(--input-focus-background, rgba(0,0,0,0.2));
+              border: var(--input-focus-border, thin dotted currentColor);
               outline: none;
+              @apply --input-focus;
+              @apply --number-input-focus;
             }
-            :host([invalid]) #input,
-            #input:invalid {
+            :host([invalid]) {
+              color: var(--input-invalid-color, inherit);
+              background: var(--input-invalid-background, transparent);
+              border: var(--input-invalid-border, thin dotted red);
               @apply --input-invalid;
               @apply --number-input-invalid;
             }
+            :host(:hover[invalid]),
+            :host(:focus-within[invalid]) {
+              border: var(--input-focus-border, thin solid var(--input-focus-background, rgba(0,0,0,0.2)));
+            }
+            :host([disabled]) {
+              color: var(--input-disabled-color, inherit);
+              background: var(--input-disabled-background, transparent);
+              font-style: var(--input-disabled-font-style, italic);
+              opacity: var(--input-disabled-opacity, 1);
+              @apply --input-disabled;
+              @apply --number-input-disabled;
+              pointer-events: none;
+            }
             #size,
             #input {
+              display: block;
+              overflow: visible;
               font-family: inherit;
               font-size: inherit;
               font-weight: inherit;
               font-style: inherit;
-              border: thin solid transparent;
+              color: inherit;
+              background: transparent;
               outline: none;
               line-height: normal;
-              color: var(--number-input-color, var(--input-color, inherit));
-              background: var(--number-input-background, var(--input-background, transparent));
-              text-align: var(--number-input-allign, center);
-              @apply --input-style;
-              @apply --number-input;
-              display: block;
-              overflow: visible;
-              -webkit-background-clip: padding-box;
-              background-clip: padding-box;
-              box-sizing: border-box;
+              border: none;
+              box-sizing: content-box;
+              padding: 0;
+              margin: 0;
+              text-align: var(--input-allign, center);
+              cursor: var(--input-cursor, initial);
             }
             #size {
-              display: block;
               position: fixed;
               top: 0; left: 0;
               visibility: hidden !important;
               opacity: 0 !important;
               pointer-events: none !important;
+            }
+            #input:focus {
+              outline: none;
             }
             #size > * {
               padding: 0;
@@ -78,50 +111,25 @@
             }
             #input::-webkit-input-placeholder,
             #input::placeholder {
+              color: var(--input-placeholder-color, inherit);
+              opacity: var(--input-placeholder-opacity, 0.75);
               @apply --input-placeholder;
               @apply --number-input-placeholder;
             }
-            #input:hover,
-            #input:focus {
-              outline: none;
-              color: var(--number-input-focus-color, var(--input-focus-color, inherit));
-              background: var(--number-input-focus-background, var(--input-focus-background, rgba(0,0,0,0.1)));
-              border-color: var(--number-input-focus-background, var(--input-focus-background, rgba(0,0,0,0.1)));
-              @apply --input-focus;
-              @apply --number-input-focus;
+            #input::-moz-focusring {
+              border-width: 0;
+              color: transparent;
+              text-shadow: 0 0 0 var(--input-focus-color, #000);
             }
-            :host([disabled]) #input {
-              color: var(--number-input-disabled-color, var(--input-disabled-color, inherit));
-              background: var(--number-input-disabled-background, var(--input-disabled-background, inherit));
-              border-color: var(--number-input-disabled-background, var(--input-disabled-background, transparent));
-              @apply --input-disabled;
-              @apply --number-input-disabled;
-            }
-            :host([disabled]) {
-              pointer-events: none;
-            }
-            input::-moz-focus-inner {
+            #input::-moz-focus-inner {
               border-style: none;
               padding: 0;
             }
-            input::-moz-focusring {
-              border-width: 0;
-              color: transparent;
-              text-shadow: 0 0 0 var(--number-input-focus-color, var(--input-focus-color, #000));
-            }
-            input::-moz-selection {
-              color: var(--number-input-color, var(--input-color, inherit));
-              background: var(--number-input-background, var(--input-background, transparent));
-            }
-            input:focus::-moz-selection {
+            #input::-moz-selection {
               color: var(--input-selection-color, inherit);
               background: var(--input-selection-background, rgba(255,255,255,0.5));
             }
-            input::selection {
-              color: var(--number-input-color, var(--input-color, inherit));
-              background: var(--number-input-background, var(--input-background, transparent));
-            }
-            input:focus::selection {
+            #input::selection {
               color: var(--input-selection-color, inherit);
               background: var(--input-selection-background, rgba(255,255,255,0.5));
             }
@@ -234,7 +242,8 @@
            */
           minimumFractionDigits: {
             type: Number,
-            computed: '_computeMinimumFractionDigits(_step, min, max, numberStyle)'
+            computed: '_computeMinimumFractionDigits(_step, min, max, numberStyle)',
+            notify: true
           },
 
           /**
@@ -242,7 +251,8 @@
            */
           maximumFractionDigits: {
             type: Number,
-            computed: '_computeMaximumFractionDigits(minimumFractionDigits, noClamp)'
+            computed: '_computeMaximumFractionDigits(minimumFractionDigits, noClamp)',
+            notify: true
           },
 
           /**
@@ -250,7 +260,8 @@
            */
           minimumIntegerDigits: {
             type: Number,
-            computed: '_computeMinimumIntegerDigits(autoPadding, padLength, default, startAt, min, max, _step, numberStyle)'
+            computed: '_computeMinimumIntegerDigits(autoPadding, padLength, default, startAt, min, max, _step, numberStyle)',
+            notify: true
           },
 
           hidden: {
@@ -274,6 +285,7 @@
         this._checkInput = this._checkInput.bind(this);
         this._checkKeycode = this._checkKeycode.bind(this);
         this._addEventListeners();
+        this.resize();
       }
 
       disconnectedCallback() {
@@ -321,10 +333,10 @@
        * manually resize the input, when the input is for example initially hidden
        */
       resize() {
-        setTimeout(() => {
+        requestAnimationFrame(() => {
           const minWidth = this.$.size.getBoundingClientRect().width;
           this.$.input.style.minWidth = `${minWidth}px`;
-        }, 0)
+        })
       }
 
       _checkKeycode(e) {
@@ -465,7 +477,7 @@
         max = formatNumber(max || 0);
         minlength = formatNumber(Math.pow(10, (minlength || 1) - 1));
         let gen = (!this.alwaysSign && (min < 0 || max < 0) ? '-' : '') + formatNumber(Math.pow(10, (minimumIntegerDigits || 1) - 1) + Math.pow(10, -(minimumFractionDigits || 0)));
-        this._minWidthString = (noAutoWidth ? [minlength] : [minlength, gen, def, startAt, min, max]).reduce( (acc, curr) => {
+        this._minWidthString = (noAutoWidth ? [minlength] : [max, min, def, startAt, gen, minlength]).reduce( (acc, curr) => {
           return curr.length > acc.length ? curr : acc;
         }, placeholder || '');
         this.resize();
@@ -549,16 +561,32 @@
      * ### Styling
      * Custom property                   | Description                                  | Default
      * ----------------------------------|----------------------------------------------|--------------------
-     * `--number-input`                  | style of the input                           | {}
-     * `--number-input-focus`            | style of the focussed and hovered input      | {}
-     * `--number-input-placeholder`      | style of the placeholder                     | {}
-     * `--number-input-color`            | color of the input                           | inherit
-     * `--number-input-background`       | background of the input                      | inherit
-     * `--number-input-focus-color`      | color of the focussed and hovered input      | inherit
-     * `--number-input-focus-background` | background of the focussed and hovered input | rgba(0,0,0,0.1)
-     * `--number-input-disabled-color`   | color of the disabled input                  | inherit
+     * `--input-color`                   | color of the input                           | inherit
+     * `--input-background`              | background of the input                      | transparent
+     * `--input-border`                  | border of the input                          | thin dotted transparent
+     * `--input-padding`                 | padding of the input                         | 0.2em
+     * `--input-border-radius`           | border-radius of the input                   | 0.2em
+     * `--input-transition`              | transition of the input                      | background 250ms cubic-bezier(0.6, 1, 0.2, 1)
+     * `--input-allign`                  | text-allign of the input input               | center
+     * `--input-cursor`                  | cursor of the input input                    | initial
+     * `--input-focus-color`             | color of the focussed and hovered input      | inherit
+     * `--input-focus-background`        | background of the focussed and hovered input | rgba(0,0,0,0.2)
+     * `--input-focus-border`            | border of the focussed and hovered input     | thin dotted currentColor
+     * `--input-invalid-color`           | color of the invalid input                   | inherit
+     * `--input-invalid-background`      | background of the invalid input              | transparent
+     * `--input-invalid-border`          | border of the invalid input                  | thin dotted red
+     * `--input-disabled-color`          | color of the disabled input                  | inherit
+     * `--input-disabled-background`     | background of the disabled input             | transparent
+     * `--input-disabled-font-style`     | font-style of the disabled input             | italic
+     * `--input-disabled-opacity`        | opacity of the disabled input                | 1
+     * `--input-placeholder-color`       | color of the placeholder                     | inherit
+     * `--input-placeholder-opacity`     | opacity of the placeholder                   | 0.75
      * `--input-selection-color`         | color of the selected text                   | inherit
      * `--input-selection-background`    | background of the selected text              | rgba(255,255,255,0.5
+     * `--input-style`                   | style of the input                           | {}
+     * `--input-focus`                   | style of the focussed and hovered input      | {}
+     * `--input-invalid`                 | style of the invalid input                   | {}
+     * `--input-placeholder`             | style of the placeholder                     | {}
      *
      * ```css
      * :host {
