@@ -94,11 +94,11 @@
      * `--input-allign`                  | text-allign of the input input               | center
      * `--input-cursor`                  | cursor of the input input                    | initial
      * `--input-focus-color`             | color of the focussed and hovered input      | inherit
-     * `--input-focus-background`        | background of the focussed and hovered input | rgba(0,0,0,0.2)
+     * `--input-focus-background`        | background of the focussed and hovered input | rgba(0,0,0,0.16)
      * `--input-focus-border`            | border of the focussed and hovered input     | thin dotted currentColor
      * `--input-invalid-color`           | color of the invalid input                   | inherit
-     * `--input-invalid-background`      | background of the invalid input              | transparent
-     * `--input-invalid-border`          | border of the invalid input                  | thin dotted red
+     * `--input-invalid-background`      | background of the invalid input              | rgba(255,0,0,0.16)
+     * `--input-invalid-border`          | border of the invalid input                  | thin dotted rgba(255,0,0,0.5)
      * `--input-disabled-color`          | color of the disabled input                  | inherit
      * `--input-disabled-background`     | background of the disabled input             | transparent
      * `--input-disabled-font-style`     | font-style of the disabled input             | italic
@@ -106,20 +106,20 @@
      * `--input-placeholder-color`       | color of the placeholder                     | inherit
      * `--input-placeholder-opacity`     | opacity of the placeholder                   | 0.75
      * `--input-selection-color`         | color of the selected text                   | inherit
-     * `--input-selection-background`    | background of the selected text              | rgba(255,255,255,0.5
+     * `--input-selection-background`    | background of the selected text              | rgba(255,255,255,0.5)
      * `--input-style`                   | style of the input                           | {}
      * `--input-focus`                   | style of the focussed and hovered input      | {}
      * `--input-invalid`                 | style of the invalid input                   | {}
      * `--input-placeholder`             | style of the placeholder                     | {}
      *
      * ```css
-     * :host {
-     *   --number-input-disabled-color: grey;
-     *   --number-input-focus-background: rgba(0,0,0,0.25);
-     *   --number-input-focus: {
+     *  integer-input {
+     *   --input-disabled-color: grey;
+     *   --input-focus-background: rgba(0,0,0,0.3);
+     *   --input-focus: {
      *     font-weight: bold;
      *   };
-     *   --number-input-placeholder: {
+     *   --input-placeholder: {
      *     color: pink;
      *   };
      * }
