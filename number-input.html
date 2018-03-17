@@ -453,11 +453,14 @@
         minSize.style.cssText = window.getComputedStyle(this.$.size, null).cssText;
         minSize.style.width = '';
         minSize.style.minWidth = '';
+        minSize.style.right = '';
+        minSize.style.bottom = '';
         minSize.innerHTML = this._minWidthString || '0';
         /* create an element for sizing on document level if the number-input is hidden */
         document.body.appendChild(minSize);
         requestAnimationFrame(() => {
-          this.$.input.style.minWidth = minSize.getBoundingClientRect().width + 'px';
+          const width = minSize.getBoundingClientRect().width;
+          this.$.input.style.minWidth = width ? (width + 'px') : (this.minlength || this.padLength || 1) + 'ch';
           document.body.removeChild(minSize);
           this._debouncedComputeWidth();
         })
