@@ -103,12 +103,6 @@
             #input:focus {
               outline: none;
             }
-            #size > * {
-              padding: 0;
-              margin: 0;
-              float: left;
-              clear: both;
-            }
             #input::-webkit-input-placeholder,
             #input::placeholder {
               color: var(--input-placeholder-color, inherit);
@@ -159,15 +153,13 @@
             spellcheck="false"
             autocomplete="off"
             value="{{_input::input}}">
-          <div id="size">
-            <span>[[_input]]</span>
-            <span>[[_minWidthString]]</span>
-          </div>
+          <div id="size">[[_input]]</div>
         `;
       }
 
       static get properties() {
         return {
+
           /**
            * length to pad the string (with `0`) according to the total amount of numbers
            * @type {number}
@@ -325,9 +317,7 @@
        */
       focus() {
         this.$.input.focus();
-        if (this.$.input.scrollIntoViewIfNeeded) {
-          this.$.input.scrollIntoViewIfNeeded();
-        }
+        this.$.input.scrollIntoViewIfNeeded && this.$.input.scrollIntoViewIfNeeded();
       }
 
       /**
@@ -336,16 +326,6 @@
       blur(e) {
         this._checkInput(e);
         this.$.input.blur();
-      }
-
-      /**
-       * manually resize the input, when the input is for example initially hidden
-       */
-      resize() {
-        requestAnimationFrame(() => {
-          const minWidth = this.$.size.getBoundingClientRect().width;
-          this.$.input.style.minWidth = `${minWidth}px`;
-        })
       }
 
       _checkKeycode(e) {
@@ -411,10 +391,9 @@
       _inputChanged(input) {
         if (!input) {
           if (!isNaN(this.default)) {
-            this.input = '' + this.default;
+            this.input = this.formatNumber(this.default);
           } else {
             this._input = '';
-            this._debouncedComputeWidth(input);
           }
           return;
         }
@@ -428,8 +407,6 @@
 
         this._input = input;
         this.value = value;
-
-        this._debouncedComputeWidth(input);
       }
 
       _valueChanged(value, oldValue) {
@@ -466,6 +443,24 @@
         this._stopIncrem();
         this._valueChanged(this.value);
         e && e.stopPropagation && e.stopPropagation();
+      }
+
+      /**
+       * manually resize the input, when the input is for example initially hidden
+       */
+      resize() {
+        const minSize = document.createElement('div');
+        minSize.style.cssText = window.getComputedStyle(this.$.size, null).cssText;
+        minSize.style.width = '';
+        minSize.style.minWidth = '';
+        minSize.innerHTML = this._minWidthString || '0';
+        /* create an element for sizing on document level if the number-input is hidden */
+        document.body.appendChild(minSize);
+        requestAnimationFrame(() => {
+          this.$.input.style.minWidth = minSize.getBoundingClientRect().width + 'px';
+          document.body.removeChild(minSize);
+          this._debouncedComputeWidth();
+        })
       }
 
       _debouncedComputeWidth() {
