@@ -95,7 +95,7 @@
             }
             #size {
               position: fixed;
-              top: 0; left: 0;
+              top: 0; left: 0; right: auto; botoom: auto;
               visibility: hidden !important;
               opacity: 0 !important;
               pointer-events: none !important;
@@ -449,34 +449,32 @@
        * manually resize the input, when the input is for example initially hidden
        */
       resize() {
-        if (this._minSizeElement) {
-          document.body.removeChild(this._minSizeElement);
-          this._minSizeElement = null;
-        }
-        this._minSizeElement = document.createElement('div');
-        this._minSizeElement.style.cssText = window.getComputedStyle(this.$.size, null).cssText;
-        this._minSizeElement.style.width = '';
-        this._minSizeElement.style.minWidth = '';
-        this._minSizeElement.style.right = '';
-        this._minSizeElement.style.bottom = '';
-        this._minSizeElement.innerHTML = this._minWidthString || '0';
-        /* create an element for sizing on document level if the number-input is hidden */
-        document.body.appendChild(this._minSizeElement);
-        requestAnimationFrame(this._resize.bind(this));
-      }
-
-      _resize() {
-        if (!this._minSizeElement) {
+        if (this._minSizeJob) {
           return;
         }
-        const width = this._minSizeElement.getBoundingClientRect().width;
-        console.log('resize', width, this._minSizeElement);
-        if (this.width === 0) {
-          requestAnimationFrame(this._resize.bind(this));
-        } else {
-          document.body.removeChild(this._minSizeElement);
-          this._debouncedComputeWidth();
+
+        const minSizeElement = document.createElement('div');
+        minSizeElement.style.cssText = window.getComputedStyle(this.$.size, null).cssText;
+        minSizeElement.style.width = '';
+        minSizeElement.style.minWidth = '';
+        minSizeElement.innerHTML = this._minWidthString || '0';
+        /* create an element for sizing on document level if the number-input is hidden */
+        document.body.appendChild(minSizeElement);
+
+        const minsizer = () => {
+          const width = minSizeElement.getBoundingClientRect().width;
+          if (width === 0) {
+            this._minSizeJob = requestAnimationFrame(minsizer.bind(this));
+          } else {
+            this.$.input.style.minWidth = width + 'px';
+            document.body.removeChild(minSizeElement);
+            minSizeElement = null;
+            this._debouncedComputeWidth();
+            minsizer = null;
+            this._minSizeJob = null;
+          }
         }
+        this._minSizeJob = requestAnimationFrame(minsizer.bind(this));
       }
 
       _debouncedComputeWidth() {
