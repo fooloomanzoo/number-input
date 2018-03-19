@@ -93,6 +93,15 @@
               text-align: var(--input-allign, center);
               cursor: var(--input-cursor, initial);
             }
+            #input {
+              -moz-appearance: textfield;
+              -webkit-appearance: textfield;
+              appearance: textfield;
+            }
+            #input::-webkit-inner-spin-button,
+            #input::-webkit-outer-spin-button {
+              -webkit-appearance: none;
+            }
             #size {
               position: fixed;
               top: 0; left: 0; right: auto; botoom: auto;
@@ -146,7 +155,8 @@
       static get contentTemplate() {
         return `
           <input id="input"
-            type="tel"
+            type="[[_type]]"
+            step="[[step]]"
             placeholder="[[placeholder]]"
             required="[[required]]"
             disabled="[[disabled]]"
@@ -263,6 +273,14 @@
             type: Number,
             computed: '_computeMinimumIntegerDigits(autoPadding, padLength, default, startAt, min, max, _step, numberStyle)',
             notify: true
+          },
+
+          /**
+           * type of the input
+           */
+          _type: {
+            type: String,
+            computed: '_computeType(decimalSeparator, numberStyle, unit)'
           },
 
           hidden: {
@@ -445,6 +463,16 @@
         e && e.stopPropagation && e.stopPropagation();
       }
 
+      _computeType(decimalSeparator, numberStyle, unit) {
+        if (decimalSeparator === '.') {
+          if (numberStyle === 'decimal' && unit === '') {
+            return 'number';
+          }
+          return 'tel';
+        }
+        return 'text';
+      }
+
       /**
        * manually resize the input, when the input is for example initially hidden
        */
@@ -453,25 +481,29 @@
           return;
         }
 
-        const minSizeElement = document.createElement('div');
-        minSizeElement.style.cssText = window.getComputedStyle(this.$.size, null).cssText;
-        minSizeElement.style.width = '';
-        minSizeElement.style.minWidth = '';
-        minSizeElement.innerHTML = this._minWidthString || '0';
+        this._minSizeElement = document.createElement('div');
+        this._minSizeElement.style.cssText = window.getComputedStyle(this.$.size, null).cssText;
+        this._minSizeElement.style.width = '';
+        this._minSizeElement.style.minWidth = '';
+        this._minSizeElement.style.position = 'fixed';
+        this._minSizeElement.style.display = 'block';
+        this._minSizeElement.style.right = 'auto';
+        this._minSizeElement.style.bottom = 'auto';
+        this._minSizeElement.innerHTML = this._minWidthString || '0';
         /* create an element for sizing on document level if the number-input is hidden */
-        document.body.appendChild(minSizeElement);
+        document.body.appendChild(this._minSizeElement);
 
-        const minsizer = () => {
-          const width = minSizeElement.getBoundingClientRect().width;
+        let minsizer = () => {
+          const width = this._minSizeElement.getBoundingClientRect().width;
+          this._minSizeJob = null;
           if (width === 0) {
             this._minSizeJob = requestAnimationFrame(minsizer.bind(this));
           } else {
             this.$.input.style.minWidth = width + 'px';
-            document.body.removeChild(minSizeElement);
-            minSizeElement = null;
-            this._debouncedComputeWidth();
+            document.body.removeChild(this._minSizeElement);
+            this._minSizeElement = null;
+            this._checkInput();
             minsizer = null;
-            this._minSizeJob = null;
           }
         }
         this._minSizeJob = requestAnimationFrame(minsizer.bind(this));

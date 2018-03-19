@@ -67,8 +67,8 @@ This element wants to achieve that, by using the [Intl.NumberFormat API](https:/
 -->
 ```html
 <span>using units: </span><number-input min="-150" step="0.15" max="300" pad-length="3" default="15" unit="°C"></number-input><br>
-<span>in percent: </span><number-input min="-1" step="0.15" max="3" start-at="1" number-style="percent"></number-input><br>
-<span>using currencies: </span><number-input min="0" step="0.01" start-at="1000" use-grouping number-style="currency" currency="EUR"></number-input><br>
+<span>in percent: </span><number-input min="-1" step="0.15" max="3" start-at="1" default="1" number-style="percent"></number-input><br>
+<span>using currencies: </span><number-input min="0" step="0.01" start-at="1000" default="1000" use-grouping number-style="currency" currency="EUR"></number-input><br>
 <span>as integer: </span><integer-input min="-150" step="15" max="300" always-sign default="15"></integer-input>
 ```
 
