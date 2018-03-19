@@ -23,7 +23,7 @@
       static get template() {
         return `
           <style include="${this.styleToInclude}">
-            ${this.styleContent}
+            ${this.styleTemplate}
           </style>
           ${this.inputTemplate}
         `;
@@ -33,9 +33,9 @@
         return 'input-shared-style';
       }
 
-      static get styleContent() {
+      static get styleTemplate() {
         return `
-          ${super.customStyleContent || ''}
+          ${super.styleTemplate || ''}
           :host {
             display: inline-flex;
             justify-content: center;
