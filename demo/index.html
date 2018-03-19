@@ -38,10 +38,11 @@
                     --input-background: rgba(149, 176, 236, 0.3);
                     --input-transition: background 150ms ease-in-out;
                     --input-color: #222fa6;
-                    --input-border: thin solid transparent;
+                    --input-border-color: #222fa6;
                     --input-padding: 0.3em;
                     --input-border-radius: 0.2em;
                     --input-focus-color: #b4d0fa;
+                    --input-focus-border-color: #0063f7;
                     --input-focus-background: #575757;
                   }
                 </style>
@@ -66,17 +67,13 @@
               <custom-style>
                 <style is="custom-style">
                   .integer {
-                    --number-input: {
-                      background: rgba(0, 0, 0, 0.05);
-                      transition: background 150ms ease-in-out;
-                      color: #111;
-                      border-color: transparent;
-                      padding: 2px;
-                      border-radius: 2px;
-                    };
-                    --number-input-focus: {
-                      background: rgba(0, 0, 0, 0.15);
-                    };
+                    --input-background: rgba(0, 0, 0, 0.05);
+                    --input-transition: background 150ms ease-in-out;
+                    --input-color: #111;
+                    --input-border-color: transparent;
+                    --input-padding: 2px;
+                    --input-border-radius: 2px;
+                    --input-focus-background: rgba(0, 0, 0, 0.15);
                   }
                 </style>
               </custom-style>
@@ -100,24 +97,21 @@
               <custom-style>
                 <style is="custom-style">
                   #year {
-                    --input-placeholder-opacity: 0.25;
-                    --number-input: {
-                      background: rgba(0, 0, 0, 0.8);
-                      transition: background 150ms ease-in-out;
-                      color: #eee;
-                      border: none;
-                      padding: 0.3em;
-                      border-radius: 0.2em;
-                    };
-                    --number-input-focus: {
-                      background: rgba(0, 0, 0, 0.5);
-                      color: #fff;
-                      border: none;
-                    };
+                    --input-placeholder-opacity: 0.5;
+                    --input-padding: 0.3em;
+                    --input-border-radius: 0.2em;
+                    --input-background: rgba(0, 0, 0, 0.8);
+                    --input-transition: background 150ms ease-in-out;
+                    --input-color: #ddd;
+                    --input-border-color: rgba(255, 255, 255, 0.25);
+                    --input-focus-border-color: rgba(66, 227, 116, 0.75);
+                    --input-focus-border-style: solid;
+                    --input-focus-background: rgba(0, 0, 0, 0.5);
+                    --input-focus-color: #fff;
                   }
                 </style>
               </custom-style>
-              starts at this year: <integer-input id="year" minlength="4" value="{{value}}"></integer-input>
+              starts at this year: <integer-input id="year" minlength="4" value="{{value}}" placeholder="- - - -"></integer-input>
               <script>
                 const input = document.querySelector('integer-input#year');
                 input.startAt = new Date().getFullYear();
@@ -138,21 +132,18 @@
               <custom-style>
                 <style is="custom-style">
                   .various {
-                    --number-input: {
-                      background: rgba(0, 0, 0, 0.05);
-                      transition: background 150ms ease-in-out;
-                      color: #111;
-                      border-color: transparent;
-                      border-style: unset;
-                      padding: 0.3em;
-                      border-radius: 0.2em;
-                    };
-                    --number-input-focus: {
-                      background: rgba(0, 0, 0, 0.15);
-                    };
-                    --number-input-placeholder: {
-                      color: #492020;
-                    };
+                    --input-padding: 0.3em;
+                    --input-border-radius: 0.2em;
+                    --input-background: rgba(0, 0, 0, 0.05);
+                    --input-transition: background 150ms ease-in-out;
+                    --input-color: #111;
+                    --input-border-style: solid;
+                    --input-border-color: rgba(0, 0, 0, 0.15);
+                    --input-focus-border-color: rgba(0, 0, 0, 0.5);
+                    --input-focus-border-style: solid;
+                    --input-focus-background: rgba(0, 0, 0, 0.15);
+                    --input-focus-color: #fff;
+                    --input-placeholder-color: #492020;
                   }
                 </style>
               </custom-style>
@@ -210,25 +201,17 @@
               <custom-style>
                 <style is="custom-style">
                   .saturate {
-                    --number-input: {
-                      background: rgba(60, 172, 78, 0.8);
-                      transition: background 150ms ease-in-out;
-                      color: rgba(41, 30, 96, 0.75);
-                      padding: 0.5em;
-                      border-radius: 4px;
-                      border-color: transparent;
-                      border-style: solid;
-                      text-align: center;
-                    };
-                    --number-input-focus: {
-                      background: rgba(60, 172, 78, 0.5);
-                      color: #291e60;
-                      border-style: solid;
-                      outline: none;
-                    };
-                    --number-input-placeholder: {
-                      color: rgba(41, 30, 96, 0.5);
-                    };
+                    --input-background: rgba(60, 172, 78, 0.8);
+                    --input-transition: background 150ms ease-in-out;
+                    --input-color: rgba(41, 30, 96, 0.75);
+                    --input-padding: 0.5em;
+                    --input-border-radius: 4px;
+                    --input-border-color: transparent;
+                    --input-border-style: solid;
+                    --input-focus-background: rgba(60, 172, 78, 0.5);
+                    --input-focus-color: #291e60;
+                    --input-focus-border-style: solid;
+                    --input-placeholder-color: rgba(41, 30, 96, 0.5);
                   }
                 </style>
               </custom-style>
@@ -255,17 +238,17 @@
                     --input-background: rgba(60, 61, 172, 0.5);
                     --input-transition: background 150ms ease-in-out;
                     --input-color: #f1f1f1;
-                    --input-border: thin solid transparent;
+                    --input-border-style: transparent;
                     --input-padding: 0.3em;
                     --input-border-radius: 0;
                     --input-focus-color: white;
                     --input-focus-background: rgba(60, 61, 172, 0.9);
-                    --input-focus-border: thin solid transparent;
+                    --input-focus-border-color: transparent;
                     --input-placeholder-color: inherit;
                   }
                 </style>
               </custom-style>
-              <number-input class="decimal" value="{{value}}" min="-23" step="1.15" max="45" pad-length="4"></number-input>
+              <number-input class="decimal" value="{{value}}" min="-23" step="1.15" max="45" pad-length="4" placeholder="- -"></number-input>
               <div class="vertical-section-container result">
                 <div><code>step</code>: <b>1.15</b><code>min</code>: <b>-23</b><code>max</code>: <b>45</b><code>pad-length</code>: <b>4</b></div>
                 <div><code>value</code>: <b>[[value]]</b></div>
