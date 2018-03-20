@@ -110,8 +110,8 @@
             disabled="[[disabled]]"
             spellcheck="false"
             autocomplete="off"
-            value="{{_input::input}}">
-          <div id="size">[[_input]]</div>
+            value="{{input::input}}">
+          <div id="size">[[input]]</div>
         `;
       }
 
@@ -138,7 +138,14 @@
            * if set `true`, the attributes `min`, `max`, `start-at` and `default` won't be used to compute a mininmal width. `minlenght` and `placeholder` will still be used.
            */
           noAutoWidth: {
-            type: String
+            type: Boolean
+          },
+
+          /**
+           * if set `true`, the input will be resized when you type in, but always when you confirm the input (by moving out or pressing enter)
+           */
+          autoResize: {
+            type: Boolean
           },
 
           /**
@@ -164,14 +171,6 @@
             type: String,
             notify: true,
             observer: '_inputChanged'
-          },
-
-          /**
-           * the live-input
-           */
-          _input: {
-            type: String,
-            observer: '_debouncedComputeWidth'
           },
 
           /**
@@ -248,11 +247,11 @@
       connectedCallback() {
         super.connectedCallback();
         this.focus = this.focus.bind(this);
-        this._stopIncrem = this._stopIncrem.bind(this);
         this._updateValue = this._updateValue.bind(this);
         this._checkInput = this._checkInput.bind(this);
         this._checkKeycode = this._checkKeycode.bind(this);
         this._addEventListeners();
+        this._debouncedComputeWidth();
         setTimeout(() => {
           this.resize();
         }, 0)
@@ -265,20 +264,16 @@
 
       _addEventListeners() {
         this.addEventListener('focus', this.focus, false);
-        this.addEventListener('contextmenu', this._stopIncrem, false);
         this.$.input.addEventListener('focus', this._updateValue, false);
         this.$.input.addEventListener('blur', this._checkInput, false);
         this.$.input.addEventListener('keydown', this._checkKeycode, false);
-        this.$.input.addEventListener('keyup', this._stopIncrem, false);
       }
 
       _removeEventListeners() {
         this.removeEventListener('focus', this.focus, false);
-        this.removeEventListener('contextmenu', this._stopIncrem, false);
         this.$.input.removeEventListener('focus', this._updateValue, false);
         this.$.input.removeEventListener('blur', this._checkInput, false);
         this.$.input.removeEventListener('keydown', this._checkKeycode, false);
-        this.$.input.removeEventListener('keyup', this._stopIncrem, false);
       }
 
       /**
@@ -298,11 +293,10 @@
       }
 
       _checkKeycode(e) {
-        this._stopIncrem();
         // up or down key press
-        const inc = (e.keyCode === 38) ? this._step : (e.keyCode === 40 ? -this._step : 0);
-        if (inc !== 0) {
-          this._startIncrem(inc);
+        const step = (e.keyCode === 38) ? this._step : (e.keyCode === 40 ? -this._step : 0);
+        if (step !== 0) {
+          setTimeout(this._increm.bind(this, step), 0);
           e.stopPropagation();
           return;
         }
@@ -320,18 +314,9 @@
           this.blur();
           return;
         }
-      }
 
-      _startIncrem(step) {
-        this._increm(step);
-        this._activeIncremJob = setInterval(() => {
-          this._increm(step);
-        }, 150);
-      }
-
-      _stopIncrem() {
-        if (this._activeIncremJob) {
-          clearInterval(this._activeIncremJob);
+        if (this.autoResize) {
+          this._debouncedComputeWidth();
         }
       }
 
@@ -361,8 +346,6 @@
         if (!input) {
           if (!isNaN(this.default)) {
             this.input = this.formatNumber(this.default);
-          } else {
-            this._input = '';
           }
           return;
         }
@@ -374,8 +357,8 @@
           return;
         }
 
-        this._input = input;
         this.value = value;
+        this._debouncedComputeWidth();
       }
 
       _valueChanged(value, oldValue) {
@@ -383,8 +366,7 @@
           if (!isNaN(this.default)) {
             this.value = this.default;
           } else {
-            this.input = undefined;
-            this._debouncedComputeWidth();
+            this.input = '';
           }
           return;
         }
@@ -399,22 +381,21 @@
           this.value = value;
           return;
         }
-        this.input = this._input = this.formatNumber(value);
+        this.input = this.formatNumber(value);
       }
 
       _checkInput(e) {
-        this._stopIncrem();
-        this._inputChanged(this._input);
+        this._inputChanged(this.input);
         e && e.stopPropagation && e.stopPropagation();
       }
 
       _updateValue(e) {
-        this._stopIncrem();
         this._valueChanged(this.value);
         e && e.stopPropagation && e.stopPropagation();
       }
 
       _computeType(decimalSeparator, numberStyle, unit) {
+        // maximize compatibility for mobile keyboards
         if (decimalSeparator === '.') {
           if (numberStyle === 'decimal' && unit === '') {
             return 'number';
@@ -425,35 +406,35 @@
       }
 
       /**
-       * manually resize the input, when the input is for example initially hidden
+       * manually resize the minsize of the input, when the input is for example initially hidden
        */
       resize() {
         if (this._minSizeJob) {
           return;
         }
-        this._minSizeElement = document.createElement('div');
-        this._minSizeElement.style.cssText = window.getComputedStyle(this.$.size, null).cssText;
-        this._minSizeElement.style.width = '';
-        this._minSizeElement.style.minWidth = '';
-        this._minSizeElement.style.position = 'fixed';
-        this._minSizeElement.style.display = 'block';
-        this._minSizeElement.style.right = 'auto';
-        this._minSizeElement.style.bottom = 'auto';
-        this._minSizeElement.innerHTML = this._minWidthString || '0';
+        let _minSizeElement = document.createElement('div');
+        _minSizeElement.style.cssText = window.getComputedStyle(this.$.size, null).cssText;
+        _minSizeElement.style.width = '';
+        _minSizeElement.style.minWidth = '';
+        _minSizeElement.style.position = 'fixed';
+        _minSizeElement.style.display = 'block';
+        _minSizeElement.style.right = 'auto';
+        _minSizeElement.style.bottom = 'auto';
+        _minSizeElement.innerHTML = this._minWidthString || '0';
         /* create an element for sizing on document level if the number-input is hidden */
-        document.body.appendChild(this._minSizeElement);
+        document.body.appendChild(_minSizeElement);
 
         const minsizer = () => {
-          const width = this._minSizeElement.getBoundingClientRect().width;
+          const width = _minSizeElement.getBoundingClientRect().width;
           this._minSizeJob = null;
           if (width === 0) {
-            this._minSizeElement.innerHTML = this._minWidthString || '0';
+            _minSizeElement.innerHTML = this._minWidthString || '0';
             this._minSizeJob = requestAnimationFrame(minsizer.bind(this));
           } else {
-            this.$.input.style.minWidth = width + 'px';
-            document.body.removeChild(this._minSizeElement);
-            this._minSizeElement = null;
-            this._checkInput();
+            this.$.input.style.minWidth = `${width}px`;
+            document.body.removeChild(_minSizeElement);
+            _minSizeElement = null;
+            this._debouncedComputeWidth();
           }
         }
         this._minSizeJob = requestAnimationFrame(minsizer.bind(this));
@@ -461,10 +442,10 @@
 
       _debouncedComputeWidth() {
         if (this._activeResizeJob) {
-          window.cancelAnimationFrame(this._activeResizeJob);
+          clearTimeout(this._activeResizeJob);
         }
         // this._minWidth || this.resize();
-        this._activeResizeJob = window.requestAnimationFrame(this._computeWidth.bind(this));
+        this._activeResizeJob = setTimeout(this._computeWidth.bind(this), 0);
       }
 
       _computeWidth() {
@@ -566,8 +547,8 @@
      * `--input-border-width`            | border width of the input                      | thin
      * `--input-border-style`            | border style of the input                      | dotted
      * `--input-border-color`            | border color of the input                      | transparent
-     * `--input-padding`                 | padding of the input                           | 0.16em
-     * `--input-border-radius`           | border-radius of the input                     | 0.16em
+     * `--input-padding`                 | padding of the input                           | 0.2em
+     * `--input-border-radius`           | border-radius of the input                     | 0.25em
      * `--input-transition`              | transition of the input                        | background 250ms cubic-bezier(0.6, 1, 0.2, 1)
      * `--input-allign`                  | text-allign of the input input                 | center
      * `--input-cursor`                  | cursor of the input input                      | initial
