@@ -71,15 +71,21 @@
                     --input-transition: background 150ms ease-in-out;
                     --input-color: #111;
                     --input-border-color: transparent;
-                    --input-padding: 2px;
-                    --input-border-radius: 2px;
+                    --input-padding: 4px 1px;
+                    --input-border-radius: 3px;
                     --input-focus-background: rgba(0, 0, 0, 0.15);
+                    margin-left: 8px;
+                  }
+                  input {
+                    vertical-align: middle;
                   }
                 </style>
               </custom-style>
-              <integer-input class="integer" always-sign value="{{value}}" minlength="3" step="2" min="-100" max="1000" default="10" no-clamp></integer-input>
+              <input type="checkbox" checked="{{autoResize::change}}">auto resize on input<br>
+              <input type="checkbox" checked="{{alwaysSign::change}}">always sign<br>
+              step: <input type="number" value="{{step::input}}" min="0" step="1"><br><br>
+              <integer-input class="integer" always-sign="[[alwaysSign]]" step="{{step}}" auto-resize="[[autoResize]]" value="{{value}}" default="10"></integer-input>
               <div class="vertical-section-container result">
-                <div><code>step</code>: <b>2</b><code>min</code>: <b>-100</b><code>max</code>: <b>1000</b><code>default</code>: <b>10</b><code> always-sign</code></div>
                 <div><code>value</code>: <b>[[value]]</b></div>
               </div>
             </template>

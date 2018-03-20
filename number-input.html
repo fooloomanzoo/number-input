@@ -65,6 +65,7 @@
           }
           #input {
             @apply --number-input;
+            width: 1ch;
           }
           :host(:focus) #input,
           :host(:hover) #input,
@@ -110,8 +111,8 @@
             disabled="[[disabled]]"
             spellcheck="false"
             autocomplete="off"
-            value="{{input::input}}">
-          <div id="size">[[input]]</div>
+            value="{{_input::input}}">
+          <div id="size">[[_input]]</div>
         `;
       }
 
@@ -171,6 +172,13 @@
             type: String,
             notify: true,
             observer: '_inputChanged'
+          },
+
+          /**
+           * live value of the input
+           */
+          _input: {
+            type: String
           },
 
           /**
@@ -296,7 +304,8 @@
         // up or down key press
         const step = (e.keyCode === 38) ? this._step : (e.keyCode === 40 ? -this._step : 0);
         if (step !== 0) {
-          setTimeout(this._increm.bind(this, step), 0);
+          this._checkInput();
+          setTimeout(this._increm.bind(this, +step), 0);
           e.stopPropagation();
           return;
         }
@@ -345,7 +354,7 @@
       _inputChanged(input) {
         if (!input) {
           if (!isNaN(this.default)) {
-            this.input = this.formatNumber(this.default);
+            this.input = this._input = this.formatNumber(this.default);
           }
           return;
         }
@@ -353,7 +362,7 @@
         input = this.formatNumber(value);
 
         if (this.input !== input) {
-          this.input = input;
+          this.input = this._input = input;
           return;
         }
 
@@ -366,7 +375,7 @@
           if (!isNaN(this.default)) {
             this.value = this.default;
           } else {
-            this.input = '';
+            this.input = this._input = '';
           }
           return;
         }
@@ -381,11 +390,11 @@
           this.value = value;
           return;
         }
-        this.input = this.formatNumber(value);
+        this.input = this._input = this.formatNumber(value);
       }
 
       _checkInput(e) {
-        this._inputChanged(this.input);
+        this._inputChanged(this._input);
         e && e.stopPropagation && e.stopPropagation();
       }
 
