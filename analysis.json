@@ -4409,13 +4409,12 @@
           "description": "",
           "privacy": "protected",
           "sourceRange": {
-            "file": "number-input.html",
             "start": {
-              "line": 405,
+              "line": 62,
               "column": 6
             },
             "end": {
-              "line": 414,
+              "line": 68,
               "column": 7
             }
           },
@@ -4431,7 +4430,7 @@
               "name": "unit"
             }
           ],
-          "inheritedFrom": "NumberInputMixin"
+          "inheritedFrom": "IntegerInputMixin"
         },
         {
           "name": "resize",
@@ -4635,11 +4634,11 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 134,
+          "line": 142,
           "column": 4
         },
         "end": {
-          "line": 139,
+          "line": 147,
           "column": 5
         }
       },
@@ -9708,13 +9707,12 @@
           "description": "",
           "privacy": "protected",
           "sourceRange": {
-            "file": "number-input.html",
             "start": {
-              "line": 405,
+              "line": 62,
               "column": 6
             },
             "end": {
-              "line": 414,
+              "line": 68,
               "column": 7
             }
           },
@@ -9729,8 +9727,7 @@
             {
               "name": "unit"
             }
-          ],
-          "inheritedFrom": "NumberInputMixin"
+          ]
         },
         {
           "name": "resize",
@@ -9927,7 +9924,7 @@
           "column": 2
         },
         "end": {
-          "line": 62,
+          "line": 70,
           "column": 3
         }
       },
