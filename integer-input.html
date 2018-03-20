@@ -62,7 +62,7 @@
 
       _computeType(decimalSeparator, numberStyle, unit) {
         // maximize compatibility for mobile keyboards
-        if (unit === '') {
+        if (!unit) {
           return 'number';
         }
         return 'text';
