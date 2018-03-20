@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "elements": [
     {
-      "description": "`number-input` is an element that can:\n* prevent non numeric input\n* guarantee **live**-data to be valid\n* pad a value with `0` (to a specific length)\n* size the input (according to it's length)\n* overflow to minimum or underflow to maximum\n* saturate to minimum or to maximum\n* display a specified unit and size the input\n* specify the decimal separator (the value will still be a Number object)\n* use percent-format\n\nExample:\n```html\n<number-input step=\"2\" min=\"-20\" max=\"140\" pad-length=\"2\"></number-input>\n```\n\nIt sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.\n\n### Styling\nCustom property                   | Description                                    | Default\n----------------------------------|------------------------------------------------|--------------------\n`--input-color`                   | color of the input                             | inherit\n`--input-background`              | background of the input                        | transparent\n`--input-border-width`            | border width of the input                      | thin\n`--input-border-style`            | border style of the input                      | dotted\n`--input-border-color`            | border color of the input                      | transparent\n`--input-padding`                 | padding of the input                           | 0.16em\n`--input-border-radius`           | border-radius of the input                     | 0.16em\n`--input-transition`              | transition of the input                        | background 250ms cubic-bezier(0.6, 1, 0.2, 1)\n`--input-allign`                  | text-allign of the input input                 | center\n`--input-cursor`                  | cursor of the input input                      | initial\n`--input-focus-color`             | color of the focussed and hovered input        | inherit\n`--input-focus-background`        | background of the focussed and hovered input   | rgba(0, 0, 0, 0.16)\n`--input-focus-border-style`      | border style of the focussed and hovered input | dotted\n`--input-focus-border-color`      | border color of the focussed and hovered input | currentColor\n`--input-invalid-color`           | color of the invalid input                     | inherit\n`--input-invalid-background`      | background of the invalid input                | rgba(255, 0, 0, 0.16)\n`--input-invalid-border-style`    | border style of the invalid input              | dotted\n`--input-invalid-border-color`    | border color of the invalid input              | rgba(255, 0, 0, 0.5)\n`--input-disabled-color`          | color of the disabled input                    | inherit\n`--input-disabled-background`     | background of the disabled input               | transparent\n`--input-disabled-font-style`     | font-style of the disabled input               | italic\n`--input-disabled-opacity`        | opacity of the disabled input                  | 1\n`--input-placeholder-color`       | color of the placeholder                       | inherit\n`--input-placeholder-opacity`     | opacity of the placeholder                     | 0.75\n`--input-selection-color`         | color of the selected text                     | inherit\n`--input-selection-background`    | background of the selected text                | rgba(255, 255, 255, 0.5)\n`--input-style`                   | style of the input                             | {}\n`--input-focus`                   | style of the focussed and hovered input        | {}\n`--input-invalid`                 | style of the invalid input                     | {}\n`--input-placeholder`             | style of the placeholder                       | {}\n\n```css\n number-input {\n  --input-disabled-color: grey;\n  --input-focus-background: rgba(0,0,0,0.3);\n  --input-focus: {\n    font-weight: bold;\n  };\n  --input-placeholder: {\n    color: pink;\n  };\n}\n```",
+      "description": "`number-input` is an element that can:\n* prevent non numeric input\n* guarantee **live**-data to be valid\n* pad a value with `0` (to a specific length)\n* size the input (according to it's length)\n* overflow to minimum or underflow to maximum\n* saturate to minimum or to maximum\n* display a specified unit and size the input\n* specify the decimal separator (the value will still be a Number object)\n* use percent-format\n\nExample:\n```html\n<number-input step=\"2\" min=\"-20\" max=\"140\" pad-length=\"2\"></number-input>\n```\n\nIt sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.\n\n### Styling\nCustom property                   | Description                                    | Default\n----------------------------------|------------------------------------------------|--------------------\n`--input-color`                   | color of the input                             | inherit\n`--input-background`              | background of the input                        | transparent\n`--input-border-width`            | border width of the input                      | thin\n`--input-border-style`            | border style of the input                      | dotted\n`--input-border-color`            | border color of the input                      | transparent\n`--input-padding`                 | padding of the input                           | 0.2em\n`--input-border-radius`           | border-radius of the input                     | 0.25em\n`--input-transition`              | transition of the input                        | background 250ms cubic-bezier(0.6, 1, 0.2, 1)\n`--input-allign`                  | text-allign of the input input                 | center\n`--input-cursor`                  | cursor of the input input                      | initial\n`--input-focus-color`             | color of the focussed and hovered input        | inherit\n`--input-focus-background`        | background of the focussed and hovered input   | rgba(0, 0, 0, 0.16)\n`--input-focus-border-style`      | border style of the focussed and hovered input | dotted\n`--input-focus-border-color`      | border color of the focussed and hovered input | currentColor\n`--input-invalid-color`           | color of the invalid input                     | inherit\n`--input-invalid-background`      | background of the invalid input                | rgba(255, 0, 0, 0.16)\n`--input-invalid-border-style`    | border style of the invalid input              | dotted\n`--input-invalid-border-color`    | border color of the invalid input              | rgba(255, 0, 0, 0.5)\n`--input-disabled-color`          | color of the disabled input                    | inherit\n`--input-disabled-background`     | background of the disabled input               | transparent\n`--input-disabled-font-style`     | font-style of the disabled input               | italic\n`--input-disabled-opacity`        | opacity of the disabled input                  | 1\n`--input-placeholder-color`       | color of the placeholder                       | inherit\n`--input-placeholder-opacity`     | opacity of the placeholder                     | 0.75\n`--input-selection-color`         | color of the selected text                     | inherit\n`--input-selection-background`    | background of the selected text                | rgba(255, 255, 255, 0.5)\n`--input-style`                   | style of the input                             | {}\n`--input-focus`                   | style of the focussed and hovered input        | {}\n`--input-invalid`                 | style of the invalid input                     | {}\n`--input-placeholder`             | style of the placeholder                       | {}\n\n```css\n number-input {\n  --input-disabled-color: grey;\n  --input-focus-background: rgba(0,0,0,0.3);\n  --input-focus: {\n    font-weight: bold;\n  };\n  --input-placeholder: {\n    color: pink;\n  };\n}\n```",
       "summary": "",
       "path": "number-input.html",
       "properties": [
@@ -84,11 +84,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 258,
+              "line": 201,
               "column": 10
             },
             "end": {
-              "line": 262,
+              "line": 205,
               "column": 11
             }
           },
@@ -107,11 +107,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 267,
+              "line": 210,
               "column": 10
             },
             "end": {
-              "line": 271,
+              "line": 214,
               "column": 11
             }
           },
@@ -130,11 +130,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 276,
+              "line": 219,
               "column": 10
             },
             "end": {
-              "line": 280,
+              "line": 223,
               "column": 11
             }
           },
@@ -238,11 +238,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 202,
+              "line": 153,
               "column": 10
             },
             "end": {
-              "line": 205,
+              "line": 156,
               "column": 11
             }
           },
@@ -775,11 +775,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 180,
+              "line": 124,
               "column": 10
             },
             "end": {
-              "line": 182,
+              "line": 126,
               "column": 11
             }
           },
@@ -795,11 +795,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 188,
+              "line": 132,
               "column": 10
             },
             "end": {
-              "line": 190,
+              "line": 134,
               "column": 11
             }
           },
@@ -810,16 +810,36 @@
         },
         {
           "name": "noAutoWidth",
-          "type": "string",
+          "type": "boolean",
           "description": "if set `true`, the attributes `min`, `max`, `start-at` and `default` won't be used to compute a mininmal width. `minlenght` and `placeholder` will still be used.",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 195,
+              "line": 139,
               "column": 10
             },
             "end": {
-              "line": 197,
+              "line": 141,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "autoResize",
+          "type": "boolean",
+          "description": "if set `true`, the input will be resized when you type in, but always when you confirm the input (by moving out or pressing enter)",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 146,
+              "column": 10
+            },
+            "end": {
+              "line": 148,
               "column": 11
             }
           },
@@ -835,11 +855,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 211,
+              "line": 162,
               "column": 10
             },
             "end": {
-              "line": 213,
+              "line": 164,
               "column": 11
             }
           },
@@ -855,11 +875,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 218,
+              "line": 169,
               "column": 10
             },
             "end": {
-              "line": 222,
+              "line": 173,
               "column": 11
             }
           },
@@ -872,39 +892,17 @@
           "inheritedFrom": "NumberInputMixin"
         },
         {
-          "name": "_input",
-          "type": "string",
-          "description": "the live-input",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 227,
-              "column": 10
-            },
-            "end": {
-              "line": 230,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "observer": "\"_debouncedComputeWidth\""
-            }
-          },
-          "inheritedFrom": "NumberInputMixin"
-        },
-        {
           "name": "_minWidthString",
           "type": "string",
           "description": "string that is used to compute the minimal width of the input",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 235,
+              "line": 178,
               "column": 10
             },
             "end": {
-              "line": 238,
+              "line": 181,
               "column": 11
             }
           },
@@ -922,11 +920,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 243,
+              "line": 186,
               "column": 10
             },
             "end": {
-              "line": 245,
+              "line": 188,
               "column": 11
             }
           },
@@ -942,11 +940,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 250,
+              "line": 193,
               "column": 10
             },
             "end": {
-              "line": 253,
+              "line": 196,
               "column": 11
             }
           },
@@ -963,11 +961,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 285,
+              "line": 228,
               "column": 10
             },
             "end": {
-              "line": 288,
+              "line": 231,
               "column": 11
             }
           },
@@ -985,11 +983,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 290,
+              "line": 233,
               "column": 10
             },
             "end": {
-              "line": 293,
+              "line": 236,
               "column": 11
             }
           },
@@ -1136,11 +1134,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 303,
+              "line": 246,
               "column": 6
             },
             "end": {
-              "line": 312,
+              "line": 257,
               "column": 7
             }
           },
@@ -1180,11 +1178,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 434,
+              "line": 363,
               "column": 6
             },
             "end": {
-              "line": 456,
+              "line": 384,
               "column": 7
             }
           },
@@ -1231,11 +1229,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 464,
+              "line": 391,
               "column": 6
             },
             "end": {
-              "line": 468,
+              "line": 394,
               "column": 7
             }
           },
@@ -1357,11 +1355,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 409,
+              "line": 340,
               "column": 6
             },
             "end": {
-              "line": 411,
+              "line": 342,
               "column": 7
             }
           },
@@ -1516,11 +1514,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 314,
+              "line": 259,
               "column": 6
             },
             "end": {
-              "line": 317,
+              "line": 262,
               "column": 7
             }
           },
@@ -1534,11 +1532,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 319,
+              "line": 264,
               "column": 6
             },
             "end": {
-              "line": 326,
+              "line": 269,
               "column": 7
             }
           },
@@ -1552,11 +1550,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 328,
+              "line": 271,
               "column": 6
             },
             "end": {
-              "line": 335,
+              "line": 276,
               "column": 7
             }
           },
@@ -1570,11 +1568,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 340,
+              "line": 281,
               "column": 6
             },
             "end": {
-              "line": 343,
+              "line": 284,
               "column": 7
             }
           },
@@ -1588,11 +1586,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 348,
+              "line": 289,
               "column": 6
             },
             "end": {
-              "line": 351,
+              "line": 292,
               "column": 7
             }
           },
@@ -1610,11 +1608,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 353,
+              "line": 294,
               "column": 6
             },
             "end": {
-              "line": 376,
+              "line": 320,
               "column": 7
             }
           },
@@ -1627,56 +1625,16 @@
           "inheritedFrom": "NumberInputMixin"
         },
         {
-          "name": "_startIncrem",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 378,
-              "column": 6
-            },
-            "end": {
-              "line": 383,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "step"
-            }
-          ],
-          "inheritedFrom": "NumberInputMixin"
-        },
-        {
-          "name": "_stopIncrem",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 385,
-              "column": 6
-            },
-            "end": {
-              "line": 389,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [],
-          "inheritedFrom": "NumberInputMixin"
-        },
-        {
           "name": "_increm",
           "description": "",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 391,
+              "line": 322,
               "column": 6
             },
             "end": {
-              "line": 407,
+              "line": 338,
               "column": 7
             }
           },
@@ -1694,11 +1652,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 413,
+              "line": 344,
               "column": 6
             },
             "end": {
-              "line": 432,
+              "line": 361,
               "column": 7
             }
           },
@@ -1716,11 +1674,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 458,
+              "line": 386,
               "column": 6
             },
             "end": {
-              "line": 462,
+              "line": 389,
               "column": 7
             }
           },
@@ -1738,11 +1696,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 470,
+              "line": 396,
               "column": 6
             },
             "end": {
-              "line": 478,
+              "line": 405,
               "column": 7
             }
           },
@@ -1762,15 +1720,15 @@
         },
         {
           "name": "resize",
-          "description": "manually resize the input, when the input is for example initially hidden",
+          "description": "manually resize the minsize of the input, when the input is for example initially hidden",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 483,
+              "line": 410,
               "column": 6
             },
             "end": {
-              "line": 514,
+              "line": 440,
               "column": 7
             }
           },
@@ -1784,11 +1742,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 516,
+              "line": 442,
               "column": 6
             },
             "end": {
-              "line": 522,
+              "line": 448,
               "column": 7
             }
           },
@@ -1802,11 +1760,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 524,
+              "line": 450,
               "column": 6
             },
             "end": {
-              "line": 526,
+              "line": 452,
               "column": 7
             }
           },
@@ -1820,11 +1778,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 528,
+              "line": 454,
               "column": 6
             },
             "end": {
-              "line": 538,
+              "line": 464,
               "column": 7
             }
           },
@@ -1869,11 +1827,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 540,
+              "line": 466,
               "column": 6
             },
             "end": {
-              "line": 564,
+              "line": 490,
               "column": 7
             }
           },
@@ -1912,11 +1870,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 566,
+              "line": 492,
               "column": 6
             },
             "end": {
-              "line": 581,
+              "line": 507,
               "column": 7
             }
           },
@@ -1943,11 +1901,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 583,
+              "line": 509,
               "column": 6
             },
             "end": {
-              "line": 588,
+              "line": 514,
               "column": 7
             }
           },
@@ -1977,11 +1935,11 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 669,
+          "line": 595,
           "column": 4
         },
         "end": {
-          "line": 674,
+          "line": 600,
           "column": 5
         }
       },
@@ -2048,11 +2006,11 @@
           "description": "minimum digits right to the decimal separator",
           "sourceRange": {
             "start": {
-              "line": 258,
+              "line": 201,
               "column": 10
             },
             "end": {
-              "line": 262,
+              "line": 205,
               "column": 11
             }
           },
@@ -2065,11 +2023,11 @@
           "description": "maximum digits right to the decimal separator",
           "sourceRange": {
             "start": {
-              "line": 267,
+              "line": 210,
               "column": 10
             },
             "end": {
-              "line": 271,
+              "line": 214,
               "column": 11
             }
           },
@@ -2082,11 +2040,11 @@
           "description": "minimum digits left to the decimal separator to pad",
           "sourceRange": {
             "start": {
-              "line": 276,
+              "line": 219,
               "column": 10
             },
             "end": {
-              "line": 280,
+              "line": 223,
               "column": 11
             }
           },
@@ -2171,11 +2129,11 @@
           "description": "always put the sign at the beginning",
           "sourceRange": {
             "start": {
-              "line": 202,
+              "line": 153,
               "column": 10
             },
             "end": {
-              "line": 205,
+              "line": 156,
               "column": 11
             }
           },
@@ -2530,11 +2488,11 @@
           "description": "length to pad the string (with `0`) according to the total amount of numbers",
           "sourceRange": {
             "start": {
-              "line": 180,
+              "line": 124,
               "column": 10
             },
             "end": {
-              "line": 182,
+              "line": 126,
               "column": 11
             }
           },
@@ -2547,11 +2505,11 @@
           "description": "placeholder string",
           "sourceRange": {
             "start": {
-              "line": 188,
+              "line": 132,
               "column": 10
             },
             "end": {
-              "line": 190,
+              "line": 134,
               "column": 11
             }
           },
@@ -2564,16 +2522,33 @@
           "description": "if set `true`, the attributes `min`, `max`, `start-at` and `default` won't be used to compute a mininmal width. `minlenght` and `placeholder` will still be used.",
           "sourceRange": {
             "start": {
-              "line": 195,
+              "line": 139,
               "column": 10
             },
             "end": {
-              "line": 197,
+              "line": 141,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "string",
+          "type": "boolean",
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "auto-resize",
+          "description": "if set `true`, the input will be resized when you type in, but always when you confirm the input (by moving out or pressing enter)",
+          "sourceRange": {
+            "start": {
+              "line": 146,
+              "column": 10
+            },
+            "end": {
+              "line": 148,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
           "inheritedFrom": "NumberInputMixin"
         },
         {
@@ -2581,11 +2556,11 @@
           "description": "enables auto padding",
           "sourceRange": {
             "start": {
-              "line": 211,
+              "line": 162,
               "column": 10
             },
             "end": {
-              "line": 213,
+              "line": 164,
               "column": 11
             }
           },
@@ -2598,11 +2573,11 @@
           "description": "string value of the input",
           "sourceRange": {
             "start": {
-              "line": 218,
+              "line": 169,
               "column": 10
             },
             "end": {
-              "line": 222,
+              "line": 173,
               "column": 11
             }
           },
@@ -2615,11 +2590,11 @@
           "description": "start where to increment the value",
           "sourceRange": {
             "start": {
-              "line": 243,
+              "line": 186,
               "column": 10
             },
             "end": {
-              "line": 245,
+              "line": 188,
               "column": 11
             }
           },
@@ -2632,11 +2607,11 @@
           "description": "minimum character width of the input",
           "sourceRange": {
             "start": {
-              "line": 250,
+              "line": 193,
               "column": 10
             },
             "end": {
-              "line": 253,
+              "line": 196,
               "column": 11
             }
           },
@@ -2649,11 +2624,11 @@
           "description": "",
           "sourceRange": {
             "start": {
-              "line": 290,
+              "line": 233,
               "column": 10
             },
             "end": {
-              "line": 293,
+              "line": 236,
               "column": 11
             }
           },
@@ -2674,7 +2649,7 @@
       ]
     },
     {
-      "description": "`integer-input` is an element that can:\n* prevent non numeric input\n* guarantee **live**-data to be valid\n* pad a value with `0` (to a specific length)\n* size the input (according to it's length)\n* overflow to minimum or underflow to maximum\n* saturate to minimum or to maximum\n* display a specified unit and size the input\n\nExample:\n```html\n<integer-input step=\"2\" min=\"-20\" max=\"140\" pad-length=\"2\"></integer-input>\n```\n\nIt sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.\n\n### Styling\nCustom property                   | Description                                  | Default\n----------------------------------|----------------------------------------------|--------------------\n`--input-color`                   | color of the input                           | inherit\n`--input-background`              | background of the input                      | transparent\n`--input-border`                  | border of the input                          | thin dotted transparent\n`--input-padding`                 | padding of the input                         | 0.2em\n`--input-border-radius`           | border-radius of the input                   | 0.2em\n`--input-transition`              | transition of the input                      | background 250ms cubic-bezier(0.6, 1, 0.2, 1)\n`--input-allign`                  | text-allign of the input input               | center\n`--input-cursor`                  | cursor of the input input                    | initial\n`--input-focus-color`             | color of the focussed and hovered input      | inherit\n`--input-focus-background`        | background of the focussed and hovered input | rgba(0,0,0,0.16)\n`--input-focus-border`            | border of the focussed and hovered input     | thin dotted currentColor\n`--input-invalid-color`           | color of the invalid input                   | inherit\n`--input-invalid-background`      | background of the invalid input              | rgba(255,0,0,0.16)\n`--input-invalid-border`          | border of the invalid input                  | thin dotted rgba(255,0,0,0.5)\n`--input-disabled-color`          | color of the disabled input                  | inherit\n`--input-disabled-background`     | background of the disabled input             | transparent\n`--input-disabled-font-style`     | font-style of the disabled input             | italic\n`--input-disabled-opacity`        | opacity of the disabled input                | 1\n`--input-placeholder-color`       | color of the placeholder                     | inherit\n`--input-placeholder-opacity`     | opacity of the placeholder                   | 0.75\n`--input-selection-color`         | color of the selected text                   | inherit\n`--input-selection-background`    | background of the selected text              | rgba(255,255,255,0.5)\n`--input-style`                   | style of the input                           | {}\n`--input-focus`                   | style of the focussed and hovered input      | {}\n`--input-invalid`                 | style of the invalid input                   | {}\n`--input-placeholder`             | style of the placeholder                     | {}\n\n```css\n integer-input {\n  --input-disabled-color: grey;\n  --input-focus-background: rgba(0,0,0,0.3);\n  --input-focus: {\n    font-weight: bold;\n  };\n  --input-placeholder: {\n    color: pink;\n  };\n}\n```",
+      "description": "`integer-input` is an element that can:\n* prevent non numeric input\n* guarantee **live**-data to be valid\n* pad a value with `0` (to a specific length)\n* size the input (according to it's length)\n* overflow to minimum or underflow to maximum\n* saturate to minimum or to maximum\n* display a specified unit and size the input\n\nExample:\n```html\n<integer-input step=\"2\" min=\"-20\" max=\"140\" pad-length=\"2\"></integer-input>\n```\n\nIt sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.\n\n### Styling\nCustom property                   | Description                                  | Default\n----------------------------------|----------------------------------------------|--------------------\n`--input-color`                   | color of the input                           | inherit\n`--input-background`              | background of the input                      | transparent\n`--input-border`                  | border of the input                          | thin dotted transparent\n`--input-padding`                 | padding of the input                         | 0.2em\n`--input-border-radius`           | border-radius of the input                   | 0.25em\n`--input-transition`              | transition of the input                      | background 250ms cubic-bezier(0.6, 1, 0.2, 1)\n`--input-allign`                  | text-allign of the input input               | center\n`--input-cursor`                  | cursor of the input input                    | initial\n`--input-focus-color`             | color of the focussed and hovered input      | inherit\n`--input-focus-background`        | background of the focussed and hovered input | rgba(0,0,0,0.16)\n`--input-focus-border`            | border of the focussed and hovered input     | thin dotted currentColor\n`--input-invalid-color`           | color of the invalid input                   | inherit\n`--input-invalid-background`      | background of the invalid input              | rgba(255,0,0,0.16)\n`--input-invalid-border`          | border of the invalid input                  | thin dotted rgba(255,0,0,0.5)\n`--input-disabled-color`          | color of the disabled input                  | inherit\n`--input-disabled-background`     | background of the disabled input             | transparent\n`--input-disabled-font-style`     | font-style of the disabled input             | italic\n`--input-disabled-opacity`        | opacity of the disabled input                | 1\n`--input-placeholder-color`       | color of the placeholder                     | inherit\n`--input-placeholder-opacity`     | opacity of the placeholder                   | 0.75\n`--input-selection-color`         | color of the selected text                   | inherit\n`--input-selection-background`    | background of the selected text              | rgba(255,255,255,0.5)\n`--input-style`                   | style of the input                           | {}\n`--input-focus`                   | style of the focussed and hovered input      | {}\n`--input-invalid`                 | style of the invalid input                   | {}\n`--input-placeholder`             | style of the placeholder                     | {}\n\n```css\n integer-input {\n  --input-disabled-color: grey;\n  --input-focus-background: rgba(0,0,0,0.3);\n  --input-focus: {\n    font-weight: bold;\n  };\n  --input-placeholder: {\n    color: pink;\n  };\n}\n```",
       "summary": "",
       "path": "integer-input.html",
       "properties": [
@@ -2757,11 +2732,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 258,
+              "line": 201,
               "column": 10
             },
             "end": {
-              "line": 262,
+              "line": 205,
               "column": 11
             }
           },
@@ -2781,11 +2756,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 267,
+              "line": 210,
               "column": 10
             },
             "end": {
-              "line": 271,
+              "line": 214,
               "column": 11
             }
           },
@@ -2805,11 +2780,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 276,
+              "line": 219,
               "column": 10
             },
             "end": {
-              "line": 280,
+              "line": 223,
               "column": 11
             }
           },
@@ -2914,11 +2889,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 202,
+              "line": 153,
               "column": 10
             },
             "end": {
-              "line": 205,
+              "line": 156,
               "column": 11
             }
           },
@@ -3452,11 +3427,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 180,
+              "line": 124,
               "column": 10
             },
             "end": {
-              "line": 182,
+              "line": 126,
               "column": 11
             }
           },
@@ -3473,11 +3448,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 188,
+              "line": 132,
               "column": 10
             },
             "end": {
-              "line": 190,
+              "line": 134,
               "column": 11
             }
           },
@@ -3488,17 +3463,38 @@
         },
         {
           "name": "noAutoWidth",
-          "type": "string",
+          "type": "boolean",
           "description": "if set `true`, the attributes `min`, `max`, `start-at` and `default` won't be used to compute a mininmal width. `minlenght` and `placeholder` will still be used.",
           "privacy": "public",
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 195,
+              "line": 139,
               "column": 10
             },
             "end": {
-              "line": 197,
+              "line": 141,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "autoResize",
+          "type": "boolean",
+          "description": "if set `true`, the input will be resized when you type in, but always when you confirm the input (by moving out or pressing enter)",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "number-input.html",
+            "start": {
+              "line": 146,
+              "column": 10
+            },
+            "end": {
+              "line": 148,
               "column": 11
             }
           },
@@ -3515,11 +3511,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 211,
+              "line": 162,
               "column": 10
             },
             "end": {
-              "line": 213,
+              "line": 164,
               "column": 11
             }
           },
@@ -3536,11 +3532,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 218,
+              "line": 169,
               "column": 10
             },
             "end": {
-              "line": 222,
+              "line": 173,
               "column": 11
             }
           },
@@ -3553,29 +3549,6 @@
           "inheritedFrom": "NumberInputMixin"
         },
         {
-          "name": "_input",
-          "type": "string",
-          "description": "the live-input",
-          "privacy": "protected",
-          "sourceRange": {
-            "file": "number-input.html",
-            "start": {
-              "line": 227,
-              "column": 10
-            },
-            "end": {
-              "line": 230,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "observer": "\"_debouncedComputeWidth\""
-            }
-          },
-          "inheritedFrom": "NumberInputMixin"
-        },
-        {
           "name": "_minWidthString",
           "type": "string",
           "description": "string that is used to compute the minimal width of the input",
@@ -3583,11 +3556,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 235,
+              "line": 178,
               "column": 10
             },
             "end": {
-              "line": 238,
+              "line": 181,
               "column": 11
             }
           },
@@ -3606,11 +3579,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 243,
+              "line": 186,
               "column": 10
             },
             "end": {
-              "line": 245,
+              "line": 188,
               "column": 11
             }
           },
@@ -3627,11 +3600,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 250,
+              "line": 193,
               "column": 10
             },
             "end": {
-              "line": 253,
+              "line": 196,
               "column": 11
             }
           },
@@ -3649,11 +3622,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 285,
+              "line": 228,
               "column": 10
             },
             "end": {
-              "line": 288,
+              "line": 231,
               "column": 11
             }
           },
@@ -3672,11 +3645,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 290,
+              "line": 233,
               "column": 10
             },
             "end": {
-              "line": 293,
+              "line": 236,
               "column": 11
             }
           },
@@ -3823,11 +3796,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 303,
+              "line": 246,
               "column": 6
             },
             "end": {
-              "line": 312,
+              "line": 257,
               "column": 7
             }
           },
@@ -3868,11 +3841,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 434,
+              "line": 363,
               "column": 6
             },
             "end": {
-              "line": 456,
+              "line": 384,
               "column": 7
             }
           },
@@ -3920,11 +3893,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 464,
+              "line": 391,
               "column": 6
             },
             "end": {
-              "line": 468,
+              "line": 394,
               "column": 7
             }
           },
@@ -4046,11 +4019,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 409,
+              "line": 340,
               "column": 6
             },
             "end": {
-              "line": 411,
+              "line": 342,
               "column": 7
             }
           },
@@ -4206,11 +4179,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 314,
+              "line": 259,
               "column": 6
             },
             "end": {
-              "line": 317,
+              "line": 262,
               "column": 7
             }
           },
@@ -4225,11 +4198,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 319,
+              "line": 264,
               "column": 6
             },
             "end": {
-              "line": 326,
+              "line": 269,
               "column": 7
             }
           },
@@ -4244,11 +4217,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 328,
+              "line": 271,
               "column": 6
             },
             "end": {
-              "line": 335,
+              "line": 276,
               "column": 7
             }
           },
@@ -4263,11 +4236,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 340,
+              "line": 281,
               "column": 6
             },
             "end": {
-              "line": 343,
+              "line": 284,
               "column": 7
             }
           },
@@ -4282,11 +4255,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 348,
+              "line": 289,
               "column": 6
             },
             "end": {
-              "line": 351,
+              "line": 292,
               "column": 7
             }
           },
@@ -4305,11 +4278,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 353,
+              "line": 294,
               "column": 6
             },
             "end": {
-              "line": 376,
+              "line": 320,
               "column": 7
             }
           },
@@ -4322,59 +4295,17 @@
           "inheritedFrom": "NumberInputMixin"
         },
         {
-          "name": "_startIncrem",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "file": "number-input.html",
-            "start": {
-              "line": 378,
-              "column": 6
-            },
-            "end": {
-              "line": 383,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "step"
-            }
-          ],
-          "inheritedFrom": "NumberInputMixin"
-        },
-        {
-          "name": "_stopIncrem",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "file": "number-input.html",
-            "start": {
-              "line": 385,
-              "column": 6
-            },
-            "end": {
-              "line": 389,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [],
-          "inheritedFrom": "NumberInputMixin"
-        },
-        {
           "name": "_increm",
           "description": "",
           "privacy": "protected",
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 391,
+              "line": 322,
               "column": 6
             },
             "end": {
-              "line": 407,
+              "line": 338,
               "column": 7
             }
           },
@@ -4393,11 +4324,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 413,
+              "line": 344,
               "column": 6
             },
             "end": {
-              "line": 432,
+              "line": 361,
               "column": 7
             }
           },
@@ -4416,11 +4347,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 458,
+              "line": 386,
               "column": 6
             },
             "end": {
-              "line": 462,
+              "line": 389,
               "column": 7
             }
           },
@@ -4439,11 +4370,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 470,
+              "line": 396,
               "column": 6
             },
             "end": {
-              "line": 478,
+              "line": 405,
               "column": 7
             }
           },
@@ -4463,16 +4394,16 @@
         },
         {
           "name": "resize",
-          "description": "manually resize the input, when the input is for example initially hidden",
+          "description": "manually resize the minsize of the input, when the input is for example initially hidden",
           "privacy": "public",
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 483,
+              "line": 410,
               "column": 6
             },
             "end": {
-              "line": 514,
+              "line": 440,
               "column": 7
             }
           },
@@ -4487,11 +4418,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 516,
+              "line": 442,
               "column": 6
             },
             "end": {
-              "line": 522,
+              "line": 448,
               "column": 7
             }
           },
@@ -4506,11 +4437,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 524,
+              "line": 450,
               "column": 6
             },
             "end": {
-              "line": 526,
+              "line": 452,
               "column": 7
             }
           },
@@ -4525,11 +4456,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 528,
+              "line": 454,
               "column": 6
             },
             "end": {
-              "line": 538,
+              "line": 464,
               "column": 7
             }
           },
@@ -4575,11 +4506,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 540,
+              "line": 466,
               "column": 6
             },
             "end": {
-              "line": 564,
+              "line": 490,
               "column": 7
             }
           },
@@ -4735,11 +4666,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 258,
+              "line": 201,
               "column": 10
             },
             "end": {
-              "line": 262,
+              "line": 205,
               "column": 11
             }
           },
@@ -4753,11 +4684,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 267,
+              "line": 210,
               "column": 10
             },
             "end": {
-              "line": 271,
+              "line": 214,
               "column": 11
             }
           },
@@ -4771,11 +4702,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 276,
+              "line": 219,
               "column": 10
             },
             "end": {
-              "line": 280,
+              "line": 223,
               "column": 11
             }
           },
@@ -4861,11 +4792,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 202,
+              "line": 153,
               "column": 10
             },
             "end": {
-              "line": 205,
+              "line": 156,
               "column": 11
             }
           },
@@ -5220,11 +5151,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 180,
+              "line": 124,
               "column": 10
             },
             "end": {
-              "line": 182,
+              "line": 126,
               "column": 11
             }
           },
@@ -5238,11 +5169,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 188,
+              "line": 132,
               "column": 10
             },
             "end": {
-              "line": 190,
+              "line": 134,
               "column": 11
             }
           },
@@ -5256,16 +5187,34 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 195,
+              "line": 139,
               "column": 10
             },
             "end": {
-              "line": 197,
+              "line": 141,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "string",
+          "type": "boolean",
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "auto-resize",
+          "description": "if set `true`, the input will be resized when you type in, but always when you confirm the input (by moving out or pressing enter)",
+          "sourceRange": {
+            "file": "number-input.html",
+            "start": {
+              "line": 146,
+              "column": 10
+            },
+            "end": {
+              "line": 148,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
           "inheritedFrom": "NumberInputMixin"
         },
         {
@@ -5274,11 +5223,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 211,
+              "line": 162,
               "column": 10
             },
             "end": {
-              "line": 213,
+              "line": 164,
               "column": 11
             }
           },
@@ -5292,11 +5241,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 218,
+              "line": 169,
               "column": 10
             },
             "end": {
-              "line": 222,
+              "line": 173,
               "column": 11
             }
           },
@@ -5310,11 +5259,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 243,
+              "line": 186,
               "column": 10
             },
             "end": {
-              "line": 245,
+              "line": 188,
               "column": 11
             }
           },
@@ -5328,11 +5277,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 250,
+              "line": 193,
               "column": 10
             },
             "end": {
-              "line": 253,
+              "line": 196,
               "column": 11
             }
           },
@@ -5346,11 +5295,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 290,
+              "line": 233,
               "column": 10
             },
             "end": {
-              "line": 293,
+              "line": 236,
               "column": 11
             }
           },
@@ -5455,11 +5404,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 258,
+              "line": 201,
               "column": 10
             },
             "end": {
-              "line": 262,
+              "line": 205,
               "column": 11
             }
           },
@@ -5477,11 +5426,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 267,
+              "line": 210,
               "column": 10
             },
             "end": {
-              "line": 271,
+              "line": 214,
               "column": 11
             }
           },
@@ -5499,11 +5448,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 276,
+              "line": 219,
               "column": 10
             },
             "end": {
-              "line": 280,
+              "line": 223,
               "column": 11
             }
           },
@@ -5606,11 +5555,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 202,
+              "line": 153,
               "column": 10
             },
             "end": {
-              "line": 205,
+              "line": 156,
               "column": 11
             }
           },
@@ -6142,11 +6091,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 180,
+              "line": 124,
               "column": 10
             },
             "end": {
-              "line": 182,
+              "line": 126,
               "column": 11
             }
           },
@@ -6161,11 +6110,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 188,
+              "line": 132,
               "column": 10
             },
             "end": {
-              "line": 190,
+              "line": 134,
               "column": 11
             }
           },
@@ -6175,16 +6124,35 @@
         },
         {
           "name": "noAutoWidth",
-          "type": "string",
+          "type": "boolean",
           "description": "if set `true`, the attributes `min`, `max`, `start-at` and `default` won't be used to compute a mininmal width. `minlenght` and `placeholder` will still be used.",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 195,
+              "line": 139,
               "column": 10
             },
             "end": {
-              "line": 197,
+              "line": 141,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "autoResize",
+          "type": "boolean",
+          "description": "if set `true`, the input will be resized when you type in, but always when you confirm the input (by moving out or pressing enter)",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 146,
+              "column": 10
+            },
+            "end": {
+              "line": 148,
               "column": 11
             }
           },
@@ -6199,11 +6167,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 211,
+              "line": 162,
               "column": 10
             },
             "end": {
-              "line": 213,
+              "line": 164,
               "column": 11
             }
           },
@@ -6218,11 +6186,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 218,
+              "line": 169,
               "column": 10
             },
             "end": {
-              "line": 222,
+              "line": 173,
               "column": 11
             }
           },
@@ -6234,38 +6202,17 @@
           }
         },
         {
-          "name": "_input",
-          "type": "string",
-          "description": "the live-input",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 227,
-              "column": 10
-            },
-            "end": {
-              "line": 230,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "observer": "\"_debouncedComputeWidth\""
-            }
-          }
-        },
-        {
           "name": "_minWidthString",
           "type": "string",
           "description": "string that is used to compute the minimal width of the input",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 235,
+              "line": 178,
               "column": 10
             },
             "end": {
-              "line": 238,
+              "line": 181,
               "column": 11
             }
           },
@@ -6282,11 +6229,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 243,
+              "line": 186,
               "column": 10
             },
             "end": {
-              "line": 245,
+              "line": 188,
               "column": 11
             }
           },
@@ -6301,11 +6248,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 250,
+              "line": 193,
               "column": 10
             },
             "end": {
-              "line": 253,
+              "line": 196,
               "column": 11
             }
           },
@@ -6321,11 +6268,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 285,
+              "line": 228,
               "column": 10
             },
             "end": {
-              "line": 288,
+              "line": 231,
               "column": 11
             }
           },
@@ -6342,11 +6289,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 290,
+              "line": 233,
               "column": 10
             },
             "end": {
-              "line": 293,
+              "line": 236,
               "column": 11
             }
           },
@@ -6492,11 +6439,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 303,
+              "line": 246,
               "column": 6
             },
             "end": {
-              "line": 312,
+              "line": 257,
               "column": 7
             }
           },
@@ -6535,11 +6482,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 434,
+              "line": 363,
               "column": 6
             },
             "end": {
-              "line": 456,
+              "line": 384,
               "column": 7
             }
           },
@@ -6585,11 +6532,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 464,
+              "line": 391,
               "column": 6
             },
             "end": {
-              "line": 468,
+              "line": 394,
               "column": 7
             }
           },
@@ -6710,11 +6657,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 409,
+              "line": 340,
               "column": 6
             },
             "end": {
-              "line": 411,
+              "line": 342,
               "column": 7
             }
           },
@@ -6868,11 +6815,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 314,
+              "line": 259,
               "column": 6
             },
             "end": {
-              "line": 317,
+              "line": 262,
               "column": 7
             }
           },
@@ -6885,11 +6832,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 319,
+              "line": 264,
               "column": 6
             },
             "end": {
-              "line": 326,
+              "line": 269,
               "column": 7
             }
           },
@@ -6902,11 +6849,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 328,
+              "line": 271,
               "column": 6
             },
             "end": {
-              "line": 335,
+              "line": 276,
               "column": 7
             }
           },
@@ -6919,11 +6866,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 340,
+              "line": 281,
               "column": 6
             },
             "end": {
-              "line": 343,
+              "line": 284,
               "column": 7
             }
           },
@@ -6936,11 +6883,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 348,
+              "line": 289,
               "column": 6
             },
             "end": {
-              "line": 351,
+              "line": 292,
               "column": 7
             }
           },
@@ -6957,11 +6904,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 353,
+              "line": 294,
               "column": 6
             },
             "end": {
-              "line": 376,
+              "line": 320,
               "column": 7
             }
           },
@@ -6973,54 +6920,16 @@
           ]
         },
         {
-          "name": "_startIncrem",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 378,
-              "column": 6
-            },
-            "end": {
-              "line": 383,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "step"
-            }
-          ]
-        },
-        {
-          "name": "_stopIncrem",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 385,
-              "column": 6
-            },
-            "end": {
-              "line": 389,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": []
-        },
-        {
           "name": "_increm",
           "description": "",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 391,
+              "line": 322,
               "column": 6
             },
             "end": {
-              "line": 407,
+              "line": 338,
               "column": 7
             }
           },
@@ -7037,11 +6946,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 413,
+              "line": 344,
               "column": 6
             },
             "end": {
-              "line": 432,
+              "line": 361,
               "column": 7
             }
           },
@@ -7058,11 +6967,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 458,
+              "line": 386,
               "column": 6
             },
             "end": {
-              "line": 462,
+              "line": 389,
               "column": 7
             }
           },
@@ -7079,11 +6988,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 470,
+              "line": 396,
               "column": 6
             },
             "end": {
-              "line": 478,
+              "line": 405,
               "column": 7
             }
           },
@@ -7102,15 +7011,15 @@
         },
         {
           "name": "resize",
-          "description": "manually resize the input, when the input is for example initially hidden",
+          "description": "manually resize the minsize of the input, when the input is for example initially hidden",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 483,
+              "line": 410,
               "column": 6
             },
             "end": {
-              "line": 514,
+              "line": 440,
               "column": 7
             }
           },
@@ -7123,11 +7032,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 516,
+              "line": 442,
               "column": 6
             },
             "end": {
-              "line": 522,
+              "line": 448,
               "column": 7
             }
           },
@@ -7140,11 +7049,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 524,
+              "line": 450,
               "column": 6
             },
             "end": {
-              "line": 526,
+              "line": 452,
               "column": 7
             }
           },
@@ -7157,11 +7066,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 528,
+              "line": 454,
               "column": 6
             },
             "end": {
-              "line": 538,
+              "line": 464,
               "column": 7
             }
           },
@@ -7205,11 +7114,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 540,
+              "line": 466,
               "column": 6
             },
             "end": {
-              "line": 564,
+              "line": 490,
               "column": 7
             }
           },
@@ -7247,11 +7156,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 566,
+              "line": 492,
               "column": 6
             },
             "end": {
-              "line": 581,
+              "line": 507,
               "column": 7
             }
           },
@@ -7277,11 +7186,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 583,
+              "line": 509,
               "column": 6
             },
             "end": {
-              "line": 588,
+              "line": 514,
               "column": 7
             }
           },
@@ -7301,11 +7210,11 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 17,
+          "line": 18,
           "column": 2
         },
         "end": {
-          "line": 590,
+          "line": 516,
           "column": 3
         }
       },
@@ -7371,11 +7280,11 @@
           "description": "minimum digits right to the decimal separator",
           "sourceRange": {
             "start": {
-              "line": 258,
+              "line": 201,
               "column": 10
             },
             "end": {
-              "line": 262,
+              "line": 205,
               "column": 11
             }
           },
@@ -7387,11 +7296,11 @@
           "description": "maximum digits right to the decimal separator",
           "sourceRange": {
             "start": {
-              "line": 267,
+              "line": 210,
               "column": 10
             },
             "end": {
-              "line": 271,
+              "line": 214,
               "column": 11
             }
           },
@@ -7403,11 +7312,11 @@
           "description": "minimum digits left to the decimal separator to pad",
           "sourceRange": {
             "start": {
-              "line": 276,
+              "line": 219,
               "column": 10
             },
             "end": {
-              "line": 280,
+              "line": 223,
               "column": 11
             }
           },
@@ -7491,11 +7400,11 @@
           "description": "always put the sign at the beginning",
           "sourceRange": {
             "start": {
-              "line": 202,
+              "line": 153,
               "column": 10
             },
             "end": {
-              "line": 205,
+              "line": 156,
               "column": 11
             }
           },
@@ -7849,11 +7758,11 @@
           "description": "length to pad the string (with `0`) according to the total amount of numbers",
           "sourceRange": {
             "start": {
-              "line": 180,
+              "line": 124,
               "column": 10
             },
             "end": {
-              "line": 182,
+              "line": 126,
               "column": 11
             }
           },
@@ -7865,11 +7774,11 @@
           "description": "placeholder string",
           "sourceRange": {
             "start": {
-              "line": 188,
+              "line": 132,
               "column": 10
             },
             "end": {
-              "line": 190,
+              "line": 134,
               "column": 11
             }
           },
@@ -7881,27 +7790,43 @@
           "description": "if set `true`, the attributes `min`, `max`, `start-at` and `default` won't be used to compute a mininmal width. `minlenght` and `placeholder` will still be used.",
           "sourceRange": {
             "start": {
-              "line": 195,
+              "line": 139,
               "column": 10
             },
             "end": {
-              "line": 197,
+              "line": 141,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "boolean"
+        },
+        {
+          "name": "auto-resize",
+          "description": "if set `true`, the input will be resized when you type in, but always when you confirm the input (by moving out or pressing enter)",
+          "sourceRange": {
+            "start": {
+              "line": 146,
+              "column": 10
+            },
+            "end": {
+              "line": 148,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
         },
         {
           "name": "auto-padding",
           "description": "enables auto padding",
           "sourceRange": {
             "start": {
-              "line": 211,
+              "line": 162,
               "column": 10
             },
             "end": {
-              "line": 213,
+              "line": 164,
               "column": 11
             }
           },
@@ -7913,11 +7838,11 @@
           "description": "string value of the input",
           "sourceRange": {
             "start": {
-              "line": 218,
+              "line": 169,
               "column": 10
             },
             "end": {
-              "line": 222,
+              "line": 173,
               "column": 11
             }
           },
@@ -7929,11 +7854,11 @@
           "description": "start where to increment the value",
           "sourceRange": {
             "start": {
-              "line": 243,
+              "line": 186,
               "column": 10
             },
             "end": {
-              "line": 245,
+              "line": 188,
               "column": 11
             }
           },
@@ -7945,11 +7870,11 @@
           "description": "minimum character width of the input",
           "sourceRange": {
             "start": {
-              "line": 250,
+              "line": 193,
               "column": 10
             },
             "end": {
-              "line": 253,
+              "line": 196,
               "column": 11
             }
           },
@@ -7961,11 +7886,11 @@
           "description": "",
           "sourceRange": {
             "start": {
-              "line": 290,
+              "line": 233,
               "column": 10
             },
             "end": {
-              "line": 293,
+              "line": 236,
               "column": 11
             }
           },
@@ -8069,11 +7994,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 258,
+              "line": 201,
               "column": 10
             },
             "end": {
-              "line": 262,
+              "line": 205,
               "column": 11
             }
           },
@@ -8093,11 +8018,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 267,
+              "line": 210,
               "column": 10
             },
             "end": {
-              "line": 271,
+              "line": 214,
               "column": 11
             }
           },
@@ -8117,11 +8042,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 276,
+              "line": 219,
               "column": 10
             },
             "end": {
-              "line": 280,
+              "line": 223,
               "column": 11
             }
           },
@@ -8226,11 +8151,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 202,
+              "line": 153,
               "column": 10
             },
             "end": {
-              "line": 205,
+              "line": 156,
               "column": 11
             }
           },
@@ -8763,11 +8688,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 180,
+              "line": 124,
               "column": 10
             },
             "end": {
-              "line": 182,
+              "line": 126,
               "column": 11
             }
           },
@@ -8784,11 +8709,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 188,
+              "line": 132,
               "column": 10
             },
             "end": {
-              "line": 190,
+              "line": 134,
               "column": 11
             }
           },
@@ -8799,17 +8724,38 @@
         },
         {
           "name": "noAutoWidth",
-          "type": "string",
+          "type": "boolean",
           "description": "if set `true`, the attributes `min`, `max`, `start-at` and `default` won't be used to compute a mininmal width. `minlenght` and `placeholder` will still be used.",
           "privacy": "public",
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 195,
+              "line": 139,
               "column": 10
             },
             "end": {
-              "line": 197,
+              "line": 141,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "autoResize",
+          "type": "boolean",
+          "description": "if set `true`, the input will be resized when you type in, but always when you confirm the input (by moving out or pressing enter)",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "number-input.html",
+            "start": {
+              "line": 146,
+              "column": 10
+            },
+            "end": {
+              "line": 148,
               "column": 11
             }
           },
@@ -8826,11 +8772,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 211,
+              "line": 162,
               "column": 10
             },
             "end": {
-              "line": 213,
+              "line": 164,
               "column": 11
             }
           },
@@ -8847,11 +8793,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 218,
+              "line": 169,
               "column": 10
             },
             "end": {
-              "line": 222,
+              "line": 173,
               "column": 11
             }
           },
@@ -8864,29 +8810,6 @@
           "inheritedFrom": "NumberInputMixin"
         },
         {
-          "name": "_input",
-          "type": "string",
-          "description": "the live-input",
-          "privacy": "protected",
-          "sourceRange": {
-            "file": "number-input.html",
-            "start": {
-              "line": 227,
-              "column": 10
-            },
-            "end": {
-              "line": 230,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "observer": "\"_debouncedComputeWidth\""
-            }
-          },
-          "inheritedFrom": "NumberInputMixin"
-        },
-        {
           "name": "_minWidthString",
           "type": "string",
           "description": "string that is used to compute the minimal width of the input",
@@ -8894,11 +8817,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 235,
+              "line": 178,
               "column": 10
             },
             "end": {
-              "line": 238,
+              "line": 181,
               "column": 11
             }
           },
@@ -8917,11 +8840,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 243,
+              "line": 186,
               "column": 10
             },
             "end": {
-              "line": 245,
+              "line": 188,
               "column": 11
             }
           },
@@ -8938,11 +8861,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 250,
+              "line": 193,
               "column": 10
             },
             "end": {
-              "line": 253,
+              "line": 196,
               "column": 11
             }
           },
@@ -8960,11 +8883,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 285,
+              "line": 228,
               "column": 10
             },
             "end": {
-              "line": 288,
+              "line": 231,
               "column": 11
             }
           },
@@ -8983,11 +8906,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 290,
+              "line": 233,
               "column": 10
             },
             "end": {
-              "line": 293,
+              "line": 236,
               "column": 11
             }
           },
@@ -9133,11 +9056,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 303,
+              "line": 246,
               "column": 6
             },
             "end": {
-              "line": 312,
+              "line": 257,
               "column": 7
             }
           },
@@ -9178,11 +9101,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 434,
+              "line": 363,
               "column": 6
             },
             "end": {
-              "line": 456,
+              "line": 384,
               "column": 7
             }
           },
@@ -9230,11 +9153,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 464,
+              "line": 391,
               "column": 6
             },
             "end": {
-              "line": 468,
+              "line": 394,
               "column": 7
             }
           },
@@ -9355,11 +9278,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 409,
+              "line": 340,
               "column": 6
             },
             "end": {
-              "line": 411,
+              "line": 342,
               "column": 7
             }
           },
@@ -9515,11 +9438,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 314,
+              "line": 259,
               "column": 6
             },
             "end": {
-              "line": 317,
+              "line": 262,
               "column": 7
             }
           },
@@ -9534,11 +9457,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 319,
+              "line": 264,
               "column": 6
             },
             "end": {
-              "line": 326,
+              "line": 269,
               "column": 7
             }
           },
@@ -9553,11 +9476,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 328,
+              "line": 271,
               "column": 6
             },
             "end": {
-              "line": 335,
+              "line": 276,
               "column": 7
             }
           },
@@ -9572,11 +9495,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 340,
+              "line": 281,
               "column": 6
             },
             "end": {
-              "line": 343,
+              "line": 284,
               "column": 7
             }
           },
@@ -9591,11 +9514,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 348,
+              "line": 289,
               "column": 6
             },
             "end": {
-              "line": 351,
+              "line": 292,
               "column": 7
             }
           },
@@ -9614,11 +9537,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 353,
+              "line": 294,
               "column": 6
             },
             "end": {
-              "line": 376,
+              "line": 320,
               "column": 7
             }
           },
@@ -9631,59 +9554,17 @@
           "inheritedFrom": "NumberInputMixin"
         },
         {
-          "name": "_startIncrem",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "file": "number-input.html",
-            "start": {
-              "line": 378,
-              "column": 6
-            },
-            "end": {
-              "line": 383,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "step"
-            }
-          ],
-          "inheritedFrom": "NumberInputMixin"
-        },
-        {
-          "name": "_stopIncrem",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "file": "number-input.html",
-            "start": {
-              "line": 385,
-              "column": 6
-            },
-            "end": {
-              "line": 389,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [],
-          "inheritedFrom": "NumberInputMixin"
-        },
-        {
           "name": "_increm",
           "description": "",
           "privacy": "protected",
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 391,
+              "line": 322,
               "column": 6
             },
             "end": {
-              "line": 407,
+              "line": 338,
               "column": 7
             }
           },
@@ -9702,11 +9583,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 413,
+              "line": 344,
               "column": 6
             },
             "end": {
-              "line": 432,
+              "line": 361,
               "column": 7
             }
           },
@@ -9725,11 +9606,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 458,
+              "line": 386,
               "column": 6
             },
             "end": {
-              "line": 462,
+              "line": 389,
               "column": 7
             }
           },
@@ -9748,11 +9629,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 470,
+              "line": 396,
               "column": 6
             },
             "end": {
-              "line": 478,
+              "line": 405,
               "column": 7
             }
           },
@@ -9772,16 +9653,16 @@
         },
         {
           "name": "resize",
-          "description": "manually resize the input, when the input is for example initially hidden",
+          "description": "manually resize the minsize of the input, when the input is for example initially hidden",
           "privacy": "public",
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 483,
+              "line": 410,
               "column": 6
             },
             "end": {
-              "line": 514,
+              "line": 440,
               "column": 7
             }
           },
@@ -9796,11 +9677,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 516,
+              "line": 442,
               "column": 6
             },
             "end": {
-              "line": 522,
+              "line": 448,
               "column": 7
             }
           },
@@ -9815,11 +9696,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 524,
+              "line": 450,
               "column": 6
             },
             "end": {
-              "line": 526,
+              "line": 452,
               "column": 7
             }
           },
@@ -9834,11 +9715,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 528,
+              "line": 454,
               "column": 6
             },
             "end": {
-              "line": 538,
+              "line": 464,
               "column": 7
             }
           },
@@ -9884,11 +9765,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 540,
+              "line": 466,
               "column": 6
             },
             "end": {
-              "line": 564,
+              "line": 490,
               "column": 7
             }
           },
@@ -10032,11 +9913,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 258,
+              "line": 201,
               "column": 10
             },
             "end": {
-              "line": 262,
+              "line": 205,
               "column": 11
             }
           },
@@ -10050,11 +9931,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 267,
+              "line": 210,
               "column": 10
             },
             "end": {
-              "line": 271,
+              "line": 214,
               "column": 11
             }
           },
@@ -10068,11 +9949,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 276,
+              "line": 219,
               "column": 10
             },
             "end": {
-              "line": 280,
+              "line": 223,
               "column": 11
             }
           },
@@ -10158,11 +10039,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 202,
+              "line": 153,
               "column": 10
             },
             "end": {
-              "line": 205,
+              "line": 156,
               "column": 11
             }
           },
@@ -10516,11 +10397,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 180,
+              "line": 124,
               "column": 10
             },
             "end": {
-              "line": 182,
+              "line": 126,
               "column": 11
             }
           },
@@ -10534,11 +10415,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 188,
+              "line": 132,
               "column": 10
             },
             "end": {
-              "line": 190,
+              "line": 134,
               "column": 11
             }
           },
@@ -10552,16 +10433,34 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 195,
+              "line": 139,
               "column": 10
             },
             "end": {
-              "line": 197,
+              "line": 141,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "string",
+          "type": "boolean",
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "auto-resize",
+          "description": "if set `true`, the input will be resized when you type in, but always when you confirm the input (by moving out or pressing enter)",
+          "sourceRange": {
+            "file": "number-input.html",
+            "start": {
+              "line": 146,
+              "column": 10
+            },
+            "end": {
+              "line": 148,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
           "inheritedFrom": "NumberInputMixin"
         },
         {
@@ -10570,11 +10469,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 211,
+              "line": 162,
               "column": 10
             },
             "end": {
-              "line": 213,
+              "line": 164,
               "column": 11
             }
           },
@@ -10588,11 +10487,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 218,
+              "line": 169,
               "column": 10
             },
             "end": {
-              "line": 222,
+              "line": 173,
               "column": 11
             }
           },
@@ -10606,11 +10505,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 243,
+              "line": 186,
               "column": 10
             },
             "end": {
-              "line": 245,
+              "line": 188,
               "column": 11
             }
           },
@@ -10624,11 +10523,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 250,
+              "line": 193,
               "column": 10
             },
             "end": {
-              "line": 253,
+              "line": 196,
               "column": 11
             }
           },
@@ -10642,11 +10541,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 290,
+              "line": 233,
               "column": 10
             },
             "end": {
-              "line": 293,
+              "line": 236,
               "column": 11
             }
           },
