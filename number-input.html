@@ -76,7 +76,7 @@
            */
           type: {
             type: String,
-            computed: '_computeType(decimalSeparator, numberStyle, unit)'
+            computed: '_computeType(decimalSeparator, numberStyle, unit, alwaysSign)'
           },
 
           /**
@@ -225,10 +225,10 @@
         }
       }
 
-      _computeType(decimalSeparator, numberStyle, unit) {
+      _computeType(decimalSeparator, numberStyle, unit, alwaysSign) {
         // maximize compatibility for mobile keyboards
         if (decimalSeparator === '.') {
-          if (numberStyle === 'decimal' && unit === '') {
+          if (numberStyle === 'decimal' && unit === '' && !alwaysSign) {
             return 'number';
           }
           return 'tel';
