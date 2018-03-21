@@ -22,12 +22,14 @@
       static get styleTemplate() {
         return `
           ${super.styleTemplate || ''}
+          #minsize,
           #size,
           #input {
-            text-align: var(--input-allign, end);
             @apply --number-input;
             margin: 0;
             min-width: 1ch;
+            -moz-appearance: textfield;
+            appearance: textfield;
           }
           :host(:focus) #input,
           :host(:hover) #input,
@@ -44,13 +46,6 @@
           #input::-webkit-inner-spin-button,
           #input::-webkit-outer-spin-button {
             -webkit-appearance: none;
-          }
-          #size {
-            position: fixed;
-            top: 0; left: 0; right: auto; bottom: auto;
-            visibility: hidden !important;
-            opacity: 0 !important;
-            pointer-events: none !important;
           }
           #input::-webkit-input-placeholder,
           #input::placeholder {
@@ -224,6 +219,12 @@
         this._debouncedComputeWidth();
       }
 
+      _defaultChanged(def) {
+        if (isNaN(this.value) && !isNaN(def)) {
+          this.value = def;
+        }
+      }
+
       _computeType(decimalSeparator, numberStyle, unit) {
         // maximize compatibility for mobile keyboards
         if (decimalSeparator === '.') {
@@ -242,13 +243,13 @@
         }
 
         this._minWidthComputionJob = setTimeout(() => {
-          const def = this.formatNumber(def || 0),
+          const def = this.formatNumber(this.default || 0),
             placeholder = this.placeholder || '',
-            startAt = this.formatNumber(startAt || 0),
-            min = this.formatNumber(min || 0),
-            max = this.formatNumber(max || 0),
-            minlength = this.formatNumber(Math.pow(10, (minlength || 1) - 1));
-          const gen = (!this.alwaysSign && (min < 0 || max < 0) ? '-' : '') + this.formatNumber(Math.pow(10, (this.minimumIntegerDigits || 1) - 1) + Math.pow(10, -(this.minimumFractionDigits || 0)));
+            startAt = this.formatNumber(this.startAt || 0),
+            min = this.formatNumber(this.min || 0),
+            max = this.formatNumber(this.max || 0),
+            minlength = this.formatNumber(Math.pow(10, (this.minlength || 1) - 1));
+          const gen = (!this.alwaysSign && (this.min < 0 || this.max < 0) ? '-' : '') + this.formatNumber(Math.pow(10, (this.minimumIntegerDigits || 1) - 1) + Math.pow(10, -(this.minimumFractionDigits || 0)));
           this._minWidthString = (this.noAutoWidth ? [minlength] : [max, min, def, startAt, gen, minlength]).reduce( (acc, curr) => {
             return curr.length > acc.length ? curr : acc;
           }, placeholder);
@@ -341,7 +342,7 @@
      * `--input-padding`                 | padding of the input                           | 0.2em
      * `--input-border-radius`           | border-radius of the input                     | 0.25em
      * `--input-transition`              | transition of the input                        | background 250ms cubic-bezier(0.6, 1, 0.2, 1)
-     * `--input-allign`                  | text-allign of the input input                 | end
+     * `--input-allign`                  | text-allign of the input input                 | center
      * `--input-cursor`                  | cursor of the input input                      | initial
      * `--input-focus-color`             | color of the focussed and hovered input        | inherit
      * `--input-focus-background`        | background of the focussed and hovered input   | rgba(0, 0, 0, 0.16)
