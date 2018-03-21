@@ -48,6 +48,7 @@ This element wants to achieve that, by using the [Intl.NumberFormat API](https:/
             color: rgba(0,0,0,0.8);
             padding: 6px;
             border-radius: 0;
+            font-size: 0.9em;
           };
           --number-input-focus: {
             background: rgb(35, 35, 40);
