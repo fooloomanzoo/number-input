@@ -1819,6 +1819,9 @@
             },
             {
               "name": "unit"
+            },
+            {
+              "name": "alwaysSign"
             }
           ],
           "inheritedFrom": "NumberInputMixin"
@@ -4486,6 +4489,9 @@
             },
             {
               "name": "unit"
+            },
+            {
+              "name": "alwaysSign"
             }
           ],
           "inheritedFrom": "IntegerInputMixin"
@@ -7115,6 +7121,9 @@
             },
             {
               "name": "unit"
+            },
+            {
+              "name": "alwaysSign"
             }
           ]
         },
@@ -9758,6 +9767,9 @@
             },
             {
               "name": "unit"
+            },
+            {
+              "name": "alwaysSign"
             }
           ]
         },
