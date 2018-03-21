@@ -32,7 +32,6 @@
   "dependencies": {
     "@polymer/polymer": "^2",
     "@fooloomanzoo/input-picker-pattern": "^2",
-    "@fooloomanzoo/text-input": "^2",
     "@fooloomanzoo/property-mixins": "^2"
   },
   "devDependencies": {

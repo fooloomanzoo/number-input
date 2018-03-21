@@ -2,8 +2,7 @@
 
 <link rel="import" href="../property-mixins/range-mixin.html">
 <link rel="import" href="../property-mixins/intl-number-format-mixin.html">
-<link rel="import" href="../input-picker-pattern/form-element-mixin.html">
-<link rel="import" href="../input-picker-pattern/input-shared-style.html">
+<link rel="import" href="../input-picker-pattern/input-pattern.html">
 
 <script>
   /**
@@ -11,61 +10,24 @@
    *
    * @appliesMixin IntlNumberFormatMixin
    * @appliesMixin RangeMixin
-   * @appliesMixin FormElementMixin
+   * @appliesMixin InputPattern
    *
    * @mixinFunction
    * @polymer
    */
   const NumberInputMixin = superClass => { // eslint-disable-line no-unused-vars
 
-    return class extends RangeMixin(FormElementMixin(IntlNumberFormatMixin(superClass))) {  // eslint-disable-line no-undef
-
-      static get template() {
-        return `
-          <style include="${this.styleToInclude}">
-            ${this.styleTemplate}
-          </style>
-          ${this.inputTemplate}
-        `;
-      }
-
-      static get styleToInclude() {
-        return 'input-shared-style';
-      }
+    return class extends RangeMixin(InputPattern(IntlNumberFormatMixin(superClass))) {  // eslint-disable-line no-undef
 
       static get styleTemplate() {
         return `
           ${super.styleTemplate || ''}
-          :host {
-            display: inline-flex;
-            justify-content: center;
-            box-sizing: content-box;
-          }
-          #size {
-            display: block;
-            overflow: visible;
-            font-family: inherit;
-            font-size: inherit;
-            font-weight: inherit;
-            font-style: inherit;
-            color: inherit;
-            background: transparent;
-            outline: none;
-            line-height: normal;
-            box-sizing: content-box;
-            text-align: var(--input-allign, center);
-            padding: var(--input-padding, 0.25em);
-            border-radius: var(--input-border-radius, 0.25em);
-            border-width: var(--input-border-width, thin);
-            border-style: var(--input-border-style, dotted);
-            border-color: var(--input-border-color, transparent);
-            @apply --input-style;
+          #size,
+          #input {
+            text-align: var(--input-allign, end);
             @apply --number-input;
             margin: 0;
-          }
-          #input {
-            @apply --number-input;
-            width: 1ch;
+            min-width: 1ch;
           }
           :host(:focus) #input,
           :host(:hover) #input,
@@ -97,22 +59,17 @@
         `;
       }
 
-      /**
-       * An input of type 'tel' is used to use on mobile devices an numeric keyboard.
-       * To compute the correct width of the input a div is used that uses the same style (only that it is not visible and not bound to the context) to compute the style.
-       */
       static get inputTemplate() {
         return `
           <input id="input"
-            type="[[_type]]"
+            type="[[type]]"
+            value="{{_input::input}}"
             step="[[step]]"
             placeholder="[[placeholder]]"
             required="[[required]]"
             disabled="[[disabled]]"
             spellcheck="false"
-            autocomplete="off"
-            value="{{_input::input}}">
-          <div id="size">[[_input]]</div>
+            autocomplete="off">
         `;
       }
 
@@ -120,33 +77,18 @@
         return {
 
           /**
+           * type of the input
+           */
+          type: {
+            type: String,
+            computed: '_computeType(decimalSeparator, numberStyle, unit)'
+          },
+
+          /**
            * length to pad the string (with `0`) according to the total amount of numbers
-           * @type {number}
            */
           padLength: {
             type: Number
-          },
-
-          /**
-           * placeholder string
-           * @type {string}
-           */
-          placeholder: {
-            type: String
-          },
-
-          /**
-           * if set `true`, the attributes `min`, `max`, `start-at` and `default` won't be used to compute a mininmal width. `minlenght` and `placeholder` will still be used.
-           */
-          noAutoWidth: {
-            type: Boolean
-          },
-
-          /**
-           * if set `true`, the input will be resized when you type in, but always when you confirm the input (by moving out or pressing enter)
-           */
-          autoResize: {
-            type: Boolean
           },
 
           /**
@@ -166,42 +108,10 @@
           },
 
           /**
-           * string value of the input
-           */
-          input: {
-            type: String,
-            notify: true,
-            observer: '_inputChanged'
-          },
-
-          /**
-           * live value of the input
-           */
-          _input: {
-            type: String
-          },
-
-          /**
-           * string that is used to compute the minimal width of the input
-           */
-          _minWidthString: {
-            type: String,
-            observer: 'resize'
-          },
-
-          /**
            * start where to increment the value
            */
           startAt: {
             type: Number
-          },
-
-          /**
-           * minimum character width of the input
-           */
-          minlength: {
-            type: Number,
-            value: 1
           },
 
           /**
@@ -229,75 +139,15 @@
             type: Number,
             computed: '_computeMinimumIntegerDigits(autoPadding, padLength, default, startAt, min, max, _step, numberStyle)',
             notify: true
-          },
-
-          /**
-           * type of the input
-           */
-          _type: {
-            type: String,
-            computed: '_computeType(decimalSeparator, numberStyle, unit)'
-          },
-
-          hidden: {
-            type: Boolean,
-            observer: 'resize'
           }
         }
       }
 
       static get observers() {
         return [
-          '_computeMinWidth(noAutoWidth, formatNumber, placeholder, minlength, default, startAt, min, max, minimumIntegerDigits, minimumFractionDigits)'
+          '_computeMinWidth(formatNumber, startAt, min, max, minimumIntegerDigits, minimumFractionDigits)',
+          '_updateValue(formatNumber)'
         ]
-      }
-
-      connectedCallback() {
-        super.connectedCallback();
-        this.focus = this.focus.bind(this);
-        this._updateValue = this._updateValue.bind(this);
-        this._checkInput = this._checkInput.bind(this);
-        this._checkKeycode = this._checkKeycode.bind(this);
-        this._addEventListeners();
-        this._debouncedComputeWidth();
-        setTimeout(() => {
-          this.resize();
-        }, 0)
-      }
-
-      disconnectedCallback() {
-        super.disconnectedCallback();
-        this._removeEventListeners();
-      }
-
-      _addEventListeners() {
-        this.addEventListener('focus', this.focus, false);
-        this.$.input.addEventListener('focus', this._updateValue, false);
-        this.$.input.addEventListener('blur', this._checkInput, false);
-        this.$.input.addEventListener('keydown', this._checkKeycode, false);
-      }
-
-      _removeEventListeners() {
-        this.removeEventListener('focus', this.focus, false);
-        this.$.input.removeEventListener('focus', this._updateValue, false);
-        this.$.input.removeEventListener('blur', this._checkInput, false);
-        this.$.input.removeEventListener('keydown', this._checkKeycode, false);
-      }
-
-      /**
-       * focus the input
-       */
-      focus() {
-        this.$.input.focus();
-        this.$.input.scrollIntoViewIfNeeded && this.$.input.scrollIntoViewIfNeeded();
-      }
-
-      /**
-       * focus the input
-       */
-      blur(e) {
-        this._checkInput(e);
-        this.$.input.blur();
       }
 
       _checkKeycode(e) {
@@ -310,23 +160,7 @@
           return;
         }
 
-        // enter & space
-        if (e.keyCode === 13 || e.keyCode === 32) {
-          this._checkInput();
-          return;
-        }
-
-        // esc
-        if (e.keyCode === 27) {
-          this._updateValue();
-          e.stopPropagation();
-          this.blur();
-          return;
-        }
-
-        if (this.autoResize) {
-          this._debouncedComputeWidth();
-        }
+        super._checkKeycode && super._checkKeycode(e);
       }
 
       _increm(step) {
@@ -339,9 +173,6 @@
           } else {
             this.value = this.min < 0 ? 0 : this.min || 0;
           }
-        } else if (!this.noClamp) {
-          // still clamp to step, when incrementing
-          this.value = this._checkStep(this._checkValue(value, this.value), step);
         } else {
           this.value = this._checkValue(value, this.value);
         }
@@ -354,16 +185,15 @@
       _inputChanged(input) {
         if (!input) {
           if (!isNaN(this.default)) {
-            this.input = this._input = this.formatNumber(this.default);
+            this._input = this.formatNumber(this.default);
           }
           return;
         }
         const value = this._checkValue(this.parseNumber(input), this.value);
         input = this.formatNumber(value);
 
-        if (this.input !== input) {
-          this.input = this._input = input;
-          return;
+        if (this._input !== input) {
+          this._input = input;
         }
 
         this.value = value;
@@ -375,7 +205,7 @@
           if (!isNaN(this.default)) {
             this.value = this.default;
           } else {
-            this.input = this._input = '';
+            this._input = '';
           }
           return;
         }
@@ -390,17 +220,8 @@
           this.value = value;
           return;
         }
-        this.input = this._input = this.formatNumber(value);
-      }
-
-      _checkInput(e) {
-        this._inputChanged(this._input);
-        e && e.stopPropagation && e.stopPropagation();
-      }
-
-      _updateValue(e) {
-        this._valueChanged(this.value);
-        e && e.stopPropagation && e.stopPropagation();
+        this._input = this.formatNumber(value);
+        this._debouncedComputeWidth();
       }
 
       _computeType(decimalSeparator, numberStyle, unit) {
@@ -414,63 +235,24 @@
         return 'text';
       }
 
-      /**
-       * manually resize the minsize of the input, when the input is for example initially hidden
-       */
-      resize() {
-        if (this._minSizeJob) {
-          return;
+      _computeMinWidth() {
+        if (this._minWidthComputionJob) {
+          clearTimeout(this._minWidthComputionJob);
+          this._minWidthComputionJob = null;
         }
-        let _minSizeElement = document.createElement('div');
-        _minSizeElement.style.cssText = window.getComputedStyle(this.$.size, null).cssText;
-        _minSizeElement.style.width = '';
-        _minSizeElement.style.minWidth = '';
-        _minSizeElement.style.position = 'fixed';
-        _minSizeElement.style.display = 'block';
-        _minSizeElement.style.right = 'auto';
-        _minSizeElement.style.bottom = 'auto';
-        _minSizeElement.innerHTML = this._minWidthString || '0';
-        /* create an element for sizing on document level if the number-input is hidden */
-        document.body.appendChild(_minSizeElement);
 
-        const minsizer = () => {
-          const width = _minSizeElement.getBoundingClientRect().width;
-          this._minSizeJob = null;
-          if (width === 0) {
-            _minSizeElement.innerHTML = this._minWidthString || '0';
-            this._minSizeJob = requestAnimationFrame(minsizer.bind(this));
-          } else {
-            this.$.input.style.minWidth = `${width}px`;
-            document.body.removeChild(_minSizeElement);
-            _minSizeElement = null;
-            this._debouncedComputeWidth();
-          }
-        }
-        this._minSizeJob = requestAnimationFrame(minsizer.bind(this));
-      }
-
-      _debouncedComputeWidth() {
-        if (this._activeResizeJob) {
-          clearTimeout(this._activeResizeJob);
-        }
-        // this._minWidth || this.resize();
-        this._activeResizeJob = setTimeout(this._computeWidth.bind(this), 0);
-      }
-
-      _computeWidth() {
-        this.$.input.style.width = `${this.$.size.getBoundingClientRect().width}px`;
-      }
-
-      _computeMinWidth(noAutoWidth, formatNumber, placeholder, minlength, def, startAt, min, max, minimumIntegerDigits, minimumFractionDigits) {
-        def = formatNumber(def || 0);
-        startAt = formatNumber(startAt || 0);
-        min = formatNumber(min || 0);
-        max = formatNumber(max || 0);
-        minlength = formatNumber(Math.pow(10, (minlength || 1) - 1));
-        const gen = (!this.alwaysSign && (min < 0 || max < 0) ? '-' : '') + formatNumber(Math.pow(10, (minimumIntegerDigits || 1) - 1) + Math.pow(10, -(minimumFractionDigits || 0)));
-        this._minWidthString = (noAutoWidth ? [minlength] : [max, min, def, startAt, gen, minlength]).reduce( (acc, curr) => {
-          return curr.length > acc.length ? curr : acc;
-        }, placeholder || '');
+        this._minWidthComputionJob = setTimeout(() => {
+          const def = this.formatNumber(def || 0),
+            placeholder = this.placeholder || '',
+            startAt = this.formatNumber(startAt || 0),
+            min = this.formatNumber(min || 0),
+            max = this.formatNumber(max || 0),
+            minlength = this.formatNumber(Math.pow(10, (minlength || 1) - 1));
+          const gen = (!this.alwaysSign && (min < 0 || max < 0) ? '-' : '') + this.formatNumber(Math.pow(10, (this.minimumIntegerDigits || 1) - 1) + Math.pow(10, -(this.minimumFractionDigits || 0)));
+          this._minWidthString = (this.noAutoWidth ? [minlength] : [max, min, def, startAt, gen, minlength]).reduce( (acc, curr) => {
+            return curr.length > acc.length ? curr : acc;
+          }, placeholder);
+        }, 0);
       }
 
       _computeMinimumIntegerDigits(autoPadding, padLength, def, startAt, min, max, step, numberStyle) {
@@ -524,7 +306,7 @@
       }
     }
   }
-
+  window.NumberInputMixin = NumberInputMixin;
 </script>
 
 <dom-module id="number-input">
@@ -559,7 +341,7 @@
      * `--input-padding`                 | padding of the input                           | 0.2em
      * `--input-border-radius`           | border-radius of the input                     | 0.25em
      * `--input-transition`              | transition of the input                        | background 250ms cubic-bezier(0.6, 1, 0.2, 1)
-     * `--input-allign`                  | text-allign of the input input                 | center
+     * `--input-allign`                  | text-allign of the input input                 | end
      * `--input-cursor`                  | cursor of the input input                      | initial
      * `--input-focus-color`             | color of the focussed and hovered input        | inherit
      * `--input-focus-background`        | background of the focussed and hovered input   | rgba(0, 0, 0, 0.16)
@@ -575,6 +357,7 @@
      * `--input-disabled-opacity`        | opacity of the disabled input                  | 1
      * `--input-placeholder-color`       | color of the placeholder                       | inherit
      * `--input-placeholder-opacity`     | opacity of the placeholder                     | 0.75
+     * `--input-placeholder-align`       | text-allign of the placeholder                 | center
      * `--input-selection-color`         | color of the selected text                     | inherit
      * `--input-selection-background`    | background of the selected text                | rgba(255, 255, 255, 0.5)
      * `--input-style`                   | style of the input                             | {}

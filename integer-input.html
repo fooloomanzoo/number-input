@@ -1,6 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
-
 <link rel="import" href="number-input.html">
+
 <script>
   /**
    * mixin to create a integer-input
@@ -69,6 +69,8 @@
       }
     }
   }
+
+  window.IntegerInputMixin = IntegerInputMixin;
 </script>
 
 <dom-module id="integer-input">
@@ -99,7 +101,7 @@
      * `--input-padding`                 | padding of the input                         | 0.2em
      * `--input-border-radius`           | border-radius of the input                   | 0.25em
      * `--input-transition`              | transition of the input                      | background 250ms cubic-bezier(0.6, 1, 0.2, 1)
-     * `--input-allign`                  | text-allign of the input input               | center
+     * `--input-allign`                  | text-allign of the input input               | end
      * `--input-cursor`                  | cursor of the input input                    | initial
      * `--input-focus-color`             | color of the focussed and hovered input      | inherit
      * `--input-focus-background`        | background of the focussed and hovered input | rgba(0,0,0,0.16)
@@ -113,6 +115,7 @@
      * `--input-disabled-opacity`        | opacity of the disabled input                | 1
      * `--input-placeholder-color`       | color of the placeholder                     | inherit
      * `--input-placeholder-opacity`     | opacity of the placeholder                   | 0.75
+     * `--input-placeholder-align`       | text-allign of the placeholder               | center
      * `--input-selection-color`         | color of the selected text                   | inherit
      * `--input-selection-background`    | background of the selected text              | rgba(255,255,255,0.5)
      * `--input-style`                   | style of the input                           | {}

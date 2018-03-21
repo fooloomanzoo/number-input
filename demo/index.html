@@ -71,7 +71,7 @@
                     --input-transition: background 150ms ease-in-out;
                     --input-color: #111;
                     --input-border-color: transparent;
-                    --input-padding: 4px 1px;
+                    --input-padding: 0;
                     --input-border-radius: 3px;
                     --input-focus-background: rgba(0, 0, 0, 0.15);
                     margin-left: 8px;
@@ -103,7 +103,6 @@
               <custom-style>
                 <style is="custom-style">
                   #year {
-                    --input-placeholder-opacity: 0.5;
                     --input-padding: 0.3em;
                     --input-border-radius: 0.2em;
                     --input-background: rgba(0, 0, 0, 0.8);
@@ -114,6 +113,10 @@
                     --input-focus-border-style: solid;
                     --input-focus-background: rgba(0, 0, 0, 0.5);
                     --input-focus-color: #fff;
+                    --input-placeholder-opacity: 0.5;
+                    --input-placeholder: {
+                      font-style: italic;
+                    };
                   }
                 </style>
               </custom-style>
@@ -244,7 +247,7 @@
                     --input-background: rgba(60, 61, 172, 0.5);
                     --input-transition: background 150ms ease-in-out;
                     --input-color: #f1f1f1;
-                    --input-border-style: transparent;
+                    --input-border-color: transparent;
                     --input-padding: 0.3em;
                     --input-border-radius: 0;
                     --input-focus-color: white;
@@ -278,7 +281,7 @@
                     --input-transition: background 150ms ease-in-out;
                     --input-color: #f1f1f1;
                     --input-border: thin solid transparent;
-                    --input-padding: 0.3em;
+                    --input-padding: 0.25em 0.5em;
                     --input-border-radius: 0.5em;
                     --input-focus-color: #f1f1f1;
                     --input-focus-background: #333;
