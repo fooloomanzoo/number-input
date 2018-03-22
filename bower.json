@@ -21,7 +21,6 @@
   "dependencies": {
     "polymer": "Polymer/polymer#2",
     "property-mixins": "fooloomanzoo/property-mixins#2",
-    "text-input": "fooloomanzoo/text-input#2",
     "input-picker-pattern": "fooloomanzoo/input-picker-pattern#2"
   },
   "devDependencies": {
