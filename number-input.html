@@ -27,12 +27,11 @@
           #input {
             @apply --number-input;
             margin: 0;
-            min-width: 1ch;
             -moz-appearance: textfield;
             appearance: textfield;
           }
           #input {
-            width: 1ch;
+            min-width: 1ch;
           }
           :host(:focus) #input,
           :host(:hover) #input,
@@ -61,11 +60,11 @@
         return `
           <input id="input"
             type="[[type]]"
-            value="{{_input::input}}"
+            value="{{input::input}}"
             step="[[step]]"
+            required$="[[required]]"
+            disabled$="[[disabled]]"
             placeholder="[[placeholder]]"
-            required="[[required]]"
-            disabled="[[disabled]]"
             spellcheck="false"
             autocomplete="off">
         `;
@@ -79,7 +78,7 @@
            */
           type: {
             type: String,
-            computed: '_computeType(formatNumber)'
+            computed: '_computeType(formatNumber, alwaysSign)'
           },
 
           /**
@@ -143,7 +142,7 @@
 
       static get observers() {
         return [
-          '_computeMinWidth(formatNumber, startAt, min, max, minimumIntegerDigits, minimumFractionDigits)',
+          '_computeMinWidth(formatNumber, startAt, min, max, minimumIntegerDigits, minimumFractionDigits, alwaysSign)',
           '_updateValue(formatNumber)'
         ]
       }
@@ -153,7 +152,7 @@
         const step = (e.keyCode === 38) ? this._step : (e.keyCode === 40 ? -this._step : 0);
         if (step !== 0) {
           this._checkInput();
-          setTimeout(this._increm.bind(this, +step), 0);
+          setTimeout(this._increm.bind(this, this.value, +step), 0);
           e.stopPropagation();
           return;
         }
@@ -161,13 +160,13 @@
         super._checkKeycode && super._checkKeycode(e);
       }
 
-      _increm(step) {
-        let value = this._safeAdd(this.value, step);
+      _increm(value, step) {
+        value = +this._safeAdd(value, step);
         if (isNaN(value)) {
           if (!isNaN(this.startAt)) {
-            this.value = this.startAt;
+            this.value = +this.startAt;
           } else if (!isNaN(this.default)) {
-            this.value = this.default;
+            this.value = +this.default;
           } else {
             this.value = this.min < 0 ? 0 : this.min || 0;
           }
@@ -184,18 +183,23 @@
         if (!input) {
           if (!isNaN(this.default)) {
             this.setProperties({
-              _input: this.formatNumber(this.default),
+              input: this.formatNumber(this.default),
               value: +this.default
             })
           }
+          this._debouncedComputeWidth();
           return;
         }
         const value = this._checkValue(this.parseNumber(input), this.value);
+        input = this.formatNumber(value);
 
         this.setProperties({
-          _input: this.formatNumber(value),
+          input: input,
           value: value
         });
+        if (this.autoResize) {
+          this._debouncedComputeWidth();
+        }
       }
 
       _valueChanged(value, oldValue) {
@@ -203,7 +207,7 @@
           if (!isNaN(this.default)) {
             this.value = this.default;
           } else {
-            this._input = '';
+            this.input = this.input = '';
           }
           return;
         }
@@ -218,8 +222,7 @@
           this.value = value;
           return;
         }
-        this._input = this.formatNumber(value);
-        this._debouncedComputeWidth();
+        this.input = this.input = this.formatNumber(value);
       }
 
       _defaultChanged(def) {
