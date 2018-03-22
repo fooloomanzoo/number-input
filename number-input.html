@@ -31,6 +31,9 @@
             -moz-appearance: textfield;
             appearance: textfield;
           }
+          #input {
+            width: 1ch;
+          }
           :host(:focus) #input,
           :host(:hover) #input,
           #input:hover,
@@ -76,7 +79,7 @@
            */
           type: {
             type: String,
-            computed: '_computeType(decimalSeparator, numberStyle, unit, alwaysSign)'
+            computed: '_computeType(formatNumber)'
           },
 
           /**
@@ -169,7 +172,7 @@
             this.value = this.min < 0 ? 0 : this.min || 0;
           }
         } else {
-          this.value = this._checkValue(value, this.value);
+          this.value = value;
         }
       }
 
@@ -180,19 +183,19 @@
       _inputChanged(input) {
         if (!input) {
           if (!isNaN(this.default)) {
-            this._input = this.formatNumber(this.default);
+            this.setProperties({
+              _input: this.formatNumber(this.default),
+              value: +this.default
+            })
           }
           return;
         }
         const value = this._checkValue(this.parseNumber(input), this.value);
-        input = this.formatNumber(value);
 
-        if (this._input !== input) {
-          this._input = input;
-        }
-
-        this.value = value;
-        this._debouncedComputeWidth();
+        this.setProperties({
+          _input: this.formatNumber(value),
+          value: value
+        });
       }
 
       _valueChanged(value, oldValue) {
@@ -225,10 +228,10 @@
         }
       }
 
-      _computeType(decimalSeparator, numberStyle, unit, alwaysSign) {
+      _computeType() {
         // maximize compatibility for mobile keyboards
-        if (decimalSeparator === '.') {
-          if (numberStyle === 'decimal' && unit === '' && !alwaysSign) {
+        if (this.decimalSeparator === '.') {
+          if (this.numberStyle === 'decimal' && !this.unit && !this.alwaysSign  && !this.padLength && !this.autoPadding) {
             return 'number';
           }
           return 'tel';
@@ -305,6 +308,7 @@
         }
         return minimumFractionDigits;
       }
+
     }
   }
   window.NumberInputMixin = NumberInputMixin;
@@ -354,8 +358,8 @@
      * `--input-invalid-border-color`    | border color of the invalid input              | rgba(255, 0, 0, 0.5)
      * `--input-disabled-color`          | color of the disabled input                    | inherit
      * `--input-disabled-background`     | background of the disabled input               | transparent
-     * `--input-disabled-font-style`     | font-style of the disabled input               | italic
-     * `--input-disabled-opacity`        | opacity of the disabled input                  | 1
+     * `--input-disabled-font-style`     | font-style of the disabled elements            | oblique
+     * `--input-disabled-opacity`        | opacity of the disabled input                  | 0.9
      * `--input-placeholder-color`       | color of the placeholder                       | inherit
      * `--input-placeholder-opacity`     | opacity of the placeholder                     | 0.75
      * `--input-placeholder-align`       | text-allign of the placeholder                 | center

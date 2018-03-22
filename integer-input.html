@@ -35,7 +35,7 @@
           this.step = Math.abs(step);
           return;
         }
-        this._step = Math.floor(this._safeMult(step, stepMod || 1));
+        this._step = Math.floor(_numberUtilities._safeMult(step, stepMod || 1));
         this._updateValue();
       }
 
@@ -60,12 +60,20 @@
         }
       }
 
-      _computeType(decimalSeparator, numberStyle, unit, alwaysSign) {
+      _computeType() {
         // maximize compatibility for mobile keyboards
-        if (!unit && !alwaysSign) {
+        if (!this.unit && !this.alwaysSign && !this.padLength && !this.autoPadding) {
           return 'number';
         }
         return 'tel';
+      }
+
+      _safeAdd(a, b) {
+        return a + b;
+      }
+
+      _safeMult(a, b) {
+        return a * b;
       }
     }
   }
@@ -111,8 +119,8 @@
      * `--input-invalid-border`          | border of the invalid input                  | thin dotted rgba(255,0,0,0.5)
      * `--input-disabled-color`          | color of the disabled input                  | inherit
      * `--input-disabled-background`     | background of the disabled input             | transparent
-     * `--input-disabled-font-style`     | font-style of the disabled input             | italic
-     * `--input-disabled-opacity`        | opacity of the disabled input                | 1
+     * `--input-disabled-font-style`     | font-style of the disabled elements          | oblique
+     * `--input-disabled-opacity`        | opacity of the disabled input                | 0.9
      * `--input-placeholder-color`       | color of the placeholder                     | inherit
      * `--input-placeholder-opacity`     | opacity of the placeholder                   | 0.75
      * `--input-placeholder-align`       | text-allign of the placeholder               | center
