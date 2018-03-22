@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "elements": [
     {
-      "description": "`number-input` is an element that can:\n* prevent non numeric input\n* guarantee **live**-data to be valid\n* pad a value with `0` (to a specific length)\n* size the input (according to it's length)\n* overflow to minimum or underflow to maximum\n* saturate to minimum or to maximum\n* display a specified unit and size the input\n* specify the decimal separator (the value will still be a Number object)\n* use percent-format\n\nExample:\n```html\n<number-input step=\"2\" min=\"-20\" max=\"140\" pad-length=\"2\"></number-input>\n```\n\nIt sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.\n\n### Styling\nCustom property                   | Description                                    | Default\n----------------------------------|------------------------------------------------|--------------------\n`--input-color`                   | color of the input                             | inherit\n`--input-background`              | background of the input                        | transparent\n`--input-border-width`            | border width of the input                      | thin\n`--input-border-style`            | border style of the input                      | dotted\n`--input-border-color`            | border color of the input                      | transparent\n`--input-padding`                 | padding of the input                           | 0.2em\n`--input-border-radius`           | border-radius of the input                     | 0.25em\n`--input-transition`              | transition of the input                        | background 250ms cubic-bezier(0.6, 1, 0.2, 1)\n`--input-allign`                  | text-allign of the input input                 | center\n`--input-cursor`                  | cursor of the input input                      | initial\n`--input-focus-color`             | color of the focussed and hovered input        | inherit\n`--input-focus-background`        | background of the focussed and hovered input   | rgba(0, 0, 0, 0.16)\n`--input-focus-border-style`      | border style of the focussed and hovered input | dotted\n`--input-focus-border-color`      | border color of the focussed and hovered input | currentColor\n`--input-invalid-color`           | color of the invalid input                     | inherit\n`--input-invalid-background`      | background of the invalid input                | rgba(255, 0, 0, 0.16)\n`--input-invalid-border-style`    | border style of the invalid input              | dotted\n`--input-invalid-border-color`    | border color of the invalid input              | rgba(255, 0, 0, 0.5)\n`--input-disabled-color`          | color of the disabled input                    | inherit\n`--input-disabled-background`     | background of the disabled input               | transparent\n`--input-disabled-font-style`     | font-style of the disabled input               | italic\n`--input-disabled-opacity`        | opacity of the disabled input                  | 1\n`--input-placeholder-color`       | color of the placeholder                       | inherit\n`--input-placeholder-opacity`     | opacity of the placeholder                     | 0.75\n`--input-placeholder-align`       | text-allign of the placeholder                 | center\n`--input-selection-color`         | color of the selected text                     | inherit\n`--input-selection-background`    | background of the selected text                | rgba(255, 255, 255, 0.5)\n`--input-style`                   | style of the input                             | {}\n`--input-focus`                   | style of the focussed and hovered input        | {}\n`--input-invalid`                 | style of the invalid input                     | {}\n`--input-placeholder`             | style of the placeholder                       | {}\n\n```css\n number-input {\n  --input-disabled-color: grey;\n  --input-focus-background: rgba(0,0,0,0.3);\n  --input-focus: {\n    font-weight: bold;\n  };\n  --input-placeholder: {\n    color: pink;\n  };\n}\n```",
+      "description": "`number-input` is an element that can:\n* prevent non numeric input\n* guarantee **live**-data to be valid\n* pad a value with `0` (to a specific length)\n* size the input (according to it's length)\n* overflow to minimum or underflow to maximum\n* saturate to minimum or to maximum\n* display a specified unit and size the input\n* specify the decimal separator (the value will still be a Number object)\n* use percent-format\n\nExample:\n```html\n<number-input step=\"2\" min=\"-20\" max=\"140\" pad-length=\"2\"></number-input>\n```\n\nIt sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.\n\n### Styling\nCustom property                   | Description                                    | Default\n----------------------------------|------------------------------------------------|--------------------\n`--input-color`                   | color of the input                             | inherit\n`--input-background`              | background of the input                        | transparent\n`--input-border-width`            | border width of the input                      | thin\n`--input-border-style`            | border style of the input                      | dotted\n`--input-border-color`            | border color of the input                      | transparent\n`--input-padding`                 | padding of the input                           | 0.2em\n`--input-border-radius`           | border-radius of the input                     | 0.25em\n`--input-transition`              | transition of the input                        | background 250ms cubic-bezier(0.6, 1, 0.2, 1)\n`--input-allign`                  | text-allign of the input input                 | center\n`--input-cursor`                  | cursor of the input input                      | initial\n`--input-focus-color`             | color of the focussed and hovered input        | inherit\n`--input-focus-background`        | background of the focussed and hovered input   | rgba(0, 0, 0, 0.16)\n`--input-focus-border-style`      | border style of the focussed and hovered input | dotted\n`--input-focus-border-color`      | border color of the focussed and hovered input | currentColor\n`--input-invalid-color`           | color of the invalid input                     | inherit\n`--input-invalid-background`      | background of the invalid input                | rgba(255, 0, 0, 0.16)\n`--input-invalid-border-style`    | border style of the invalid input              | dotted\n`--input-invalid-border-color`    | border color of the invalid input              | rgba(255, 0, 0, 0.5)\n`--input-disabled-color`          | color of the disabled input                    | inherit\n`--input-disabled-background`     | background of the disabled input               | transparent\n`--input-disabled-font-style`     | font-style of the disabled elements            | oblique\n`--input-disabled-opacity`        | opacity of the disabled input                  | 0.9\n`--input-placeholder-color`       | color of the placeholder                       | inherit\n`--input-placeholder-opacity`     | opacity of the placeholder                     | 0.75\n`--input-placeholder-align`       | text-allign of the placeholder                 | center\n`--input-selection-color`         | color of the selected text                     | inherit\n`--input-selection-background`    | background of the selected text                | rgba(255, 255, 255, 0.5)\n`--input-style`                   | style of the input                             | {}\n`--input-focus`                   | style of the focussed and hovered input        | {}\n`--input-invalid`                 | style of the invalid input                     | {}\n`--input-placeholder`             | style of the placeholder                       | {}\n\n```css\n number-input {\n  --input-disabled-color: grey;\n  --input-focus-background: rgba(0,0,0,0.3);\n  --input-focus: {\n    font-weight: bold;\n  };\n  --input-placeholder: {\n    color: pink;\n  };\n}\n```",
       "summary": "",
       "path": "number-input.html",
       "properties": [
@@ -84,11 +84,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 114,
+              "line": 117,
               "column": 10
             },
             "end": {
-              "line": 118,
+              "line": 121,
               "column": 11
             }
           },
@@ -107,11 +107,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 123,
+              "line": 126,
               "column": 10
             },
             "end": {
-              "line": 127,
+              "line": 130,
               "column": 11
             }
           },
@@ -130,11 +130,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 132,
+              "line": 135,
               "column": 10
             },
             "end": {
-              "line": 136,
+              "line": 139,
               "column": 11
             }
           },
@@ -238,11 +238,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 91,
+              "line": 94,
               "column": 10
             },
             "end": {
-              "line": 94,
+              "line": 97,
               "column": 11
             }
           },
@@ -776,11 +776,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 76,
+              "line": 79,
               "column": 10
             },
             "end": {
-              "line": 79,
+              "line": 82,
               "column": 11
             }
           },
@@ -945,11 +945,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 84,
+              "line": 87,
               "column": 10
             },
             "end": {
-              "line": 86,
+              "line": 89,
               "column": 11
             }
           },
@@ -965,11 +965,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 100,
+              "line": 103,
               "column": 10
             },
             "end": {
-              "line": 102,
+              "line": 105,
               "column": 11
             }
           },
@@ -985,11 +985,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 107,
+              "line": 110,
               "column": 10
             },
             "end": {
-              "line": 109,
+              "line": 112,
               "column": 11
             }
           },
@@ -1154,11 +1154,11 @@
           "sourceRange": {
             "file": "bower_components\\property-mixins\\range-mixin.html",
             "start": {
-              "line": 166,
+              "line": 165,
               "column": 6
             },
             "end": {
-              "line": 175,
+              "line": 174,
               "column": 7
             }
           },
@@ -1179,11 +1179,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 197,
+              "line": 200,
               "column": 6
             },
             "end": {
-              "line": 219,
+              "line": 222,
               "column": 7
             }
           },
@@ -1205,11 +1205,11 @@
           "sourceRange": {
             "file": "bower_components\\property-mixins\\range-mixin.html",
             "start": {
-              "line": 188,
+              "line": 187,
               "column": 6
             },
             "end": {
-              "line": 220,
+              "line": 219,
               "column": 7
             }
           },
@@ -1254,11 +1254,11 @@
           "sourceRange": {
             "file": "bower_components\\property-mixins\\range-mixin.html",
             "start": {
-              "line": 228,
+              "line": 227,
               "column": 6
             },
             "end": {
-              "line": 242,
+              "line": 241,
               "column": 7
             }
           },
@@ -1280,11 +1280,11 @@
           "sourceRange": {
             "file": "bower_components\\property-mixins\\range-mixin.html",
             "start": {
-              "line": 247,
+              "line": 246,
               "column": 6
             },
             "end": {
-              "line": 249,
+              "line": 248,
               "column": 7
             }
           },
@@ -1306,11 +1306,11 @@
           "sourceRange": {
             "file": "bower_components\\property-mixins\\range-mixin.html",
             "start": {
-              "line": 254,
+              "line": 253,
               "column": 6
             },
             "end": {
-              "line": 256,
+              "line": 255,
               "column": 7
             }
           },
@@ -1332,11 +1332,11 @@
           "sourceRange": {
             "file": "bower_components\\property-mixins\\range-mixin.html",
             "start": {
-              "line": 258,
+              "line": 257,
               "column": 6
             },
             "end": {
-              "line": 266,
+              "line": 265,
               "column": 7
             }
           },
@@ -1357,11 +1357,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 175,
+              "line": 178,
               "column": 6
             },
             "end": {
-              "line": 177,
+              "line": 180,
               "column": 7
             }
           },
@@ -1615,11 +1615,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 147,
+              "line": 150,
               "column": 6
             },
             "end": {
-              "line": 158,
+              "line": 161,
               "column": 7
             }
           },
@@ -1637,11 +1637,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 179,
+              "line": 182,
               "column": 6
             },
             "end": {
-              "line": 195,
+              "line": 198,
               "column": 7
             }
           },
@@ -1659,11 +1659,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 221,
+              "line": 224,
               "column": 6
             },
             "end": {
-              "line": 225,
+              "line": 228,
               "column": 7
             }
           },
@@ -1704,11 +1704,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 238,
+              "line": 241,
               "column": 6
             },
             "end": {
-              "line": 256,
+              "line": 259,
               "column": 7
             }
           },
@@ -1779,11 +1779,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 160,
+              "line": 163,
               "column": 6
             },
             "end": {
-              "line": 173,
+              "line": 176,
               "column": 7
             }
           },
@@ -1801,29 +1801,16 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 227,
+              "line": 230,
               "column": 6
             },
             "end": {
-              "line": 236,
+              "line": 239,
               "column": 7
             }
           },
           "metadata": {},
-          "params": [
-            {
-              "name": "decimalSeparator"
-            },
-            {
-              "name": "numberStyle"
-            },
-            {
-              "name": "unit"
-            },
-            {
-              "name": "alwaysSign"
-            }
-          ],
+          "params": [],
           "inheritedFrom": "NumberInputMixin"
         },
         {
@@ -1832,11 +1819,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 258,
+              "line": 261,
               "column": 6
             },
             "end": {
-              "line": 282,
+              "line": 285,
               "column": 7
             }
           },
@@ -1875,11 +1862,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 284,
+              "line": 287,
               "column": 6
             },
             "end": {
-              "line": 299,
+              "line": 302,
               "column": 7
             }
           },
@@ -1906,11 +1893,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 301,
+              "line": 304,
               "column": 6
             },
             "end": {
-              "line": 306,
+              "line": 309,
               "column": 7
             }
           },
@@ -1940,11 +1927,11 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 388,
+          "line": 392,
           "column": 4
         },
         "end": {
-          "line": 393,
+          "line": 397,
           "column": 5
         }
       },
@@ -2011,11 +1998,11 @@
           "description": "minimum digits right to the decimal separator",
           "sourceRange": {
             "start": {
-              "line": 114,
+              "line": 117,
               "column": 10
             },
             "end": {
-              "line": 118,
+              "line": 121,
               "column": 11
             }
           },
@@ -2028,11 +2015,11 @@
           "description": "maximum digits right to the decimal separator",
           "sourceRange": {
             "start": {
-              "line": 123,
+              "line": 126,
               "column": 10
             },
             "end": {
-              "line": 127,
+              "line": 130,
               "column": 11
             }
           },
@@ -2045,11 +2032,11 @@
           "description": "minimum digits left to the decimal separator to pad",
           "sourceRange": {
             "start": {
-              "line": 132,
+              "line": 135,
               "column": 10
             },
             "end": {
-              "line": 136,
+              "line": 139,
               "column": 11
             }
           },
@@ -2134,11 +2121,11 @@
           "description": "always put the sign at the beginning",
           "sourceRange": {
             "start": {
-              "line": 91,
+              "line": 94,
               "column": 10
             },
             "end": {
-              "line": 94,
+              "line": 97,
               "column": 11
             }
           },
@@ -2493,11 +2480,11 @@
           "description": "type of the input",
           "sourceRange": {
             "start": {
-              "line": 76,
+              "line": 79,
               "column": 10
             },
             "end": {
-              "line": 79,
+              "line": 82,
               "column": 11
             }
           },
@@ -2600,11 +2587,11 @@
           "description": "length to pad the string (with `0`) according to the total amount of numbers",
           "sourceRange": {
             "start": {
-              "line": 84,
+              "line": 87,
               "column": 10
             },
             "end": {
-              "line": 86,
+              "line": 89,
               "column": 11
             }
           },
@@ -2617,11 +2604,11 @@
           "description": "enables auto padding",
           "sourceRange": {
             "start": {
-              "line": 100,
+              "line": 103,
               "column": 10
             },
             "end": {
-              "line": 102,
+              "line": 105,
               "column": 11
             }
           },
@@ -2634,11 +2621,11 @@
           "description": "start where to increment the value",
           "sourceRange": {
             "start": {
-              "line": 107,
+              "line": 110,
               "column": 10
             },
             "end": {
-              "line": 109,
+              "line": 112,
               "column": 11
             }
           },
@@ -2659,7 +2646,7 @@
       ]
     },
     {
-      "description": "`integer-input` is an element that can:\n* prevent non numeric input\n* guarantee **live**-data to be valid\n* pad a value with `0` (to a specific length)\n* size the input (according to it's length)\n* overflow to minimum or underflow to maximum\n* saturate to minimum or to maximum\n* display a specified unit and size the input\n\nExample:\n```html\n<integer-input step=\"2\" min=\"-20\" max=\"140\" pad-length=\"2\"></integer-input>\n```\n\nIt sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.\n\n### Styling\nCustom property                   | Description                                  | Default\n----------------------------------|----------------------------------------------|--------------------\n`--input-color`                   | color of the input                           | inherit\n`--input-background`              | background of the input                      | transparent\n`--input-border`                  | border of the input                          | thin dotted transparent\n`--input-padding`                 | padding of the input                         | 0.2em\n`--input-border-radius`           | border-radius of the input                   | 0.25em\n`--input-transition`              | transition of the input                      | background 250ms cubic-bezier(0.6, 1, 0.2, 1)\n`--input-allign`                  | text-allign of the input input               | center\n`--input-cursor`                  | cursor of the input input                    | initial\n`--input-focus-color`             | color of the focussed and hovered input      | inherit\n`--input-focus-background`        | background of the focussed and hovered input | rgba(0,0,0,0.16)\n`--input-focus-border`            | border of the focussed and hovered input     | thin dotted currentColor\n`--input-invalid-color`           | color of the invalid input                   | inherit\n`--input-invalid-background`      | background of the invalid input              | rgba(255,0,0,0.16)\n`--input-invalid-border`          | border of the invalid input                  | thin dotted rgba(255,0,0,0.5)\n`--input-disabled-color`          | color of the disabled input                  | inherit\n`--input-disabled-background`     | background of the disabled input             | transparent\n`--input-disabled-font-style`     | font-style of the disabled input             | italic\n`--input-disabled-opacity`        | opacity of the disabled input                | 1\n`--input-placeholder-color`       | color of the placeholder                     | inherit\n`--input-placeholder-opacity`     | opacity of the placeholder                   | 0.75\n`--input-placeholder-align`       | text-allign of the placeholder               | center\n`--input-selection-color`         | color of the selected text                   | inherit\n`--input-selection-background`    | background of the selected text              | rgba(255,255,255,0.5)\n`--input-style`                   | style of the input                           | {}\n`--input-focus`                   | style of the focussed and hovered input      | {}\n`--input-invalid`                 | style of the invalid input                   | {}\n`--input-placeholder`             | style of the placeholder                     | {}\n\n```css\n integer-input {\n  --input-disabled-color: grey;\n  --input-focus-background: rgba(0,0,0,0.3);\n  --input-focus: {\n    font-weight: bold;\n  };\n  --input-placeholder: {\n    color: pink;\n  };\n}\n```",
+      "description": "`integer-input` is an element that can:\n* prevent non numeric input\n* guarantee **live**-data to be valid\n* pad a value with `0` (to a specific length)\n* size the input (according to it's length)\n* overflow to minimum or underflow to maximum\n* saturate to minimum or to maximum\n* display a specified unit and size the input\n\nExample:\n```html\n<integer-input step=\"2\" min=\"-20\" max=\"140\" pad-length=\"2\"></integer-input>\n```\n\nIt sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.\n\n### Styling\nCustom property                   | Description                                  | Default\n----------------------------------|----------------------------------------------|--------------------\n`--input-color`                   | color of the input                           | inherit\n`--input-background`              | background of the input                      | transparent\n`--input-border`                  | border of the input                          | thin dotted transparent\n`--input-padding`                 | padding of the input                         | 0.2em\n`--input-border-radius`           | border-radius of the input                   | 0.25em\n`--input-transition`              | transition of the input                      | background 250ms cubic-bezier(0.6, 1, 0.2, 1)\n`--input-allign`                  | text-allign of the input input               | center\n`--input-cursor`                  | cursor of the input input                    | initial\n`--input-focus-color`             | color of the focussed and hovered input      | inherit\n`--input-focus-background`        | background of the focussed and hovered input | rgba(0,0,0,0.16)\n`--input-focus-border`            | border of the focussed and hovered input     | thin dotted currentColor\n`--input-invalid-color`           | color of the invalid input                   | inherit\n`--input-invalid-background`      | background of the invalid input              | rgba(255,0,0,0.16)\n`--input-invalid-border`          | border of the invalid input                  | thin dotted rgba(255,0,0,0.5)\n`--input-disabled-color`          | color of the disabled input                  | inherit\n`--input-disabled-background`     | background of the disabled input             | transparent\n`--input-disabled-font-style`     | font-style of the disabled elements          | oblique\n`--input-disabled-opacity`        | opacity of the disabled input                | 0.9\n`--input-placeholder-color`       | color of the placeholder                     | inherit\n`--input-placeholder-opacity`     | opacity of the placeholder                   | 0.75\n`--input-placeholder-align`       | text-allign of the placeholder               | center\n`--input-selection-color`         | color of the selected text                   | inherit\n`--input-selection-background`    | background of the selected text              | rgba(255,255,255,0.5)\n`--input-style`                   | style of the input                           | {}\n`--input-focus`                   | style of the focussed and hovered input      | {}\n`--input-invalid`                 | style of the invalid input                   | {}\n`--input-placeholder`             | style of the placeholder                     | {}\n\n```css\n integer-input {\n  --input-disabled-color: grey;\n  --input-focus-background: rgba(0,0,0,0.3);\n  --input-focus: {\n    font-weight: bold;\n  };\n  --input-placeholder: {\n    color: pink;\n  };\n}\n```",
       "summary": "",
       "path": "integer-input.html",
       "properties": [
@@ -2742,11 +2729,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 114,
+              "line": 117,
               "column": 10
             },
             "end": {
-              "line": 118,
+              "line": 121,
               "column": 11
             }
           },
@@ -2766,11 +2753,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 123,
+              "line": 126,
               "column": 10
             },
             "end": {
-              "line": 127,
+              "line": 130,
               "column": 11
             }
           },
@@ -2790,11 +2777,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 132,
+              "line": 135,
               "column": 10
             },
             "end": {
-              "line": 136,
+              "line": 139,
               "column": 11
             }
           },
@@ -2899,11 +2886,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 91,
+              "line": 94,
               "column": 10
             },
             "end": {
-              "line": 94,
+              "line": 97,
               "column": 11
             }
           },
@@ -3438,11 +3425,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 76,
+              "line": 79,
               "column": 10
             },
             "end": {
-              "line": 79,
+              "line": 82,
               "column": 11
             }
           },
@@ -3608,11 +3595,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 84,
+              "line": 87,
               "column": 10
             },
             "end": {
-              "line": 86,
+              "line": 89,
               "column": 11
             }
           },
@@ -3629,11 +3616,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 100,
+              "line": 103,
               "column": 10
             },
             "end": {
-              "line": 102,
+              "line": 105,
               "column": 11
             }
           },
@@ -3650,11 +3637,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 107,
+              "line": 110,
               "column": 10
             },
             "end": {
-              "line": 109,
+              "line": 112,
               "column": 11
             }
           },
@@ -3818,11 +3805,11 @@
           "sourceRange": {
             "file": "bower_components\\property-mixins\\range-mixin.html",
             "start": {
-              "line": 166,
+              "line": 165,
               "column": 6
             },
             "end": {
-              "line": 175,
+              "line": 174,
               "column": 7
             }
           },
@@ -3844,11 +3831,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 197,
+              "line": 200,
               "column": 6
             },
             "end": {
-              "line": 219,
+              "line": 222,
               "column": 7
             }
           },
@@ -3870,11 +3857,11 @@
           "sourceRange": {
             "file": "bower_components\\property-mixins\\range-mixin.html",
             "start": {
-              "line": 188,
+              "line": 187,
               "column": 6
             },
             "end": {
-              "line": 220,
+              "line": 219,
               "column": 7
             }
           },
@@ -3919,11 +3906,11 @@
           "sourceRange": {
             "file": "bower_components\\property-mixins\\range-mixin.html",
             "start": {
-              "line": 228,
+              "line": 227,
               "column": 6
             },
             "end": {
-              "line": 242,
+              "line": 241,
               "column": 7
             }
           },
@@ -3940,16 +3927,15 @@
         },
         {
           "name": "_safeMult",
-          "description": "emulating handwritten multiplication to keep precision",
+          "description": "",
           "privacy": "protected",
           "sourceRange": {
-            "file": "bower_components\\property-mixins\\range-mixin.html",
             "start": {
-              "line": 247,
+              "line": 74,
               "column": 6
             },
             "end": {
-              "line": 249,
+              "line": 76,
               "column": 7
             }
           },
@@ -3962,20 +3948,19 @@
               "name": "b"
             }
           ],
-          "inheritedFrom": "RangeMixin"
+          "inheritedFrom": "IntegerInputMixin"
         },
         {
           "name": "_safeAdd",
-          "description": "emulating handwritten addition to keep precision",
+          "description": "",
           "privacy": "protected",
           "sourceRange": {
-            "file": "bower_components\\property-mixins\\range-mixin.html",
             "start": {
-              "line": 254,
+              "line": 70,
               "column": 6
             },
             "end": {
-              "line": 256,
+              "line": 72,
               "column": 7
             }
           },
@@ -3988,7 +3973,7 @@
               "name": "b"
             }
           ],
-          "inheritedFrom": "RangeMixin"
+          "inheritedFrom": "IntegerInputMixin"
         },
         {
           "name": "_stepChanged",
@@ -4022,11 +4007,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 175,
+              "line": 178,
               "column": 6
             },
             "end": {
-              "line": 177,
+              "line": 180,
               "column": 7
             }
           },
@@ -4281,11 +4266,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 147,
+              "line": 150,
               "column": 6
             },
             "end": {
-              "line": 158,
+              "line": 161,
               "column": 7
             }
           },
@@ -4304,11 +4289,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 179,
+              "line": 182,
               "column": 6
             },
             "end": {
-              "line": 195,
+              "line": 198,
               "column": 7
             }
           },
@@ -4327,11 +4312,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 221,
+              "line": 224,
               "column": 6
             },
             "end": {
-              "line": 225,
+              "line": 228,
               "column": 7
             }
           },
@@ -4373,11 +4358,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 238,
+              "line": 241,
               "column": 6
             },
             "end": {
-              "line": 256,
+              "line": 259,
               "column": 7
             }
           },
@@ -4449,11 +4434,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 160,
+              "line": 163,
               "column": 6
             },
             "end": {
-              "line": 173,
+              "line": 176,
               "column": 7
             }
           },
@@ -4480,20 +4465,7 @@
             }
           },
           "metadata": {},
-          "params": [
-            {
-              "name": "decimalSeparator"
-            },
-            {
-              "name": "numberStyle"
-            },
-            {
-              "name": "unit"
-            },
-            {
-              "name": "alwaysSign"
-            }
-          ],
+          "params": [],
           "inheritedFrom": "IntegerInputMixin"
         },
         {
@@ -4503,11 +4475,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 258,
+              "line": 261,
               "column": 6
             },
             "end": {
-              "line": 282,
+              "line": 285,
               "column": 7
             }
           },
@@ -4591,11 +4563,11 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 145,
+          "line": 153,
           "column": 4
         },
         "end": {
-          "line": 150,
+          "line": 158,
           "column": 5
         }
       },
@@ -4663,11 +4635,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 114,
+              "line": 117,
               "column": 10
             },
             "end": {
-              "line": 118,
+              "line": 121,
               "column": 11
             }
           },
@@ -4681,11 +4653,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 123,
+              "line": 126,
               "column": 10
             },
             "end": {
-              "line": 127,
+              "line": 130,
               "column": 11
             }
           },
@@ -4699,11 +4671,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 132,
+              "line": 135,
               "column": 10
             },
             "end": {
-              "line": 136,
+              "line": 139,
               "column": 11
             }
           },
@@ -4789,11 +4761,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 91,
+              "line": 94,
               "column": 10
             },
             "end": {
-              "line": 94,
+              "line": 97,
               "column": 11
             }
           },
@@ -5148,11 +5120,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 76,
+              "line": 79,
               "column": 10
             },
             "end": {
-              "line": 79,
+              "line": 82,
               "column": 11
             }
           },
@@ -5256,11 +5228,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 84,
+              "line": 87,
               "column": 10
             },
             "end": {
-              "line": 86,
+              "line": 89,
               "column": 11
             }
           },
@@ -5274,11 +5246,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 100,
+              "line": 103,
               "column": 10
             },
             "end": {
-              "line": 102,
+              "line": 105,
               "column": 11
             }
           },
@@ -5292,11 +5264,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 107,
+              "line": 110,
               "column": 10
             },
             "end": {
-              "line": 109,
+              "line": 112,
               "column": 11
             }
           },
@@ -5401,11 +5373,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 114,
+              "line": 117,
               "column": 10
             },
             "end": {
-              "line": 118,
+              "line": 121,
               "column": 11
             }
           },
@@ -5423,11 +5395,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 123,
+              "line": 126,
               "column": 10
             },
             "end": {
-              "line": 127,
+              "line": 130,
               "column": 11
             }
           },
@@ -5445,11 +5417,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 132,
+              "line": 135,
               "column": 10
             },
             "end": {
-              "line": 136,
+              "line": 139,
               "column": 11
             }
           },
@@ -5552,11 +5524,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 91,
+              "line": 94,
               "column": 10
             },
             "end": {
-              "line": 94,
+              "line": 97,
               "column": 11
             }
           },
@@ -6089,11 +6061,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 76,
+              "line": 79,
               "column": 10
             },
             "end": {
-              "line": 79,
+              "line": 82,
               "column": 11
             }
           },
@@ -6257,11 +6229,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 84,
+              "line": 87,
               "column": 10
             },
             "end": {
-              "line": 86,
+              "line": 89,
               "column": 11
             }
           },
@@ -6276,11 +6248,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 100,
+              "line": 103,
               "column": 10
             },
             "end": {
-              "line": 102,
+              "line": 105,
               "column": 11
             }
           },
@@ -6295,11 +6267,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 107,
+              "line": 110,
               "column": 10
             },
             "end": {
-              "line": 109,
+              "line": 112,
               "column": 11
             }
           },
@@ -6463,11 +6435,11 @@
           "sourceRange": {
             "file": "bower_components\\property-mixins\\range-mixin.html",
             "start": {
-              "line": 166,
+              "line": 165,
               "column": 6
             },
             "end": {
-              "line": 175,
+              "line": 174,
               "column": 7
             }
           },
@@ -6488,11 +6460,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 197,
+              "line": 200,
               "column": 6
             },
             "end": {
-              "line": 219,
+              "line": 222,
               "column": 7
             }
           },
@@ -6513,11 +6485,11 @@
           "sourceRange": {
             "file": "bower_components\\property-mixins\\range-mixin.html",
             "start": {
-              "line": 188,
+              "line": 187,
               "column": 6
             },
             "end": {
-              "line": 220,
+              "line": 219,
               "column": 7
             }
           },
@@ -6562,11 +6534,11 @@
           "sourceRange": {
             "file": "bower_components\\property-mixins\\range-mixin.html",
             "start": {
-              "line": 228,
+              "line": 227,
               "column": 6
             },
             "end": {
-              "line": 242,
+              "line": 241,
               "column": 7
             }
           },
@@ -6588,11 +6560,11 @@
           "sourceRange": {
             "file": "bower_components\\property-mixins\\range-mixin.html",
             "start": {
-              "line": 247,
+              "line": 246,
               "column": 6
             },
             "end": {
-              "line": 249,
+              "line": 248,
               "column": 7
             }
           },
@@ -6614,11 +6586,11 @@
           "sourceRange": {
             "file": "bower_components\\property-mixins\\range-mixin.html",
             "start": {
-              "line": 254,
+              "line": 253,
               "column": 6
             },
             "end": {
-              "line": 256,
+              "line": 255,
               "column": 7
             }
           },
@@ -6640,11 +6612,11 @@
           "sourceRange": {
             "file": "bower_components\\property-mixins\\range-mixin.html",
             "start": {
-              "line": 258,
+              "line": 257,
               "column": 6
             },
             "end": {
-              "line": 266,
+              "line": 265,
               "column": 7
             }
           },
@@ -6665,11 +6637,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 175,
+              "line": 178,
               "column": 6
             },
             "end": {
-              "line": 177,
+              "line": 180,
               "column": 7
             }
           },
@@ -6922,11 +6894,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 147,
+              "line": 150,
               "column": 6
             },
             "end": {
-              "line": 158,
+              "line": 161,
               "column": 7
             }
           },
@@ -6943,11 +6915,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 179,
+              "line": 182,
               "column": 6
             },
             "end": {
-              "line": 195,
+              "line": 198,
               "column": 7
             }
           },
@@ -6964,11 +6936,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 221,
+              "line": 224,
               "column": 6
             },
             "end": {
-              "line": 225,
+              "line": 228,
               "column": 7
             }
           },
@@ -7008,11 +6980,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 238,
+              "line": 241,
               "column": 6
             },
             "end": {
-              "line": 256,
+              "line": 259,
               "column": 7
             }
           },
@@ -7082,11 +7054,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 160,
+              "line": 163,
               "column": 6
             },
             "end": {
-              "line": 173,
+              "line": 176,
               "column": 7
             }
           },
@@ -7103,29 +7075,16 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 227,
+              "line": 230,
               "column": 6
             },
             "end": {
-              "line": 236,
+              "line": 239,
               "column": 7
             }
           },
           "metadata": {},
-          "params": [
-            {
-              "name": "decimalSeparator"
-            },
-            {
-              "name": "numberStyle"
-            },
-            {
-              "name": "unit"
-            },
-            {
-              "name": "alwaysSign"
-            }
-          ]
+          "params": []
         },
         {
           "name": "_computeMinimumIntegerDigits",
@@ -7133,11 +7092,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 258,
+              "line": 261,
               "column": 6
             },
             "end": {
-              "line": 282,
+              "line": 285,
               "column": 7
             }
           },
@@ -7175,11 +7134,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 284,
+              "line": 287,
               "column": 6
             },
             "end": {
-              "line": 299,
+              "line": 302,
               "column": 7
             }
           },
@@ -7205,11 +7164,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 301,
+              "line": 304,
               "column": 6
             },
             "end": {
-              "line": 306,
+              "line": 309,
               "column": 7
             }
           },
@@ -7233,7 +7192,7 @@
           "column": 2
         },
         "end": {
-          "line": 308,
+          "line": 312,
           "column": 3
         }
       },
@@ -7299,11 +7258,11 @@
           "description": "minimum digits right to the decimal separator",
           "sourceRange": {
             "start": {
-              "line": 114,
+              "line": 117,
               "column": 10
             },
             "end": {
-              "line": 118,
+              "line": 121,
               "column": 11
             }
           },
@@ -7315,11 +7274,11 @@
           "description": "maximum digits right to the decimal separator",
           "sourceRange": {
             "start": {
-              "line": 123,
+              "line": 126,
               "column": 10
             },
             "end": {
-              "line": 127,
+              "line": 130,
               "column": 11
             }
           },
@@ -7331,11 +7290,11 @@
           "description": "minimum digits left to the decimal separator to pad",
           "sourceRange": {
             "start": {
-              "line": 132,
+              "line": 135,
               "column": 10
             },
             "end": {
-              "line": 136,
+              "line": 139,
               "column": 11
             }
           },
@@ -7419,11 +7378,11 @@
           "description": "always put the sign at the beginning",
           "sourceRange": {
             "start": {
-              "line": 91,
+              "line": 94,
               "column": 10
             },
             "end": {
-              "line": 94,
+              "line": 97,
               "column": 11
             }
           },
@@ -7777,11 +7736,11 @@
           "description": "type of the input",
           "sourceRange": {
             "start": {
-              "line": 76,
+              "line": 79,
               "column": 10
             },
             "end": {
-              "line": 79,
+              "line": 82,
               "column": 11
             }
           },
@@ -7883,11 +7842,11 @@
           "description": "length to pad the string (with `0`) according to the total amount of numbers",
           "sourceRange": {
             "start": {
-              "line": 84,
+              "line": 87,
               "column": 10
             },
             "end": {
-              "line": 86,
+              "line": 89,
               "column": 11
             }
           },
@@ -7899,11 +7858,11 @@
           "description": "enables auto padding",
           "sourceRange": {
             "start": {
-              "line": 100,
+              "line": 103,
               "column": 10
             },
             "end": {
-              "line": 102,
+              "line": 105,
               "column": 11
             }
           },
@@ -7915,11 +7874,11 @@
           "description": "start where to increment the value",
           "sourceRange": {
             "start": {
-              "line": 107,
+              "line": 110,
               "column": 10
             },
             "end": {
-              "line": 109,
+              "line": 112,
               "column": 11
             }
           },
@@ -8023,11 +7982,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 114,
+              "line": 117,
               "column": 10
             },
             "end": {
-              "line": 118,
+              "line": 121,
               "column": 11
             }
           },
@@ -8047,11 +8006,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 123,
+              "line": 126,
               "column": 10
             },
             "end": {
-              "line": 127,
+              "line": 130,
               "column": 11
             }
           },
@@ -8071,11 +8030,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 132,
+              "line": 135,
               "column": 10
             },
             "end": {
-              "line": 136,
+              "line": 139,
               "column": 11
             }
           },
@@ -8180,11 +8139,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 91,
+              "line": 94,
               "column": 10
             },
             "end": {
-              "line": 94,
+              "line": 97,
               "column": 11
             }
           },
@@ -8718,11 +8677,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 76,
+              "line": 79,
               "column": 10
             },
             "end": {
-              "line": 79,
+              "line": 82,
               "column": 11
             }
           },
@@ -8888,11 +8847,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 84,
+              "line": 87,
               "column": 10
             },
             "end": {
-              "line": 86,
+              "line": 89,
               "column": 11
             }
           },
@@ -8909,11 +8868,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 100,
+              "line": 103,
               "column": 10
             },
             "end": {
-              "line": 102,
+              "line": 105,
               "column": 11
             }
           },
@@ -8930,11 +8889,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 107,
+              "line": 110,
               "column": 10
             },
             "end": {
-              "line": 109,
+              "line": 112,
               "column": 11
             }
           },
@@ -9097,11 +9056,11 @@
           "sourceRange": {
             "file": "bower_components\\property-mixins\\range-mixin.html",
             "start": {
-              "line": 166,
+              "line": 165,
               "column": 6
             },
             "end": {
-              "line": 175,
+              "line": 174,
               "column": 7
             }
           },
@@ -9123,11 +9082,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 197,
+              "line": 200,
               "column": 6
             },
             "end": {
-              "line": 219,
+              "line": 222,
               "column": 7
             }
           },
@@ -9149,11 +9108,11 @@
           "sourceRange": {
             "file": "bower_components\\property-mixins\\range-mixin.html",
             "start": {
-              "line": 188,
+              "line": 187,
               "column": 6
             },
             "end": {
-              "line": 220,
+              "line": 219,
               "column": 7
             }
           },
@@ -9198,11 +9157,11 @@
           "sourceRange": {
             "file": "bower_components\\property-mixins\\range-mixin.html",
             "start": {
-              "line": 228,
+              "line": 227,
               "column": 6
             },
             "end": {
-              "line": 242,
+              "line": 241,
               "column": 7
             }
           },
@@ -9219,16 +9178,15 @@
         },
         {
           "name": "_safeMult",
-          "description": "emulating handwritten multiplication to keep precision",
+          "description": "",
           "privacy": "protected",
           "sourceRange": {
-            "file": "bower_components\\property-mixins\\range-mixin.html",
             "start": {
-              "line": 247,
+              "line": 74,
               "column": 6
             },
             "end": {
-              "line": 249,
+              "line": 76,
               "column": 7
             }
           },
@@ -9240,21 +9198,19 @@
             {
               "name": "b"
             }
-          ],
-          "inheritedFrom": "RangeMixin"
+          ]
         },
         {
           "name": "_safeAdd",
-          "description": "emulating handwritten addition to keep precision",
+          "description": "",
           "privacy": "protected",
           "sourceRange": {
-            "file": "bower_components\\property-mixins\\range-mixin.html",
             "start": {
-              "line": 254,
+              "line": 70,
               "column": 6
             },
             "end": {
-              "line": 256,
+              "line": 72,
               "column": 7
             }
           },
@@ -9266,8 +9222,7 @@
             {
               "name": "b"
             }
-          ],
-          "inheritedFrom": "RangeMixin"
+          ]
         },
         {
           "name": "_stepChanged",
@@ -9300,11 +9255,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 175,
+              "line": 178,
               "column": 6
             },
             "end": {
-              "line": 177,
+              "line": 180,
               "column": 7
             }
           },
@@ -9559,11 +9514,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 147,
+              "line": 150,
               "column": 6
             },
             "end": {
-              "line": 158,
+              "line": 161,
               "column": 7
             }
           },
@@ -9582,11 +9537,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 179,
+              "line": 182,
               "column": 6
             },
             "end": {
-              "line": 195,
+              "line": 198,
               "column": 7
             }
           },
@@ -9605,11 +9560,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 221,
+              "line": 224,
               "column": 6
             },
             "end": {
-              "line": 225,
+              "line": 228,
               "column": 7
             }
           },
@@ -9651,11 +9606,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 238,
+              "line": 241,
               "column": 6
             },
             "end": {
-              "line": 256,
+              "line": 259,
               "column": 7
             }
           },
@@ -9727,11 +9682,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 160,
+              "line": 163,
               "column": 6
             },
             "end": {
-              "line": 173,
+              "line": 176,
               "column": 7
             }
           },
@@ -9758,20 +9713,7 @@
             }
           },
           "metadata": {},
-          "params": [
-            {
-              "name": "decimalSeparator"
-            },
-            {
-              "name": "numberStyle"
-            },
-            {
-              "name": "unit"
-            },
-            {
-              "name": "alwaysSign"
-            }
-          ]
+          "params": []
         },
         {
           "name": "_computeMinimumIntegerDigits",
@@ -9780,11 +9722,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 258,
+              "line": 261,
               "column": 6
             },
             "end": {
-              "line": 282,
+              "line": 285,
               "column": 7
             }
           },
@@ -9861,7 +9803,7 @@
           "column": 2
         },
         "end": {
-          "line": 70,
+          "line": 78,
           "column": 3
         }
       },
@@ -9928,11 +9870,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 114,
+              "line": 117,
               "column": 10
             },
             "end": {
-              "line": 118,
+              "line": 121,
               "column": 11
             }
           },
@@ -9946,11 +9888,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 123,
+              "line": 126,
               "column": 10
             },
             "end": {
-              "line": 127,
+              "line": 130,
               "column": 11
             }
           },
@@ -9964,11 +9906,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 132,
+              "line": 135,
               "column": 10
             },
             "end": {
-              "line": 136,
+              "line": 139,
               "column": 11
             }
           },
@@ -10054,11 +9996,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 91,
+              "line": 94,
               "column": 10
             },
             "end": {
-              "line": 94,
+              "line": 97,
               "column": 11
             }
           },
@@ -10412,11 +10354,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 76,
+              "line": 79,
               "column": 10
             },
             "end": {
-              "line": 79,
+              "line": 82,
               "column": 11
             }
           },
@@ -10520,11 +10462,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 84,
+              "line": 87,
               "column": 10
             },
             "end": {
-              "line": 86,
+              "line": 89,
               "column": 11
             }
           },
@@ -10538,11 +10480,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 100,
+              "line": 103,
               "column": 10
             },
             "end": {
-              "line": 102,
+              "line": 105,
               "column": 11
             }
           },
@@ -10556,11 +10498,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 107,
+              "line": 110,
               "column": 10
             },
             "end": {
-              "line": 109,
+              "line": 112,
               "column": 11
             }
           },
