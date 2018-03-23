@@ -24,7 +24,7 @@ The normal `input` with `type="number"` is fairly good to use, but it has some f
 * display a specified currencies
 * can use percentage values and do have automatically the correct decimal value
 
-This element wants to achieve that, by using the [Intl.NumberFormat API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat). A more simpler element \<integer-input\> just uses integer values and doesn't use units or percent values.
+This element wants to achieve that, by using the [Intl.NumberFormat API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat). A more simpler element \<integer-input\> just uses integer values and doesn't use currency or percent values.
 
 ![img](https://github.com/fooloomanzoo/number-input/raw/master/docs/number-input.gif "Demo")
 
