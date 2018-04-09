@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "elements": [
     {
-      "description": "`number-input` is an element that can:\n* prevent non numeric input\n* guarantee **live**-data to be valid\n* pad a value with `0` (to a specific length)\n* size the input (according to it's length)\n* overflow to minimum or underflow to maximum\n* saturate to minimum or to maximum\n* display a specified unit and size the input\n* specify the decimal separator (the value will still be a Number object)\n* use percent-format\n\nExample:\n```html\n<number-input step=\"2\" min=\"-20\" max=\"140\" pad-length=\"2\"></number-input>\n```\n\nIt sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.\n\n### Styling\nCustom property                   | Description                                    | Default\n----------------------------------|------------------------------------------------|--------------------\n`--input-color`                   | color of the input                             | inherit\n`--input-background`              | background of the input                        | transparent\n`--input-border-width`            | border width of the input                      | thin\n`--input-border-style`            | border style of the input                      | dotted\n`--input-border-color`            | border color of the input                      | transparent\n`--input-padding`                 | padding of the input                           | 0.2em\n`--input-border-radius`           | border-radius of the input                     | 0.25em\n`--input-transition`              | transition of the input                        | background 250ms cubic-bezier(0.6, 1, 0.2, 1)\n`--input-align`                  | text-align of the input input                 | center\n`--input-cursor`                  | cursor of the input input                      | initial\n`--input-focus-color`             | color of the focussed and hovered input        | inherit\n`--input-focus-background`        | background of the focussed and hovered input   | rgba(0, 0, 0, 0.16)\n`--input-focus-border-style`      | border style of the focussed and hovered input | dotted\n`--input-focus-border-color`      | border color of the focussed and hovered input | currentColor\n`--input-invalid-color`           | color of the invalid input                     | inherit\n`--input-invalid-background`      | background of the invalid input                | rgba(255, 0, 0, 0.16)\n`--input-invalid-border-style`    | border style of the invalid input              | dotted\n`--input-invalid-border-color`    | border color of the invalid input              | rgba(255, 0, 0, 0.5)\n`--input-disabled-color`          | color of the disabled input                    | inherit\n`--input-disabled-background`     | background of the disabled input               | transparent\n`--input-disabled-font-style`     | font-style of the disabled elements            | oblique\n`--input-disabled-opacity`        | opacity of the disabled input                  | 0.9\n`--input-placeholder-color`       | color of the placeholder                       | inherit\n`--input-placeholder-opacity`     | opacity of the placeholder                     | 0.75\n`--input-placeholder-align`       | text-align of the placeholder                 | center\n`--input-selection-color`         | color of the selected text                     | inherit\n`--input-selection-background`    | background of the selected text                | rgba(255, 255, 255, 0.5)\n`--input-style`                   | style of the input                             | {}\n`--input-focus`                   | style of the focussed and hovered input        | {}\n`--input-invalid`                 | style of the invalid input                     | {}\n`--input-placeholder`             | style of the placeholder                       | {}\n\n```css\n number-input {\n  --input-disabled-color: grey;\n  --input-focus-background: rgba(0,0,0,0.3);\n  --input-focus: {\n    font-weight: bold;\n  };\n  --input-placeholder: {\n    color: pink;\n  };\n}\n```",
+      "description": "`number-input` is an element that can:\n* prevent non numeric input\n* guarantee **live**-data to be valid\n* pad a value with `0` (to a specific length)\n* size the input (according to it's length)\n* overflow to minimum or underflow to maximum\n* saturate to minimum or to maximum\n* display a specified unit and size the input\n* specify the decimal separator (the value will still be a Number object)\n* use percent-format\n\nExample:\n```html\n<number-input step=\"2\" min=\"-20\" max=\"140\" pad-length=\"2\"></number-input>\n```\n\nIt sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.\n\n Have a look at [input-picker-pattern#input-shared-style](https://github.com/fooloomanzoo/input-picker-pattern#input-shared-style) to see how to style the element.\n\n```css\n number-input {\n  --input-disabled-color: grey;\n  --input-focus-background: rgba(0,0,0,0.3);\n  --input-focus: {\n    font-weight: bold;\n  };\n  --input-placeholder: {\n    color: pink;\n  };\n}\n```",
       "summary": "",
       "path": "number-input.html",
       "properties": [
@@ -84,11 +84,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 116,
+              "line": 113,
               "column": 10
             },
             "end": {
-              "line": 120,
+              "line": 117,
               "column": 11
             }
           },
@@ -107,11 +107,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 125,
+              "line": 122,
               "column": 10
             },
             "end": {
-              "line": 129,
+              "line": 126,
               "column": 11
             }
           },
@@ -130,11 +130,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 134,
+              "line": 131,
               "column": 10
             },
             "end": {
-              "line": 138,
+              "line": 135,
               "column": 11
             }
           },
@@ -238,11 +238,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 93,
+              "line": 90,
               "column": 10
             },
             "end": {
-              "line": 96,
+              "line": 93,
               "column": 11
             }
           },
@@ -562,7 +562,7 @@
           "metadata": {
             "polymer": {
               "notify": true,
-              "observer": "\"_valueAsNumberChanged\""
+              "observer": "\"_valueChanged\""
             }
           },
           "inheritedFrom": "InputPattern"
@@ -752,22 +752,20 @@
           "description": "defines the property that should be used for the value",
           "privacy": "public",
           "sourceRange": {
-            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 66,
+              "line": 140,
               "column": 10
             },
             "end": {
-              "line": 69,
+              "line": 143,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {
-              "observer": "\"_createReflectPropertyToValueObserver\""
-            }
+            "polymer": {}
           },
-          "inheritedFrom": "FormElementMixin"
+          "defaultValue": "\"valueAsNumber\"",
+          "inheritedFrom": "NumberInputMixin"
         },
         {
           "name": "type",
@@ -776,11 +774,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 78,
+              "line": 75,
               "column": 10
             },
             "end": {
-              "line": 81,
+              "line": 78,
               "column": 11
             }
           },
@@ -969,11 +967,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 86,
+              "line": 83,
               "column": 10
             },
             "end": {
-              "line": 88,
+              "line": 85,
               "column": 11
             }
           },
@@ -989,11 +987,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 102,
+              "line": 99,
               "column": 10
             },
             "end": {
-              "line": 104,
+              "line": 101,
               "column": 11
             }
           },
@@ -1009,11 +1007,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 109,
+              "line": 106,
               "column": 10
             },
             "end": {
-              "line": 111,
+              "line": 108,
               "column": 11
             }
           },
@@ -1198,16 +1196,17 @@
           "inheritedFrom": "RangeMixin"
         },
         {
-          "name": "_valueAsNumberChanged",
+          "name": "_valueChanged",
           "description": "",
           "privacy": "protected",
           "sourceRange": {
+            "file": "bower_components\\input-picker-pattern\\input-pattern.html",
             "start": {
-              "line": 204,
+              "line": 265,
               "column": 6
             },
             "end": {
-              "line": 225,
+              "line": 267,
               "column": 7
             }
           },
@@ -1215,12 +1214,9 @@
           "params": [
             {
               "name": "value"
-            },
-            {
-              "name": "oldValue"
             }
           ],
-          "inheritedFrom": "NumberInputMixin"
+          "inheritedFrom": "InputPattern"
         },
         {
           "name": "_checkValue",
@@ -1381,11 +1377,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 177,
+              "line": 182,
               "column": 6
             },
             "end": {
-              "line": 179,
+              "line": 184,
               "column": 7
             }
           },
@@ -1639,11 +1635,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 149,
+              "line": 154,
               "column": 6
             },
             "end": {
-              "line": 160,
+              "line": 165,
               "column": 7
             }
           },
@@ -1661,11 +1657,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 181,
+              "line": 186,
               "column": 6
             },
             "end": {
-              "line": 202,
+              "line": 207,
               "column": 7
             }
           },
@@ -1683,11 +1679,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 227,
+              "line": 232,
               "column": 6
             },
             "end": {
-              "line": 231,
+              "line": 236,
               "column": 7
             }
           },
@@ -1728,11 +1724,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 244,
+              "line": 249,
               "column": 6
             },
             "end": {
-              "line": 262,
+              "line": 267,
               "column": 7
             }
           },
@@ -1803,11 +1799,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 162,
+              "line": 167,
               "column": 6
             },
             "end": {
-              "line": 175,
+              "line": 180,
               "column": 7
             }
           },
@@ -1823,16 +1819,41 @@
           "inheritedFrom": "NumberInputMixin"
         },
         {
+          "name": "_valueAsNumberChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 209,
+              "column": 6
+            },
+            "end": {
+              "line": 230,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            },
+            {
+              "name": "oldValue"
+            }
+          ],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
           "name": "_computeType",
           "description": "",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 233,
+              "line": 238,
               "column": 6
             },
             "end": {
-              "line": 242,
+              "line": 247,
               "column": 7
             }
           },
@@ -1846,11 +1867,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 264,
+              "line": 269,
               "column": 6
             },
             "end": {
-              "line": 288,
+              "line": 293,
               "column": 7
             }
           },
@@ -1889,11 +1910,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 290,
+              "line": 295,
               "column": 6
             },
             "end": {
-              "line": 305,
+              "line": 310,
               "column": 7
             }
           },
@@ -1920,11 +1941,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 307,
+              "line": 312,
               "column": 6
             },
             "end": {
-              "line": 312,
+              "line": 317,
               "column": 7
             }
           },
@@ -1954,11 +1975,11 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 395,
+          "line": 367,
           "column": 4
         },
         "end": {
-          "line": 400,
+          "line": 372,
           "column": 5
         }
       },
@@ -2025,11 +2046,11 @@
           "description": "minimum digits right to the decimal separator",
           "sourceRange": {
             "start": {
-              "line": 116,
+              "line": 113,
               "column": 10
             },
             "end": {
-              "line": 120,
+              "line": 117,
               "column": 11
             }
           },
@@ -2042,11 +2063,11 @@
           "description": "maximum digits right to the decimal separator",
           "sourceRange": {
             "start": {
-              "line": 125,
+              "line": 122,
               "column": 10
             },
             "end": {
-              "line": 129,
+              "line": 126,
               "column": 11
             }
           },
@@ -2059,11 +2080,11 @@
           "description": "minimum digits left to the decimal separator to pad",
           "sourceRange": {
             "start": {
-              "line": 134,
+              "line": 131,
               "column": 10
             },
             "end": {
-              "line": 138,
+              "line": 135,
               "column": 11
             }
           },
@@ -2148,11 +2169,11 @@
           "description": "always put the sign at the beginning",
           "sourceRange": {
             "start": {
-              "line": 93,
+              "line": 90,
               "column": 10
             },
             "end": {
-              "line": 96,
+              "line": 93,
               "column": 11
             }
           },
@@ -2488,30 +2509,29 @@
           "name": "property-for-value",
           "description": "defines the property that should be used for the value",
           "sourceRange": {
-            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 66,
+              "line": 140,
               "column": 10
             },
             "end": {
-              "line": 69,
+              "line": 143,
               "column": 11
             }
           },
           "metadata": {},
           "type": "string",
-          "inheritedFrom": "FormElementMixin"
+          "inheritedFrom": "NumberInputMixin"
         },
         {
           "name": "type",
           "description": "type of the input",
           "sourceRange": {
             "start": {
-              "line": 78,
+              "line": 75,
               "column": 10
             },
             "end": {
-              "line": 81,
+              "line": 78,
               "column": 11
             }
           },
@@ -2650,11 +2670,11 @@
           "description": "length to pad the string (with `0`) according to the total amount of numbers",
           "sourceRange": {
             "start": {
-              "line": 86,
+              "line": 83,
               "column": 10
             },
             "end": {
-              "line": 88,
+              "line": 85,
               "column": 11
             }
           },
@@ -2667,11 +2687,11 @@
           "description": "enables auto padding",
           "sourceRange": {
             "start": {
-              "line": 102,
+              "line": 99,
               "column": 10
             },
             "end": {
-              "line": 104,
+              "line": 101,
               "column": 11
             }
           },
@@ -2684,11 +2704,11 @@
           "description": "start where to increment the value",
           "sourceRange": {
             "start": {
-              "line": 109,
+              "line": 106,
               "column": 10
             },
             "end": {
-              "line": 111,
+              "line": 108,
               "column": 11
             }
           },
@@ -2709,7 +2729,7 @@
       ]
     },
     {
-      "description": "`integer-input` is an element that can:\n* prevent non numeric input\n* guarantee **live**-data to be valid\n* pad a value with `0` (to a specific length)\n* size the input (according to it's length)\n* overflow to minimum or underflow to maximum\n* saturate to minimum or to maximum\n* display a specified unit and size the input\n\nExample:\n```html\n<integer-input step=\"2\" min=\"-20\" max=\"140\" pad-length=\"2\"></integer-input>\n```\n\nIt sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.\n\n### Styling\nCustom property                   | Description                                  | Default\n----------------------------------|----------------------------------------------|--------------------\n`--input-color`                   | color of the input                           | inherit\n`--input-background`              | background of the input                      | transparent\n`--input-border`                  | border of the input                          | thin dotted transparent\n`--input-padding`                 | padding of the input                         | 0.2em\n`--input-border-radius`           | border-radius of the input                   | 0.25em\n`--input-transition`              | transition of the input                      | background 250ms cubic-bezier(0.6, 1, 0.2, 1)\n`--input-align`                  | text-align of the input input               | center\n`--input-cursor`                  | cursor of the input input                    | initial\n`--input-focus-color`             | color of the focussed and hovered input      | inherit\n`--input-focus-background`        | background of the focussed and hovered input | rgba(0,0,0,0.16)\n`--input-focus-border`            | border of the focussed and hovered input     | thin dotted currentColor\n`--input-invalid-color`           | color of the invalid input                   | inherit\n`--input-invalid-background`      | background of the invalid input              | rgba(255,0,0,0.16)\n`--input-invalid-border`          | border of the invalid input                  | thin dotted rgba(255,0,0,0.5)\n`--input-disabled-color`          | color of the disabled input                  | inherit\n`--input-disabled-background`     | background of the disabled input             | transparent\n`--input-disabled-font-style`     | font-style of the disabled elements          | oblique\n`--input-disabled-opacity`        | opacity of the disabled input                | 0.9\n`--input-placeholder-color`       | color of the placeholder                     | inherit\n`--input-placeholder-opacity`     | opacity of the placeholder                   | 0.75\n`--input-placeholder-align`       | text-align of the placeholder               | center\n`--input-selection-color`         | color of the selected text                   | inherit\n`--input-selection-background`    | background of the selected text              | rgba(255,255,255,0.5)\n`--input-style`                   | style of the input                           | {}\n`--input-focus`                   | style of the focussed and hovered input      | {}\n`--input-invalid`                 | style of the invalid input                   | {}\n`--input-placeholder`             | style of the placeholder                     | {}\n\n```css\n integer-input {\n  --input-disabled-color: grey;\n  --input-focus-background: rgba(0,0,0,0.3);\n  --input-focus: {\n    font-weight: bold;\n  };\n  --input-placeholder: {\n    color: pink;\n  };\n}\n```",
+      "description": "`integer-input` is an element that can:\n* prevent non numeric input\n* guarantee **live**-data to be valid\n* pad a value with `0` (to a specific length)\n* size the input (according to it's length)\n* overflow to minimum or underflow to maximum\n* saturate to minimum or to maximum\n* display a specified unit and size the input\n\nExample:\n```html\n<integer-input step=\"2\" min=\"-20\" max=\"140\" pad-length=\"2\"></integer-input>\n```\n\nIt sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.\n\n Have a look at [input-picker-pattern#input-shared-style](https://github.com/fooloomanzoo/input-picker-pattern#input-shared-style) to see how to style the element.\n\n```css\n integer-input {\n  --input-disabled-color: grey;\n  --input-focus-background: rgba(0,0,0,0.3);\n  --input-focus: {\n    font-weight: bold;\n  };\n  --input-placeholder: {\n    color: pink;\n  };\n}\n```",
       "summary": "",
       "path": "integer-input.html",
       "properties": [
@@ -2792,11 +2812,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 116,
+              "line": 113,
               "column": 10
             },
             "end": {
-              "line": 120,
+              "line": 117,
               "column": 11
             }
           },
@@ -2816,11 +2836,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 125,
+              "line": 122,
               "column": 10
             },
             "end": {
-              "line": 129,
+              "line": 126,
               "column": 11
             }
           },
@@ -2840,11 +2860,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 134,
+              "line": 131,
               "column": 10
             },
             "end": {
-              "line": 138,
+              "line": 135,
               "column": 11
             }
           },
@@ -2949,11 +2969,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 93,
+              "line": 90,
               "column": 10
             },
             "end": {
-              "line": 96,
+              "line": 93,
               "column": 11
             }
           },
@@ -3273,7 +3293,7 @@
           "metadata": {
             "polymer": {
               "notify": true,
-              "observer": "\"_valueAsNumberChanged\""
+              "observer": "\"_valueChanged\""
             }
           },
           "inheritedFrom": "InputPattern"
@@ -3463,22 +3483,21 @@
           "description": "defines the property that should be used for the value",
           "privacy": "public",
           "sourceRange": {
-            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
+            "file": "number-input.html",
             "start": {
-              "line": 66,
+              "line": 140,
               "column": 10
             },
             "end": {
-              "line": 69,
+              "line": 143,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {
-              "observer": "\"_createReflectPropertyToValueObserver\""
-            }
+            "polymer": {}
           },
-          "inheritedFrom": "FormElementMixin"
+          "defaultValue": "\"valueAsNumber\"",
+          "inheritedFrom": "NumberInputMixin"
         },
         {
           "name": "type",
@@ -3488,11 +3507,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 78,
+              "line": 75,
               "column": 10
             },
             "end": {
-              "line": 81,
+              "line": 78,
               "column": 11
             }
           },
@@ -3682,11 +3701,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 86,
+              "line": 83,
               "column": 10
             },
             "end": {
-              "line": 88,
+              "line": 85,
               "column": 11
             }
           },
@@ -3703,11 +3722,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 102,
+              "line": 99,
               "column": 10
             },
             "end": {
-              "line": 104,
+              "line": 101,
               "column": 11
             }
           },
@@ -3724,11 +3743,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 109,
+              "line": 106,
               "column": 10
             },
             "end": {
-              "line": 111,
+              "line": 108,
               "column": 11
             }
           },
@@ -3912,17 +3931,17 @@
           "inheritedFrom": "RangeMixin"
         },
         {
-          "name": "_valueAsNumberChanged",
+          "name": "_valueChanged",
           "description": "",
           "privacy": "protected",
           "sourceRange": {
-            "file": "number-input.html",
+            "file": "bower_components\\input-picker-pattern\\input-pattern.html",
             "start": {
-              "line": 204,
+              "line": 265,
               "column": 6
             },
             "end": {
-              "line": 225,
+              "line": 267,
               "column": 7
             }
           },
@@ -3930,12 +3949,9 @@
           "params": [
             {
               "name": "value"
-            },
-            {
-              "name": "oldValue"
             }
           ],
-          "inheritedFrom": "NumberInputMixin"
+          "inheritedFrom": "InputPattern"
         },
         {
           "name": "_checkValue",
@@ -4094,11 +4110,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 177,
+              "line": 182,
               "column": 6
             },
             "end": {
-              "line": 179,
+              "line": 184,
               "column": 7
             }
           },
@@ -4353,11 +4369,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 149,
+              "line": 154,
               "column": 6
             },
             "end": {
-              "line": 160,
+              "line": 165,
               "column": 7
             }
           },
@@ -4376,11 +4392,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 181,
+              "line": 186,
               "column": 6
             },
             "end": {
-              "line": 202,
+              "line": 207,
               "column": 7
             }
           },
@@ -4399,11 +4415,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 227,
+              "line": 232,
               "column": 6
             },
             "end": {
-              "line": 231,
+              "line": 236,
               "column": 7
             }
           },
@@ -4445,11 +4461,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 244,
+              "line": 249,
               "column": 6
             },
             "end": {
-              "line": 262,
+              "line": 267,
               "column": 7
             }
           },
@@ -4521,11 +4537,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 162,
+              "line": 167,
               "column": 6
             },
             "end": {
-              "line": 175,
+              "line": 180,
               "column": 7
             }
           },
@@ -4536,6 +4552,32 @@
             },
             {
               "name": "step"
+            }
+          ],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "_valueAsNumberChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "number-input.html",
+            "start": {
+              "line": 209,
+              "column": 6
+            },
+            "end": {
+              "line": 230,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            },
+            {
+              "name": "oldValue"
             }
           ],
           "inheritedFrom": "NumberInputMixin"
@@ -4565,11 +4607,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 264,
+              "line": 269,
               "column": 6
             },
             "end": {
-              "line": 288,
+              "line": 293,
               "column": 7
             }
           },
@@ -4653,11 +4695,11 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 153,
+          "line": 124,
           "column": 4
         },
         "end": {
-          "line": 158,
+          "line": 129,
           "column": 5
         }
       },
@@ -4725,11 +4767,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 116,
+              "line": 113,
               "column": 10
             },
             "end": {
-              "line": 120,
+              "line": 117,
               "column": 11
             }
           },
@@ -4743,11 +4785,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 125,
+              "line": 122,
               "column": 10
             },
             "end": {
-              "line": 129,
+              "line": 126,
               "column": 11
             }
           },
@@ -4761,11 +4803,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 134,
+              "line": 131,
               "column": 10
             },
             "end": {
-              "line": 138,
+              "line": 135,
               "column": 11
             }
           },
@@ -4851,11 +4893,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 93,
+              "line": 90,
               "column": 10
             },
             "end": {
-              "line": 96,
+              "line": 93,
               "column": 11
             }
           },
@@ -5190,19 +5232,19 @@
           "name": "property-for-value",
           "description": "defines the property that should be used for the value",
           "sourceRange": {
-            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
+            "file": "number-input.html",
             "start": {
-              "line": 66,
+              "line": 140,
               "column": 10
             },
             "end": {
-              "line": 69,
+              "line": 143,
               "column": 11
             }
           },
           "metadata": {},
           "type": "string",
-          "inheritedFrom": "FormElementMixin"
+          "inheritedFrom": "NumberInputMixin"
         },
         {
           "name": "type",
@@ -5210,11 +5252,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 78,
+              "line": 75,
               "column": 10
             },
             "end": {
-              "line": 81,
+              "line": 78,
               "column": 11
             }
           },
@@ -5354,11 +5396,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 86,
+              "line": 83,
               "column": 10
             },
             "end": {
-              "line": 88,
+              "line": 85,
               "column": 11
             }
           },
@@ -5372,11 +5414,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 102,
+              "line": 99,
               "column": 10
             },
             "end": {
-              "line": 104,
+              "line": 101,
               "column": 11
             }
           },
@@ -5390,11 +5432,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 109,
+              "line": 106,
               "column": 10
             },
             "end": {
-              "line": 111,
+              "line": 108,
               "column": 11
             }
           },
@@ -5499,11 +5541,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 116,
+              "line": 113,
               "column": 10
             },
             "end": {
-              "line": 120,
+              "line": 117,
               "column": 11
             }
           },
@@ -5521,11 +5563,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 125,
+              "line": 122,
               "column": 10
             },
             "end": {
-              "line": 129,
+              "line": 126,
               "column": 11
             }
           },
@@ -5543,11 +5585,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 134,
+              "line": 131,
               "column": 10
             },
             "end": {
-              "line": 138,
+              "line": 135,
               "column": 11
             }
           },
@@ -5650,11 +5692,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 93,
+              "line": 90,
               "column": 10
             },
             "end": {
-              "line": 96,
+              "line": 93,
               "column": 11
             }
           },
@@ -5973,7 +6015,7 @@
           "metadata": {
             "polymer": {
               "notify": true,
-              "observer": "\"_valueAsNumberChanged\""
+              "observer": "\"_valueChanged\""
             }
           },
           "inheritedFrom": "InputPattern"
@@ -6163,22 +6205,19 @@
           "description": "defines the property that should be used for the value",
           "privacy": "public",
           "sourceRange": {
-            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 66,
+              "line": 140,
               "column": 10
             },
             "end": {
-              "line": 69,
+              "line": 143,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {
-              "observer": "\"_createReflectPropertyToValueObserver\""
-            }
+            "polymer": {}
           },
-          "inheritedFrom": "FormElementMixin"
+          "defaultValue": "\"valueAsNumber\""
         },
         {
           "name": "type",
@@ -6187,11 +6226,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 78,
+              "line": 75,
               "column": 10
             },
             "end": {
-              "line": 81,
+              "line": 78,
               "column": 11
             }
           },
@@ -6379,11 +6418,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 86,
+              "line": 83,
               "column": 10
             },
             "end": {
-              "line": 88,
+              "line": 85,
               "column": 11
             }
           },
@@ -6398,11 +6437,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 102,
+              "line": 99,
               "column": 10
             },
             "end": {
-              "line": 104,
+              "line": 101,
               "column": 11
             }
           },
@@ -6417,11 +6456,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 109,
+              "line": 106,
               "column": 10
             },
             "end": {
-              "line": 111,
+              "line": 108,
               "column": 11
             }
           },
@@ -6605,16 +6644,17 @@
           "inheritedFrom": "RangeMixin"
         },
         {
-          "name": "_valueAsNumberChanged",
+          "name": "_valueChanged",
           "description": "",
           "privacy": "protected",
           "sourceRange": {
+            "file": "bower_components\\input-picker-pattern\\input-pattern.html",
             "start": {
-              "line": 204,
+              "line": 265,
               "column": 6
             },
             "end": {
-              "line": 225,
+              "line": 267,
               "column": 7
             }
           },
@@ -6622,11 +6662,9 @@
           "params": [
             {
               "name": "value"
-            },
-            {
-              "name": "oldValue"
             }
-          ]
+          ],
+          "inheritedFrom": "InputPattern"
         },
         {
           "name": "_checkValue",
@@ -6787,11 +6825,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 177,
+              "line": 182,
               "column": 6
             },
             "end": {
-              "line": 179,
+              "line": 184,
               "column": 7
             }
           },
@@ -7044,11 +7082,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 149,
+              "line": 154,
               "column": 6
             },
             "end": {
-              "line": 160,
+              "line": 165,
               "column": 7
             }
           },
@@ -7065,11 +7103,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 181,
+              "line": 186,
               "column": 6
             },
             "end": {
-              "line": 202,
+              "line": 207,
               "column": 7
             }
           },
@@ -7086,11 +7124,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 227,
+              "line": 232,
               "column": 6
             },
             "end": {
-              "line": 231,
+              "line": 236,
               "column": 7
             }
           },
@@ -7130,11 +7168,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 244,
+              "line": 249,
               "column": 6
             },
             "end": {
-              "line": 262,
+              "line": 267,
               "column": 7
             }
           },
@@ -7204,11 +7242,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 162,
+              "line": 167,
               "column": 6
             },
             "end": {
-              "line": 175,
+              "line": 180,
               "column": 7
             }
           },
@@ -7223,16 +7261,40 @@
           ]
         },
         {
+          "name": "_valueAsNumberChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 209,
+              "column": 6
+            },
+            "end": {
+              "line": 230,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            },
+            {
+              "name": "oldValue"
+            }
+          ]
+        },
+        {
           "name": "_computeType",
           "description": "",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 233,
+              "line": 238,
               "column": 6
             },
             "end": {
-              "line": 242,
+              "line": 247,
               "column": 7
             }
           },
@@ -7245,11 +7307,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 264,
+              "line": 269,
               "column": 6
             },
             "end": {
-              "line": 288,
+              "line": 293,
               "column": 7
             }
           },
@@ -7287,11 +7349,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 290,
+              "line": 295,
               "column": 6
             },
             "end": {
-              "line": 305,
+              "line": 310,
               "column": 7
             }
           },
@@ -7317,11 +7379,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 307,
+              "line": 312,
               "column": 6
             },
             "end": {
-              "line": 312,
+              "line": 317,
               "column": 7
             }
           },
@@ -7345,7 +7407,7 @@
           "column": 2
         },
         "end": {
-          "line": 315,
+          "line": 320,
           "column": 3
         }
       },
@@ -7411,11 +7473,11 @@
           "description": "minimum digits right to the decimal separator",
           "sourceRange": {
             "start": {
-              "line": 116,
+              "line": 113,
               "column": 10
             },
             "end": {
-              "line": 120,
+              "line": 117,
               "column": 11
             }
           },
@@ -7427,11 +7489,11 @@
           "description": "maximum digits right to the decimal separator",
           "sourceRange": {
             "start": {
-              "line": 125,
+              "line": 122,
               "column": 10
             },
             "end": {
-              "line": 129,
+              "line": 126,
               "column": 11
             }
           },
@@ -7443,11 +7505,11 @@
           "description": "minimum digits left to the decimal separator to pad",
           "sourceRange": {
             "start": {
-              "line": 134,
+              "line": 131,
               "column": 10
             },
             "end": {
-              "line": 138,
+              "line": 135,
               "column": 11
             }
           },
@@ -7531,11 +7593,11 @@
           "description": "always put the sign at the beginning",
           "sourceRange": {
             "start": {
-              "line": 93,
+              "line": 90,
               "column": 10
             },
             "end": {
-              "line": 96,
+              "line": 93,
               "column": 11
             }
           },
@@ -7870,30 +7932,28 @@
           "name": "property-for-value",
           "description": "defines the property that should be used for the value",
           "sourceRange": {
-            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
             "start": {
-              "line": 66,
+              "line": 140,
               "column": 10
             },
             "end": {
-              "line": 69,
+              "line": 143,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "string",
-          "inheritedFrom": "FormElementMixin"
+          "type": "string"
         },
         {
           "name": "type",
           "description": "type of the input",
           "sourceRange": {
             "start": {
-              "line": 78,
+              "line": 75,
               "column": 10
             },
             "end": {
-              "line": 81,
+              "line": 78,
               "column": 11
             }
           },
@@ -8031,11 +8091,11 @@
           "description": "length to pad the string (with `0`) according to the total amount of numbers",
           "sourceRange": {
             "start": {
-              "line": 86,
+              "line": 83,
               "column": 10
             },
             "end": {
-              "line": 88,
+              "line": 85,
               "column": 11
             }
           },
@@ -8047,11 +8107,11 @@
           "description": "enables auto padding",
           "sourceRange": {
             "start": {
-              "line": 102,
+              "line": 99,
               "column": 10
             },
             "end": {
-              "line": 104,
+              "line": 101,
               "column": 11
             }
           },
@@ -8063,11 +8123,11 @@
           "description": "start where to increment the value",
           "sourceRange": {
             "start": {
-              "line": 109,
+              "line": 106,
               "column": 10
             },
             "end": {
-              "line": 111,
+              "line": 108,
               "column": 11
             }
           },
@@ -8171,11 +8231,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 116,
+              "line": 113,
               "column": 10
             },
             "end": {
-              "line": 120,
+              "line": 117,
               "column": 11
             }
           },
@@ -8195,11 +8255,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 125,
+              "line": 122,
               "column": 10
             },
             "end": {
-              "line": 129,
+              "line": 126,
               "column": 11
             }
           },
@@ -8219,11 +8279,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 134,
+              "line": 131,
               "column": 10
             },
             "end": {
-              "line": 138,
+              "line": 135,
               "column": 11
             }
           },
@@ -8328,11 +8388,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 93,
+              "line": 90,
               "column": 10
             },
             "end": {
-              "line": 96,
+              "line": 93,
               "column": 11
             }
           },
@@ -8651,7 +8711,7 @@
           "metadata": {
             "polymer": {
               "notify": true,
-              "observer": "\"_valueAsNumberChanged\""
+              "observer": "\"_valueChanged\""
             }
           },
           "inheritedFrom": "InputPattern"
@@ -8841,22 +8901,21 @@
           "description": "defines the property that should be used for the value",
           "privacy": "public",
           "sourceRange": {
-            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
+            "file": "number-input.html",
             "start": {
-              "line": 66,
+              "line": 140,
               "column": 10
             },
             "end": {
-              "line": 69,
+              "line": 143,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {
-              "observer": "\"_createReflectPropertyToValueObserver\""
-            }
+            "polymer": {}
           },
-          "inheritedFrom": "FormElementMixin"
+          "defaultValue": "\"valueAsNumber\"",
+          "inheritedFrom": "NumberInputMixin"
         },
         {
           "name": "type",
@@ -8866,11 +8925,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 78,
+              "line": 75,
               "column": 10
             },
             "end": {
-              "line": 81,
+              "line": 78,
               "column": 11
             }
           },
@@ -9060,11 +9119,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 86,
+              "line": 83,
               "column": 10
             },
             "end": {
-              "line": 88,
+              "line": 85,
               "column": 11
             }
           },
@@ -9081,11 +9140,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 102,
+              "line": 99,
               "column": 10
             },
             "end": {
-              "line": 104,
+              "line": 101,
               "column": 11
             }
           },
@@ -9102,11 +9161,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 109,
+              "line": 106,
               "column": 10
             },
             "end": {
-              "line": 111,
+              "line": 108,
               "column": 11
             }
           },
@@ -9289,17 +9348,17 @@
           "inheritedFrom": "RangeMixin"
         },
         {
-          "name": "_valueAsNumberChanged",
+          "name": "_valueChanged",
           "description": "",
           "privacy": "protected",
           "sourceRange": {
-            "file": "number-input.html",
+            "file": "bower_components\\input-picker-pattern\\input-pattern.html",
             "start": {
-              "line": 204,
+              "line": 265,
               "column": 6
             },
             "end": {
-              "line": 225,
+              "line": 267,
               "column": 7
             }
           },
@@ -9307,12 +9366,9 @@
           "params": [
             {
               "name": "value"
-            },
-            {
-              "name": "oldValue"
             }
           ],
-          "inheritedFrom": "NumberInputMixin"
+          "inheritedFrom": "InputPattern"
         },
         {
           "name": "_checkValue",
@@ -9468,11 +9524,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 177,
+              "line": 182,
               "column": 6
             },
             "end": {
-              "line": 179,
+              "line": 184,
               "column": 7
             }
           },
@@ -9727,11 +9783,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 149,
+              "line": 154,
               "column": 6
             },
             "end": {
-              "line": 160,
+              "line": 165,
               "column": 7
             }
           },
@@ -9750,11 +9806,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 181,
+              "line": 186,
               "column": 6
             },
             "end": {
-              "line": 202,
+              "line": 207,
               "column": 7
             }
           },
@@ -9773,11 +9829,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 227,
+              "line": 232,
               "column": 6
             },
             "end": {
-              "line": 231,
+              "line": 236,
               "column": 7
             }
           },
@@ -9819,11 +9875,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 244,
+              "line": 249,
               "column": 6
             },
             "end": {
-              "line": 262,
+              "line": 267,
               "column": 7
             }
           },
@@ -9895,11 +9951,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 162,
+              "line": 167,
               "column": 6
             },
             "end": {
-              "line": 175,
+              "line": 180,
               "column": 7
             }
           },
@@ -9910,6 +9966,32 @@
             },
             {
               "name": "step"
+            }
+          ],
+          "inheritedFrom": "NumberInputMixin"
+        },
+        {
+          "name": "_valueAsNumberChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "number-input.html",
+            "start": {
+              "line": 209,
+              "column": 6
+            },
+            "end": {
+              "line": 230,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            },
+            {
+              "name": "oldValue"
             }
           ],
           "inheritedFrom": "NumberInputMixin"
@@ -9938,11 +10020,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 264,
+              "line": 269,
               "column": 6
             },
             "end": {
-              "line": 288,
+              "line": 293,
               "column": 7
             }
           },
@@ -10086,11 +10168,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 116,
+              "line": 113,
               "column": 10
             },
             "end": {
-              "line": 120,
+              "line": 117,
               "column": 11
             }
           },
@@ -10104,11 +10186,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 125,
+              "line": 122,
               "column": 10
             },
             "end": {
-              "line": 129,
+              "line": 126,
               "column": 11
             }
           },
@@ -10122,11 +10204,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 134,
+              "line": 131,
               "column": 10
             },
             "end": {
-              "line": 138,
+              "line": 135,
               "column": 11
             }
           },
@@ -10212,11 +10294,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 93,
+              "line": 90,
               "column": 10
             },
             "end": {
-              "line": 96,
+              "line": 93,
               "column": 11
             }
           },
@@ -10550,19 +10632,19 @@
           "name": "property-for-value",
           "description": "defines the property that should be used for the value",
           "sourceRange": {
-            "file": "bower_components\\input-picker-pattern\\form-element-mixin.html",
+            "file": "number-input.html",
             "start": {
-              "line": 66,
+              "line": 140,
               "column": 10
             },
             "end": {
-              "line": 69,
+              "line": 143,
               "column": 11
             }
           },
           "metadata": {},
           "type": "string",
-          "inheritedFrom": "FormElementMixin"
+          "inheritedFrom": "NumberInputMixin"
         },
         {
           "name": "type",
@@ -10570,11 +10652,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 78,
+              "line": 75,
               "column": 10
             },
             "end": {
-              "line": 81,
+              "line": 78,
               "column": 11
             }
           },
@@ -10714,11 +10796,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 86,
+              "line": 83,
               "column": 10
             },
             "end": {
-              "line": 88,
+              "line": 85,
               "column": 11
             }
           },
@@ -10732,11 +10814,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 102,
+              "line": 99,
               "column": 10
             },
             "end": {
-              "line": 104,
+              "line": 101,
               "column": 11
             }
           },
@@ -10750,11 +10832,11 @@
           "sourceRange": {
             "file": "number-input.html",
             "start": {
-              "line": 109,
+              "line": 106,
               "column": 10
             },
             "end": {
-              "line": 111,
+              "line": 108,
               "column": 11
             }
           },
