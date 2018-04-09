@@ -24,9 +24,9 @@ The normal `input` with `type="number"` is fairly good to use, but it has some f
 * display a specified currencies
 * can use percentage values and do have automatically the correct decimal value
 
-![img](https://github.com/fooloomanzoo/number-input/raw/master/docs/number-input.gif "Demo")
+This element wants to achieve that, by using the [Intl.NumberFormat API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat). A more simpler element \<integer-input\> just uses integer values and doesn't use units or percent values.
 
-This element wants to achieve that, by using the [Intl.NumberFormat API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat). A more simpler element \<integer-input\> just uses integer values and doesn't use currency or percent values.
+![img](https://github.com/fooloomanzoo/number-input/raw/master/docs/number-input.gif "Demo")
 
 ### Example
 
@@ -72,6 +72,9 @@ This element wants to achieve that, by using the [Intl.NumberFormat API](https:/
 <span>using currencies: </span><number-input min="0" step="0.01" always-sign start-at="1000" default="1000" use-grouping number-style="currency" currency="EUR"></number-input><br>
 <span>as integer: </span><integer-input min="-150" step="15" max="300" default="15"></integer-input>
 ```
+
+### Styling
+Have a look at [input-picker-pattern#input-shared-style](https://github.com/fooloomanzoo/input-picker-pattern#input-shared-style) to see how to style the element.
 
 ### Installation
 ```
