@@ -56,7 +56,7 @@
       static get inputTemplate() {
         return `
           <input id="input"
-            type="[[type]]"
+            type$="[[type]]"
             value="{{input::input}}"
             step="[[step]]"
             required$="[[required]]"
@@ -75,7 +75,7 @@
            */
           type: {
             type: String,
-            computed: '_computeType(formatNumber, alwaysSign)'
+            computed: '_computeType(formatNumber, parseNumber, alwaysSign)'
           },
 
           /**
@@ -133,6 +133,10 @@
             type: Number,
             computed: '_computeMinimumIntegerDigits(autoPadding, padLength, default, startAt, min, max, _step, numberStyle)',
             notify: true
+          },
+
+          value: {
+            type: Number
           },
 
           /**
@@ -197,7 +201,6 @@
         }
         const value = this._checkValue(this.parseNumber(input), this.valueAsNumber);
         input = this.formatNumber(value);
-
         this.setProperties({
           input: input,
           valueAsNumber: value
@@ -227,7 +230,7 @@
           this.valueAsNumber = value;
           return;
         }
-        this.input = this.input = this.formatNumber(value);
+        this.input = this.formatNumber(value);
       }
 
       _defaultChanged(def) {
