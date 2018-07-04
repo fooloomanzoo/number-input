@@ -56,7 +56,7 @@
       static get inputTemplate() {
         return `
           <input id="input"
-            type$="[[type]]"
+            type$="[[_type]]"
             value="{{input::input}}"
             step="[[step]]"
             required$="[[required]]"
@@ -73,7 +73,7 @@
           /**
            * type of the input
            */
-          type: {
+          _type: {
             type: String,
             computed: '_computeType(formatNumber, parseNumber, alwaysSign)'
           },
@@ -99,13 +99,6 @@
            */
           autoPadding: {
             type: Boolean
-          },
-
-          /**
-           * start where to increment the value
-           */
-          startAt: {
-            type: Number
           },
 
           /**
@@ -156,31 +149,33 @@
         ]
       }
 
-      _checkKeycode(e) {
-        // up or down key press
-        const step = (e.keyCode === 38) ? this._step : (e.keyCode === 40 ? -this._step : 0);
-        if (step !== 0) {
-          this._checkInput();
-          setTimeout(this._increm.bind(this, this.valueAsNumber, +step), 0);
-          e.stopPropagation();
-          return;
-        }
-
-        super._checkKeycode && super._checkKeycode(e);
+      connectedCallback() {
+        super.connectedCallback();
+        this._increm = this._increm.bind(this);
       }
 
-      _increm(value, step) {
-        value = +this._safeAdd(value, step);
-        if (isNaN(value)) {
-          if (!isNaN(this.startAt)) {
-            this.valueAsNumber = +this.startAt;
-          } else if (!isNaN(this.default)) {
-            this.valueAsNumber = +this.default;
-          } else {
-            this.valueAsNumber = this.min < 0 ? 0 : this.min || 0;
-          }
-        } else {
-          this.valueAsNumber = value;
+      _checkKeycode(e) {
+        switch (e.keyCode) {
+          case 9:  // tab // falls-through
+          case 13: // enter
+            this._checkInput();
+            break;
+          case 27: // esc
+            this._updateValue();
+            this.$.input.blur();
+            break;
+          case 38: // up
+            if (this._type !== 'number') {
+              e.stopPropagation();
+              this.increase();
+            }
+            break;
+          case 40: // down
+            if (this._type !== 'number') {
+              e.stopPropagation();
+              this.decrease();
+            }
+            break;
         }
       }
 
@@ -188,8 +183,8 @@
         this.invalid = required && isNaN(value);
       }
 
-      _inputChanged(input) {
-        if (!input) {
+      _checkInput() {
+        if (!this.input) {
           if (!isNaN(this.default)) {
             this.setProperties({
               input: this.formatNumber(this.default),
@@ -199,12 +194,17 @@
           this._debouncedComputeWidth();
           return;
         }
-        const value = this._checkValue(this.parseNumber(input), this.valueAsNumber);
-        input = this.formatNumber(value);
+        const value = this._checkValue(this.parseNumber(this.input), this.valueAsNumber);
         this.setProperties({
-          input: input,
+          input: this.formatNumber(value),
           valueAsNumber: value
         });
+        this._debouncedComputeWidth();
+      }
+
+      _inputChanged(input) {
+        // console.log('_inputChanged', input);
+
         if (this.autoResize) {
           this._debouncedComputeWidth();
         }

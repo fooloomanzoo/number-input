@@ -32,7 +32,7 @@
         <template>
           <dom-bind>
             <template is="dom-bind">
-              <number-input value="{{value}}" step="0.001" min="-1" max="1" placeholder="0.000" start-at="0"></number-input>
+              <number-input value="{{value}}" step="0.001" min="-1" max="1" placeholder="0" start-at="0"></number-input>
               <div class="vertical-section-container result">
                 <div><code>step</code>: <b>0.001</b><code>min</code>: <b>-1</b><code>max</code>: <b>1</b><code>start at</code>: <b>0</b></div>
                 <div><code>value</code>: <b>[[value]]</b></div>
@@ -70,8 +70,9 @@
               </custom-style>
               <input type="checkbox" checked="{{autoResize::change}}">auto resize on input<br>
               <input type="checkbox" checked="{{alwaysSign::change}}">always sign<br>
+              <input type="checkbox" checked="{{useNegativeZero::change}}">switch with negative zero<br>
               step: <input type="number" value="{{step::input}}" min="0" step="1"><br><br>
-              <integer-input class="integer" always-sign="[[alwaysSign]]" step="{{step}}" auto-resize="[[autoResize]]" input="{{input}}" value="{{value}}" default="10"></integer-input>
+              <integer-input class="integer" always-sign="[[alwaysSign]]" step="{{step}}" auto-resize="[[autoResize]]" input="{{input}}" value="{{value}}" default="10" use-negative-zero="[[useNegativeZero]]"></integer-input>
               <div class="vertical-section-container result">
                 <div><code>input</code>: <b>[[input]]</b></div>
                 <div><code>value</code>: <b>[[value]]</b></div>
@@ -101,8 +102,8 @@
                     --input-focus-border-style: solid;
                     --input-focus-background: rgba(218, 145, 104, 0.75);
                     --input-focus-color: #111;
-                    --input-placeholder-opacity: 0.5;
-                    --input-placeholder: {
+                    --input-placeholder-opacity: 0.9;
+                    --number-input-placeholder: {
                       font-style: italic;
                     };
                   }
@@ -148,7 +149,7 @@
                 <option value="decimal">decimal</option>
                 <option value="percent">percent</option>
                 <option value="currency">currency</option>
-              </select>
+              </select><br>
               currency: <select value="{{currency::change}}">
                 <option value=""></option>
                 <option value="EUR">EUR</option>
@@ -157,7 +158,7 @@
                 <option value="RUB">RUB</option>
                 <option value="JPY">JPY</option>
                 <option value="CNY">CNY</option>
-              </select>
+              </select><br>
               locale: <select value="{{locale::change}}">
                 <option value=""></option>
                 <option value="en">english</option>
@@ -173,12 +174,13 @@
                 <option value="ja">日本語</option>
                 <option value="zh">中文</option>
               </select><br>
-              unit: <input type="text" value="{{unit::change}}">
-              <input type="checkbox" checked="{{autoPadding::change}}">auto padding
-              <input type="checkbox" checked="{{alwaysSign::change}}">always sign
+              unit: <input type="text" value="{{unit::change}}"><br>
+              <input type="checkbox" checked="{{autoPadding::change}}">auto padding<br>
+              <input type="checkbox" checked="{{alwaysSign::change}}">always sign<br>
               <input type="checkbox" checked="{{useGrouping::change}}">use grouping<br>
+              <input type="checkbox" checked="{{useNegativeZero::change}}">switch with negative zero<br>
               <br>
-              <number-input class="various" value="{{value}}" input="{{input}}" no-clamp default="1" step="0.01" min="-1" max="20000" unit="[[unit]]" start-at="1" use-grouping="[[useGrouping]]" always-sign="[[alwaysSign]]" locale="{{locale}}" number-style="[[numberStyle]]" currency="[[currency]]" auto-padding="[[autoPadding]]"></number-input>
+              <number-input class="various" value="{{value}}" input="{{input}}" no-clamp default="1" step="0.01" min="-1" max="20000" unit="[[unit]]" start-at="1" use-grouping="[[useGrouping]]" always-sign="[[alwaysSign]]" locale="{{locale}}" number-style="[[numberStyle]]" currency="[[currency]]" auto-padding="[[autoPadding]]" use-negative-zero="[[useNegativeZero]]"></number-input>
               <div class="vertical-section-container result">
                 <div><code>step</code>: <b>0.01</b><code>min</code>: <b>-1</b><code>max</code>: <b>20000</b><code>default</code>: <b>1.00</b></div>
                 <div><code>input</code>: <b>[[input]]</b></div>

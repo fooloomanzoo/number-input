@@ -35,7 +35,7 @@
           this.step = Math.abs(step);
           return;
         }
-        this._step = Math.floor(window._numberUtilities._safeMult(step, stepMod || 1));
+        this._step = Math.floor(window.numberUtilities.safeMult(step, stepMod || 1));
         this._updateValue();
       }
 

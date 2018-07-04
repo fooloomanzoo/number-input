@@ -4,37 +4,37 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>number-input test</title>
+    <title>integer-input test</title>
 
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
 
-    <link rel="import" href="../number-input.html">
+    <link rel="import" href="../integer-input.html">
   </head>
   <body>
 
     <test-fixture id="BasicTestFixture">
       <template>
-        <number-input></number-input>
+        <integer-input></integer-input>
       </template>
     </test-fixture>
 
     <test-fixture id="ChangedPropertyTestFixture">
       <template>
-        <number-input step="0.2"></number-input>
+        <integer-input step="2"></integer-input>
       </template>
     </test-fixture>
 
     <script>
-      suite('number-input', function() {
+      suite('integer-input', function() {
 
         test('instantiating the element with default properties works', done => {
           const element = fixture('BasicTestFixture');
           assert.isUndefined(element.default, 'default is not defined');
           assert.isUndefined(element.startAt, 'startAt is not defined');
           assert.isUndefined(element.useNegativeZero, 'useNegativeZero is not defined');
-          assert.isUndefined(element.numberStyle, 'valueAsNumber is not defined');
-          assert.isUndefined(element.valueAsNumber, 'valueAsNumber is not defined');
+          assert.isUndefined(element.integerStyle, 'valueAsinteger is not defined');
+          assert.isUndefined(element.valueAsinteger, 'valueAsinteger is not defined');
           assert.equal(element.input, '', 'input is not defined');
           done();
         });
