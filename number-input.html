@@ -143,25 +143,18 @@
       }
 
       _checkKeycode(e) {
-        switch (e.keyCode) {
-          case 9:  // tab // falls-through
-          case 13: // enter
-            this._checkInput();
-            break;
-          case 27: // esc
-            this._updateValue();
-            this.$.input.blur();
-            break;
-            case 38: // up
-            e.preventDefault();
-            e.stopPropagation();
-            this.increase();
-            break;
-          case 40: // down
-            e.preventDefault();
-            e.stopPropagation();
-            this.decrease();
-            break;
+        super._checkKeycode(e);
+        if (e.keyCode === 38) { // up
+          e.preventDefault();
+          e.stopPropagation();
+          this.increase();
+          return;
+        }
+        if (e.keyCode === 40) { // down
+          e.preventDefault();
+          e.stopPropagation();
+          this.decrease();
+          return;
         }
       }
 
