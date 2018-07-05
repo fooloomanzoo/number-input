@@ -86,14 +86,6 @@
           },
 
           /**
-           * always put the sign at the beginning
-           */
-          alwaysSign: {
-            type: Boolean,
-            observer: '_updateValue'
-          },
-
-          /**
            * enables auto padding
            * @type {boolean}
            */
@@ -145,13 +137,9 @@
       static get observers() {
         return [
           '_computeMinWidth(formatNumber, startAt, min, max, minimumIntegerDigits, minimumFractionDigits, alwaysSign)',
-          '_updateValue(formatNumber)'
+          '_updateValue(formatNumber)',
+          '_updateValue(alwaysSign)'
         ]
-      }
-
-      connectedCallback() {
-        super.connectedCallback();
-        this._increm = this._increm.bind(this);
       }
 
       _checkKeycode(e) {
@@ -164,17 +152,15 @@
             this._updateValue();
             this.$.input.blur();
             break;
-          case 38: // up
-            if (this._type !== 'number') {
-              e.stopPropagation();
-              this.increase();
-            }
+            case 38: // up
+            e.preventDefault();
+            e.stopPropagation();
+            this.increase();
             break;
           case 40: // down
-            if (this._type !== 'number') {
-              e.stopPropagation();
-              this.decrease();
-            }
+            e.preventDefault();
+            e.stopPropagation();
+            this.decrease();
             break;
         }
       }
@@ -190,6 +176,8 @@
               input: this.formatNumber(this.default),
               valueAsNumber: +this.default
             })
+          } else {
+            this.valueAsNumber = undefined;
           }
           this._debouncedComputeWidth();
           return;
@@ -203,34 +191,18 @@
       }
 
       _inputChanged(input) {
-        // console.log('_inputChanged', input);
-
         if (this.autoResize) {
           this._debouncedComputeWidth();
         }
       }
 
       _valueAsNumberChanged(value, oldValue) {
-        if (value === undefined) {
-          if (!isNaN(this.default)) {
-            this.valueAsNumber = this.default;
-          } else {
-            this.input = this.input = '';
-          }
+        super._valueAsNumberChanged(value, oldValue);
+        if (isNaN(value)) {
+          this.input = '';
           return;
         }
-
-        if (isNaN(oldValue)) {
-          value = this._checkValue(value);
-        } else {
-          value = this._checkValue(value, oldValue);
-        }
-
-        if (this.valueAsNumber !== value) {
-          this.valueAsNumber = value;
-          return;
-        }
-        this.input = this.formatNumber(value);
+        this.input = this.formatNumber(this.valueAsNumber);
       }
 
       _defaultChanged(def) {

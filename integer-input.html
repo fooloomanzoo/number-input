@@ -54,7 +54,7 @@
             return parseInt(input.replace(regExpGrouping, ''));
           }
         } else {
-          return (input) => {
+          return function(input) {
             return parseInt(input);
           }
         }

@@ -72,7 +72,7 @@
               <input type="checkbox" checked="{{alwaysSign::change}}">always sign<br>
               <input type="checkbox" checked="{{useNegativeZero::change}}">switch with negative zero<br>
               step: <input type="number" value="{{step::input}}" min="0" step="1"><br><br>
-              <integer-input class="integer" always-sign="[[alwaysSign]]" step="{{step}}" auto-resize="[[autoResize]]" input="{{input}}" value="{{value}}" default="10" use-negative-zero="[[useNegativeZero]]"></integer-input>
+              <integer-input class="integer" always-sign="[[alwaysSign]]" step="{{step}}" auto-resize="[[autoResize]]" input="{{input}}" value="{{value}}" default="10" use-negative-zero="[[useNegativeZero]]" pad-length="2"></integer-input>
               <div class="vertical-section-container result">
                 <div><code>input</code>: <b>[[input]]</b></div>
                 <div><code>value</code>: <b>[[value]]</b></div>
