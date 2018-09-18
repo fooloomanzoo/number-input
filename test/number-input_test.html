@@ -13,36 +13,214 @@
   </head>
   <body>
 
-    <test-fixture id="BasicTestFixture">
+    <test-fixture id="basic">
       <template>
         <number-input></number-input>
       </template>
     </test-fixture>
 
-    <test-fixture id="ChangedPropertyTestFixture">
+    <test-fixture id="SettingStep">
       <template>
-        <number-input step="0.2"></number-input>
+        <number-input step="3"></number-input>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="SettingDefault">
+      <template>
+        <number-input default="2"></number-input>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="StartAt">
+      <template>
+        <number-input start-at="2"></number-input>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="PadLength">
+      <template>
+        <number-input pad-length="5"></number-input>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="AutoPadding">
+      <template>
+        <number-input value="3" auto-padding></number-input>
       </template>
     </test-fixture>
 
     <script>
-      suite('number-input', function() {
+      suite('basic', function() {
+
+        let element;
+
+        setup(function() {
+          element = fixture('basic');
+        });
 
         test('instantiating the element with default properties works', done => {
-          const element = fixture('BasicTestFixture');
           assert.isUndefined(element.default, 'default is not defined');
           assert.isUndefined(element.startAt, 'startAt is not defined');
+          assert.isUndefined(element.min, 'min is not defined');
+          assert.isUndefined(element.max, 'max is not defined');
           assert.isUndefined(element.useNegativeZero, 'useNegativeZero is not defined');
-          assert.isUndefined(element.numberStyle, 'valueAsNumber is not defined');
           assert.isUndefined(element.valueAsNumber, 'valueAsNumber is not defined');
-          assert.equal(element.input, '', 'input is not defined');
+          assert.isUndefined(element.value, 'value is not defined');
+          assert.equal(element.numberStyle, 'decimal', 'numberStyle should be "decimal"');
+          assert.isTrue(!element.input, 'input is empty');
           done();
         });
 
+        test('valueAsNumber should change value', done => {
+          element.valueAsNumber = 2.2;
+          assert.equal(element.value, 2.2, 'value should change');
+          done();
+        });
+
+        test('value should change valueAsNumber', done => {
+          element.value = 2.2;
+          assert.equal(element.valueAsNumber, 2.2, 'value should change');
+          done();
+        });
+
+        test('setting a non integer value without clamp', done => {
+          element.value = 2.2;
+          assert.equal(element.value, 2.2, 'value remains the same');
+          done();
+        });
+
+        test('setting a non integer value without clamp, no camp and step is set', done => {
+          element.noClamp = true;
+          element.step = 2;
+          element.value = 2.2;
+          assert.equal(element.value, 2.2, 'value remains the same');
+          done();
+        });
+
+        test('setting a non integer value with clamp no camp and step is set', done => {
+          element.step = 2;
+          element.value = 2.2;
+          assert.equal(element.value, 2, 'value should clamp');
+          done();
+        });
+      });
+
+      suite('steps', function() {
+        let element;
+
+        setup(function() {
+          element = fixture('SettingStep');
+        });
+
         test('setting a property on the element works', done => {
-          // Create a test fixture
-          const element = fixture('ChangedPropertyTestFixture');
-          assert.equal(element.step, 2, 'step is set');
+          assert.equal(element.step, 3, 'step is set');
+          done();
+        });
+
+        test('setting a decimal step', done => {
+          element.step = 2.2;
+          assert.equal(element.step, 2.2, 'step is set');
+          done();
+        });
+
+        test('setting a value not matching step', done => {
+          element.value = 2;
+          assert.equal(element.value, 3, 'value is clamp according to step');
+          done();
+        });
+      });
+
+      suite('start at value', function() {
+        let element;
+
+        setup(function() {
+          element = fixture('StartAt');
+        });
+
+        test('start at value', done => {
+          assert.equal(element.startAt, 2, 'start at is set');
+          assert.isUndefined(element.valueAsNumber, 'valueAsNumber is not defined');
+          assert.isUndefined(element.value, 'value is not defined');
+
+          element.increase();
+          assert.equal(element.valueAsNumber, element.startAt, 'valueAsNumber is start-at');
+          assert.equal(element.value, element.startAt, 'value is start-at');
+          assert.equal(element.input, '' + element.startAt, 'value is start-at');
+
+          done();
+        });
+      });
+
+      suite('default value', function() {
+        let element;
+
+        setup(function() {
+          element = fixture('SettingDefault');
+        });
+
+        test('setting default value', done => {
+          assert.equal(element.default, 2, 'default is set');
+          assert.equal(element.valueAsNumber, element.default, 'valueAsNumber is default');
+          assert.equal(element.value, element.default, 'value is default');
+          assert.equal(element.input, '' + element.default, 'value is default');
+
+          element.value = undefined;
+          assert.equal(element.valueAsNumber, element.default, 'valueAsNumber is default after reset');
+          assert.equal(element.value, element.default, 'value is default after reset');
+          done();
+        });
+      });
+
+      suite('padding', function() {
+        let element;
+
+        setup(function() {
+          element = fixture('PadLength');
+        });
+        test('pad value', done => {
+          element.value = 3;
+          assert.equal(element.input, '00003', 'input is padded');
+          element.value = 300000;
+          assert.equal(element.input, '300000', 'input is not padded');
+          done();
+        });
+
+        test('pad value with auto-padding and pad-length', done => {
+          element.autoPadding = true;
+          element.max = 50000000;
+          element.value = 3;
+          assert.equal(element.input, '00000003', 'input is padded');
+          done();
+        });
+      });
+
+      suite('auto padding', function() {
+        let element;
+
+        setup(function() {
+          element = fixture('AutoPadding');
+        });
+
+        test('no padding without setting attributes pad value', done => {
+          assert.equal(element.input, '3', 'input is not padded');
+          done();
+        });
+
+        test('pad value with min set', done => {
+          element.min = -50000000;
+          assert.equal(element.input, '00000003', 'input is padded');
+          done();
+        });
+
+        test('pad value with max set', done => {
+          element.max = 50000000;
+          assert.equal(element.input, '00000003', 'input is padded');
+          done();
+        });
+
+        test('pad value with default set', done => {
+          element.default = 50000000;
+          assert.equal(element.input, '00000003', 'input is padded');
           done();
         });
 

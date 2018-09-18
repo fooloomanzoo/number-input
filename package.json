@@ -17,7 +17,7 @@
     "prestart": "polymer analyze > analysis.json",
     "start": "polymer serve -o",
     "test": "polymer test",
-    "test:p": "polymer test -p --config-file=wct.p.conf.json"
+    "test:p": "polymer test -p --config-file=wct.p.conf.js"
   },
   "keywords": [
     "number",

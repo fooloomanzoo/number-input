@@ -11,42 +11,44 @@
 
     <link rel="import" href="../integer-input.html">
   </head>
+
   <body>
 
-    <test-fixture id="BasicTestFixture">
+    <test-fixture id="basic">
       <template>
         <integer-input></integer-input>
       </template>
     </test-fixture>
 
-    <test-fixture id="ChangedPropertyTestFixture">
-      <template>
-        <integer-input step="2"></integer-input>
-      </template>
-    </test-fixture>
-
     <script>
-      suite('integer-input', function() {
+      suite('basic', function() {
+        let element;
+
+        setup(function() {
+          element = fixture('basic');
+        });
 
         test('instantiating the element with default properties works', done => {
-          const element = fixture('BasicTestFixture');
           assert.isUndefined(element.default, 'default is not defined');
           assert.isUndefined(element.startAt, 'startAt is not defined');
+          assert.isUndefined(element.min, 'min is not defined');
+          assert.isUndefined(element.max, 'max is not defined');
           assert.isUndefined(element.useNegativeZero, 'useNegativeZero is not defined');
-          assert.isUndefined(element.integerStyle, 'valueAsinteger is not defined');
-          assert.isUndefined(element.valueAsinteger, 'valueAsinteger is not defined');
-          assert.equal(element.input, '', 'input is not defined');
+          assert.isUndefined(element.valueAsNumber, 'valueAsNumber is not defined');
+          assert.isUndefined(element.value, 'value is not defined');
+          assert.equal(element.numberStyle, 'decimal', 'number-style is decimal');
+          assert.isTrue(!element.input, 'input is empty');
           done();
         });
 
-        test('setting a property on the element works', done => {
-          // Create a test fixture
-          const element = fixture('ChangedPropertyTestFixture');
-          assert.equal(element.step, 2, 'step is set');
+        test('setting a non integer value', done => {
+          element.value = 2.2;
+          assert.equal(element.valueAsNumber, 2, 'valueAsNumber is set to integer');
+          assert.equal(element.value, 2, 'value is set to integer');
           done();
         });
-
       });
+
     </script>
 
   </body>

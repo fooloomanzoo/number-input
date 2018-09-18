@@ -16,7 +16,15 @@
 
       static get properties() {
         return {
-
+          /**
+           * step for changing the input (referencing to `min` or `0`)
+           * @type {number}
+           */
+          step: {
+            type: Number,
+            value: 1,
+            observer: '_stepChanged'
+          },
           /**
            * The formatting style to use. Is always `decimal` for `integer-input`.
            */
@@ -29,13 +37,12 @@
         }
       }
 
-      _stepChanged(step, stepMod) {
-        step = step || 0;
-        if (step !== Math.abs(step)) {
-          this.step = Math.abs(step);
+      _stepChanged(step) {
+        step = step || 1;
+        if (step !== Math.floor(Math.abs(step))) {
+          this.step = Math.floor(Math.abs(step));
           return;
         }
-        this._step = Math.floor(window.numberUtilities.safeMult(step, stepMod || 1));
         this._updateValue();
       }
 
