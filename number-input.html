@@ -152,26 +152,15 @@
       }
 
       _isSet(value) {
-        return !(isNaN(value) || value === null || value === '');
-      }
-
-      _inputChanged(input) {
-        // test if value is set and if needed set input to default
-        if (this._isSet(this.parseNumber(input)) === false && this.default !== undefined) {
-          this.input = this.formatNumber(this.default);
-          return;
-        }
-        if (this.autoResize) {
-          this._debouncedResizeWidth();
-        }
+        return !isNaN(this.parseNumber(value));
       }
 
       /**
        * update manually the value with the native input
        */
-      _confirmInput() {
-        if (!this.input) {
-          if (!isNaN(this.default)) {
+      _confirmInput(e) {
+        if (!this._isSet(this.input)) {
+          if (!this._isSet(this.default)) {
             this.setProperties({
               input: this.formatNumber(this.default),
               valueAsNumber: +this.default
@@ -187,13 +176,14 @@
           });
         }
         this._debouncedResizeWidth();
+        e && e.stopPropagation && e.stopPropagation();
       }
 
       /**
        * update manually the native input with the given value
        */
       _updateInput(e) {
-        this.input = this.formatNumber(this._checkValue(this.valueAsNumber));
+        this.input = this.formatNumber(this._checkValue(this.value, this.valueAsNumber));
         this._debouncedResizeWidth();
         e && e.stopPropagation && e.stopPropagation();
       }
@@ -227,7 +217,7 @@
           max = this.formatNumber(this.max || 0),
           minlengthNumber = this.formatNumber(Math.pow(10, Math.ceil(this.minlength || 1) - (this.numberStyle === 'percent' ? 3 : 1)));
         const gen = (!this.alwaysSign && (this.min < 0 || this.max < 0) ? '-' : '') + this.formatNumber(Math.pow(10, (this.minimumIntegerDigits || 1) - 1) + Math.pow(10, -(this.minimumFractionDigits || 0)));
-        this._minWidthString = (this.noAutoMinWidth ? [minlengthNumber] : [max, min, def, startAt, gen, minlengthNumber]).reduce( (acc, curr) => {
+        this._minlengthString = (this.noAutoMinWidth ? [minlengthNumber] : [max, min, def, startAt, gen, minlengthNumber]).reduce( (acc, curr) => {
           return curr.length > acc.length ? curr : acc;
         }, placeholder);
       }
