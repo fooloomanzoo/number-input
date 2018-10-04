@@ -56,7 +56,7 @@
       static get inputTemplate() {
         return `
           <input id="input"
-            type$="[[_type]]"
+            type$="[[type]]"
             value="{{input::input}}"
             step="[[step]]"
             required$="[[required]]"
@@ -73,9 +73,9 @@
           /**
            * type of the input
            */
-          _type: {
+          type: {
             type: String,
-            computed: '_computeType(formatNumber, parseNumber, alwaysSign)'
+            readOnly: true
           },
 
           /**
@@ -98,17 +98,7 @@
            */
           minimumFractionDigits: {
             type: Number,
-            computed: '_computeMinimumFractionDigits(_step, min, max, numberStyle)',
-            notify: true
-          },
-
-          /**
-           * maximum digits right to the decimal separator
-           */
-          maximumFractionDigits: {
-            type: Number,
-            computed: '_computeMaximumFractionDigits(minimumFractionDigits, noClamp)',
-            notify: true
+            readOnly: true
           },
 
           /**
@@ -116,12 +106,12 @@
            */
           minimumIntegerDigits: {
             type: Number,
-            computed: '_computeMinimumIntegerDigits(autoPadding, padLength, default, startAt, min, max, _step, numberStyle)',
-            notify: true
+            readOnly: true
           },
 
           value: {
-            type: Number
+            type: Number,
+            notify: true
           },
 
           /**
@@ -136,9 +126,12 @@
 
       static get observers() {
         return [
-          '_computeMinWidth(formatNumber, startAt, min, max, minimumIntegerDigits, minimumFractionDigits, alwaysSign)',
+          '_computeMinlengthString(formatNumber, startAt, min, max, minimumIntegerDigits, minimumFractionDigits, alwaysSign)',
           '_updateValue(formatNumber)',
-          '_updateValue(alwaysSign)'
+          '_updateValue(alwaysSign)',
+          '_computeType(formatNumber, parseNumber, alwaysSign)',
+          '_computeMinimumFractionDigits(_step, min, max, numberStyle)',
+          '_computeMinimumIntegerDigits(autoPadding, padLength, default, startAt, min, max, _step, numberStyle)'
         ]
       }
 
@@ -158,11 +151,25 @@
         }
       }
 
-      _computeInvalid(required, value) {
-        this.invalid = required && isNaN(value);
+      _isSet(value) {
+        return !(isNaN(value) || value === null || value === '');
       }
 
-      _checkInput() {
+      _inputChanged(input) {
+        // test if value is set and if needed set input to default
+        if (this._isSet(this.parseNumber(input)) === false && this.default !== undefined) {
+          this.input = this.formatNumber(this.default);
+          return;
+        }
+        if (this.autoResize) {
+          this._debouncedResizeWidth();
+        }
+      }
+
+      /**
+       * update manually the value with the native input
+       */
+      _confirmInput() {
         if (!this.input) {
           if (!isNaN(this.default)) {
             this.setProperties({
@@ -172,67 +179,57 @@
           } else {
             this.valueAsNumber = undefined;
           }
-          this._debouncedComputeWidth();
-          return;
+        } else {
+          const value = this._checkValue(this.parseNumber(this.input || ''), this.valueAsNumber);
+          this.setProperties({
+            input: this.formatNumber(value),
+            valueAsNumber: value
+          });
         }
-        const value = this._checkValue(this.parseNumber(this.input), this.valueAsNumber);
-        this.setProperties({
-          input: this.formatNumber(value),
-          valueAsNumber: value
-        });
-        this._debouncedComputeWidth();
+        this._debouncedResizeWidth();
       }
 
-      _inputChanged(input) {
-        if (this.autoResize) {
-          this._debouncedComputeWidth();
-        }
+      /**
+       * update manually the native input with the given value
+       */
+      _updateInput(e) {
+        this.input = this.formatNumber(this._checkValue(this.valueAsNumber));
+        this._debouncedResizeWidth();
+        e && e.stopPropagation && e.stopPropagation();
       }
 
-      _valueAsNumberChanged(value, oldValue) {
-        super._valueAsNumberChanged(value, oldValue);
-        if (isNaN(value)) {
-          this.input = '';
-          return;
-        }
-        this.input = this.formatNumber(this.valueAsNumber);
-      }
-
-      _defaultChanged(def) {
-        if (isNaN(this.valueAsNumber) && !isNaN(def)) {
-          this.valueAsNumber = def;
-        }
+      _valueAsNumberChanged(valueAsNumber, oldValue) {
+        super._valueAsNumberChanged(valueAsNumber, oldValue);
+        // always update the input
+        this._updateInput();
       }
 
       _computeType() {
         // maximize compatibility for mobile keyboards
+        let type;
         if (this.decimalSeparator === '.') {
           if (this.numberStyle === 'decimal' && !this.unit && !this.alwaysSign  && !this.padLength && !this.autoPadding) {
-            return 'number';
+            type = 'number';
+          } else {
+            type = 'tel';
           }
-          return 'tel';
+        } else {
+          type = 'text';
         }
-        return 'text';
+        this._setType(type);
       }
 
-      _computeMinWidth() {
-        if (this._minWidthComputionJob) {
-          clearTimeout(this._minWidthComputionJob);
-          this._minWidthComputionJob = null;
-        }
-
-        this._minWidthComputionJob = setTimeout(() => {
-          const def = this.formatNumber(this.default || 0),
-            placeholder = this.placeholder || '',
-            startAt = this.formatNumber(this.startAt || 0),
-            min = this.formatNumber(this.min || 0),
-            max = this.formatNumber(this.max || 0),
-            minlength = this.formatNumber(Math.pow(10, Math.ceil(this.minlength || 1) - (this.numberStyle === 'percent' ? 3 : 1)));
-          const gen = (!this.alwaysSign && (this.min < 0 || this.max < 0) ? '-' : '') + this.formatNumber(Math.pow(10, (this.minimumIntegerDigits || 1) - 1) + Math.pow(10, -(this.minimumFractionDigits || 0)));
-          this._minWidthString = (this.noAutoWidth ? [minlength] : [max, min, def, startAt, gen, minlength]).reduce( (acc, curr) => {
-            return curr.length > acc.length ? curr : acc;
-          }, placeholder);
-        }, 0);
+      _computeMinlengthString() {
+        const def = this.formatNumber(this.default || 0),
+          placeholder = this.placeholder || '',
+          startAt = this.formatNumber(this.startAt || 0),
+          min = this.formatNumber(this.min || 0),
+          max = this.formatNumber(this.max || 0),
+          minlengthNumber = this.formatNumber(Math.pow(10, Math.ceil(this.minlength || 1) - (this.numberStyle === 'percent' ? 3 : 1)));
+        const gen = (!this.alwaysSign && (this.min < 0 || this.max < 0) ? '-' : '') + this.formatNumber(Math.pow(10, (this.minimumIntegerDigits || 1) - 1) + Math.pow(10, -(this.minimumFractionDigits || 0)));
+        this._minWidthString = (this.noAutoMinWidth ? [minlengthNumber] : [max, min, def, startAt, gen, minlengthNumber]).reduce( (acc, curr) => {
+          return curr.length > acc.length ? curr : acc;
+        }, placeholder);
       }
 
       _computeMinimumIntegerDigits(autoPadding, padLength, def, startAt, min, max, step, numberStyle) {
@@ -255,10 +252,13 @@
         step = '' + (Math.abs(step) || 0);
         startAt = '' + (Math.abs(startAt) || 0);
 
+        let minimumIntegerDigits;
         if (autoPadding) {
-          return Math.max((padLength || 1), startAt.length, step.length, def.length, min.length, max.length);
+          minimumIntegerDigits = Math.max((padLength || 1), startAt.length, step.length, def.length, min.length, max.length);
+        } else {
+          minimumIntegerDigits = padLength || 1;
         }
-        return padLength || 1;
+        this._setMinimumIntegerDigits(minimumIntegerDigits);
       }
 
       _computeMinimumFractionDigits(step, min, max, numberStyle) {
@@ -272,17 +272,10 @@
         max = '' + (Math.abs(max) || '');
         step = '' + step;
 
-        return ['0', step, min, max].reduce( (acc, curr) => {
+        this._setMinimumFractionDigits( ['0', step, min, max].reduce( (acc, curr) => {
           const pos = curr.indexOf('.');
           return Math.max((pos < 0) ? 0 : (curr.length - 1 - pos), acc);
-        });
-      }
-
-      _computeMaximumFractionDigits(minimumFractionDigits, noClamp) {
-        if (noClamp) {
-          return 20;
-        }
-        return minimumFractionDigits;
+        }) );
       }
 
     }

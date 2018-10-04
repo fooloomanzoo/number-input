@@ -50,11 +50,28 @@
     </test-fixture>
 
     <script>
+      const specifier = new URLSearchParams(window.location.search).get('specifier');
+      const url = new URLSearchParams(window.location.search).get('url');
+
+      // applying suites to another element (e.g. when another element depends on the the same mixin)
+      if (specifier) {
+        suite(`Suite for ${specifier.toUpperCase()}`, function() {
+          test('loading dependencies', done => {
+            Polymer.importHref(url, e => done(), e => {
+              console.warn(`failed to load: ${url}`)
+            })
+          })
+        })
+      }
+
       suite('basic', function() {
 
         let element;
 
         setup(function() {
+          if (specifier) {
+            replace('number-input').with(specifier)
+          }
           element = fixture('basic');
         });
 
@@ -109,6 +126,9 @@
         let element;
 
         setup(function() {
+          if (specifier) {
+            replace('number-input').with(specifier)
+          }
           element = fixture('SettingStep');
         });
 
@@ -134,6 +154,9 @@
         let element;
 
         setup(function() {
+          if (specifier) {
+            replace('number-input').with(specifier)
+          }
           element = fixture('StartAt');
         });
 
@@ -155,6 +178,9 @@
         let element;
 
         setup(function() {
+          if (specifier) {
+            replace('number-input').with(specifier)
+          }
           element = fixture('SettingDefault');
         });
 
@@ -175,8 +201,12 @@
         let element;
 
         setup(function() {
+          if (specifier) {
+            replace('number-input').with(specifier)
+          }
           element = fixture('PadLength');
         });
+
         test('pad value', done => {
           element.value = 3;
           assert.equal(element.input, '00003', 'input is padded');
@@ -198,6 +228,9 @@
         let element;
 
         setup(function() {
+          if (specifier) {
+            replace('number-input').with(specifier)
+          }
           element = fixture('AutoPadding');
         });
 

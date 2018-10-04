@@ -21,7 +21,6 @@
   "dependencies": {
     "polymer": "Polymer/polymer#2",
     "property-mixins": "fooloomanzoo/property-mixins#2",
-    "text-input": "fooloomanzoo/text-input#2",
     "input-picker-pattern": "fooloomanzoo/input-picker-pattern#2"
   },
   "devDependencies": {
@@ -30,6 +29,7 @@
     "iron-component-page": "PolymerElements/iron-component-page",
     "iron-flex-layout": "PolymerElements/iron-flex-layout",
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers",
-    "iron-form": "PolymerElements/iron-form"
+    "iron-test-helpers": "PolymerElements/iron-test-helpers#2",
+    "iron-form": "PolymerElements/iron-form#2"
   }
 }

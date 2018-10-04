@@ -69,10 +69,13 @@
 
       _computeType() {
         // maximize compatibility for mobile keyboards
+        let type;
         if (!this.unit && !this.alwaysSign && !this.padLength && !this.autoPadding) {
-          return 'number';
+          type = 'number';
+        } else {
+          type = 'tel';
         }
-        return 'tel';
+        this._setType(type);
       }
 
       _safeAdd(a, b) {
