@@ -14,6 +14,11 @@
 
     return class extends NumberInputMixin(superClass) { // eslint-disable-line no-undef
 
+      constructor() {
+        super();
+        this.__numberParser = parseInt;
+      }
+
       static get properties() {
         return {
           /**
@@ -26,45 +31,18 @@
             observer: '_stepChanged'
           },
           /**
-           * The formatting style to use. Is always `decimal` for `integer-input`.
+           * The maximum number of fraction digits to use
            */
-          numberStyle: {
-            type: String,
-            value: 'decimal',
+          maximumFractionDigits: {
+            type: Number,
             readOnly: true,
-            notify: true
+            value: 0
           }
         }
-      }
-
-      _stepChanged(step) {
-        step = step || 1;
-        if (step !== Math.floor(Math.abs(step))) {
-          this.step = Math.floor(Math.abs(step));
-          return;
-        }
-        this._updateValue();
       }
 
       _computeMinimumFractionDigits() {
         return 0;
-      }
-
-      _computeMaximumFractionDigits() {
-        return 0;
-      }
-
-      _computeParseNumber(decimalSeparator, numberStyle, useGrouping) {
-        if (useGrouping) {
-          const regExpGrouping = new RegExp('[' + (this.groupingSeparator || '') + ']', 'g');
-          return (input) => {
-            return parseInt(input.replace(regExpGrouping, ''));
-          }
-        } else {
-          return function(input) {
-            return parseInt(input);
-          }
-        }
       }
 
       _computeType() {

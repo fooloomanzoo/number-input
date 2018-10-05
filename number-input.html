@@ -17,7 +17,7 @@
    */
   const NumberInputMixin = superClass => { // eslint-disable-line no-unused-vars
 
-    return class extends RangeMixin(InputPattern(IntlNumberFormatMixin(superClass))) {  // eslint-disable-line no-undef
+    return class extends InputPattern(IntlNumberFormatMixin(RangeMixin(superClass))) {  // eslint-disable-line no-undef
 
       static get styleTemplate() {
         return `
@@ -151,6 +151,32 @@
         }
       }
 
+      _valueAsNumberChanged(valueAsNumber, oldValue) {
+        super._valueAsNumberChanged(valueAsNumber, oldValue);
+        // always update the input
+        this._updateInput();
+      }
+
+      _checkValueAsNumber(value, oldValue) {
+        /**
+         * allow value and input to be unset
+         */
+        if (value === '') {
+          return value;
+        }
+        return super._checkValueAsNumber(value, oldValue);
+      }
+
+      _defaultChanged(def) {
+        if (this._isSet(def) === false) return;
+
+        if (this._isSet(this.value) === false) {
+          this.value = def;
+        } else if (isNaN(this.valueAsNumber)) {
+          this.valueAsNumber = def;
+        }
+      }
+
       _isSet(value) {
         return !isNaN(this.parseNumber(value));
       }
@@ -159,39 +185,41 @@
        * update manually the value with the native input
        */
       _confirmInput(e) {
-        if (!this._isSet(this.input)) {
-          if (!this._isSet(this.default)) {
-            this.setProperties({
-              input: this.formatNumber(this.default),
-              valueAsNumber: +this.default
-            })
-          } else {
-            this.valueAsNumber = undefined;
-          }
+        // update the value, when input validates
+        if (this._validate(this.input)) {
+          this.value = this._checkValueAsNumber(this.parseNumber(this.input));
+          this._debouncedResizeWidth();
+          e && e.stopPropagation && e.stopPropagation();
         } else {
-          const value = this._checkValue(this.parseNumber(this.input || ''), this.valueAsNumber);
-          this.setProperties({
-            input: this.formatNumber(value),
-            valueAsNumber: value
-          });
+          // else reset the input to value
+          this._updateInput(e);
         }
-        this._debouncedResizeWidth();
-        e && e.stopPropagation && e.stopPropagation();
       }
 
       /**
        * update manually the native input with the given value
        */
       _updateInput(e) {
-        this.input = this.formatNumber(this._checkValue(this.value, this.valueAsNumber));
+        if (this._isSet(this.value)) {
+          this.input = this.formatNumber(this.value);
+        } else {
+          this.input = '';
+        }
         this._debouncedResizeWidth();
         e && e.stopPropagation && e.stopPropagation();
       }
 
-      _valueAsNumberChanged(valueAsNumber, oldValue) {
-        super._valueAsNumberChanged(valueAsNumber, oldValue);
-        // always update the input
-        this._updateInput();
+      _computeMinlengthString() {
+        const def = isNaN(this.default) ? '' : this.formatNumber(this.default),
+          placeholder = this.placeholder || '',
+          startAt = isNaN(this.startAt) ? '' : this.formatNumber(this.startAt),
+          min = isNaN(this.min) ? '' : this.formatNumber(this.min),
+          max = isNaN(this.max) ? '' : this.formatNumber(this.max),
+          minlengthNumber = this.formatNumber(Math.pow(10, Math.ceil(this.minlength || 1) - (this.numberStyle === 'percent' ? 3 : 1)));
+        const minlengthString = (!this.alwaysSign && (this.min < 0 || this.max < 0) ? '-' : '') + this.formatNumber(Math.pow(10, (this.minimumIntegerDigits || 1) - 1) + Math.pow(10, -(this.minimumFractionDigits || 0)));
+        this._minlengthString = [startAt, max, min, placeholder, minlengthString, minlengthNumber].reduce( (acc, curr) => {
+          return curr.length > acc.length ? curr : acc;
+        }, def);
       }
 
       _computeType() {
@@ -207,19 +235,6 @@
           type = 'text';
         }
         this._setType(type);
-      }
-
-      _computeMinlengthString() {
-        const def = this.formatNumber(this.default || 0),
-          placeholder = this.placeholder || '',
-          startAt = this.formatNumber(this.startAt || 0),
-          min = this.formatNumber(this.min || 0),
-          max = this.formatNumber(this.max || 0),
-          minlengthNumber = this.formatNumber(Math.pow(10, Math.ceil(this.minlength || 1) - (this.numberStyle === 'percent' ? 3 : 1)));
-        const gen = (!this.alwaysSign && (this.min < 0 || this.max < 0) ? '-' : '') + this.formatNumber(Math.pow(10, (this.minimumIntegerDigits || 1) - 1) + Math.pow(10, -(this.minimumFractionDigits || 0)));
-        this._minlengthString = (this.noAutoMinWidth ? [minlengthNumber] : [max, min, def, startAt, gen, minlengthNumber]).reduce( (acc, curr) => {
-          return curr.length > acc.length ? curr : acc;
-        }, placeholder);
       }
 
       _computeMinimumIntegerDigits(autoPadding, padLength, def, startAt, min, max, step, numberStyle) {
