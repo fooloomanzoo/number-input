@@ -14,11 +14,6 @@
 
     return class extends NumberInputMixin(superClass) { // eslint-disable-line no-undef
 
-      constructor() {
-        super();
-        this.__numberParser = parseInt;
-      }
-
       static get properties() {
         return {
           /**
@@ -43,17 +38,6 @@
 
       _computeMinimumFractionDigits() {
         return 0;
-      }
-
-      _computeType() {
-        // maximize compatibility for mobile keyboards
-        let type;
-        if (!this.unit && !this.alwaysSign && !this.padLength && !this.autoPadding) {
-          type = 'number';
-        } else {
-          type = 'tel';
-        }
-        this._setType(type);
       }
 
       _safeAdd(a, b) {

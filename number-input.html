@@ -26,9 +26,6 @@
           #size,
           #input {
             @apply --number-input;
-            margin: 0;
-            -moz-appearance: textfield;
-            appearance: textfield;
           }
           :host(:focus) #input,
           :host(:hover) #input,
@@ -129,32 +126,32 @@
           '_computeMinlengthString(formatNumber, startAt, min, max, minimumIntegerDigits, minimumFractionDigits, alwaysSign)',
           '_updateValue(formatNumber)',
           '_updateValue(alwaysSign)',
-          '_computeType(formatNumber, parseNumber, alwaysSign)',
+          '_computeType(_numberOptions, decimalSeparator, alwaysSign, padLength, autoPadding)',
           '_computeMinimumFractionDigits(_step, min, max, numberStyle)',
           '_computeMinimumIntegerDigits(autoPadding, padLength, default, startAt, min, max, _step, numberStyle)'
         ]
       }
 
       _checkKeycode(e) {
-        super._checkKeycode(e);
-        if (e.keyCode === 38) { // up
-          e.preventDefault();
-          e.stopPropagation();
-          this.increase();
-          return;
-        }
-        if (e.keyCode === 40) { // down
-          e.preventDefault();
-          e.stopPropagation();
-          this.decrease();
-          return;
+        switch (e.keyCode) {
+          case 38: // up
+            e.preventDefault();
+            e.stopPropagation();
+            this.increase();
+            break;
+          case 40: // down
+            e.preventDefault();
+            e.stopPropagation();
+            this.decrease();
+            break;
+          default:
+            super._checkKeycode(e);
         }
       }
 
-      _valueAsNumberChanged(valueAsNumber, oldValue) {
-        super._valueAsNumberChanged(valueAsNumber, oldValue);
+      _valueChanged(value, oldValue) {
         // always update the input
-        this._updateInput();
+        this._updateInput(undefined, value);
       }
 
       _checkValueAsNumber(value, oldValue) {
@@ -168,12 +165,14 @@
       }
 
       _defaultChanged(def) {
-        if (this._isSet(def) === false) return;
+        if (isNaN(def = this.parseNumber(def))) return;
 
-        if (this._isSet(this.value) === false) {
-          this.value = def;
-        } else if (isNaN(this.valueAsNumber)) {
-          this.valueAsNumber = def;
+        if (this._isSet(this.value) === false || this._isSet(this.valueAsNumber) === false) {
+          this.setProperties({
+            default: def,
+            value: def,
+            valueAsNumber: def
+          })
         }
       }
 
@@ -186,22 +185,31 @@
        */
       _confirmInput(e) {
         // update the value, when input validates
-        if (this._validate(this.input)) {
-          this.value = this._checkValueAsNumber(this.parseNumber(this.input));
+        const inputValue = this.parseNumber(this.input);
+        if (!isNaN(inputValue)) {
+          const value = this._checkValueAsNumber(inputValue);
+          this.setProperties({
+            input: this.formatNumber(value),
+            value: value,
+            valueAsNumber: value
+          })
           this._debouncedResizeWidth();
           e && e.stopPropagation && e.stopPropagation();
         } else {
           // else reset the input to value
-          this._updateInput(e);
+          this._updateInput(e, inputValue);
         }
       }
 
       /**
        * update manually the native input with the given value
        */
-      _updateInput(e) {
-        if (this._isSet(this.value)) {
-          this.input = this.formatNumber(this.value);
+      _updateInput(e, value) {
+        if (value === undefined) {
+          value = this.parseNumber(this.valueAsNumber);
+        }
+        if (!isNaN(value)) {
+          this.input = this.formatNumber(value);
         } else {
           this.input = '';
         }
@@ -222,15 +230,14 @@
         }, def);
       }
 
-      _computeType() {
+      _computeType(numberOptions, decimalSeparator, unit, alwaysSign, padLength, autoPadding) {
         // maximize compatibility for mobile keyboards
         let type;
-        if (this.decimalSeparator === '.') {
-          if (this.numberStyle === 'decimal' && !this.unit && !this.alwaysSign  && !this.padLength && !this.autoPadding) {
-            type = 'number';
-          } else {
-            type = 'tel';
-          }
+        if (numberOptions.numberStyle === 'decimal' && !unit && !alwaysSign && !padLength && !autoPadding) {
+          type = 'number';
+        } else if (decimalSeparator === '.' || numberOptions.maximumFractionDigits === 0) {
+          // for type = 'tel' there won't be a comma available for the onscreen keyboard
+          type = 'tel';
         } else {
           type = 'text';
         }

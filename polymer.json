@@ -1,4 +1,5 @@
 {
+  "moduleResolution": "none",
   "lint": {
     "rules": [
       "polymer-2"
