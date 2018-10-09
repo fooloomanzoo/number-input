@@ -90,19 +90,35 @@
 
         test('valueAsNumber should change value', done => {
           element.valueAsNumber = 2.2;
-          assert.equal(element.value, 2.2, 'value should change');
+          if (element._numberOptions.maximumFractionDigits !== 0) {
+            assert.equal(element.value, 2.2, 'value remains the same');
+            assert.equal(element.valueAsNumber, 2.2, 'valueAsNumber is set');
+          } else {
+            assert.equal(element.value, 2, 'value is set');
+            assert.equal(element.valueAsNumber, 2, 'valueAsNumber is set');
+          }
           done();
         });
 
         test('value should change valueAsNumber', done => {
           element.value = 2.2;
-          assert.equal(element.valueAsNumber, 2.2, 'value should change');
+          if (element._numberOptions.maximumFractionDigits !== 0) {
+            assert.equal(element.value, 2.2, 'value remains the same');
+            assert.equal(element.valueAsNumber, 2.2, 'valueAsNumber is set');
+          } else {
+            assert.equal(element.value, 2, 'value is set');
+            assert.equal(element.valueAsNumber, 2, 'valueAsNumber is set');
+          }
           done();
         });
 
         test('setting a non integer value without clamp', done => {
           element.value = 2.2;
-          assert.equal(element.value, 2.2, 'value remains the same');
+          if (element._numberOptions.maximumFractionDigits !== 0) {
+            assert.equal(element.value, 2.2, 'value remains the same');
+          } else {
+            assert.equal(element.value, 2, 'value is set');
+          }
           done();
         });
 
@@ -110,7 +126,11 @@
           element.noClamp = true;
           element.step = 2;
           element.value = 2.2;
-          assert.equal(element.value, 2.2, 'value remains the same');
+          if (element._numberOptions.maximumFractionDigits !== 0) {
+            assert.equal(element.value, 2.2, 'value remains the same');
+          } else {
+            assert.equal(element.value, 2, 'value is set');
+          }
           done();
         });
 
@@ -139,7 +159,11 @@
 
         test('setting a decimal step', done => {
           element.step = 2.2;
-          assert.equal(element.step, 2.2, 'step is set');
+          if (element._numberOptions.maximumFractionDigits !== 0) {
+            assert.equal(element.step, 2.2, 'step is set');
+          } else {
+            assert.equal(element.step, 2, 'step is set');
+          }
           done();
         });
 
@@ -168,7 +192,7 @@
           element.increase();
           assert.equal(element.valueAsNumber, element.startAt, 'valueAsNumber is start-at');
           assert.equal(element.value, element.startAt, 'value is start-at');
-          assert.equal(element.input, '' + element.startAt, 'value is start-at');
+          assert.equal(element.value, element.parseNumber(element.input), 'input changed');
 
           done();
         });
@@ -188,7 +212,7 @@
           assert.equal(element.default, 2, 'default is set');
           assert.equal(element.valueAsNumber, element.default, 'valueAsNumber is default');
           assert.equal(element.value, element.default, 'value is default');
-          assert.equal(element.input, '' + element.default, 'value is default');
+          assert.equal(element.parseNumber(element.input), element.default, 'input is default');
 
           element.value = undefined;
           assert.equal(element.valueAsNumber, element.default, 'valueAsNumber is default after reset');
