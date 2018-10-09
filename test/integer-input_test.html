@@ -28,7 +28,7 @@
       if (specifier) {
         suite(`Suite for ${specifier.toUpperCase()}`, function() {
           test('loading dependencies', done => {
-            Polymer.importHref(url, e => done(), e => {
+            Polymer.importHref(window.location.origin + '/components/' + url, e => done(), e => {
               console.warn(`failed to load: ${url}`)
             })
           })
@@ -51,8 +51,6 @@
           assert.isUndefined(element.min, 'min is not defined');
           assert.isUndefined(element.max, 'max is not defined');
           assert.isUndefined(element.useNegativeZero, 'useNegativeZero is not defined');
-          assert.isUndefined(element.valueAsNumber, 'valueAsNumber is not defined');
-          assert.isUndefined(element.value, 'value is not defined');
           assert.equal(element.numberStyle, 'decimal', 'number-style is decimal');
           done();
         });

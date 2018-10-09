@@ -124,8 +124,7 @@
       static get observers() {
         return [
           '_computeMinlengthString(formatNumber, startAt, min, max, minimumIntegerDigits, minimumFractionDigits, alwaysSign)',
-          '_updateValue(formatNumber)',
-          '_updateValue(alwaysSign)',
+          '_updateInput(formatNumber)',
           '_computeType(_numberOptions, decimalSeparator, alwaysSign, padLength, autoPadding)',
           '_computeMinimumFractionDigits(_step, min, max, numberStyle)',
           '_computeMinimumIntegerDigits(autoPadding, padLength, default, startAt, min, max, _step, numberStyle)'
@@ -149,56 +148,64 @@
         }
       }
 
-      _valueChanged(value, oldValue) {
-        // always update the input
-        this._updateInput(undefined, value);
+      _isSet(value) {
+        return !isNaN(this.parseNumber(value));
       }
 
-      _checkValueAsNumber(value, oldValue) {
-        /**
-         * allow value and input to be unset
-         */
-        if (value === '') {
-          return value;
+      _checkNumber(value) {
+        if (this._isSet(value)) {
+          return true;
         }
-        return super._checkValueAsNumber(value, oldValue);
-      }
-
-      _defaultChanged(def) {
-        if (isNaN(def = this.parseNumber(def))) return;
-
-        if (this._isSet(this.value) === false || this._isSet(this.valueAsNumber) === false) {
+        // using range-mixin checks for default, min, max etc. attributes
+        value = this._checkValueAsNumber(value);
+        if (!isNaN(value)) {
           this.setProperties({
-            default: def,
-            value: def,
-            valueAsNumber: def
+            input: this.formatNumber(value),
+            value: value,
+            valueAsNumber: value
+          })
+        } else {
+          // reset input and value
+          this.setProperties({
+            input: '',
+            value: undefined,
+            valueAsNumber: undefined
           })
         }
       }
 
-      _isSet(value) {
-        return !isNaN(this.parseNumber(value));
+      _valueChanged(value, oldValue) {
+        if (this.__resettingValueAsNumber === true) return;
+        value = this.parseNumber(value);
+        if (!this._checkNumber(value)) return;
+        this._updateInput(undefined, value);
+      }
+
+      _defaultChanged(def) {
+        if (isNaN(this.parseNumber(def))) return;
+        this._checkNumber(this.value);
+      }
+
+      _checkValueAsNumber(value, oldValue) {
+        // check if the value is matching when formating vice versa
+        return super._checkValueAsNumber(this.parseNumber(this.formatNumber(value)), oldValue);
       }
 
       /**
        * update manually the value with the native input
        */
       _confirmInput(e) {
-        // update the value, when input validates
-        const inputValue = this.parseNumber(this.input);
-        if (!isNaN(inputValue)) {
-          const value = this._checkValueAsNumber(inputValue);
-          this.setProperties({
-            input: this.formatNumber(value),
-            value: value,
-            valueAsNumber: value
-          })
-          this._debouncedResizeWidth();
-          e && e.stopPropagation && e.stopPropagation();
-        } else {
-          // else reset the input to value
-          this._updateInput(e, inputValue);
-        }
+        const value = this.parseNumber(this.input);
+
+        if (!this._checkNumber(value)) return;
+
+        this.setProperties({
+          input: this.formatNumber(value),
+          value: value,
+          valueAsNumber: value
+        })
+        this._debouncedResizeWidth();
+        e && e.stopPropagation && e.stopPropagation();
       }
 
       /**
@@ -206,7 +213,8 @@
        */
       _updateInput(e, value) {
         if (value === undefined) {
-          value = this.parseNumber(this.valueAsNumber);
+          // '_updateInput' called without preparsed value
+          value = this.parseNumber(this.value);
         }
         if (!isNaN(value)) {
           this.input = this.formatNumber(value);

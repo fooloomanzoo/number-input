@@ -57,7 +57,7 @@
       if (specifier) {
         suite(`Suite for ${specifier.toUpperCase()}`, function() {
           test('loading dependencies', done => {
-            Polymer.importHref(url, e => done(), e => {
+            Polymer.importHref(window.location.origin + '/components/' + url, e => done(), e => {
               console.warn(`failed to load: ${url}`)
             })
           })
@@ -81,10 +81,7 @@
           assert.isUndefined(element.min, 'min is not defined');
           assert.isUndefined(element.max, 'max is not defined');
           assert.isUndefined(element.useNegativeZero, 'useNegativeZero is not defined');
-          assert.isUndefined(element.valueAsNumber, 'valueAsNumber is not defined');
-          assert.isUndefined(element.value, 'value is not defined');
           assert.equal(element.numberStyle, 'decimal', 'numberStyle should be "decimal"');
-          assert.isTrue(!element.input, 'input is empty');
           done();
         });
 
@@ -129,6 +126,7 @@
           if (element._numberOptions.maximumFractionDigits !== 0) {
             assert.equal(element.value, 2.2, 'value remains the same');
           } else {
+            assert.equal(element.input, '2', 'input is set');
             assert.equal(element.value, 2, 'value is set');
           }
           done();
@@ -159,11 +157,7 @@
 
         test('setting a decimal step', done => {
           element.step = 2.2;
-          if (element._numberOptions.maximumFractionDigits !== 0) {
-            assert.equal(element.step, 2.2, 'step is set');
-          } else {
-            assert.equal(element.step, 2, 'step is set');
-          }
+          assert.equal(element.step, 2.2, 'step is set');
           done();
         });
 
@@ -186,8 +180,9 @@
 
         test('start at value', done => {
           assert.equal(element.startAt, 2, 'start at is set');
-          assert.isUndefined(element.valueAsNumber, 'valueAsNumber is not defined');
-          assert.isUndefined(element.value, 'value is not defined');
+          assert.isFalse(element._valueIsSet, 'vulue is not set');
+          assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is not set');
+          assert.isFalse(element._isSet(element.value), 'value is not set');
 
           element.increase();
           assert.equal(element.valueAsNumber, element.startAt, 'valueAsNumber is start-at');
