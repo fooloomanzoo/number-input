@@ -66,7 +66,6 @@
 
       static get properties() {
         return {
-
           /**
            * type of the input
            */
@@ -124,10 +123,10 @@
       static get observers() {
         return [
           '_computeMinlengthString(formatNumber, startAt, min, max, minimumIntegerDigits, minimumFractionDigits, alwaysSign)',
-          '_updateInput(formatNumber)',
           '_computeType(_numberOptions, decimalSeparator, alwaysSign, padLength, autoPadding)',
           '_computeMinimumFractionDigits(_step, min, max, numberStyle)',
-          '_computeMinimumIntegerDigits(autoPadding, padLength, default, startAt, min, max, _step, numberStyle)'
+          '_computeMinimumIntegerDigits(autoPadding, padLength, default, startAt, min, max, _step, numberStyle)',
+          '_formatNumberChanged(formatNumber)'
         ]
       }
 
@@ -152,43 +151,38 @@
         return !isNaN(this.parseNumber(value));
       }
 
-      _checkNumber(value) {
-        if (this._isSet(value)) {
-          return true;
+      _inputChanged(input) {
+        // test if value is set and if needed set input to default
+        if (this._isSet(input) === false) {
+          const value = this._computeDefaultValue();
+          this.input = isNaN(value) ? '' : this.formatNumber(value);
         }
-        // using range-mixin checks for default, min, max etc. attributes
-        value = this._checkValueAsNumber(value);
-        if (!isNaN(value)) {
-          this.setProperties({
-            input: this.formatNumber(value),
-            value: value,
-            valueAsNumber: value
-          })
-        } else {
-          // reset input and value
-          this.setProperties({
-            input: '',
-            value: undefined,
-            valueAsNumber: undefined
-          })
+        if (this.autoResize) {
+          this._debouncedResizeWidth();
         }
       }
 
-      _valueChanged(value) {
+      _valueChanged(value, oldValue) {
         if (this.__resettingValueAsNumber === true) return;
-        value = this.parseNumber(value);
-        if (!this._checkNumber(value)) return;
-        this._updateInput(undefined, value);
+        value = this._checkValueAsNumber(this.parseNumber(value), oldValue);
+
+        if (this._isSet(value) === false) {
+          this._updateInput(undefined, value);
+          return;
+        }
+        this.setProperties({
+          input: this.formatNumber(value),
+          value: value,
+          valueAsNumber: value
+        });
+        this._debouncedResizeWidth();
       }
 
       _defaultChanged(def) {
         if (isNaN(this.parseNumber(def))) return;
-        this._checkNumber(this.value);
-      }
-
-      _checkValueAsNumber(value, oldValue) {
-        // check if the value is matching when formating vice versa
-        return super._checkValueAsNumber(this.parseNumber(this.formatNumber(value)), oldValue);
+        if (this._isSet(this.value) === false) {
+          this.value = this._computeDefaultValue();
+        }
       }
 
       /**
@@ -197,13 +191,19 @@
       _confirmInput(e) {
         const value = this.parseNumber(this.input);
 
-        if (!this._checkNumber(value)) return;
-
-        this.setProperties({
-          input: this.formatNumber(value),
-          value: value,
-          valueAsNumber: value
-        })
+        if (this._isSet(value) === false) {
+          this.setProperties({
+            input: '',
+            value: undefined,
+            valueAsNumber: undefined
+          })
+        } else {
+          this.setProperties({
+            input: this.formatNumber(value),
+            value: value,
+            valueAsNumber: value
+          })
+        }
         this._debouncedResizeWidth();
         e && e.stopPropagation && e.stopPropagation();
       }
@@ -216,13 +216,20 @@
           // '_updateInput' called without preparsed value
           value = this.parseNumber(this.value);
         }
-        if (!isNaN(value)) {
+        if (this._isSet(value)) {
           this.input = this.formatNumber(value);
         } else {
+          // reset input and value
           this.input = '';
         }
         this._debouncedResizeWidth();
         e && e.stopPropagation && e.stopPropagation();
+      }
+
+      _formatNumberChanged() {
+        if (!isNaN(this.valueAsNumber)) {
+          this._updateInput(undefined, this.valueAsNumber);
+        }
       }
 
       _computeMinlengthString() {
