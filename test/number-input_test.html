@@ -38,6 +38,18 @@
       </template>
     </test-fixture>
 
+    <test-fixture id="Min">
+      <template>
+        <number-input min="2"></number-input>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="Max">
+      <template>
+        <number-input max="2"></number-input>
+      </template>
+    </test-fixture>
+
     <test-fixture id="PadLength">
       <template>
         <number-input pad-length="5"></number-input>
@@ -109,11 +121,10 @@
           element.noClamp = true;
           element.step = 2;
           element.value = 2.2;
-          if (element._numberOptions.maximumFractionDigits !== 0) {
-            assert.equal(element.value, 2.2, 'value remains the same');
-          } else {
+
+          assert.equal(element.value, 2.2, 'value remains the same');
+          if (element._numberOptions.maximumFractionDigits === 0) {
             assert.equal(element.input, '2', 'input is set');
-            assert.equal(element.value, 2, 'value is set');
           }
           done();
         });
@@ -169,6 +180,48 @@
           assert.equal(element.value, element.startAt, 'value is start-at');
           assert.equal(element.value, element.parseNumber(element.input), 'input changed');
 
+          done();
+        });
+      });
+
+      suite('minimum', function() {
+        let element;
+
+        setup(function() {
+          element = fixture('Min');
+        });
+
+        test('minimum value', done => {
+          assert.equal(element.min, 2, 'min is set');
+          assert.isFalse(element._valueIsSet, 'vulue is not set');
+          assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is not set');
+          assert.isFalse(element._isSet(element.value), 'value is not set');
+
+          element.value = -2;
+          assert.equal(element.valueAsNumber, element.min, 'valueAsNumber is start-at');
+          assert.equal(element.value, element.min, 'value is start-at');
+          assert.equal(element.value, element.parseNumber(element.input), 'input changed');
+          done();
+        });
+      });
+
+      suite('maximum', function() {
+        let element;
+
+        setup(function() {
+          element = fixture('Max');
+        });
+
+        test('maximum value', done => {
+          assert.equal(element.max, 2, 'max is set');
+          assert.isFalse(element._valueIsSet, 'vulue is not set');
+          assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is not set');
+          assert.isFalse(element._isSet(element.value), 'value is not set');
+
+          element.value = 4;
+          assert.equal(element.valueAsNumber, element.max, 'valueAsNumber is start-at');
+          assert.equal(element.value, element.max, 'value is start-at');
+          assert.equal(element.value, element.parseNumber(element.input), 'input changed');
           done();
         });
       });

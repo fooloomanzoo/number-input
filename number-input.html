@@ -185,6 +185,13 @@
         }
       }
 
+      _computeDefaultValue(value) {
+        if (this._isSet(this.default)) {
+          return this.parseNumber(this.default);
+        }
+        return value;
+      }
+
       /**
        * update manually the value with the native input
        */
