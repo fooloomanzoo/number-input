@@ -69,10 +69,11 @@
                 </style>
               </custom-style>
               <input type="checkbox" checked="{{autoResize::change}}">auto resize on input<br>
+              <input type="checkbox" checked="{{required::change}}">required<br>
               <input type="checkbox" checked="{{alwaysSign::change}}">always sign<br>
               <input type="checkbox" checked="{{useNegativeZero::change}}">switch with negative zero<br>
               step: <input type="number" value="{{step::change}}" min="0" step="1"><br><br>
-              <integer-input class="integer" always-sign="[[alwaysSign]]" step="{{step}}" auto-resize="[[autoResize]]" input="{{input}}" value="{{value}}" default="0" use-negative-zero="[[useNegativeZero]]" pad-length="2"></integer-input>
+              <integer-input class="integer" always-sign="[[alwaysSign]]" step="{{step}}" auto-resize="[[autoResize]]" input="{{input}}" value="{{value}}" use-negative-zero="[[useNegativeZero]]" pad-length="2" placeholder="－－" required="[[required]]"></integer-input>
               <div class="vertical-section-container result">
                 <div><code>input</code>: <b>[[input]]</b></div>
                 <div><code>value</code>: <b>[[value]]</b></div>
@@ -280,7 +281,7 @@
                   }
                 </style>
               </custom-style>
-              <number-input class="units" value="{{value}}" default="0" no-clamp step="0.5" min="-273.15" max="5505" default="0" unit="°C"></number-input>
+              <number-input class="units" value="{{value}}" default="0" no-clamp step="0.5" min="-273.15" max="5505" default="0" unit="°C ☼"></number-input>
               <div class="vertical-section-container result">
                 <div><code>step</code>: <b>0.5</b><code>min</code>: <b>-273.15</b><code>max</code>: <b>5505</b><code><code>unit</code>: <b>°C</b></div>
                 <div><code>value</code>: <b>[[value]]</b></div>

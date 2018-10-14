@@ -26,6 +26,12 @@
       </template>
     </test-fixture>
 
+    <test-fixture id="NegativeZero">
+      <template>
+        <number-input use-negative-zero value="-0"></number-input>
+      </template>
+    </test-fixture>
+
     <test-fixture id="SettingStep">
       <template>
         <number-input step="3"></number-input>
@@ -207,6 +213,41 @@
           assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is unset');
           assert.equal(element.input, '', 'input is unset');
           assert.isFalse(element._valueIsSet, 'input is not set');
+          done();
+        });
+      });
+
+      suite('negative zero', function() {
+        let element;
+
+        setup(function() {
+          element = fixture('NegativeZero');
+        });
+
+        test('setting -0', done => {
+          assert.isTrue(numberUtilities.isNegative0(element.value), 'value is negative zero');
+          assert.isTrue(numberUtilities.isNegative0(element.valueAsNumber), 'valueAsNumber is negative zero');
+          assert.isTrue(numberUtilities.isNegative0(element.parseNumber(element.input)), 'parse input is negative zero');
+          assert.equal(element.input, '-0', 'input is negative zero')
+          done();
+        });
+
+        test('switching from -0 to +0', done => {
+          element.value = 0;
+          assert.isTrue(!numberUtilities.isNegative0(element.value) && element.value === 0, 'value is positive zero');
+          assert.isTrue(!numberUtilities.isNegative0(element.valueAsNumber) && element.valueAsNumber === 0, 'valueAsNumber is positive zero');
+          assert.isTrue(!numberUtilities.isNegative0(element.parseNumber(element.input)), 'parse input is positive zero');
+          assert.equal(element.input, '0', 'input is positive zero')
+          done();
+        });
+
+        test('switching from +0 to -0', done => {
+          element.value = 0;
+          element.value = -0;
+          assert.isTrue(numberUtilities.isNegative0(element.value), 'value is negative zero');
+          assert.isTrue(numberUtilities.isNegative0(element.valueAsNumber), 'valueAsNumber is negative zero');
+          assert.isTrue(numberUtilities.isNegative0(element.parseNumber(element.input)), 'parse input is negative zero');
+          assert.equal(element.input, '-0', 'input is negative zero')
           done();
         });
 
