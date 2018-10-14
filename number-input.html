@@ -165,7 +165,6 @@
       _valueChanged(value, oldValue) {
         if (this.__resettingValueAsNumber === true) return;
         value = this._checkValueAsNumber(this.parseNumber(value), oldValue);
-
         if (this._isSet(value) === false) {
           this._updateInput(undefined, value);
           return;
@@ -176,6 +175,15 @@
           valueAsNumber: value
         });
         this._debouncedResizeWidth();
+      }
+
+      _valueAsNumberChanged(valueAsNumber, oldValue) {
+        if (this.__resettingValueAsNumber === true) return;
+        if (this._isSet(valueAsNumber) === false) {
+          this._updateInput(undefined, valueAsNumber);
+          return;
+        }
+        super._valueAsNumberChanged(valueAsNumber, oldValue);
       }
 
       _defaultChanged(def) {
@@ -223,11 +231,11 @@
           // '_updateInput' called without preparsed value
           value = this.parseNumber(this.value);
         }
-        if (this._isSet(value)) {
-          this.input = this.formatNumber(value);
+        if (this._isSet(value) === false) {
+          // reset input
+          this.input = this.$.input.value = '';
         } else {
-          // reset input and value
-          this.input = '';
+          this.input = this.formatNumber(value);
         }
         this._debouncedResizeWidth();
         e && e.stopPropagation && e.stopPropagation();

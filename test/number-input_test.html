@@ -20,6 +20,12 @@
       </template>
     </test-fixture>
 
+    <test-fixture id="SettingValue">
+      <template>
+        <number-input value="3"></number-input>
+      </template>
+    </test-fixture>
+
     <test-fixture id="SettingStep">
       <template>
         <number-input step="3"></number-input>
@@ -162,6 +168,50 @@
         });
       });
 
+      suite('setting a value', function() {
+        let element;
+
+        setup(function() {
+          element = fixture('SettingValue');
+        });
+
+        test('setting a value', done => {
+          assert.equal(element.value, 3, 'value is set');
+          assert.equal(element.valueAsNumber, 3, 'valueAsNumber is set');
+          assert.equal(element.input, element.formatNumber(3), 'input is set');
+          assert.isTrue(element._valueIsSet, 'valueAsNumber is not set');
+          done();
+        });
+
+        test('unsetting by setting value to undefined', done => {
+          element.value = undefined;
+          assert.isFalse(element._isSet(element.value), 'value is unset');
+          assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is unset');
+          assert.equal(element.input, '', 'input is unset');
+          assert.isFalse(element._valueIsSet, 'input is not set');
+          done();
+        });
+
+        test('unsetting by setting valueAsNumber to undefined', done => {
+          element.valueAsNumber = undefined;
+          assert.isFalse(element._isSet(element.value), 'value is unset');
+          assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is unset');
+          assert.equal(element.input, '', 'input is unset');
+          assert.isFalse(element._valueIsSet, 'input is not set');
+          done();
+        });
+
+        test('unsetting by setting value to empty string', done => {
+          element.value = '';
+          assert.isFalse(element._isSet(element.value), 'value is unset');
+          assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is unset');
+          assert.equal(element.input, '', 'input is unset');
+          assert.isFalse(element._valueIsSet, 'input is not set');
+          done();
+        });
+
+      });
+
       suite('start at value', function() {
         let element;
 
@@ -171,7 +221,7 @@
 
         test('start at value', done => {
           assert.equal(element.startAt, 2, 'start at is set');
-          assert.isFalse(element._valueIsSet, 'vulue is not set');
+          assert.isFalse(element._valueIsSet, 'value is not set');
           assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is not set');
           assert.isFalse(element._isSet(element.value), 'value is not set');
 
@@ -193,7 +243,7 @@
 
         test('minimum value', done => {
           assert.equal(element.min, 2, 'min is set');
-          assert.isFalse(element._valueIsSet, 'vulue is not set');
+          assert.isFalse(element._valueIsSet, 'value is not set');
           assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is not set');
           assert.isFalse(element._isSet(element.value), 'value is not set');
 
