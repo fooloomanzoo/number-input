@@ -1,4 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/lib/utils/mixin.html">
 <link rel="import" href="number-input.html">
 
 <script>
@@ -10,7 +11,7 @@
    * @mixinFunction
    * @polymer
    */
-  const IntegerInputMixin = superClass => { // eslint-disable-line no-unused-vars
+  const IntegerInputMixin = function(superClass) { // eslint-disable-line no-unused-vars
 
     return class extends NumberInputMixin(superClass) { // eslint-disable-line no-undef
 
@@ -50,7 +51,7 @@
     }
   }
 
-  window.IntegerInputMixin = IntegerInputMixin;
+  window.IntegerInputMixin = Polymer.dedupingMixin(IntegerInputMixin);
 </script>
 
 <dom-module id="integer-input">

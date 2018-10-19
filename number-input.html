@@ -1,4 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/lib/utils/mixin.html">
 
 <link rel="import" href="../property-mixins/range-mixin.html">
 <link rel="import" href="../property-mixins/intl-number-format-mixin.html">
@@ -15,7 +16,7 @@
    * @mixinFunction
    * @polymer
    */
-  const NumberInputMixin = superClass => { // eslint-disable-line no-unused-vars
+  const NumberInputMixin = function(superClass) { // eslint-disable-line no-unused-vars
 
     return class extends InputPattern(IntlNumberFormatMixin(RangeMixin(superClass))) {  // eslint-disable-line no-undef
 
@@ -322,7 +323,7 @@
 
     }
   }
-  window.NumberInputMixin = NumberInputMixin;
+  window.NumberInputMixin = Polymer.dedupingMixin(NumberInputMixin);
 </script>
 
 <dom-module id="number-input">

@@ -1,5 +1,9 @@
 {
   "moduleResolution": "none",
+  "sources": [
+    "number-input.html",
+    "integer-input.html"
+  ],
   "lint": {
     "rules": [
       "polymer-2"
