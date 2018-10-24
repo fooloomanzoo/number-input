@@ -131,6 +131,16 @@
         ]
       }
 
+      /**
+       * @overwrite
+       * defines wheather a value is set correctly
+       * @param  {Object} value      value to test
+       * @return {Boolean}           true, if the value is set
+       */
+      _defaultIsSet(value) {
+        return !isNaN(this.parseNumber(value));
+      }
+
       _checkKeycode(e) {
         switch (e.keyCode) {
           case 38: // up
@@ -146,10 +156,6 @@
           default:
             super._checkKeycode(e);
         }
-      }
-
-      _isSet(value) {
-        return !isNaN(this.parseNumber(value));
       }
 
       _inputChanged(input) {

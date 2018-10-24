@@ -185,7 +185,7 @@
           assert.equal(element.value, 3, 'value is set');
           assert.equal(element.valueAsNumber, 3, 'valueAsNumber is set');
           assert.equal(element.input, element.formatNumber(3), 'input is set');
-          assert.isTrue(element._valueIsSet, 'valueAsNumber is not set');
+          assert.isTrue(element.valueIsSet, 'valueAsNumber is not set');
           done();
         });
 
@@ -194,7 +194,7 @@
           assert.isFalse(element._isSet(element.value), 'value is unset');
           assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is unset');
           assert.equal(element.input, '', 'input is unset');
-          assert.isFalse(element._valueIsSet, 'input is not set');
+          assert.isFalse(element.valueIsSet, 'input is not set');
           done();
         });
 
@@ -203,7 +203,7 @@
           assert.isFalse(element._isSet(element.value), 'value is unset');
           assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is unset');
           assert.equal(element.input, '', 'input is unset');
-          assert.isFalse(element._valueIsSet, 'input is not set');
+          assert.isFalse(element.valueIsSet, 'input is not set');
           done();
         });
 
@@ -212,7 +212,7 @@
           assert.isFalse(element._isSet(element.value), 'value is unset');
           assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is unset');
           assert.equal(element.input, '', 'input is unset');
-          assert.isFalse(element._valueIsSet, 'input is not set');
+          assert.isFalse(element.valueIsSet, 'input is not set');
           done();
         });
       });
@@ -262,7 +262,7 @@
 
         test('start at value', done => {
           assert.equal(element.startAt, 2, 'start at is set');
-          assert.isFalse(element._valueIsSet, 'value is not set');
+          assert.isFalse(element.valueIsSet, 'value is not set');
           assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is not set');
           assert.isFalse(element._isSet(element.value), 'value is not set');
 
@@ -284,7 +284,7 @@
 
         test('minimum value', done => {
           assert.equal(element.min, 2, 'min is set');
-          assert.isFalse(element._valueIsSet, 'value is not set');
+          assert.isFalse(element.valueIsSet, 'value is not set');
           assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is not set');
           assert.isFalse(element._isSet(element.value), 'value is not set');
 
@@ -305,7 +305,7 @@
 
         test('maximum value', done => {
           assert.equal(element.max, 2, 'max is set');
-          assert.isFalse(element._valueIsSet, 'vulue is not set');
+          assert.isFalse(element.valueIsSet, 'vulue is not set');
           assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is not set');
           assert.isFalse(element._isSet(element.value), 'value is not set');
 
