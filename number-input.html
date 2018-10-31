@@ -160,9 +160,12 @@
 
       _inputChanged(input) {
         // test if value is set and if needed set input to default
-        if (this._isSet(input) === false) {
+        if (this._defaultIsSet(input) === false) {
           const value = this._computeDefaultValue();
-          this.input = isNaN(value) ? '' : this.formatNumber(value);
+          if (this._isSet(value)) {
+            this.input = this.formatNumber(value);
+            return;
+          }
         }
         if (this.autoResize) {
           this._debouncedResizeWidth();
@@ -208,23 +211,26 @@
       }
 
       /**
+       * reset the value
+       */
+      reset(value) {
+        this.value = this._computeDefaultValue(value);
+      }
+
+      /**
        * update manually the value with the native input
        */
       _confirmInput(e) {
         const value = this.parseNumber(this.input);
 
-        if (this._isSet(value) === false) {
-          this.setProperties({
-            input: '',
-            value: undefined,
-            valueAsNumber: undefined
-          })
-        } else {
+        if (this._isSet(value)) {
           this.setProperties({
             input: this.formatNumber(value),
             value: value,
             valueAsNumber: value
           })
+        } else {
+          this._updateInput(e);
         }
         this._debouncedResizeWidth();
         e && e.stopPropagation && e.stopPropagation();
@@ -238,11 +244,11 @@
           // '_updateInput' called without preparsed value
           value = this.parseNumber(this.value);
         }
-        if (this._isSet(value) === false) {
-          // reset input
-          this.input = this.$.input.value = '';
-        } else {
+        if (this._isSet(value)) {
           this.input = this.formatNumber(value);
+        } else {
+          // reset input
+          this.input = '';
         }
         this._debouncedResizeWidth();
         e && e.stopPropagation && e.stopPropagation();
