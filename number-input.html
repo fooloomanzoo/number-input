@@ -259,10 +259,10 @@
         const def = isNaN(this.default) ? '' : this.formatNumber(this.default),
           placeholder = this.placeholder || '',
           startAt = isNaN(this.startAt) ? '' : this.formatNumber(this.startAt),
-          min = isNaN(this.min) ? '' : this.formatNumber(this.min),
+          min = isNaN(this.min) ? '' : this.formatNumber(Math.abs(this.min)),
           max = isNaN(this.max) ? '' : this.formatNumber(this.max),
           minlengthNumber = this.formatNumber(Math.pow(10, Math.ceil(this.minlength || 1) - (this.numberStyle === 'percent' ? 3 : 1)));
-        const minlengthString = (!this.alwaysSign && (this.min < 0 || this.max < 0) ? '-' : '') + this.formatNumber(Math.pow(10, (this.minimumIntegerDigits || 1) - 1) + Math.pow(10, -(this.minimumFractionDigits || 0)));
+        const minlengthString = (!this.alwaysSign && this.max < 0 ? '-' : '') + this.formatNumber(Math.pow(10, (this.minimumIntegerDigits || 1) - 1) + Math.pow(10, -(this.minimumFractionDigits || 0)));
         this._minlengthString = [startAt, max, min, placeholder, minlengthString, minlengthNumber].reduce( (acc, curr) => {
           return curr.length > acc.length ? curr : acc;
         }, def);
