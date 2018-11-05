@@ -78,7 +78,7 @@ Have a look at [input-picker-pattern#input-shared-style](https://github.com/fool
 
 ### Installation
 ```
-bower install --save fooloomanzoo/number-input
+npm i @fooloomanzoo/number-input
 ```
 
 ### License
