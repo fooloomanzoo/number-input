@@ -1,5 +1,4 @@
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { html, htmlLiteral } from '@polymer/polymer/lib/utils/html-tag.js';
 import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
 import { NumberInputMixin } from './number-input.js';
 
@@ -90,7 +89,7 @@ export const IntegerInputMixin = dedupingMixin( superClass => {
  * @demo demo/index.html
  * @demo demo/form.html Form Demo
  **/
-class IntegerInput extends IntegerInputMixin(Element) {
+class IntegerInput extends IntegerInputMixin(PolymerElement) {
 
   static get is() {
     return 'integer-input';

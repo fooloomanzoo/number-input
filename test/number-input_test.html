@@ -77,6 +77,7 @@
     <script type="module">
       import { Base } from '@polymer/polymer/polymer-legacy.js';
       import { getParams, mixinSuite } from '@fooloomanzoo/input-picker-pattern/utils/wct-mixin-test-helper.js';
+      import { isNegative0 } from '@fooloomanzoo/property-mixins/number-utilities.js';
 
       const params = getParams();
       mixinSuite('number-input');
@@ -228,18 +229,18 @@
       });
 
       test('setting -0', done => {
-        assert.isTrue(numberUtilities.isNegative0(element.value), 'value is negative zero');
-        assert.isTrue(numberUtilities.isNegative0(element.valueAsNumber), 'valueAsNumber is negative zero');
-        assert.isTrue(numberUtilities.isNegative0(element.parseNumber(element.input)), 'parse input is negative zero');
+        assert.isTrue(isNegative0(element.value), 'value is negative zero');
+        assert.isTrue(isNegative0(element.valueAsNumber), 'valueAsNumber is negative zero');
+        assert.isTrue(isNegative0(element.parseNumber(element.input)), 'parse input is negative zero');
         assert.equal(element.input, '-0', 'input is negative zero')
         done();
       });
 
       test('switching from -0 to +0', done => {
         element.value = 0;
-        assert.isTrue(!numberUtilities.isNegative0(element.value) && element.value === 0, 'value is positive zero');
-        assert.isTrue(!numberUtilities.isNegative0(element.valueAsNumber) && element.valueAsNumber === 0, 'valueAsNumber is positive zero');
-        assert.isTrue(!numberUtilities.isNegative0(element.parseNumber(element.input)), 'parse input is positive zero');
+        assert.isTrue(!isNegative0(element.value) && element.value === 0, 'value is positive zero');
+        assert.isTrue(!isNegative0(element.valueAsNumber) && element.valueAsNumber === 0, 'valueAsNumber is positive zero');
+        assert.isTrue(!isNegative0(element.parseNumber(element.input)), 'parse input is positive zero');
         assert.equal(element.input, '0', 'input is positive zero')
         done();
       });
@@ -247,9 +248,9 @@
       test('switching from +0 to -0', done => {
         element.value = 0;
         element.value = -0;
-        assert.isTrue(numberUtilities.isNegative0(element.value), 'value is negative zero');
-        assert.isTrue(numberUtilities.isNegative0(element.valueAsNumber), 'valueAsNumber is negative zero');
-        assert.isTrue(numberUtilities.isNegative0(element.parseNumber(element.input)), 'parse input is negative zero');
+        assert.isTrue(isNegative0(element.value), 'value is negative zero');
+        assert.isTrue(isNegative0(element.valueAsNumber), 'valueAsNumber is negative zero');
+        assert.isTrue(isNegative0(element.parseNumber(element.input)), 'parse input is negative zero');
         assert.equal(element.input, '-0', 'input is negative zero')
         done();
       });

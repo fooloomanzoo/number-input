@@ -27,8 +27,8 @@ export const NumberInputMixin = dedupingMixin( function(superClass) {
     }
 
     static get styleTemplate() {
-      return `
-        ${super.styleTemplate || ''}
+      return htmlLiteral`
+        ${super.styleTemplate || htmlLiteral``}
         #minsize,
         #size,
         #input {
@@ -58,7 +58,7 @@ export const NumberInputMixin = dedupingMixin( function(superClass) {
     }
 
     static get inputTemplate() {
-      return `
+      return html`
         <input id="input"
           type$="[[type]]"
           value="{{input::input}}"
@@ -371,7 +371,7 @@ export const NumberInputMixin = dedupingMixin( function(superClass) {
  * @demo demo/index.html
  * @demo demo/form.html Form Demo
  **/
-class NumberInput extends NumberInputMixin(Element) {
+class NumberInput extends NumberInputMixin(PolymerElement) {
 
   static get is() {
     return 'number-input';

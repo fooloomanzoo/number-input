@@ -1,35 +1,4 @@
 {
   "name": "number-input",
-  "authors": [
-    "Johannes Brautzsch <fooloomanzoo>"
-  ],
-  "description": "input for numeric values",
-  "homepage": "https://github.com/fooloomanzoo/number-input/",
-  "keywords": [
-    "webcomponents",
-    "polymer",
-    "number",
-    "integer",
-    "input",
-    "step"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/fooloomanzoo/number-input.git"
-  },
-  "license": "MIT",
-  "dependencies": {
-    "@polymer/polymer": "^3",
-    "@fooloomanzoo/input-picker-pattern": "^3",
-    "@fooloomanzoo/property-mixins": "^3"
-  },
-  "devDependencies": {
-    "@webcomponents/webcomponentsjs": "^2",
-    "@polymer/iron-component-page": "^4",
-    "@polymer/iron-flex-layout": "^3",
-    "@polymer/iron-demo-helpers": "^3",
-    "@polymer/iron-form": "^3",
-    "@polymer/iron-test-helpers": "^3",
-    "wct-browser-legacy": "^1"
-  }
+  "license": "MIT"
 }
