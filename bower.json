@@ -19,16 +19,17 @@
   },
   "license": "MIT",
   "dependencies": {
-    "polymer": "Polymer/polymer#2.6.1",
-    "property-mixins": "fooloomanzoo/property-mixins#2",
-    "input-picker-pattern": "fooloomanzoo/input-picker-pattern#2"
+    "@polymer/polymer": "^3",
+    "@fooloomanzoo/input-picker-pattern": "^3",
+    "@fooloomanzoo/property-mixins": "^3"
   },
   "devDependencies": {
-    "web-component-tester": "^6.5.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#1",
-    "iron-test-helpers": "PolymerElements/iron-test-helpers#2",
-    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#2",
-    "iron-form": "PolymerElements/iron-form#2",
-    "iron-component-page": "PolymerElements/iron-component-page#^3.0.1"
+    "@webcomponents/webcomponentsjs": "^2",
+    "@polymer/iron-component-page": "^4",
+    "@polymer/iron-flex-layout": "^3",
+    "@polymer/iron-demo-helpers": "^3",
+    "@polymer/iron-form": "^3",
+    "@polymer/iron-test-helpers": "^3",
+    "wct-browser-legacy": "^1"
   }
 }

@@ -6,14 +6,13 @@
 
     <title>number-input test</title>
 
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-    <script src="../../web-component-tester/browser.js"></script>
-    <script src="../../input-picker-pattern/utils/wct-mixin-test-helper.js"></script>
+    <script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+    <script src="../../../wct-browser-legacy/browser.js"></script>
 
-    <link rel="import" href="../number-input.html">
+    <script type="module" src="../number-input.js"></script>
   </head>
-  <body>
 
+  <body>
     <test-fixture id="basic">
       <template>
         <number-input></number-input>
@@ -74,325 +73,328 @@
       </template>
     </test-fixture>
 
-    <script>
-      WCT.helpers.mixinSuite('number-input');
 
-      suite('basic', function() {
+    <script type="module">
+      import { Base } from '@polymer/polymer/polymer-legacy.js';
+      import { getParams, mixinSuite } from '@fooloomanzoo/input-picker-pattern/utils/wct-mixin-test-helper.js';
 
-        let element;
+      const params = getParams();
+      mixinSuite('number-input');
 
-        setup(function() {
-          element = fixture('basic');
-        });
+    suite('basic', function() {
+      let element;
 
-        test('instantiating the element with default properties works', done => {
-          assert.isUndefined(element.default, 'default is not defined');
-          assert.isUndefined(element.startAt, 'startAt is not defined');
-          assert.isUndefined(element.min, 'min is not defined');
-          assert.isUndefined(element.max, 'max is not defined');
-          assert.isUndefined(element.useNegativeZero, 'useNegativeZero is not defined');
-          assert.equal(element.numberStyle, 'decimal', 'numberStyle should be "decimal"');
-          done();
-        });
+      setup(function() {
+        element = fixture('basic');
+      });
 
-        test('valueAsNumber should change value', done => {
-          element.valueAsNumber = 2.2;
-          if (element._numberOptions.maximumFractionDigits !== 0) {
-            assert.equal(element.value, 2.2, 'value remains the same');
-            assert.equal(element.valueAsNumber, 2.2, 'valueAsNumber is set');
-          } else {
-            assert.equal(element.value, 2, 'value is set');
-            assert.equal(element.valueAsNumber, 2, 'valueAsNumber is set');
-          }
-          done();
-        });
+      test('instantiating the element with default properties works', done => {
+        assert.isUndefined(element.default, 'default is not defined');
+        assert.isUndefined(element.startAt, 'startAt is not defined');
+        assert.isUndefined(element.min, 'min is not defined');
+        assert.isUndefined(element.max, 'max is not defined');
+        assert.isUndefined(element.useNegativeZero, 'useNegativeZero is not defined');
+        assert.equal(element.numberStyle, 'decimal', 'numberStyle should be "decimal"');
+        done();
+      });
 
-        test('value should change valueAsNumber', done => {
-          element.value = 2.2;
-          if (element._numberOptions.maximumFractionDigits !== 0) {
-            assert.equal(element.value, 2.2, 'value remains the same');
-            assert.equal(element.valueAsNumber, 2.2, 'valueAsNumber is set');
-          } else {
-            assert.equal(element.value, 2, 'value is set');
-            assert.equal(element.valueAsNumber, 2, 'valueAsNumber is set');
-          }
-          done();
-        });
-
-        test('setting a non integer value without clamp', done => {
-          element.value = 2.2;
-          if (element._numberOptions.maximumFractionDigits !== 0) {
-            assert.equal(element.value, 2.2, 'value remains the same');
-          } else {
-            assert.equal(element.value, 2, 'value is set');
-          }
-          done();
-        });
-
-        test('setting a non integer value without clamp, no camp and step is set', done => {
-          element.noClamp = true;
-          element.step = 2;
-          element.value = 2.2;
-
+      test('valueAsNumber should change value', done => {
+        element.valueAsNumber = 2.2;
+        if (element._numberOptions.maximumFractionDigits !== 0) {
           assert.equal(element.value, 2.2, 'value remains the same');
-          if (element._numberOptions.maximumFractionDigits === 0) {
-            assert.equal(element.input, '2', 'input is set');
-          }
-          done();
-        });
-
-        test('setting a non integer value with clamp no camp and step is set', done => {
-          element.step = 2;
-          element.value = 2.2;
-          assert.equal(element.value, 2, 'value should clamp');
-          done();
-        });
+          assert.equal(element.valueAsNumber, 2.2, 'valueAsNumber is set');
+        } else {
+          assert.equal(element.value, 2, 'value is set');
+          assert.equal(element.valueAsNumber, 2, 'valueAsNumber is set');
+        }
+        done();
       });
 
-      suite('steps', function() {
-        let element;
-
-        setup(function() {
-          element = fixture('SettingStep');
-        });
-
-        test('setting a property on the element works', done => {
-          assert.equal(element.step, 3, 'step is set');
-          done();
-        });
-
-        test('setting a decimal step', done => {
-          element.step = 2.2;
-          assert.equal(element.step, 2.2, 'step is set');
-          done();
-        });
-
-        test('setting a value not matching step', done => {
-          element.value = 2;
-          assert.equal(element.value, 3, 'value is clamp according to step');
-          done();
-        });
+      test('value should change valueAsNumber', done => {
+        element.value = 2.2;
+        if (element._numberOptions.maximumFractionDigits !== 0) {
+          assert.equal(element.value, 2.2, 'value remains the same');
+          assert.equal(element.valueAsNumber, 2.2, 'valueAsNumber is set');
+        } else {
+          assert.equal(element.value, 2, 'value is set');
+          assert.equal(element.valueAsNumber, 2, 'valueAsNumber is set');
+        }
+        done();
       });
 
-      suite('setting a value', function() {
-        let element;
-
-        setup(function() {
-          element = fixture('SettingValue');
-        });
-
-        test('setting a value', done => {
-          assert.equal(element.value, 3, 'value is set');
-          assert.equal(element.valueAsNumber, 3, 'valueAsNumber is set');
-          assert.equal(element.input, element.formatNumber(3), 'input is set');
-          assert.isTrue(element.valueIsSet, 'valueAsNumber is not set');
-          done();
-        });
-
-        test('unsetting by setting value to undefined', done => {
-          element.value = undefined;
-          assert.isFalse(element._isSet(element.value), 'value is unset');
-          assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is unset');
-          assert.equal(element.input, '', 'input is unset');
-          assert.isFalse(element.valueIsSet, 'input is not set');
-          done();
-        });
-
-        test('unsetting by setting valueAsNumber to undefined', done => {
-          element.valueAsNumber = undefined;
-          assert.isFalse(element._isSet(element.value), 'value is unset');
-          assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is unset');
-          assert.equal(element.input, '', 'input is unset');
-          assert.isFalse(element.valueIsSet, 'input is not set');
-          done();
-        });
-
-        test('unsetting by setting value to empty string', done => {
-          element.value = '';
-          assert.isFalse(element._isSet(element.value), 'value is unset');
-          assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is unset');
-          assert.equal(element.input, '', 'input is unset');
-          assert.isFalse(element.valueIsSet, 'input is not set');
-          done();
-        });
+      test('setting a non integer value without clamp', done => {
+        element.value = 2.2;
+        if (element._numberOptions.maximumFractionDigits !== 0) {
+          assert.equal(element.value, 2.2, 'value remains the same');
+        } else {
+          assert.equal(element.value, 2, 'value is set');
+        }
+        done();
       });
 
-      suite('negative zero', function() {
-        let element;
+      test('setting a non integer value without clamp, no camp and step is set', done => {
+        element.noClamp = true;
+        element.step = 2;
+        element.value = 2.2;
 
-        setup(function() {
-          element = fixture('NegativeZero');
-        });
-
-        test('setting -0', done => {
-          assert.isTrue(numberUtilities.isNegative0(element.value), 'value is negative zero');
-          assert.isTrue(numberUtilities.isNegative0(element.valueAsNumber), 'valueAsNumber is negative zero');
-          assert.isTrue(numberUtilities.isNegative0(element.parseNumber(element.input)), 'parse input is negative zero');
-          assert.equal(element.input, '-0', 'input is negative zero')
-          done();
-        });
-
-        test('switching from -0 to +0', done => {
-          element.value = 0;
-          assert.isTrue(!numberUtilities.isNegative0(element.value) && element.value === 0, 'value is positive zero');
-          assert.isTrue(!numberUtilities.isNegative0(element.valueAsNumber) && element.valueAsNumber === 0, 'valueAsNumber is positive zero');
-          assert.isTrue(!numberUtilities.isNegative0(element.parseNumber(element.input)), 'parse input is positive zero');
-          assert.equal(element.input, '0', 'input is positive zero')
-          done();
-        });
-
-        test('switching from +0 to -0', done => {
-          element.value = 0;
-          element.value = -0;
-          assert.isTrue(numberUtilities.isNegative0(element.value), 'value is negative zero');
-          assert.isTrue(numberUtilities.isNegative0(element.valueAsNumber), 'valueAsNumber is negative zero');
-          assert.isTrue(numberUtilities.isNegative0(element.parseNumber(element.input)), 'parse input is negative zero');
-          assert.equal(element.input, '-0', 'input is negative zero')
-          done();
-        });
-
+        assert.equal(element.value, 2.2, 'value remains the same');
+        if (element._numberOptions.maximumFractionDigits === 0) {
+          assert.equal(element.input, '2', 'input is set');
+        }
+        done();
       });
 
-      suite('start at value', function() {
-        let element;
+      test('setting a non integer value with clamp no camp and step is set', done => {
+        element.step = 2;
+        element.value = 2.2;
+        assert.equal(element.value, 2, 'value should clamp');
+        done();
+      });
+    });
 
-        setup(function() {
-          element = fixture('StartAt');
-        });
+    suite('steps', function() {
+      let element;
 
-        test('start at value', done => {
-          assert.equal(element.startAt, 2, 'start at is set');
-          assert.isFalse(element.valueIsSet, 'value is not set');
-          assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is not set');
-          assert.isFalse(element._isSet(element.value), 'value is not set');
-
-          element.increase();
-          assert.equal(element.valueAsNumber, element.startAt, 'valueAsNumber is start-at');
-          assert.equal(element.value, element.startAt, 'value is start-at');
-          assert.equal(element.value, element.parseNumber(element.input), 'input changed');
-
-          done();
-        });
+      setup(function() {
+        element = fixture('SettingStep');
       });
 
-      suite('minimum', function() {
-        let element;
-
-        setup(function() {
-          element = fixture('Min');
-        });
-
-        test('minimum value', done => {
-          assert.equal(element.min, 2, 'min is set');
-          assert.isFalse(element.valueIsSet, 'value is not set');
-          assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is not set');
-          assert.isFalse(element._isSet(element.value), 'value is not set');
-
-          element.value = -2;
-          assert.equal(element.valueAsNumber, element.min, 'valueAsNumber is start-at');
-          assert.equal(element.value, element.min, 'value is start-at');
-          assert.equal(element.value, element.parseNumber(element.input), 'input changed');
-          done();
-        });
+      test('setting a property on the element works', done => {
+        assert.equal(element.step, 3, 'step is set');
+        done();
       });
 
-      suite('maximum', function() {
-        let element;
-
-        setup(function() {
-          element = fixture('Max');
-        });
-
-        test('maximum value', done => {
-          assert.equal(element.max, 2, 'max is set');
-          assert.isFalse(element.valueIsSet, 'vulue is not set');
-          assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is not set');
-          assert.isFalse(element._isSet(element.value), 'value is not set');
-
-          element.value = 4;
-          assert.equal(element.valueAsNumber, element.max, 'valueAsNumber is start-at');
-          assert.equal(element.value, element.max, 'value is start-at');
-          assert.equal(element.value, element.parseNumber(element.input), 'input changed');
-          done();
-        });
+      test('setting a decimal step', done => {
+        element.step = 2.2;
+        assert.equal(element.step, 2.2, 'step is set');
+        done();
       });
 
-      suite('default value', function() {
-        let element;
+      test('setting a value not matching step', done => {
+        element.value = 2;
+        assert.equal(element.value, 3, 'value is clamp according to step');
+        done();
+      });
+    });
 
-        setup(function() {
-          element = fixture('SettingDefault');
-        });
+    suite('setting a value', function() {
+      let element;
 
-        test('setting default value', done => {
-          assert.equal(element.default, 2, 'default is set');
-          assert.equal(element.valueAsNumber, element.default, 'valueAsNumber is default');
-          assert.equal(element.value, element.default, 'value is default');
-          assert.equal(element.parseNumber(element.input), element.default, 'input is default');
-
-          element.value = undefined;
-          assert.equal(element.valueAsNumber, element.default, 'valueAsNumber is default after reset');
-          assert.equal(element.value, element.default, 'value is default after reset');
-          done();
-        });
+      setup(function() {
+        element = fixture('SettingValue');
       });
 
-      suite('padding', function() {
-        let element;
-
-        setup(function() {
-          element = fixture('PadLength');
-        });
-
-        test('pad value', done => {
-          element.value = 3;
-          assert.equal(element.input, '00003', 'input is padded');
-          element.value = 300000;
-          assert.equal(element.input, '300000', 'input is not padded');
-          done();
-        });
-
-        test('pad value with auto-padding and pad-length', done => {
-          element.autoPadding = true;
-          element.max = 50000000;
-          element.value = 3;
-          assert.equal(element.input, '00000003', 'input is padded');
-          done();
-        });
+      test('setting a value', done => {
+        assert.equal(element.value, 3, 'value is set');
+        assert.equal(element.valueAsNumber, 3, 'valueAsNumber is set');
+        assert.equal(element.input, element.formatNumber(3), 'input is set');
+        assert.isTrue(element.valueIsSet, 'valueAsNumber is not set');
+        done();
       });
 
-      suite('auto padding', function() {
-        let element;
-
-        setup(function() {
-          element = fixture('AutoPadding');
-        });
-
-        test('no padding without setting attributes pad value', done => {
-          assert.equal(element.input, '3', 'input is not padded');
-          done();
-        });
-
-        test('pad value with min set', done => {
-          element.min = -50000000;
-          assert.equal(element.input, '00000003', 'input is padded');
-          done();
-        });
-
-        test('pad value with max set', done => {
-          element.max = 50000000;
-          assert.equal(element.input, '00000003', 'input is padded');
-          done();
-        });
-
-        test('pad value with default set', done => {
-          element.default = 50000000;
-          assert.equal(element.input, '00000003', 'input is padded');
-          done();
-        });
-
+      test('unsetting by setting value to undefined', done => {
+        element.value = undefined;
+        assert.isFalse(element._isSet(element.value), 'value is unset');
+        assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is unset');
+        assert.equal(element.input, '', 'input is unset');
+        assert.isFalse(element.valueIsSet, 'input is not set');
+        done();
       });
+
+      test('unsetting by setting valueAsNumber to undefined', done => {
+        element.valueAsNumber = undefined;
+        assert.isFalse(element._isSet(element.value), 'value is unset');
+        assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is unset');
+        assert.equal(element.input, '', 'input is unset');
+        assert.isFalse(element.valueIsSet, 'input is not set');
+        done();
+      });
+
+      test('unsetting by setting value to empty string', done => {
+        element.value = '';
+        assert.isFalse(element._isSet(element.value), 'value is unset');
+        assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is unset');
+        assert.equal(element.input, '', 'input is unset');
+        assert.isFalse(element.valueIsSet, 'input is not set');
+        done();
+      });
+    });
+
+    suite('negative zero', function() {
+      let element;
+
+      setup(function() {
+        element = fixture('NegativeZero');
+      });
+
+      test('setting -0', done => {
+        assert.isTrue(numberUtilities.isNegative0(element.value), 'value is negative zero');
+        assert.isTrue(numberUtilities.isNegative0(element.valueAsNumber), 'valueAsNumber is negative zero');
+        assert.isTrue(numberUtilities.isNegative0(element.parseNumber(element.input)), 'parse input is negative zero');
+        assert.equal(element.input, '-0', 'input is negative zero')
+        done();
+      });
+
+      test('switching from -0 to +0', done => {
+        element.value = 0;
+        assert.isTrue(!numberUtilities.isNegative0(element.value) && element.value === 0, 'value is positive zero');
+        assert.isTrue(!numberUtilities.isNegative0(element.valueAsNumber) && element.valueAsNumber === 0, 'valueAsNumber is positive zero');
+        assert.isTrue(!numberUtilities.isNegative0(element.parseNumber(element.input)), 'parse input is positive zero');
+        assert.equal(element.input, '0', 'input is positive zero')
+        done();
+      });
+
+      test('switching from +0 to -0', done => {
+        element.value = 0;
+        element.value = -0;
+        assert.isTrue(numberUtilities.isNegative0(element.value), 'value is negative zero');
+        assert.isTrue(numberUtilities.isNegative0(element.valueAsNumber), 'valueAsNumber is negative zero');
+        assert.isTrue(numberUtilities.isNegative0(element.parseNumber(element.input)), 'parse input is negative zero');
+        assert.equal(element.input, '-0', 'input is negative zero')
+        done();
+      });
+
+    });
+
+    suite('start at value', function() {
+      let element;
+
+      setup(function() {
+        element = fixture('StartAt');
+      });
+
+      test('start at value', done => {
+        assert.equal(element.startAt, 2, 'start at is set');
+        assert.isFalse(element.valueIsSet, 'value is not set');
+        assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is not set');
+        assert.isFalse(element._isSet(element.value), 'value is not set');
+
+        element.increase();
+        assert.equal(element.valueAsNumber, element.startAt, 'valueAsNumber is start-at');
+        assert.equal(element.value, element.startAt, 'value is start-at');
+        assert.equal(element.value, element.parseNumber(element.input), 'input changed');
+
+        done();
+      });
+    });
+
+    suite('minimum', function() {
+      let element;
+
+      setup(function() {
+        element = fixture('Min');
+      });
+
+      test('minimum value', done => {
+        assert.equal(element.min, 2, 'min is set');
+        assert.isFalse(element.valueIsSet, 'value is not set');
+        assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is not set');
+        assert.isFalse(element._isSet(element.value), 'value is not set');
+
+        element.value = -2;
+        assert.equal(element.valueAsNumber, element.min, 'valueAsNumber is start-at');
+        assert.equal(element.value, element.min, 'value is start-at');
+        assert.equal(element.value, element.parseNumber(element.input), 'input changed');
+        done();
+      });
+    });
+
+    suite('maximum', function() {
+      let element;
+
+      setup(function() {
+        element = fixture('Max');
+      });
+
+      test('maximum value', done => {
+        assert.equal(element.max, 2, 'max is set');
+        assert.isFalse(element.valueIsSet, 'vulue is not set');
+        assert.isFalse(element._isSet(element.valueAsNumber), 'valueAsNumber is not set');
+        assert.isFalse(element._isSet(element.value), 'value is not set');
+
+        element.value = 4;
+        assert.equal(element.valueAsNumber, element.max, 'valueAsNumber is start-at');
+        assert.equal(element.value, element.max, 'value is start-at');
+        assert.equal(element.value, element.parseNumber(element.input), 'input changed');
+        done();
+      });
+    });
+
+    suite('default value', function() {
+      let element;
+
+      setup(function() {
+        element = fixture('SettingDefault');
+      });
+
+      test('setting default value', done => {
+        assert.equal(element.default, 2, 'default is set');
+        assert.equal(element.valueAsNumber, element.default, 'valueAsNumber is default');
+        assert.equal(element.value, element.default, 'value is default');
+        assert.equal(element.parseNumber(element.input), element.default, 'input is default');
+
+        element.value = undefined;
+        assert.equal(element.valueAsNumber, element.default, 'valueAsNumber is default after reset');
+        assert.equal(element.value, element.default, 'value is default after reset');
+        done();
+      });
+    });
+
+    suite('padding', function() {
+      let element;
+
+      setup(function() {
+        element = fixture('PadLength');
+      });
+
+      test('pad value', done => {
+        element.value = 3;
+        assert.equal(element.input, '00003', 'input is padded');
+        element.value = 300000;
+        assert.equal(element.input, '300000', 'input is not padded');
+        done();
+      });
+
+      test('pad value with auto-padding and pad-length', done => {
+        element.autoPadding = true;
+        element.max = 50000000;
+        element.value = 3;
+        assert.equal(element.input, '00000003', 'input is padded');
+        done();
+      });
+    });
+
+    suite('auto padding', function() {
+      let element;
+
+      setup(function() {
+        element = fixture('AutoPadding');
+      });
+
+      test('no padding without setting attributes pad value', done => {
+        assert.equal(element.input, '3', 'input is not padded');
+        done();
+      });
+
+      test('pad value with min set', done => {
+        element.min = -50000000;
+        assert.equal(element.input, '00000003', 'input is padded');
+        done();
+      });
+
+      test('pad value with max set', done => {
+        element.max = 50000000;
+        assert.equal(element.input, '00000003', 'input is padded');
+        done();
+      });
+
+      test('pad value with default set', done => {
+        element.default = 50000000;
+        assert.equal(element.input, '00000003', 'input is padded');
+        done();
+      });
+
+    });
     </script>
-
   </body>
 </html>

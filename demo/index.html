@@ -8,10 +8,13 @@
 
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 
-    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../integer-input.html">
-    <link rel="import" href="../number-input.html">
+    <script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+    <script type="module">
+      import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
+      import '@polymer/iron-demo-helpers/demo-snippet';
+      import '../number-input.js';
+      import '../integer-input.js';
+    </script>
 
     <custom-style>
       <style is="custom-style" include="demo-pages-shared-styles">
@@ -25,6 +28,7 @@
       </style>
     </custom-style>
   </head>
+
   <body>
     <div class="vertical-section-container centered">
       <demo-snippet>
@@ -178,7 +182,7 @@
               <input type="checkbox" checked="{{alwaysSign::change}}">always sign
               <input type="checkbox" checked="{{useGrouping::change}}">use grouping<br>
               <br>
-              <number-input class="various" value="{{value}}" input="{{input}}" no-clamp default="1" step="0.01" min="-1" max="20000" unit="[[unit]]" start-at="1" use-grouping="[[useGrouping]]" always-sign="[[alwaysSign]]" locale="{{locale}}" number-style="[[numberStyle]]" currency="[[currency]]" auto-padding="[[autoPadding]]"></number-input>
+              <number-input class="various" value="{{value}}" input="{{input}}" no-clamp="" default="1" step="0.01" min="-1" max="20000" unit="[[unit]]" start-at="1" use-grouping="[[useGrouping]]" always-sign="[[alwaysSign]]" locale="{{locale}}" number-style="[[numberStyle]]" currency="[[currency]]" auto-padding="[[autoPadding]]"></number-input>
               <div class="vertical-section-container result">
                 <div><code>step</code>: <b>0.01</b><code>min</code>: <b>-1</b><code>max</code>: <b>20000</b><code>default</code>: <b>1.00</b></div>
                 <div><code>input</code>: <b>[[input]]</b></div>
@@ -213,7 +217,7 @@
                   }
                 </style>
               </custom-style>
-              <number-input class="saturate" value="{{value}}" pad-length="4" saturate placeholder="0000" min="-10" step="100" max="9999.11" default="100"></number-input>
+              <number-input class="saturate" value="{{value}}" pad-length="4" saturate="" placeholder="0000" min="-10" step="100" max="9999.11" default="100"></number-input>
               <div class="vertical-section-container result">
                 <div><code>step</code>: <b>100</b><code>min</code>: <b>-10</b><code>max</code>: <b>9999.11</b><code>default</code>: <b>100</b><code>placeholder</code>: <b>0000</b><code>pad-length</code>: <b>4</b></div>
                 <div><code>value</code>: <b>[[value]]</b></div>
@@ -278,12 +282,12 @@
                   }
                 </style>
               </custom-style>
-              <number-input class="units" value="{{value}}" default="0" no-clamp step="0.5" min="-273.15" max="5505" default="0" unit="°C"></number-input>
+              <number-input class="units" value="{{value}}" default="0" no-clamp="" step="0.5" min="-273.15" max="5505" unit="°C"></number-input>
               <div class="vertical-section-container result">
-                <div><code>step</code>: <b>0.5</b><code>min</code>: <b>-273.15</b><code>max</code>: <b>5505</b><code><code>unit</code>: <b>°C</b></div>
+                <div><code>step</code>: <b>0.5</b><code>min</code>: <b>-273.15</b><code>max</code>: <b>5505</b><code><code>unit</code>: <b>°C</b></code></div><code>
                 <div><code>value</code>: <b>[[value]]</b></div>
-              </div>
-            </template>
+              </code></div><code>
+            </code></template>
           </dom-bind>
         </template>
       </demo-snippet>

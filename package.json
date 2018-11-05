@@ -1,8 +1,23 @@
 {
+  "description": "input for numeric values",
+  "keywords": [
+    "number",
+    "integer",
+    "input",
+    "polymer",
+    "webcomponents",
+    "unit",
+    "min",
+    "max"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fooloomanzoo/number-input.git"
+  },
+  "homepage": "https://github.com/fooloomanzoo/number-input/",
   "name": "@fooloomanzoo/number-input",
   "version": "2.3.10",
-  "description": "input for numeric values",
-  "main": "index.html",
+  "main": "index.js",
   "authors": [
     "Johannes Brautzsch <fooloomanzoo>"
   ],
@@ -19,28 +34,27 @@
     "test": "polymer test",
     "test:p": "polymer test -p --config-file=wct.p.conf.js"
   },
-  "keywords": [
-    "number",
-    "integer",
-    "input",
-    "polymer",
-    "webcomponents",
-    "unit",
-    "min",
-    "max"
-  ],
   "license": "MIT",
   "dependencies": {
-    "@polymer/polymer": "^2.6.1",
+    "@polymer/polymer": "^3.0.0",
     "@fooloomanzoo/input-picker-pattern": "^2",
     "@fooloomanzoo/property-mixins": "^2"
   },
   "devDependencies": {
     "web-component-tester": "^6.5.0",
-    "@webcomponents/webcomponentsjs": "^1",
-    "@polymer/iron-component-page": "^3",
+    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "@polymer/iron-component-page": "^3.0.0-pre.18",
     "@polymer/iron-flex-layout": "^2",
-    "@polymer/iron-demo-helpers": "^2",
-    "@polymer/iron-form": "^2"
-  }
+    "@polymer/iron-demo-helpers": "^3.0.0-pre.18",
+    "@polymer/iron-form": "^3.0.0-pre.18",
+    "wct-browser-legacy": "^1.0.1",
+    "@polymer/iron-test-helpers": "^3.0.0-pre.18"
+  },
+  "resolutions": {
+    "inherits": "2.0.3",
+    "samsam": "1.1.3",
+    "supports-color": "3.1.2",
+    "type-detect": "1.0.0"
+  },
+  "author": "Johannes Brautzsch <fooloomanzoo>"
 }
