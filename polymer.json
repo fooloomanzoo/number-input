@@ -1,12 +1,13 @@
 {
-  "moduleResolution": "none",
+  "moduleResolution": "node",
+  "npm": true,
   "sources": [
-    "number-input.html",
-    "integer-input.html"
+    "number-input.js",
+    "integer-input.js"
   ],
   "lint": {
     "rules": [
-      "polymer-2"
+      "polymer-3"
     ]
   }
 }
