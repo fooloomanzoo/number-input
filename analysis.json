@@ -576,7 +576,7 @@
       "sourceRange": {
         "start": {
           "line": 373,
-          "column": 0
+          "column": 7
         },
         "end": {
           "line": 378,
@@ -1395,7 +1395,7 @@
       "sourceRange": {
         "start": {
           "line": 91,
-          "column": 0
+          "column": 7
         },
         "end": {
           "line": 96,

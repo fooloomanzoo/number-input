@@ -35,7 +35,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@fooloomanzoo/input-picker-pattern": "^3",
+    "@fooloomanzoo/input-picker-pattern": "^3.0.4",
     "@fooloomanzoo/property-mixins": "^3",
     "@polymer/polymer": "^3"
   },

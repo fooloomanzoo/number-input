@@ -371,7 +371,7 @@ export const NumberInputMixin = dedupingMixin( function(superClass) {
  * @demo demo/index.html
  * @demo demo/form.html Form Demo
  **/
-class NumberInput extends NumberInputMixin(PolymerElement) {
+export class NumberInput extends NumberInputMixin(PolymerElement) {
 
   static get is() {
     return 'number-input';

@@ -89,7 +89,7 @@ export const IntegerInputMixin = dedupingMixin( superClass => {
  * @demo demo/index.html
  * @demo demo/form.html Form Demo
  **/
-class IntegerInput extends IntegerInputMixin(PolymerElement) {
+export class IntegerInput extends IntegerInputMixin(PolymerElement) {
 
   static get is() {
     return 'integer-input';
