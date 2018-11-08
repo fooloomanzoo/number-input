@@ -1,9 +1,9 @@
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { html, htmlLiteral } from '@polymer/polymer/lib/utils/html-tag.js';
-import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
-import { RangeMixin } from '@fooloomanzoo/property-mixins/range-mixin.js';
-import { IntlNumberFormatMixin } from '@fooloomanzoo/property-mixins/intl-number-format-mixin.js';
-import { InputPattern } from '@fooloomanzoo/input-picker-pattern/input-pattern.js';
+import { PolymerElement } from '../../@polymer/polymer/polymer-element.js';
+import { html, htmlLiteral } from '../../@polymer/polymer/lib/utils/html-tag.js';
+import { dedupingMixin } from '../../@polymer/polymer/lib/utils/mixin.js';
+import { RangeMixin } from '../property-mixins/range-mixin.js';
+import { IntlNumberFormatMixin } from '../property-mixins/intl-number-format-mixin.js';
+import { InputPattern } from '../input-picker-pattern/input-pattern.js';
 
 /**
  * mixin to create a number-input

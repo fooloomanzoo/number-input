@@ -29,43 +29,6 @@ This element wants to achieve that, by using the [Intl.NumberFormat API](https:/
 ![img](https://github.com/fooloomanzoo/number-input/raw/master/docs/number-input.gif "Demo")
 
 ### Example
-
-<!--
-```
-<custom-element-demo>
-  <template>
-    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
-
-    <custom-style>
-      <style is="custom-style">
-        body {
-          font-family: 'Source Sans Pro', sans-serif;
-        }
-        integer-input, number-input {
-          --number-input: {
-            background: transparent;
-            transition: background 150ms ease-in-out;
-            color: rgba(0,0,0,0.8);
-            padding: 6px;
-            border-radius: 0;
-            font-size: 0.9em;
-          };
-          --number-input-focus: {
-            background: rgb(35, 35, 40);
-            color: #f1f1f1;
-            outline: none;
-          };
-        }
-      </style>
-    </custom-style>
-    <link rel="import" href="number-input.html">
-    <link rel="import" href="integer-input.html">
-
-    <next-code-block></next-code-block>
-  </template>
-</custom-element-demo>
-```
--->
 ```html
 <span>using units: </span><number-input min="-150" step="0.15" max="300" pad-length="3" default="15" unit="°C"></number-input><br>
 <span>in percent: </span><number-input min="-1" step="0.15" max="3" start-at="1" default="1" number-style="percent"></number-input><br>
