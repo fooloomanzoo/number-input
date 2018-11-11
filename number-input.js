@@ -1,9 +1,9 @@
-import { PolymerElement } from '../../@polymer/polymer/polymer-element.js';
-import { html, htmlLiteral } from '../../@polymer/polymer/lib/utils/html-tag.js';
-import { dedupingMixin } from '../../@polymer/polymer/lib/utils/mixin.js';
-import { RangeMixin } from '../property-mixins/range-mixin.js';
-import { IntlNumberFormatMixin } from '../property-mixins/intl-number-format-mixin.js';
-import { InputPattern } from '../input-picker-pattern/input-pattern.js';
+import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
+import { RangeMixin } from '@fooloomanzoo/property-mixins/range-mixin.js';
+import { IntlNumberFormatMixin } from '@fooloomanzoo/property-mixins/intl-number-format-mixin.js';
+import { InputPattern } from '@fooloomanzoo/input-picker-pattern/input-pattern.js';
 
 /**
  * mixin to create a number-input
@@ -24,37 +24,6 @@ export const NumberInputMixin = dedupingMixin( function(superClass) {
       this._isSet = function(value) {
         return !isNaN(this.parseNumber(value));
       }.bind(this);
-    }
-
-    static get styleTemplate() {
-      return htmlLiteral`
-        ${super.styleTemplate || htmlLiteral``}
-        #minsize,
-        #size,
-        #input {
-          @apply --number-input;
-        }
-        :host(:focus) #input,
-        :host(:hover) #input,
-        #input:hover,
-        #input:focus {
-          @apply --number-input-focus;
-        }
-        :host([invalid]) #input {
-          @apply --number-input-invalid;
-        }
-        :host([disabled]) #input {
-          @apply --number-input-disabled;
-        }
-        #input::-webkit-inner-spin-button,
-        #input::-webkit-outer-spin-button {
-          -webkit-appearance: none;
-        }
-        #input::-webkit-input-placeholder,
-        #input::placeholder {
-          @apply --number-input-placeholder;
-        }
-      `;
     }
 
     static get inputTemplate() {

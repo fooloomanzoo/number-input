@@ -1,5 +1,5 @@
-import { PolymerElement } from '../../@polymer/polymer/polymer-element.js';
-import { dedupingMixin } from '../../@polymer/polymer/lib/utils/mixin.js';
+import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
 import { NumberInputMixin } from './number-input.js';
 
 /**
