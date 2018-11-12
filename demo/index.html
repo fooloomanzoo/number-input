@@ -11,19 +11,22 @@
       import '@polymer/iron-demo-helpers/demo-snippet.js';
       import '../number-input.js';
       import '../integer-input.js';
-    </script>
 
-    <custom-style>
-      <style is="custom-style" include="demo-pages-shared-styles">
-        .result {
-          margin: 0.5em;
-          line-height: 1.5em;
-        }
-        .result * {
-          padding: 0.25em;
-        }
-      </style>
-    </custom-style>
+      import {html} from '@polymer/polymer/lib/utils/html-tag.js';
+      const template = html`
+        <custom-style>
+          <style is="custom-style" include="demo-pages-shared-styles">
+            .result {
+              margin: 0.5em;
+              line-height: 1.5em;
+            }
+            .result * {
+              padding: 0.25em;
+            }
+          </style>
+        </custom-style>`;
+      document.body.appendChild(template.content);
+    </script>
   </head>
 
   <body>
