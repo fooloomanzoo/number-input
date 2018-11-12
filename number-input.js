@@ -346,4 +346,7 @@ export class NumberInput extends NumberInputMixin(PolymerElement) {
     return 'number-input';
   }
 }
-customElements.define(NumberInput.is, NumberInput);
+
+if (!customElements.get(NumberInput.is)) {
+  customElements.define(NumberInput.is, NumberInput);
+}

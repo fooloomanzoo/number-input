@@ -95,4 +95,7 @@ export class IntegerInput extends IntegerInputMixin(PolymerElement) {
     return 'integer-input';
   }
 }
-customElements.define(IntegerInput.is, IntegerInput);
+
+if (!customElements.get(IntegerInput.is)) {
+  customElements.define(IntegerInput.is, IntegerInput);
+}
