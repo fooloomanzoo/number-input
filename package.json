@@ -16,7 +16,7 @@
   },
   "homepage": "https://github.com/fooloomanzoo/number-input/",
   "name": "@fooloomanzoo/number-input",
-  "version": "3.0.8",
+  "version": "3.0.9",
   "main": "index.js",
   "authors": [
     "Johannes Brautzsch <fooloomanzoo>"
