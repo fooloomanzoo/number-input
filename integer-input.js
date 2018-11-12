@@ -1,19 +1,18 @@
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
 import { NumberInputMixin } from './number-input.js';
+import { RangeMixin } from '@fooloomanzoo/property-mixins/range-mixin.js';
+import { IntlNumberFormatMixin } from '@fooloomanzoo/property-mixins/intl-number-format-mixin.js';
+import { InputPattern } from '@fooloomanzoo/input-picker-pattern/input-pattern.js';
 
 /**
  * mixin to create a integer-input
  *
- * @appliesMixin NumberInputMixin
- *
  * @mixinFunction
  * @polymer
  */
-export const IntegerInputMixin = dedupingMixin( superClass => {
-
-  return class extends NumberInputMixin(superClass) {
-
+export const IntegerInputMixin = dedupingMixin(superClass => {
+  return class extends superClass {
     static get properties() {
       return {
         /**
@@ -85,11 +84,15 @@ export const IntegerInputMixin = dedupingMixin( superClass => {
  * @customElement
  *
  * @appliesMixin IntegerInputMixin
+ * @appliesMixin NumberInputMixin
+ * @appliesMixin IntlNumberFormatMixin
+ * @appliesMixin RangeMixin
+ * @appliesMixin InputPattern
  *
  * @demo demo/index.html
  * @demo demo/form.html Form Demo
  **/
-export class IntegerInput extends IntegerInputMixin(PolymerElement) {
+export class IntegerInput extends IntegerInputMixin(NumberInputMixin(InputPattern(RangeMixin(IntlNumberFormatMixin(PolymerElement))))) {
 
   static get is() {
     return 'integer-input';

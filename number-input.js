@@ -8,17 +8,11 @@ import { InputPattern } from '@fooloomanzoo/input-picker-pattern/input-pattern.j
 /**
  * mixin to create a number-input
  *
- * @appliesMixin IntlNumberFormatMixin
- * @appliesMixin RangeMixin
- * @appliesMixin InputPattern
- *
  * @mixinFunction
  * @polymer
  */
-export const NumberInputMixin = dedupingMixin( function(superClass) {
-
-  return class extends InputPattern(IntlNumberFormatMixin(RangeMixin(superClass))) {
-
+export const NumberInputMixin = dedupingMixin(function(superClass) {
+  return class extends superClass {
     constructor() {
       super();
       this._isSet = function(value) {
@@ -338,11 +332,14 @@ export const NumberInputMixin = dedupingMixin( function(superClass) {
  * @customElement
  *
  * @appliesMixin NumberInputMixin
+ * @appliesMixin IntlNumberFormatMixin
+ * @appliesMixin RangeMixin
+ * @appliesMixin InputPattern
  *
  * @demo demo/index.html
  * @demo demo/form.html Form Demo
  **/
-export class NumberInput extends NumberInputMixin(PolymerElement) {
+export class NumberInput extends NumberInputMixin(InputPattern(RangeMixin(IntlNumberFormatMixin(PolymerElement)))) {
 
   static get is() {
     return 'number-input';
