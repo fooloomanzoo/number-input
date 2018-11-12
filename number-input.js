@@ -224,6 +224,8 @@ export const NumberInputMixin = dedupingMixin( function(superClass) {
     }
 
     _computeMinlengthString() {
+      if (this.formatNumber === undefined)
+        return;
       const def = isNaN(this.default) ? '' : this.formatNumber(this.default),
         placeholder = this.placeholder || '',
         startAt = isNaN(this.startAt) ? '' : this.formatNumber(this.startAt),
@@ -239,7 +241,7 @@ export const NumberInputMixin = dedupingMixin( function(superClass) {
     _computeType(numberOptions, decimalSeparator, unit, alwaysSign, padLength, autoPadding) {
       // maximize compatibility for mobile keyboards
       let type;
-      if (numberOptions.numberStyle === 'decimal' && !unit && !alwaysSign && !padLength && !autoPadding) {
+      if (numberOptions && numberOptions.numberStyle === 'decimal' && !unit && !alwaysSign && !padLength && !autoPadding) {
         type = 'number';
       } else if (decimalSeparator === '.' || numberOptions.maximumFractionDigits === 0) {
         // for type = 'tel' there won't be a comma available for the onscreen keyboard
