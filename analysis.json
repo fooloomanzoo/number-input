@@ -1098,11 +1098,11 @@
           "sourceRange": {
             "file": "../@fooloomanzoo/property-mixins/intl-number-format-mixin.js",
             "start": {
-              "line": 207,
+              "line": 209,
               "column": 4
             },
             "end": {
-              "line": 269,
+              "line": 271,
               "column": 5
             }
           },
@@ -1124,11 +1124,11 @@
           "sourceRange": {
             "file": "../@fooloomanzoo/property-mixins/intl-number-format-mixin.js",
             "start": {
-              "line": 271,
+              "line": 273,
               "column": 4
             },
             "end": {
-              "line": 314,
+              "line": 316,
               "column": 5
             }
           },
@@ -1171,11 +1171,11 @@
           "sourceRange": {
             "file": "../@fooloomanzoo/property-mixins/intl-number-format-mixin.js",
             "start": {
-              "line": 316,
+              "line": 318,
               "column": 4
             },
             "end": {
-              "line": 343,
+              "line": 348,
               "column": 5
             }
           },
@@ -1197,6 +1197,9 @@
               "name": "alwaysSign"
             }
           ],
+          "return": {
+            "type": "void"
+          },
           "inheritedFrom": "IntlNumberFormatMixin"
         },
         {
@@ -1206,11 +1209,11 @@
           "sourceRange": {
             "file": "../@fooloomanzoo/property-mixins/intl-number-format-mixin.js",
             "start": {
-              "line": 345,
+              "line": 350,
               "column": 4
             },
             "end": {
-              "line": 430,
+              "line": 435,
               "column": 5
             }
           },
@@ -4381,11 +4384,11 @@
           "sourceRange": {
             "file": "../@fooloomanzoo/property-mixins/intl-number-format-mixin.js",
             "start": {
-              "line": 207,
+              "line": 209,
               "column": 4
             },
             "end": {
-              "line": 269,
+              "line": 271,
               "column": 5
             }
           },
@@ -4407,11 +4410,11 @@
           "sourceRange": {
             "file": "../@fooloomanzoo/property-mixins/intl-number-format-mixin.js",
             "start": {
-              "line": 271,
+              "line": 273,
               "column": 4
             },
             "end": {
-              "line": 314,
+              "line": 316,
               "column": 5
             }
           },
@@ -4454,11 +4457,11 @@
           "sourceRange": {
             "file": "../@fooloomanzoo/property-mixins/intl-number-format-mixin.js",
             "start": {
-              "line": 316,
+              "line": 318,
               "column": 4
             },
             "end": {
-              "line": 343,
+              "line": 348,
               "column": 5
             }
           },
@@ -4480,6 +4483,9 @@
               "name": "alwaysSign"
             }
           ],
+          "return": {
+            "type": "void"
+          },
           "inheritedFrom": "IntlNumberFormatMixin"
         },
         {
@@ -4489,11 +4495,11 @@
           "sourceRange": {
             "file": "../@fooloomanzoo/property-mixins/intl-number-format-mixin.js",
             "start": {
-              "line": 345,
+              "line": 350,
               "column": 4
             },
             "end": {
-              "line": 430,
+              "line": 435,
               "column": 5
             }
           },
@@ -7635,11 +7641,11 @@
           "sourceRange": {
             "file": "../@fooloomanzoo/property-mixins/intl-number-format-mixin.js",
             "start": {
-              "line": 207,
+              "line": 209,
               "column": 4
             },
             "end": {
-              "line": 269,
+              "line": 271,
               "column": 5
             }
           },
@@ -7661,11 +7667,11 @@
           "sourceRange": {
             "file": "../@fooloomanzoo/property-mixins/intl-number-format-mixin.js",
             "start": {
-              "line": 271,
+              "line": 273,
               "column": 4
             },
             "end": {
-              "line": 314,
+              "line": 316,
               "column": 5
             }
           },
@@ -7708,11 +7714,11 @@
           "sourceRange": {
             "file": "../@fooloomanzoo/property-mixins/intl-number-format-mixin.js",
             "start": {
-              "line": 316,
+              "line": 318,
               "column": 4
             },
             "end": {
-              "line": 343,
+              "line": 348,
               "column": 5
             }
           },
@@ -7734,6 +7740,9 @@
               "name": "alwaysSign"
             }
           ],
+          "return": {
+            "type": "void"
+          },
           "inheritedFrom": "IntlNumberFormatMixin"
         },
         {
@@ -7743,11 +7752,11 @@
           "sourceRange": {
             "file": "../@fooloomanzoo/property-mixins/intl-number-format-mixin.js",
             "start": {
-              "line": 345,
+              "line": 350,
               "column": 4
             },
             "end": {
-              "line": 430,
+              "line": 435,
               "column": 5
             }
           },
@@ -10886,11 +10895,11 @@
           "sourceRange": {
             "file": "../@fooloomanzoo/property-mixins/intl-number-format-mixin.js",
             "start": {
-              "line": 207,
+              "line": 209,
               "column": 4
             },
             "end": {
-              "line": 269,
+              "line": 271,
               "column": 5
             }
           },
@@ -10912,11 +10921,11 @@
           "sourceRange": {
             "file": "../@fooloomanzoo/property-mixins/intl-number-format-mixin.js",
             "start": {
-              "line": 271,
+              "line": 273,
               "column": 4
             },
             "end": {
-              "line": 314,
+              "line": 316,
               "column": 5
             }
           },
@@ -10959,11 +10968,11 @@
           "sourceRange": {
             "file": "../@fooloomanzoo/property-mixins/intl-number-format-mixin.js",
             "start": {
-              "line": 316,
+              "line": 318,
               "column": 4
             },
             "end": {
-              "line": 343,
+              "line": 348,
               "column": 5
             }
           },
@@ -10985,6 +10994,9 @@
               "name": "alwaysSign"
             }
           ],
+          "return": {
+            "type": "void"
+          },
           "inheritedFrom": "IntlNumberFormatMixin"
         },
         {
@@ -10994,11 +11006,11 @@
           "sourceRange": {
             "file": "../@fooloomanzoo/property-mixins/intl-number-format-mixin.js",
             "start": {
-              "line": 345,
+              "line": 350,
               "column": 4
             },
             "end": {
-              "line": 430,
+              "line": 435,
               "column": 5
             }
           },

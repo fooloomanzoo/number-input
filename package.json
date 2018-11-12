@@ -36,7 +36,7 @@
   "license": "MIT",
   "dependencies": {
     "@fooloomanzoo/input-picker-pattern": "^3.0.8",
-    "@fooloomanzoo/property-mixins": "^3.0.8",
+    "@fooloomanzoo/property-mixins": "^3.0.9",
     "@polymer/polymer": "^3"
   },
   "devDependencies": {
