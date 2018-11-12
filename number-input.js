@@ -243,7 +243,7 @@ export const NumberInputMixin = dedupingMixin( function(superClass) {
       let type;
       if (numberOptions && numberOptions.numberStyle === 'decimal' && !unit && !alwaysSign && !padLength && !autoPadding) {
         type = 'number';
-      } else if (decimalSeparator === '.' || numberOptions.maximumFractionDigits === 0) {
+      } else if (decimalSeparator === '.' || (numberOptions && numberOptions.maximumFractionDigits === 0)) {
         // for type = 'tel' there won't be a comma available for the onscreen keyboard
         type = 'tel';
       } else {
