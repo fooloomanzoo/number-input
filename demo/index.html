@@ -1,33 +1,27 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <title>number-input demo</title>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
 
-    <title>number-input demo</title>
-    <script src="https://unpkg.com/@webcomponents/webcomponentsjs@^2.1.3/webcomponents-loader.js"></script>
-    <script type="module">
-      import '@polymer/iron-demo-helpers/demo-pages-shared-styles.js';
-      import '@polymer/iron-demo-helpers/demo-snippet.js';
-      import '../number-input.js';
-      import '../integer-input.js';
+    <script>if (!window.customElements) { document.write('<!--'); }</script>
+    <script src="https://fooloomanzoo.github.io/input-picker-pattern/demo/dist/custom-elements-es5-adapter.js"></script>
+    <!--! DO NOT REMOVE THIS COMMENT, WE NEED ITS CLOSING MARKER -->
 
-      import {html} from '@polymer/polymer/lib/utils/html-tag.js';
-      const template = html`
-        <custom-style>
-          <style is="custom-style" include="demo-pages-shared-styles">
-            .result {
-              margin: 0.5em;
-              line-height: 1.5em;
-            }
-            .result * {
-              padding: 0.25em;
-            }
-          </style>
-        </custom-style>`;
-      document.body.appendChild(template.content);
-    </script>
+    <style>
+      body {
+        font-family: 'Roboto', 'Noto', sans-serif;
+        font-size: 14px;
+      }
+      .result {
+        margin: 0.5em;
+        line-height: 1.5em;
+      }
+      .result * {
+        padding: 0.25em;
+      }
+    </style>
   </head>
 
   <body>
@@ -39,8 +33,11 @@
             <template is="dom-bind">
               <number-input value="{{value}}" step="0.001" min="-1" max="1" placeholder="0.000" start-at="0"></number-input>
               <div class="vertical-section-container result">
-                <div><code>step</code>: <b>0.001</b><code>min</code>: <b>-1</b><code>max</code>: <b>1</b><code>start at</code>: <b>0</b></div>
-                <div><code>value</code>: <b>[[value]]</b></div>
+                <code>step</code>: <b>0.001</b><br>
+                <code>min</code>: <b>-1</b><br>
+                <code>max</code>: <b>1</b><br>
+                <code>start at</code>: <b>0</b><br>
+                <code>value</code>: <b>[[value]]</b>
               </div>
             </template>
           </dom-bind>
@@ -185,9 +182,12 @@
               <br>
               <number-input class="various" value="{{value}}" input="{{input}}" no-clamp="" default="1" step="0.01" min="-1" max="20000" unit="[[unit]]" start-at="1" use-grouping="[[useGrouping]]" always-sign="[[alwaysSign]]" locale="{{locale}}" number-style="[[numberStyle]]" currency="[[currency]]" auto-padding="[[autoPadding]]"></number-input>
               <div class="vertical-section-container result">
-                <div><code>step</code>: <b>0.01</b><code>min</code>: <b>-1</b><code>max</code>: <b>20000</b><code>default</code>: <b>1.00</b></div>
-                <div><code>input</code>: <b>[[input]]</b></div>
-                <div><code>value</code>: <b>[[value]]</b></div>
+                <code>step</code>: <b>0.01</b><br>
+                <code>min</code>: <b>-1</b><br>
+                <code>max</code>: <b>20000</b><br>
+                <code>default</code>: <b>1.00</b><br>
+                <code>input</code>: <b>[[input]]</b><br>
+                <code>value</code>: <b>[[value]]</b>
               </div>
             </template>
           </dom-bind>
@@ -220,8 +220,13 @@
               </custom-style>
               <number-input class="saturate" value="{{value}}" pad-length="4" saturate="" placeholder="0000" min="-10" step="100" max="9999.11" default="100"></number-input>
               <div class="vertical-section-container result">
-                <div><code>step</code>: <b>100</b><code>min</code>: <b>-10</b><code>max</code>: <b>9999.11</b><code>default</code>: <b>100</b><code>placeholder</code>: <b>0000</b><code>pad-length</code>: <b>4</b></div>
-                <div><code>value</code>: <b>[[value]]</b></div>
+                <code>step</code>: <b>100</b><br>
+                <code>min</code>: <b>-10</b><br>
+                <code>max</code>: <b>9999.11</b><br>
+                <code>default</code>: <b>100</b><br>
+                <code>placeholder</code>: <b>0000</b><br>
+                <code>pad-length</code>: <b>4</b><br>
+                <div><code>value</code>: <b>[[value]]</b>
               </div>
             </template>
           </dom-bind>
@@ -253,8 +258,11 @@
               </custom-style>
               <number-input class="decimal" value="{{value}}" min="-23" step="1.15" max="45" pad-length="4" placeholder="- -"></number-input>
               <div class="vertical-section-container result">
-                <div><code>step</code>: <b>1.15</b><code>min</code>: <b>-23</b><code>max</code>: <b>45</b><code>pad-length</code>: <b>4</b></div>
-                <div><code>value</code>: <b>[[value]]</b></div>
+                <code>step</code>: <b>1.15</b><br>
+                <code>min</code>: <b>-23</b><br>
+                <code>max</code>: <b>45</b><br>
+                <code>pad-length</code>: <b>4</b><br>
+                <code>value</code>: <b>[[value]]</b>
               </div>
             </template>
           </dom-bind>
@@ -285,13 +293,23 @@
               </custom-style>
               <number-input class="units" value="{{value}}" default="0" no-clamp="" step="0.5" min="-273.15" max="5505" unit="°C"></number-input>
               <div class="vertical-section-container result">
-                <div><code>step</code>: <b>0.5</b><code>min</code>: <b>-273.15</b><code>max</code>: <b>5505</b><code><code>unit</code>: <b>°C</b></code></div><code>
-                <div><code>value</code>: <b>[[value]]</b></div>
+                <code>step</code>: <b>0.5</b><br>
+                <code>min</code>: <b>-273.15</b><br>
+                <code>max</code>: <b>5505</b><br>
+                <code>unit</code>: <b>°C</b><br>
+                <code>value</code>: <b>[[value]]</b>
               </code></div><code>
             </code></template>
           </dom-bind>
         </template>
       </demo-snippet>
     </div>
+
+    <!-- Load the external helpers to run the code transpiled to ES5 -->
+    <script src="https://fooloomanzoo.github.io/input-picker-pattern/demo/dist/babel-helpers.min.js"></script>
+    <!-- Load webcomponents-loader.js to check and load any polyfills your browser needs -->
+    <script src="https://fooloomanzoo.github.io/input-picker-pattern/demo/dist/webcomponents-loader.js"></script>
+    <!-- Load bundled dependencies for the demos -->
+    <script src="./dist/demo-form-import.js"></script>
   </body>
 </html>

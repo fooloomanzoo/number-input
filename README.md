@@ -1,8 +1,7 @@
 [![Published on NPM](https://img.shields.io/npm/v/@fooloomanzoo/number-input.svg)](https://www.npmjs.com/package/@fooloomanzoo/number-input)
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/@fooloomanzoo/number-input)
 
-_[API](https://fooloomanzoo.github.io/number-input/components/number-input/#/elements/number-input)_ and
-_[Demo](https://fooloomanzoo.github.io/number-input/components/number-input/#/elements/number-input/demos/demo/index.html)_
+_[API & Demo](https://fooloomanzoo.github.io/number-input)_
 
 ## \<number-input\>
 
